@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cx8nwuyum72a1"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_fehoa"]
-[ext_resource type="Texture2D" uid="uid://deqhh74apjicy" path="res://Assets/Sprites/charactersprites/playerPIXEL1.png" id="2_n01yy"]
+[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Sprites/charactersprites/playerPIXEL2.png" id="2_5r86q"]
 
 [node name="Game" type="Node"]
 
@@ -12,6 +12,6 @@ script = ExtResource("1_fehoa")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
 polygon = PackedVector2Array(-5, -9, 0, -9, 4, -6, 5, -5, 5, -2, 3, -1, 5, 1, 6, 2, 8, 2, 8, 4, 7, 5, 5, 5, 4, 4, 3, 6, 1, 8, -2, 9, -6, 10, -7, 9, -4, 6, -3, 4, -4, 5, -7, 4, -7, 2, -4, 1, -3, -1, -4, -3, -4, -5, -6, -4, -7, -5, -7, -7)
 
-[node name="PlayerPixel1" type="Sprite2D" parent="."]
+[node name="PlayerSprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(0.5625, 0.59375)
-texture = ExtResource("2_n01yy")
+texture = ExtResource("2_5r86q")
