@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpwti457hcpon"
-path="res://.godot/imported/deletefilebutton.png-a749bdecee098e9e48bf2bc6c551cb9e.ctex"
+path="res://.godot/imported/delete_file_button.png-538a9a4173205fa8e18af8ee55882c23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/editor/deletefilebutton.png"
-dest_files=["res://.godot/imported/deletefilebutton.png-a749bdecee098e9e48bf2bc6c551cb9e.ctex"]
+source_file="res://Assets/UI/Delete_File_Button/delete_file_button.png"
+dest_files=["res://.godot/imported/delete_file_button.png-538a9a4173205fa8e18af8ee55882c23.ctex"]
 
 [params]
 
