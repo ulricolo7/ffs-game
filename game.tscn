@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b3itdyjn6grqi"]
+[gd_scene load_steps=10 format=3 uid="uid://b3itdyjn6grqi"]
 
 [ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://player_character.tscn" id="1_8ee4c"]
 [ext_resource type="Texture2D" uid="uid://bb1otc3lr810g" path="res://Assets/Background/background.png" id="1_f1mkk"]
@@ -120,6 +120,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_c16pu")
 sources/1 = SubResource("TileSetAtlasSource_fdpee")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auuq0"]
+size = Vector2(640.949, 40.4096)
+
 [node name="Game" type="Node"]
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -137,4 +140,16 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 position = Vector2(159.433, 308.159)
 
 [node name="Player" parent="." instance=ExtResource("1_8ee4c")]
-position = Vector2(40.0905, 296.67)
+position = Vector2(86.1039, 308.449)
+
+[node name="Top_Boundary" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Top_Boundary"]
+position = Vector2(320.137, 20.3917)
+scale = Vector2(32.0047, 1.98805)
+texture = ExtResource("3_sp6s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top_Boundary"]
+position = Vector2(320.554, 20.2842)
+shape = SubResource("RectangleShape2D_auuq0")
