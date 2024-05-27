@@ -1,26 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cx8nwuyum72a1"]
+[gd_scene load_steps=9 format=3 uid="uid://b3itdyjn6grqi"]
 
 [ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://player_character.tscn" id="1_8ee4c"]
 [ext_resource type="Texture2D" uid="uid://bb1otc3lr810g" path="res://Assets/Background/background.png" id="1_f1mkk"]
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="3_sp6s2"]
 [ext_resource type="Texture2D" uid="uid://bfmv84inwddcc" path="res://Assets/Background/ground_tile.png" id="4_783f5"]
 [ext_resource type="PackedScene" uid="uid://tl6f8b3r0wf7" path="res://Ground.tscn" id="5_i6pgo"]
-
-[sub_resource type="GDScript" id="GDScript_b8ybm"]
-script/source = "extends Node
-
-func _ready():
-	print(\"Game scene is ready\")
-	# Initialize game state or other scene-wide logic here
-
-func start_game():
-	print(\"Game started\")
-	# Logic to start the game, initialize variables, etc.
-
-func end_game():
-	print(\"Game ended\")
-	# Logic to end the game, show game over screen, etc.
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c16pu"]
 texture = ExtResource("3_sp6s2")
@@ -143,10 +127,6 @@ position = Vector2(319.987, 210.321)
 scale = Vector2(1.99992, 2.0023)
 texture = ExtResource("1_f1mkk")
 
-[node name="Player" parent="." instance=ExtResource("1_8ee4c")]
-position = Vector2(69.645, 292.889)
-script = SubResource("GDScript_b8ybm")
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ntl84")
 cell_quadrant_size = 1
@@ -155,3 +135,6 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 
 [node name="Ground" parent="." instance=ExtResource("5_i6pgo")]
 position = Vector2(159.433, 308.159)
+
+[node name="Player" parent="." instance=ExtResource("1_8ee4c")]
+position = Vector2(40.0905, 296.67)

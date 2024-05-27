@@ -1,31 +1,30 @@
 extends CharacterBody2D
 
 
-const SPEED = 30.0
-const JUMP_VELOCITY = -4.0
+const GRAVITY = 0
+const FLOAT_SPEED = 50
+const MAX_SPEED = 150
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-
+func _ready():
+	print("Ready!")
+	
 func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("move_up") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		print("v")
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * SPEED
-		print("r")
+	if Input.is_action_pressed("move_down"):
+		velocity.y += 100
+	elif Input.is_action_pressed("move_up"):
+		velocity.y -= 100
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		print("l")
-
+		velocity.y = 0
+		
+	if Input.is_action_pressed("move_left"):
+		velocity.x -= 100
+	elif Input.is_action_pressed("move_right"):
+		velocity.x += 100
+	else:
+		velocity.x = 0
+	
+	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
+	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
+	
