@@ -27,4 +27,6 @@ func _physics_process(delta):
 	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
+
+
 	

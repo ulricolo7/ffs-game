@@ -125,6 +125,12 @@ size = Vector2(640.949, 40.4096)
 
 [node name="Game" type="Node"]
 
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(319.987, 210.321)
 scale = Vector2(1.99992, 2.0023)
