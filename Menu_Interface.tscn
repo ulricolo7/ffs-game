@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=4 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Menu_Interface.gd" id="1_wcxcd"]
 [ext_resource type="Texture2D" uid="uid://bb1otc3lr810g" path="res://Assets/Background/background.png" id="2_ovwwa"]
+[ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://player_character.tscn" id="3_wvyqx"]
 
 [node name="Menu_Interface" type="Control"]
 layout_mode = 3
@@ -19,10 +20,10 @@ texture = ExtResource("2_ovwwa")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = 260.0
-offset_top = 160.0
+offset_left = 261.0
+offset_top = 180.87
 offset_right = 385.0
-offset_bottom = 334.0
+offset_bottom = 356.87
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -46,6 +47,9 @@ text = "OPTIONS"
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
+
+[node name="Player" parent="." instance=ExtResource("3_wvyqx")]
+position = Vector2(85.399, 311.669)
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Simulate" to="." method="_on_simulate_pressed"]
