@@ -3,13 +3,13 @@ extends CharacterBody2D
 
 const GRAVITY = 0
 const FLOAT_SPEED = 50
-const MAX_SPEED = 150
+const MAX_SPEED = 300
 
 func _ready():
 	print("Ready!")
 	
-func _physics_process(delta):
-
+func _process(delta):
+		
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 100
 	elif Input.is_action_pressed("move_up"):
@@ -28,3 +28,7 @@ func _physics_process(delta):
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
+func die():
+	print("Game Over")
+	queue_free()
+

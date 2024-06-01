@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvrd3tlxxcsta"]
+
+[ext_resource type="Script" path="res://Flapper.gd" id="1_1mxpw"]
+[ext_resource type="Texture2D" uid="uid://5l2vfrcsncqp" path="res://Assets/Characters/Enemies/Flapper/flapper.png" id="2_0ctk2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_evhjo"]
+radius = 8.01234
+
+[node name="Flapper" type="Area2D" groups=["Enemies"]]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_1mxpw")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_0ctk2")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_evhjo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
