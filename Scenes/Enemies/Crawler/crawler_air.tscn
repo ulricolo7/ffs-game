@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=4 format=3 uid="uid://bggf05iif0iyi"]
 
 [ext_resource type="Script" path="res://Scenes/CrawlerAir.gd" id="1_5d5av"]
 [ext_resource type="Texture2D" path="res://Assets/Characters/Enemies/Crawler/crawler_air.png" id="2_rri0i"]
+=======
+[gd_scene load_steps=4 format=3 uid="uid://dxt78xgcctwwx"]
+
+[ext_resource type="Script" path="res://Scenes/CrawlerAir.gd" id="1_5d5av"]
+[ext_resource type="Texture2D" uid="uid://b1v5ofbaunh80" path="res://Assets/Characters/Enemies/Crawler/crawler_air.png" id="2_rri0i"]
+>>>>>>> Stashed changes
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6f4a7"]
 size = Vector2(29, 12)

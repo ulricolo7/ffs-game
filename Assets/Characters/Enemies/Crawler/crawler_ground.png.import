@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1v5ofbaunh80"
-path="res://.godot/imported/crawler.png-35878463d1879e67e444be769b82387c.ctex"
+uid="uid://dbg6chgtlywq4"
+path="res://.godot/imported/crawler_ground.png-f17876f2c95954d9a174544bb013e183.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Enemies/Crawler/crawler.png"
-dest_files=["res://.godot/imported/crawler.png-35878463d1879e67e444be769b82387c.ctex"]
+source_file="res://Assets/Characters/Enemies/Crawler/crawler_ground.png"
+dest_files=["res://.godot/imported/crawler_ground.png-f17876f2c95954d9a174544bb013e183.ctex"]
 
 [params]
 
