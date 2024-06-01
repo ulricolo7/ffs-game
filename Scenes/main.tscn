@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://q7c0xi5hg22l"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_nnjx5"]
+[ext_resource type="PackedScene" uid="uid://cno6psg38v6ph" path="res://Scenes/level.tscn" id="2_tdvgq"]
+[ext_resource type="PackedScene" uid="uid://tl6f8b3r0wf7" path="res://Ground.tscn" id="3_by050"]
+[ext_resource type="Texture2D" uid="uid://bb1otc3lr810g" path="res://Assets/Background/background.png" id="4_od7d4"]
+[ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="5_7ye8j"]
+[ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://player_character.tscn" id="6_1mjbe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auuq0"]
+size = Vector2(640.949, 40.4096)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_nnjx5")
+
+[node name="Level" parent="." instance=ExtResource("2_tdvgq")]
+
+[node name="Camera" type="Camera2D" parent="Level"]
+position = Vector2(320, 210)
+
+[node name="Ground" parent="Level/Camera" instance=ExtResource("3_by050")]
+position = Vector2(-160.567, 98.159)
+
+[node name="Background" type="Sprite2D" parent="Level/Camera"]
+scale = Vector2(1.99992, 2.0023)
+texture = ExtResource("4_od7d4")
+
+[node name="Top_Boundary" type="StaticBody2D" parent="Level/Camera"]
+position = Vector2(-320, -210)
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Camera/Top_Boundary"]
+position = Vector2(320.137, 20.3917)
+scale = Vector2(32.0047, 1.98805)
+texture = ExtResource("5_7ye8j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Camera/Top_Boundary"]
+position = Vector2(320.554, 20.2842)
+shape = SubResource("RectangleShape2D_auuq0")
+
+[node name="Player" parent="Level/Camera" groups=["Player"] instance=ExtResource("6_1mjbe")]
+position = Vector2(-233.896, 98.449)
