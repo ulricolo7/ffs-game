@@ -1,28 +1,22 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=4 format=3 uid="uid://bggf05iif0iyi"]
+[gd_scene load_steps=4 format=3 uid="uid://booq7af7gthy5"]
 
-[ext_resource type="Script" path="res://Scenes/CrawlerAir.gd" id="1_5d5av"]
-[ext_resource type="Texture2D" path="res://Assets/Characters/Enemies/Crawler/crawler_air.png" id="2_rri0i"]
-=======
-[gd_scene load_steps=4 format=3 uid="uid://dxt78xgcctwwx"]
+[ext_resource type="Script" path="res://CrawlerAir.gd" id="1_vj7cg"]
+[ext_resource type="Texture2D" uid="uid://b1v5ofbaunh80" path="res://Assets/Characters/Enemies/Crawler/crawler_air.png" id="2_iarnu"]
 
-[ext_resource type="Script" path="res://Scenes/CrawlerAir.gd" id="1_5d5av"]
-[ext_resource type="Texture2D" uid="uid://b1v5ofbaunh80" path="res://Assets/Characters/Enemies/Crawler/crawler_air.png" id="2_rri0i"]
->>>>>>> Stashed changes
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6f4a7"]
-size = Vector2(29, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5dvw"]
+size = Vector2(28, 12)
 
 [node name="CrawlerAir" type="Area2D" groups=["Enemies"]]
-scale = Vector2(1.7, 1.7)
-script = ExtResource("1_5d5av")
+scale = Vector2(2, 2)
+script = ExtResource("1_vj7cg")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -61.1765)
-texture = ExtResource("2_rri0i")
+position = Vector2(0, -62)
+texture = ExtResource("2_iarnu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_6f4a7")
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_c5dvw")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

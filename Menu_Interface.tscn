@@ -15,7 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_wcxcd")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(319.928, 210.473)
+position = Vector2(320, 210)
 scale = Vector2(1.99669, 2.0012)
 texture = ExtResource("2_ovwwa")
 
@@ -57,7 +57,7 @@ layout_mode = 2
 text = "QUIT"
 
 [node name="Player" parent="." instance=ExtResource("3_wvyqx")]
-position = Vector2(85.399, 311.669)
+position = Vector2(85, 312)
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Simulate" to="." method="_on_simulate_pressed"]

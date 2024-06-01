@@ -39,4 +39,4 @@ position = Vector2(320.554, 20.2842)
 shape = SubResource("RectangleShape2D_auuq0")
 
 [node name="Player" parent="Level/Camera" groups=["Player"] instance=ExtResource("1_8ee4c")]
-position = Vector2(-233.896, 98.449)
+position = Vector2(-235, 100)
