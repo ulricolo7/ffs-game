@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://o4ywk5eo8vrp"]
+
+[ext_resource type="Texture2D" uid="uid://dvnpuks0qyr1u" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_editor.png" id="1_hakw5"]
+
+[node name="Editor" type="Button"]
+offset_left = 42.4063
+offset_top = 28.7934
+offset_right = 142.406
+offset_bottom = 52.7934
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 24.0
+texture = ExtResource("1_hakw5")

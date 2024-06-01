@@ -4,6 +4,8 @@ const GhasterScene = preload("res://Scenes/Enemies/Ghaster/ghaster.tscn")
 const FlapperScene = preload("res://Scenes/Enemies/Flapper/flapper.tscn")
 const CrawlerGroundScene = preload("res://Scenes/Enemies/Crawler/crawler_ground.tscn")
 const CrawlerAirScene = preload("res://Scenes/Enemies/Crawler/crawler_air.tscn")
+var victory_screen
+var death_screen
 
 var enemy_data = [
 	{"position": Vector2(900, 160), "type": "gh"},
@@ -19,7 +21,26 @@ var enemy_data = [
 ]
 
 func _ready():
+	var victory_scene = preload("res://Scenes/win.tscn")
+	victory_screen = victory_scene.instantiate()
+	victory_screen.visible = false
+	victory_screen.z_index = 10
+	add_child(victory_screen)
+	
+	var death_scene = preload("res://Scenes/died.tscn")
+	death_screen = death_scene.instantiate()
+	death_screen.visible = false
+	death_screen.z_index = 10
+	add_child(death_screen)
+	
+	Main.pause_state = 0
+	
 	spawn_enemies()
+	
+	var player = get_node("Camera/Player")
+	player.connect("player_died", Callable(self, "die"))
+	
+
 
 
 func _process(delta):
@@ -47,7 +68,19 @@ func spawn_enemies():
 		print("Enemy spawned with speed: ", enemy_instance.XSPEED + Main.SCROLL_SPEED)
 		
 func win():
-	queue_free()
+	Main.pause_state = 1
+	var x = $Camera.position.x
+	var y = $Camera.position.y
 	
+	victory_screen.position = Vector2(x - 320, y - 210)
+	victory_screen.visible = true
 
-		
+func die():
+	Main.pause_state = 1
+	print("Game Over")
+	var x = $Camera.position.x
+	var y = $Camera.position.y
+	
+	death_screen.position = Vector2(x - 320, y - 210)
+	death_screen.visible = true
+

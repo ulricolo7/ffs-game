@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b01ahr3ttvrcj"]
+
+[ext_resource type="Texture2D" uid="uid://bsr1y7ryy256p" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_options.png" id="1_3ee2k"]
+
+[node name="Options" type="Button"]
+offset_left = 24.1747
+offset_top = 20.7887
+offset_right = 124.175
+offset_bottom = 44.7887
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.239925
+offset_top = 0.304821
+offset_right = 100.24
+offset_bottom = 24.3048
+texture = ExtResource("1_3ee2k")

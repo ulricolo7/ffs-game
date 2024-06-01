@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtxw0fcec8pyo"]
+
+[ext_resource type="Texture2D" uid="uid://4j27suseo4lh" path="res://Assets/UI/Game_Over_Buttons/gameover_mainmenu.png" id="1_2qgx0"]
+
+[node name="Button2" type="Button"]
+offset_right = 144.0
+offset_bottom = 40.0
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 40.0
+texture = ExtResource("1_2qgx0")

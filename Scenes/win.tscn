@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0hvfjnuatfk2"]
+
+[ext_resource type="Script" path="res://Scenes/Win.gd" id="1_ggekw"]
+[ext_resource type="PackedScene" uid="uid://r13kdsx31qs1" path="res://gameover_replay_button.tscn" id="2_hwfas"]
+[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://gameover_mainmenu_button.tscn" id="3_y3g5w"]
+
+[node name="Win" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ggekw")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 101.0
+offset_right = 428.0
+offset_bottom = 158.0
+theme_override_font_sizes/font_size = 38
+text = "YOU WON
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Replay_Button" parent="." instance=ExtResource("2_hwfas")]
+layout_mode = 0
+offset_left = 241.337
+offset_top = 163.134
+offset_right = 385.337
+offset_bottom = 203.134
+
+[node name="MainMenu_Button" parent="." instance=ExtResource("3_y3g5w")]
+layout_mode = 0
+offset_left = 241.337
+offset_top = 207.728
+offset_right = 385.337
+offset_bottom = 247.728
+
+[connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]
+[connection signal="pressed" from="MainMenu_Button" to="." method="_on_main_menu_button_pressed"]

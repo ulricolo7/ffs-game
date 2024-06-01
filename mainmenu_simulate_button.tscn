@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://daf3idayk00t4"]
+
+[ext_resource type="Texture2D" uid="uid://jd8kawuhkl0r" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_simulate.png" id="1_6in7c"]
+
+[node name="Simulate" type="Button"]
+offset_left = 109.0
+offset_top = 41.0
+offset_right = 209.0
+offset_bottom = 65.0
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 24.0
+texture = ExtResource("1_6in7c")

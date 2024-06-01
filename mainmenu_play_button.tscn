@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c30q2yd6cqwjy"]
+
+[ext_resource type="Texture2D" uid="uid://ddpcviyam5nbk" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_play.png" id="1_hgdjn"]
+
+[sub_resource type="Theme" id="Theme_3cgwp"]
+
+[node name="Button" type="Button"]
+texture_filter = 1
+custom_minimum_size = Vector2(54.06, 0)
+offset_right = 100.0
+offset_bottom = 24.0
+theme = SubResource("Theme_3cgwp")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 24.0
+texture = ExtResource("1_hgdjn")

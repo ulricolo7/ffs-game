@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bprfaytmumg7r"]
+
+[ext_resource type="Texture2D" uid="uid://l0fchaoiq360" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_quit.png" id="1_kfbi0"]
+
+[node name="Quit" type="Button"]
+offset_left = 4.88219
+offset_top = 20.1587
+offset_right = 104.882
+offset_bottom = 44.1587
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = -0.365628
+offset_top = -0.264751
+offset_right = 99.6344
+offset_bottom = 23.7352
+texture = ExtResource("1_kfbi0")

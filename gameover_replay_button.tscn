@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://r13kdsx31qs1"]
+
+[ext_resource type="Texture2D" uid="uid://bbc1yi67uru3f" path="res://Assets/UI/Game_Over_Buttons/gameover_replay.png" id="1_5rvmi"]
+
+[node name="Button" type="Button"]
+offset_right = 144.0
+offset_bottom = 40.0
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.890884
+offset_top = 0.44545
+offset_right = 144.891
+offset_bottom = 40.4454
+texture = ExtResource("1_5rvmi")

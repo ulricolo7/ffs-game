@@ -5,6 +5,8 @@ const GRAVITY = 0
 const FLOAT_SPEED = 50
 const MAX_SPEED = 300
 
+signal player_died
+
 func _ready():
 	print("Ready!")
 	
@@ -31,6 +33,7 @@ func _process(delta):
 
 	
 func die():
-	print("Game Over")
+	print("Player died")
+	emit_signal("player_died")
 	queue_free()
 
