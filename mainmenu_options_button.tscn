@@ -5,8 +5,8 @@
 [node name="Options" type="Button"]
 offset_left = 24.1747
 offset_top = 20.7887
-offset_right = 124.175
-offset_bottom = 44.7887
+offset_right = 168.175
+offset_bottom = 56.7887
 flat = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -14,6 +14,6 @@ texture_filter = 1
 layout_mode = 0
 offset_left = 0.239925
 offset_top = 0.304821
-offset_right = 100.24
-offset_bottom = 24.3048
+offset_right = 144.24
+offset_bottom = 36.3048
 texture = ExtResource("1_3ee2k")

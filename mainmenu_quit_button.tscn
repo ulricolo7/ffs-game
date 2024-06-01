@@ -5,8 +5,8 @@
 [node name="Quit" type="Button"]
 offset_left = 4.88219
 offset_top = 20.1587
-offset_right = 104.882
-offset_bottom = 44.1587
+offset_right = 148.882
+offset_bottom = 56.1587
 flat = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -14,6 +14,6 @@ texture_filter = 1
 layout_mode = 0
 offset_left = -0.365628
 offset_top = -0.264751
-offset_right = 99.6344
-offset_bottom = 23.7352
+offset_right = 143.634
+offset_bottom = 35.7352
 texture = ExtResource("1_kfbi0")

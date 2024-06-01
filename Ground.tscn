@@ -16,6 +16,7 @@ position = Vector2(160.473, 94.0567)
 shape = SubResource("RectangleShape2D_kcria")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(160.879, 79.1069)
 scale = Vector2(2, 2)
 texture = ExtResource("1_jvunt")

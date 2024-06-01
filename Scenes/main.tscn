@@ -19,13 +19,16 @@ script = ExtResource("1_nnjx5")
 position = Vector2(320, 210)
 
 [node name="Ground" parent="Level/Camera" instance=ExtResource("3_by050")]
+texture_filter = 1
 position = Vector2(-160.567, 98.159)
 
 [node name="Background" type="Sprite2D" parent="Level/Camera"]
+texture_filter = 1
 scale = Vector2(1.99992, 2.0023)
 texture = ExtResource("4_od7d4")
 
 [node name="Top_Boundary" type="StaticBody2D" parent="Level/Camera"]
+texture_filter = 1
 position = Vector2(-320, -210)
 collision_layer = 2
 

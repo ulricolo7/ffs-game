@@ -5,12 +5,13 @@
 [node name="Editor" type="Button"]
 offset_left = 42.4063
 offset_top = 28.7934
-offset_right = 142.406
-offset_bottom = 52.7934
+offset_right = 186.406
+offset_bottom = 64.7934
+flat = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_right = 100.0
-offset_bottom = 24.0
+offset_right = 144.0
+offset_bottom = 36.0
 texture = ExtResource("1_hakw5")

@@ -19,6 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_wcxcd")
 
 [node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(320, 210)
 scale = Vector2(1.99669, 2.0012)
 texture = ExtResource("2_ovwwa")
@@ -28,39 +29,38 @@ position = Vector2(85, 312)
 
 [node name="Play" parent="." instance=ExtResource("4_7crig")]
 layout_mode = 0
-offset_left = 272.0
-offset_top = 199.0
-offset_right = 373.0
-offset_bottom = 223.0
+offset_left = 250.51
+offset_top = 182.893
+offset_right = 394.51
+offset_bottom = 218.893
 
 [node name="Simulate" parent="." instance=ExtResource("5_nb600")]
 layout_mode = 0
-offset_left = 271.143
-offset_top = 228.987
-offset_right = 371.143
-offset_bottom = 252.987
+offset_left = 252.271
+offset_top = 223.264
+offset_right = 396.271
+offset_bottom = 259.264
 
 [node name="Editor" parent="." instance=ExtResource("6_ij7uv")]
 layout_mode = 0
-offset_left = 270.542
-offset_top = 258.659
-offset_right = 370.542
-offset_bottom = 282.659
-flat = true
+offset_left = 251.897
+offset_top = 262.841
+offset_right = 395.897
+offset_bottom = 298.841
 
 [node name="Options" parent="." instance=ExtResource("7_ucxkj")]
 layout_mode = 0
-offset_left = 271.842
-offset_top = 287.716
-offset_right = 371.843
-offset_bottom = 311.716
+offset_left = 252.157
+offset_top = 302.683
+offset_right = 396.157
+offset_bottom = 338.683
 
 [node name="Quit" parent="." instance=ExtResource("8_qgg2d")]
 layout_mode = 0
-offset_left = 272.615
-offset_top = 317.16
-offset_right = 372.615
-offset_bottom = 341.16
+offset_left = 251.967
+offset_top = 343.192
+offset_right = 395.967
+offset_bottom = 379.192
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Editor" to="." method="_on_editor_pressed"]
