@@ -14,8 +14,8 @@ func _process(delta):
 	elif position.y < start_pos.y:
 		YDIR = 1
 	
-	position.x += XDIR * XSPEED * delta
-	position.y += YDIR * YSPEED * delta
+	position.x += XDIR * XSPEED * delta * Main.no_pause_state
+	position.y += YDIR * YSPEED * delta * Main.no_pause_state
 	
 	if position.x < -100:
 		queue_free()

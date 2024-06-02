@@ -33,7 +33,7 @@ func _ready():
 	death_screen.z_index = 10
 	add_child(death_screen)
 	
-	Main.pause_state = 0
+	Main.no_pause_state = 1
 	
 	spawn_enemies()
 	
@@ -68,7 +68,7 @@ func spawn_enemies():
 		print("Enemy spawned with speed: ", enemy_instance.XSPEED + Main.SCROLL_SPEED)
 		
 func win():
-	Main.pause_state = 1
+	Main.no_pause_state = 0
 	var x = $Camera.position.x
 	var y = $Camera.position.y
 	
@@ -76,7 +76,7 @@ func win():
 	victory_screen.visible = true
 
 func die():
-	Main.pause_state = 1
+	Main.no_pause_state = 0
 	print("Game Over")
 	var x = $Camera.position.x
 	var y = $Camera.position.y

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c44d2a6y55kki"]
+
+[ext_resource type="Texture2D" uid="uid://dq44t8cxws5d3" path="res://Assets/UI/New_Button/new_button.png" id="1_udfq1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7leun"]
+bg_color = Color(0.968627, 0.976471, 0.596078, 1)
+
+[node name="Button" type="Button"]
+texture_filter = 1
+custom_minimum_size = Vector2(24, 24)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7leun")
+icon_alignment = 1
+expand_icon = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 23.0
+offset_bottom = 24.0
+texture = ExtResource("1_udfq1")

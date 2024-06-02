@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://j16qpduaga5p"]
+
+[ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_i4tgn"]
+
+[resource]
+base_font = ExtResource("1_i4tgn")

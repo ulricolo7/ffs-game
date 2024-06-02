@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6i5wgr3qv57a"]
+
+[ext_resource type="Texture2D" uid="uid://5l2vfrcsncqp" path="res://Assets/Characters/Enemies/Flapper/flapper.png" id="1_1eh62"]
+
+[node name="FlapperBox" type="VBoxContainer"]
+custom_minimum_size = Vector2(58.675, 76.925)
+offset_left = 291.257
+offset_top = 174.065
+offset_right = 349.932
+offset_bottom = 250.99
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Flapper"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(18.065, 28.34)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_1eh62")
+stretch_mode = 5
+flip_h = true

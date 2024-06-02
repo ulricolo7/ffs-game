@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl2slcij5ec15"]
+
+[ext_resource type="Texture2D" uid="uid://kybl8fc5glmb" path="res://Assets/UI/Settings_Button/settings_button.png" id="1_ywvtb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5kyv"]
+bg_color = Color(0.968627, 0.976471, 0.596078, 1)
+
+[node name="Settings_Button" type="Button"]
+custom_minimum_size = Vector2(24, 24)
+theme_override_styles/normal = SubResource("StyleBoxFlat_u5kyv")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.944946
+offset_top = 1.41741
+offset_right = 22.9449
+offset_bottom = 24.4174
+texture = ExtResource("1_ywvtb")

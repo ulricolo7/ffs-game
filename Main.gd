@@ -1,10 +1,10 @@
 extends Node
 
-var pause_state = 0
+var no_pause_state = 1
 var SCROLL_SPEED 
 
 func _process(delta):
-	if pause_state == 0:
+	if no_pause_state == 1:
 		SCROLL_SPEED = 400
-	elif pause_state == 1:
+	elif no_pause_state == 0:
 		SCROLL_SPEED = 0
