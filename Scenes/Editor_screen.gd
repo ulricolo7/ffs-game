@@ -1,6 +1,9 @@
 extends Control
 
 const GHASTER_SCENE = preload("res://ghaster_box.tscn")
+const FLAPPER_SCENE = preload("res://flapper_box.tscn")
+const CRAWLER1_SCENE = preload("res://crawler_box_1.tscn")
+const CRAWLER2_SCENE = preload("res://crawler_box_2.tscn")
 
 
 func _can_drop_data(position, data):
