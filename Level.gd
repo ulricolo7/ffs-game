@@ -17,7 +17,17 @@ var enemy_data = [
 	{"position": Vector2(2000, 40), "type": "ca"},
 	{"position": Vector2(2050, 100), "type": "gh"},
 	{"position": Vector2(2050, 200), "type": "gh"},
-	{"position": Vector2(2250, 300), "type": "gh"}
+	{"position": Vector2(2250, 300), "type": "gh"},
+	{"position": Vector2(2900, 160), "type": "gh"},
+	{"position": Vector2(3270, 80), "type": "fl"},
+	{"position": Vector2(3500, 370), "type": "cg"},
+	{"position": Vector2(3500, 100), "type": "gh"},
+	{"position": Vector2(3800, 200), "type": "fl"},
+	{"position": Vector2(4000, 370), "type": "cg"},
+	{"position": Vector2(4000, 40), "type": "ca"},
+	{"position": Vector2(4050, 100), "type": "gh"},
+	{"position": Vector2(4050, 200), "type": "gh"},
+	{"position": Vector2(4250, 300), "type": "gh"}
 ]
 
 func _ready():
@@ -46,7 +56,7 @@ func _ready():
 func _process(delta):
 	$Camera.position.x += Main.SCROLL_SPEED * delta
 	
-	if $Camera.position.x > 3000:
+	if $Camera.position.x > 5000:
 		print("You win!")
 		win()
 	
