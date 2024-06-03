@@ -5,23 +5,24 @@
 [ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://gameover_mainmenu_button.tscn" id="3_eosu8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifsku"]
-bg_color = Color(0, 0.0588235, 0.0509804, 0.282353)
+bg_color = Color(0, 0.0588235, 0.0509804, 0.447059)
 
 [node name="Died" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_top = 16.0
-offset_right = 40.0
-offset_bottom = 56.0
+anchor_right = 0.917
+anchor_bottom = 0.969
+offset_top = 15.0
+offset_right = -122.88
+offset_bottom = -107.98
 script = ExtResource("1_kkp87")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_left = 164.0
-offset_top = 84.0
+offset_top = 80.155
 offset_right = 462.0
-offset_bottom = 288.0
+offset_bottom = 284.155
 theme_override_styles/panel = SubResource("StyleBoxFlat_ifsku")
 
 [node name="Label" type="Label" parent="."]

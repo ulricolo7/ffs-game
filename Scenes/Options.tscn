@@ -4,14 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://gameover_mainmenu_button.tscn" id="2_26ya1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8coo"]
-bg_color = Color(0, 0.0588235, 0.0509804, 0.282353)
+bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 
 [node name="Options" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 16.0
+offset_top = 31.0
 offset_right = 40.0
-offset_bottom = 56.0
+offset_bottom = 71.0
 script = ExtResource("1_dud3u")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
@@ -43,6 +43,7 @@ offset_right = 383.0
 offset_bottom = 260.0
 
 [node name="Label2" type="Label" parent="."]
+layout_mode = 0
 offset_left = 202.0
 offset_top = 169.0
 offset_right = 361.0

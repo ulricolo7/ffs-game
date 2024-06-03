@@ -82,7 +82,7 @@ func win():
 	var x = $Camera.position.x
 	var y = $Camera.position.y
 	
-	victory_screen.position = Vector2(x - 320, y - 210)
+	victory_screen.position = Vector2(x - 320, y - 180)
 	victory_screen.visible = true
 
 func die():
@@ -91,6 +91,6 @@ func die():
 	var x = $Camera.position.x
 	var y = $Camera.position.y
 	
-	death_screen.position = Vector2(x - 320, y - 210)
+	death_screen.position = Vector2(x - 320, y - 180)
 	death_screen.visible = true
 
