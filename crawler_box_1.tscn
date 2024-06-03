@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://drhaskdwmt1ya"]
+[gd_scene load_steps=3 format=3 uid="uid://drhaskdwmt1ya"]
 
 [ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="1_8dky8"]
+[ext_resource type="Script" path="res://TextureButton.gd" id="2_fpeml"]
 
 [node name="CrawlerBox1" type="VBoxContainer"]
 texture_filter = 1
@@ -33,3 +34,4 @@ layout_mode = 2
 size_flags_vertical = 3
 texture_normal = ExtResource("1_8dky8")
 stretch_mode = 5
+script = ExtResource("2_fpeml")
