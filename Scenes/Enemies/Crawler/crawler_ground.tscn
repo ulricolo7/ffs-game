@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="2_cqodp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut4fi"]
-size = Vector2(28, 13)
+size = Vector2(63.9987, 44.0009)
 
 [node name="CrawlerGround" type="Area2D" groups=["Enemies"]]
 texture_filter = 1
@@ -13,10 +13,11 @@ script = ExtResource("1_tgj4s")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(2, 2)
 texture = ExtResource("2_cqodp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(0.030859, -0.00870657)
 shape = SubResource("RectangleShape2D_ut4fi")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

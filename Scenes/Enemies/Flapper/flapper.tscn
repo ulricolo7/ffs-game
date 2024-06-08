@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://5l2vfrcsncqp" path="res://Assets/Characters/Enemies/Flapper/flapper.png" id="2_0ctk2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_evhjo"]
-radius = 8.01234
+radius = 20.4843
 
 [node name="Flapper" type="Area2D" groups=["Enemies"]]
 texture_filter = 1
@@ -12,7 +12,7 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("1_1mxpw")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("2_0ctk2")
 flip_h = true
 

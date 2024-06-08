@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bfmv84inwddcc" path="res://Assets/Background/ground_tile.png" id="1_jvunt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcria"]
-size = Vector2(641.304, 37.1088)
+size = Vector2(1279.97, 80.0183)
 
 [node name="Ground" type="StaticBody2D"]
 position = Vector2(160.01, 193.662)
@@ -12,11 +12,11 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 3
 visibility_layer = 3
-position = Vector2(160.473, 94.0567)
+position = Vector2(481.758, 599.897)
 shape = SubResource("RectangleShape2D_kcria")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(160.879, 79.1069)
-scale = Vector2(2, 2)
+position = Vector2(160, 248)
+scale = Vector2(4.002, 4.58451)
 texture = ExtResource("1_jvunt")

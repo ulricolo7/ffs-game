@@ -6,28 +6,29 @@ const CrawlerGroundScene = preload("res://Scenes/Enemies/Crawler/crawler_ground.
 const CrawlerAirScene = preload("res://Scenes/Enemies/Crawler/crawler_air.tscn")
 var victory_screen
 var death_screen
+var player
 
 var enemy_data = [
-	{"position": Vector2(900, 160), "type": "gh"},
-	{"position": Vector2(1270, 80), "type": "fl"},
-	{"position": Vector2(1500, 370), "type": "cg"},
-	{"position": Vector2(1500, 100), "type": "gh"},
-	{"position": Vector2(1800, 200), "type": "fl"},
-	{"position": Vector2(2000, 370), "type": "cg"},
-	{"position": Vector2(2000, 40), "type": "ca"},
-	{"position": Vector2(2050, 100), "type": "gh"},
+	{"position": Vector2(900, 329), "type": "gh"},
+	{"position": Vector2(1270, 160), "type": "fl"},
+	{"position": Vector2(1600, 730), "type": "cg"},
+	{"position": Vector2(1600, 200), "type": "gh"},
+	{"position": Vector2(1930, 400), "type": "fl"},
+	{"position": Vector2(2000, 730), "type": "cg"},
+	{"position": Vector2(2000, 80), "type": "ca"},
 	{"position": Vector2(2050, 200), "type": "gh"},
-	{"position": Vector2(2250, 300), "type": "gh"},
-	{"position": Vector2(2900, 160), "type": "gh"},
-	{"position": Vector2(3270, 80), "type": "fl"},
-	{"position": Vector2(3500, 370), "type": "cg"},
-	{"position": Vector2(3500, 100), "type": "gh"},
-	{"position": Vector2(3800, 200), "type": "fl"},
-	{"position": Vector2(4000, 370), "type": "cg"},
-	{"position": Vector2(4000, 40), "type": "ca"},
-	{"position": Vector2(4050, 100), "type": "gh"},
+	{"position": Vector2(2050, 350), "type": "gh"},
+	{"position": Vector2(2450, 600), "type": "gh"},
+	{"position": Vector2(2900, 320), "type": "gh"},
+	{"position": Vector2(3270, 160), "type": "fl"},
+	{"position": Vector2(3600, 730), "type": "cg"},
+	{"position": Vector2(3600, 200), "type": "gh"},
+	{"position": Vector2(3850, 400), "type": "fl"},
+	{"position": Vector2(4000, 730), "type": "cg"},
+	{"position": Vector2(4000, 80), "type": "ca"},
 	{"position": Vector2(4050, 200), "type": "gh"},
-	{"position": Vector2(4250, 300), "type": "gh"}
+	{"position": Vector2(4050, 350), "type": "gh"},
+	{"position": Vector2(4280, 650), "type": "gh"}
 ]
 
 func _ready():
@@ -47,7 +48,7 @@ func _ready():
 	
 	spawn_enemies()
 	
-	var player = get_node("Camera/Player")
+	player = get_node("Camera/Player")
 	player.connect("player_died", Callable(self, "die"))
 	
 
@@ -82,8 +83,9 @@ func win():
 	var x = $Camera.position.x
 	var y = $Camera.position.y
 	
-	victory_screen.position = Vector2(x - 320, y - 180)
+	victory_screen.position = Vector2(x - 480, y - 240)
 	victory_screen.visible = true
+	player.freeze()
 
 func die():
 	Main.no_pause_state = 0
@@ -91,6 +93,6 @@ func die():
 	var x = $Camera.position.x
 	var y = $Camera.position.y
 	
-	death_screen.position = Vector2(x - 320, y - 180)
+	death_screen.position = Vector2(x - 480, y - 240)
 	death_screen.visible = true
 

@@ -22,14 +22,16 @@ offset_left = 164.0
 offset_top = 84.0
 offset_right = 462.0
 offset_bottom = 288.0
+scale = Vector2(2, 2)
 theme_override_styles/panel = SubResource("StyleBoxFlat_o8coo")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 195.0
-offset_top = 101.0
-offset_right = 428.0
-offset_bottom = 158.0
+offset_left = 231.02
+offset_top = 124.439
+offset_right = 464.02
+offset_bottom = 181.439
+scale = Vector2(2, 2)
 theme_override_font_sizes/font_size = 38
 text = "YOU WON
 "
@@ -38,17 +40,19 @@ vertical_alignment = 1
 
 [node name="Replay_Button" parent="." instance=ExtResource("2_hwfas")]
 layout_mode = 0
-offset_left = 241.337
-offset_top = 163.134
-offset_right = 385.337
-offset_bottom = 203.134
+offset_left = 321.337
+offset_top = 239.134
+offset_right = 465.337
+offset_bottom = 279.134
+scale = Vector2(2, 2)
 
 [node name="MainMenu_Button" parent="." instance=ExtResource("3_y3g5w")]
 layout_mode = 0
-offset_left = 241.337
-offset_top = 207.728
-offset_right = 385.337
-offset_bottom = 247.728
+offset_left = 322.839
+offset_top = 325.728
+offset_right = 466.839
+offset_bottom = 365.728
+scale = Vector2(2, 2)
 
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="MainMenu_Button" to="." method="_on_main_menu_button_pressed"]

@@ -1,10 +1,14 @@
 extends Control
 
-const GHASTER_SCENE = preload("res://ghaster_box.tscn")
-const FLAPPER_SCENE = preload("res://flapper_box.tscn")
-const CRAWLER1_SCENE = preload("res://crawler_box_1.tscn")
-const CRAWLER2_SCENE = preload("res://crawler_box_2.tscn")
+const GHASTER_SCENE = preload("res://Scenes/Enemies/Ghaster/ghaster.tscn")
+const FLAPPER_SCENE = preload("res://Scenes/Enemies/Flapper/flapper.tscn")
+const CRAWLER1_SCENE = preload("res://Scenes/Enemies/Crawler/crawler_ground.tscn")
+const CRAWLER2_SCENE = preload("res://Scenes/Enemies/Crawler/crawler_air.tscn")
 
+const GHASTER_SPRITE = preload("res://Scenes/Enemies/Ghaster/filtered_ghaster.tscn")
+const FLAPPER_SPRITE = preload("res://Scenes/Enemies/Flapper/filtered_flapper.tscn")
+const CRAWLER1_SPRITE = preload("res://Scenes/Enemies/Crawler/filtered_crawler_ground.tscn")
+const CRAWLER2_SPRITE = preload("res://Scenes/Enemies/Crawler/filtered_crawler_air.tscn")
 
 func _can_drop_data(position, data):
 	return data.has("instance") and data.has("type")
@@ -29,40 +33,30 @@ func _drop_data(position, data):
 
 func handle_ghaster(instance):
 	print("Handling Ghaster")
-	convert_to_area2d(instance)
+	instantiate_enemy(GHASTER_SPRITE, instance)
 
 func handle_flapper(instance):
 	print("Handling Flapper")
-	convert_to_area2d(instance, true)
+	instantiate_enemy(FLAPPER_SPRITE, instance)
 
 func handle_crawler1(instance):
 	print("Handling Crawler 1")
-	convert_to_area2d(instance)
+	instantiate_enemy(CRAWLER1_SPRITE, instance)
 
 func handle_crawler2(instance):
 	print("Handling Crawler 2")
-	convert_to_area2d(instance)
+	instantiate_enemy(CRAWLER2_SPRITE, instance)
 		
-func convert_to_area2d(instance, flip_horizontal = false):
-	print("converting")
-	var texture_button = instance.get_node("TextureButton")
+func instantiate_enemy(scene, instance):
+	print("Instantiating enemy")
+	var sprite_instance = scene.instantiate()
 	var entity_area2d = Area2D.new()
 	
-	var sprite = Sprite2D.new()
-	sprite.texture = texture_button.texture_normal
-	
-	# HOW TF TO MAKE SPRITE.TEXTURE FILTER = NEAREST
-	
-	if flip_horizontal:
-		sprite.scale = Vector2(-texture_button.scale.x, texture_button.scale.y)
-	else:
-		sprite.scale = texture_button.scale
-	
-	entity_area2d.add_child(sprite)
+	entity_area2d.add_child(sprite_instance)
 	entity_area2d.position = instance.position
 	entity_area2d.scale = Vector2(3,3)
 	add_child(entity_area2d)
-	print("Converted")
+	print("Enemy instantiated")
 	instance.queue_free()
 
 func _ready():

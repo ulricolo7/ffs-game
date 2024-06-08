@@ -21,47 +21,53 @@ script = ExtResource("1_wcxcd")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(320, 210)
-scale = Vector2(1.99669, 2.0012)
+position = Vector2(640.273, 419.932)
+scale = Vector2(3.9984, 4.00055)
 texture = ExtResource("2_ovwwa")
 
 [node name="Player" parent="." instance=ExtResource("3_wvyqx")]
-position = Vector2(85, 312)
+position = Vector2(160, 620)
+scale = Vector2(1.8, 1.8)
 
 [node name="Play" parent="." instance=ExtResource("4_7crig")]
 layout_mode = 0
-offset_left = 250.51
-offset_top = 182.893
-offset_right = 394.51
-offset_bottom = 218.893
+offset_left = 480.0
+offset_top = 344.0
+offset_right = 624.0
+offset_bottom = 380.0
+scale = Vector2(2, 2)
 
 [node name="Simulate" parent="." instance=ExtResource("5_nb600")]
 layout_mode = 0
-offset_left = 252.271
-offset_top = 223.264
-offset_right = 396.271
-offset_bottom = 259.264
+offset_left = 479.941
+offset_top = 419.15
+offset_right = 623.941
+offset_bottom = 455.15
+scale = Vector2(2, 2)
 
 [node name="Editor" parent="." instance=ExtResource("6_ij7uv")]
 layout_mode = 0
-offset_left = 251.897
-offset_top = 262.841
-offset_right = 395.897
-offset_bottom = 298.841
+offset_left = 479.911
+offset_top = 494.405
+offset_right = 623.911
+offset_bottom = 530.405
+scale = Vector2(2, 2)
 
 [node name="Options" parent="." instance=ExtResource("7_ucxkj")]
 layout_mode = 0
-offset_left = 252.157
-offset_top = 302.683
-offset_right = 396.157
-offset_bottom = 338.683
+offset_left = 479.552
+offset_top = 569.714
+offset_right = 623.552
+offset_bottom = 605.714
+scale = Vector2(2, 2)
 
 [node name="Quit" parent="." instance=ExtResource("8_qgg2d")]
 layout_mode = 0
-offset_left = 251.967
-offset_top = 343.192
-offset_right = 395.967
-offset_bottom = 379.192
+offset_left = 479.86
+offset_top = 645.177
+offset_right = 623.86
+offset_bottom = 681.177
+scale = Vector2(2, 2)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_m2ntw")

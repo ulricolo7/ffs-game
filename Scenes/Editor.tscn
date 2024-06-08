@@ -31,20 +31,22 @@ border_color = Color(1, 1, 1, 1)
 [node name="Editor_screen" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 455.0
-offset_bottom = 419.0
+offset_right = 909.0
+offset_bottom = 840.0
 script = ExtResource("1_egri6")
 
 [node name="Background" type="Sprite2D" parent="Editor_screen"]
 texture_filter = 1
-position = Vector2(227, 210)
-scale = Vector2(2, 2)
+position = Vector2(454.373, 420.002)
+scale = Vector2(4.00326, 3.99994)
 texture = ExtResource("1_07tgd")
 
 [node name="GUI Panel" type="Panel" parent="."]
-offset_left = 454.0
-offset_right = 640.0
+offset_left = 909.0
+offset_top = 1.0
+offset_right = 1094.0
 offset_bottom = 420.0
+scale = Vector2(2, 2)
 
 [node name="Toolbar" type="Panel" parent="GUI Panel"]
 layout_mode = 0
@@ -123,11 +125,12 @@ offset_right = 1.61993
 offset_bottom = 98.3958
 
 [node name="CrawlerBox2" parent="GUI Panel/Entity_Panel" instance=ExtResource("10_uwj6i")]
+texture_filter = 1
 layout_mode = 0
 offset_left = 96.2979
-offset_top = 112.216
+offset_top = 114.106
 offset_right = 176.298
-offset_bottom = 198.216
+offset_bottom = 200.106
 
 [node name="Properties_Panel" type="Panel" parent="GUI Panel"]
 layout_mode = 0
