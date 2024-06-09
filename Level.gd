@@ -6,7 +6,11 @@ const CrawlerGroundScene = preload("res://Scenes/Enemies/Crawler/crawler_ground.
 const CrawlerAirScene = preload("res://Scenes/Enemies/Crawler/crawler_air.tscn")
 var victory_screen
 var death_screen
+var pause_screen
 var player
+var x 
+var y 
+	
 
 var enemy_data = [
 	{"position": Vector2(900, 329), "type": "gh"},
@@ -44,14 +48,20 @@ func _ready():
 	death_screen.z_index = 10
 	add_child(death_screen)
 	
+	var pause_scene = preload("res://Scenes/Paused.tscn")
+	pause_screen = pause_scene.instantiate()
+	pause_screen.visible = false
+	pause_screen.z_index = 10
+	add_child(pause_screen)
+	
 	Main.no_pause_state = 1
 	
 	spawn_enemies()
 	
 	player = get_node("Camera/Player")
 	player.connect("player_died", Callable(self, "die"))
-	
-
+	player.connect("paused", Callable(self, "pause"))
+	pause_screen.connect("resumed", Callable(self, "resume"))
 
 
 func _process(delta):
@@ -80,9 +90,8 @@ func spawn_enemies():
 		
 func win():
 	Main.no_pause_state = 0
-	var x = $Camera.position.x
-	var y = $Camera.position.y
-	
+	x = $Camera.position.x
+	y = $Camera.position.y
 	victory_screen.position = Vector2(x - 480, y - 240)
 	victory_screen.visible = true
 	player.freeze()
@@ -90,9 +99,28 @@ func win():
 func die():
 	Main.no_pause_state = 0
 	print("Game Over")
-	var x = $Camera.position.x
-	var y = $Camera.position.y
-	
+	x = $Camera.position.x
+	y = $Camera.position.y
+
 	death_screen.position = Vector2(x - 480, y - 240)
 	death_screen.visible = true
+
+func pause():
+	Main.no_pause_state = 0
+	print("Paused")
+	x = $Camera.position.x
+	y = $Camera.position.y
+
+	pause_screen.position = Vector2(x - 640, y - 420)
+	pause_screen.visible = true
+	player.freeze()
+	# can make the music change to the main menu here?
+
+func resume():
+	print("resumed")
+	Main.no_pause_state = 1
+	pause_screen.visible = false
+	player.unfreeze()
+	
+	
 

@@ -28,18 +28,19 @@ border_color = Color(1, 1, 1, 1)
 
 [node name="Editor" type="Node2D"]
 
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(454.48, 419.983)
+scale = Vector2(4.00326, 3.99994)
+texture = ExtResource("1_07tgd")
+
 [node name="Editor_screen" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 80.0
 offset_right = 909.0
-offset_bottom = 840.0
+offset_bottom = 760.0
 script = ExtResource("1_egri6")
-
-[node name="Background" type="Sprite2D" parent="Editor_screen"]
-texture_filter = 1
-position = Vector2(454.373, 420.002)
-scale = Vector2(4.00326, 3.99994)
-texture = ExtResource("1_07tgd")
 
 [node name="GUI Panel" type="Panel" parent="."]
 offset_left = 909.0

@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0a55o2l75auk"]
+
+[ext_resource type="Texture2D" uid="uid://bk24ttkysy0e" path="res://Assets/UI/Resume_Button/resume.png" id="1_ijn1d"]
+[ext_resource type="Script" path="res://Scenes/Paused.gd" id="1_irhu0"]
+[ext_resource type="Texture2D" uid="uid://bsr1y7ryy256p" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_options.png" id="2_ota2a"]
+[ext_resource type="Texture2D" uid="uid://4j27suseo4lh" path="res://Assets/UI/Game_Over_Buttons/gameover_mainmenu.png" id="3_7hu0j"]
+[ext_resource type="Texture2D" uid="uid://2q7rhdy3kd17" path="res://Assets/UI/Restart_Button/restart.png" id="4_61ijo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dakm"]
+bg_color = Color(0, 0.0588235, 0.0509804, 0.470588)
+
+[sub_resource type="LabelSettings" id="LabelSettings_x6tev"]
+font_size = 54
+
+[node name="Paused" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_irhu0")
+
+[node name="BGPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 342.497
+offset_top = 220.054
+offset_right = 933.497
+offset_bottom = 642.054
+theme_override_styles/panel = SubResource("StyleBoxFlat_6dakm")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 540.272
+offset_top = 264.282
+offset_right = 732.272
+offset_bottom = 322.282
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_x6tev")
+
+[node name="Resume" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 493.449
+offset_top = 327.944
+offset_right = 766.449
+offset_bottom = 399.944
+icon = ExtResource("1_ijn1d")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Options" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 525.161
+offset_top = 405.988
+offset_right = 747.161
+offset_bottom = 467.988
+icon = ExtResource("2_ota2a")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Restart" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 524.0
+offset_top = 465.0
+offset_right = 747.0
+offset_bottom = 527.0
+icon = ExtResource("4_61ijo")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="MainMenu" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 523.734
+offset_top = 525.523
+offset_right = 746.734
+offset_bottom = 587.523
+icon = ExtResource("3_7hu0j")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]

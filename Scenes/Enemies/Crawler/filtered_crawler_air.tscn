@@ -7,5 +7,5 @@ position = Vector2(0.471939, -41.0585)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-1.49831, -22.1)
+position = Vector2(-0.978031, -19.4986)
 texture = ExtResource("1_mqhak")

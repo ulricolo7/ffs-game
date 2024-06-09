@@ -10,9 +10,20 @@ const FLAPPER_SPRITE = preload("res://Scenes/Enemies/Flapper/filtered_flapper.ts
 const CRAWLER1_SPRITE = preload("res://Scenes/Enemies/Crawler/filtered_crawler_ground.tscn")
 const CRAWLER2_SPRITE = preload("res://Scenes/Enemies/Crawler/filtered_crawler_air.tscn")
 
-func _can_drop_data(position, data):
-	return data.has("instance") and data.has("type")
+const CRAWLER1_GROUND_LEVEL_MAX = 735
+#const CRAWLER1_GROUND_LEVEL_MIN = 770
 
+func _can_drop_data(position, data):
+	if not data.has("instance") and data.has("type"):
+		return false
+	
+	if data["type"] == "crawler1":
+		if position.y < CRAWLER1_GROUND_LEVEL_MAX:
+			print("cannot place here")
+			return false
+		
+	return true
+		
 func _drop_data(position, data):
 	if data.has("instance"):
 		var instance = data["instance"]
