@@ -39,7 +39,7 @@ custom_minimum_size = Vector2(0.955, 1.64)
 layout_mode = 3
 anchors_preset = 0
 offset_top = 79.0
-offset_right = 908.0
+offset_right = 910.0
 offset_bottom = 765.0
 script = ExtResource("12_ggo3y")
 
