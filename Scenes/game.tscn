@@ -1,61 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://behvlrbs5v7nc"]
+[gd_scene load_steps=3 format=3 uid="uid://behvlrbs5v7nc"]
 
-[ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://Scenes/player_character.tscn" id="1_8ee4c"]
-[ext_resource type="Texture2D" uid="uid://bb1otc3lr810g" path="res://Assets/Background/background.png" id="1_f1mkk"]
 [ext_resource type="Script" path="res://Script/Main.gd" id="1_ngral"]
-[ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="3_sp6s2"]
-[ext_resource type="PackedScene" uid="uid://tl6f8b3r0wf7" path="res://Scenes/ground.tscn" id="5_i6pgo"]
-[ext_resource type="PackedScene" uid="uid://cno6psg38v6ph" path="res://Scenes/level.tscn" id="6_wcohu"]
-[ext_resource type="AudioStream" uid="uid://dpexbxgqae5nt" path="res://Assets/BGM/2021-08-30_-_Boss_Time_-_www.FesliyanStudios.com.mp3" id="7_rkwy4"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_auuq0"]
-size = Vector2(1280, 80)
+[ext_resource type="PackedScene" uid="uid://wp7gf3jn2ixb" path="res://Scenes/menu_interface.tscn" id="2_cybv7"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ngral")
 
-[node name="Level" parent="." instance=ExtResource("6_wcohu")]
-
-[node name="Camera" type="Camera2D" parent="Level"]
-position = Vector2(640, 420)
-
-[node name="Ground" parent="Level/Camera" instance=ExtResource("5_i6pgo")]
-texture_filter = 1
-position = Vector2(-160.567, 98.159)
-
-[node name="CollisionShape2D" parent="Level/Camera/Ground" index="0"]
-position = Vector2(160.564, 281.832)
-
-[node name="Sprite2D" parent="Level/Camera/Ground" index="1"]
-position = Vector2(160.572, 255.82)
-scale = Vector2(3.99998, 4.00047)
-
-[node name="Background" type="Sprite2D" parent="Level/Camera"]
-texture_filter = 1
-position = Vector2(-0.00454717, 0.00264962)
-scale = Vector2(4.00003, 3.99999)
-texture = ExtResource("1_f1mkk")
-
-[node name="Top_Boundary" type="StaticBody2D" parent="Level/Camera"]
-texture_filter = 1
-position = Vector2(-322.997, -207.003)
-collision_layer = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Level/Camera/Top_Boundary"]
-position = Vector2(323.026, -172.904)
-scale = Vector2(63.9961, 3.99007)
-texture = ExtResource("3_sp6s2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Camera/Top_Boundary"]
-position = Vector2(322.997, -172.997)
-shape = SubResource("RectangleShape2D_auuq0")
-
-[node name="Player" parent="Level/Camera" groups=["Player"] instance=ExtResource("1_8ee4c")]
-position = Vector2(-480, 200)
-scale = Vector2(1.8, 1.8)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_rkwy4")
-autoplay = true
-
-[editable path="Level/Camera/Ground"]
+[node name="Menu_Interface" parent="." instance=ExtResource("2_cybv7")]

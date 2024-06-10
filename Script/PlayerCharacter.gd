@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const GRAVITY = 0
 const FLOAT_SPEED = 50
-const MAX_SPEED = 600
+const MAX_SPEED = 500
 
 signal player_died
 signal paused

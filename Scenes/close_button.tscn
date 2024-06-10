@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b23qbeu8am3dx"]
+
+[ext_resource type="Script" path="res://Script/CloseButton.gd" id="1_r7qx6"]
+[ext_resource type="Texture2D" uid="uid://bk7fqetbu4lm8" path="res://Assets/UI/Quit_Button/quitbutton_outlined2.png" id="1_y4mql"]
+
+[node name="Close_Button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+icon = ExtResource("1_y4mql")
+script = ExtResource("1_r7qx6")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

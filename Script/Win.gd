@@ -7,6 +7,6 @@ func _on_replay_button_pressed():
 
 func _on_main_menu_button_pressed():
 	print("main menu button pressed")
-	get_tree().change_scene_to_file("res://menu_interface.tscn")
+	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 

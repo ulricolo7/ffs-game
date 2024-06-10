@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://n0ww81dt5p46"]
 
 [ext_resource type="Script" path="res://Script/Options.gd" id="1_3a2tm"]
-[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://Scenes/gameover_mainmenu_button.tscn" id="2_26ya1"]
+[ext_resource type="PackedScene" uid="uid://b23qbeu8am3dx" path="res://Scenes/close_button.tscn" id="2_1fisg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8coo"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -37,14 +37,6 @@ text = "OPTIONS
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MainMenu_Button" parent="." instance=ExtResource("2_26ya1")]
-layout_mode = 0
-offset_left = 542.997
-offset_top = 466.97
-offset_right = 687.997
-offset_bottom = 507.97
-scale = Vector2(1.5, 1.5)
-
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
 offset_left = 420.0
@@ -67,6 +59,13 @@ offset_right = 864.0
 offset_bottom = 380.0
 max_value = 1.0
 step = 0.1
+value = 0.5
 
-[connection signal="pressed" from="MainMenu_Button" to="." method="_on_main_menu_button_pressed" flags=18]
+[node name="Close_Button" parent="." instance=ExtResource("2_1fisg")]
+layout_mode = 0
+offset_left = 891.0
+offset_top = 200.0
+offset_right = 931.0
+offset_bottom = 240.0
+
 [connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://cno6psg38v6ph"]
+[gd_scene load_steps=6 format=3 uid="uid://cno6psg38v6ph"]
 
 [ext_resource type="Script" path="res://Script/Level.gd" id="1_grugo"]
+[ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_0lj03"]
+[ext_resource type="PackedScene" uid="uid://bn3v6pr4ix326" path="res://Scenes/camera.tscn" id="2_ygeoa"]
+[ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://Scenes/player_character.tscn" id="3_kvx24"]
+[ext_resource type="AudioStream" uid="uid://dpexbxgqae5nt" path="res://Assets/BGM/2021-08-30_-_Boss_Time_-_www.FesliyanStudios.com.mp3" id="4_kw51f"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_grugo")
+
+[node name="Background" parent="." instance=ExtResource("2_0lj03")]
+position = Vector2(800, 441)
+
+[node name="Camera" parent="." instance=ExtResource("2_ygeoa")]
+
+[node name="Player" parent="Camera" instance=ExtResource("3_kvx24")]
+position = Vector2(-512, 255)
+scale = Vector2(1.5, 1.5)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kw51f")
+autoplay = true

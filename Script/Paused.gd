@@ -20,7 +20,7 @@ func _on_options_pressed():
 
 func _on_main_menu_pressed():
 	print("main menu button pressed")
-	get_tree().change_scene_to_file("res://Menu_Interface.tscn")
+	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 
 func _on_restart_pressed():

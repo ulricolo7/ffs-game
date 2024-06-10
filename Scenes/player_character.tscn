@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Script/PlayerCharacter.gd" id="1_coqyr"]
 [ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_qqpyt"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 light_mask = 2
 collision_mask = 2
 motion_mode = 1

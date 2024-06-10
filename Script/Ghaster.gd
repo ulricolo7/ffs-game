@@ -4,9 +4,7 @@ func _ready():
 	start_pos = global_position
 
 func _process(delta):
-	if position.x < -100:
-		queue_free()
-		
+
 	position.x += XDIR * XSPEED * delta * Main.no_pause_state
 	position.y += YDIR * YSPEED * delta * Main.no_pause_state
 		

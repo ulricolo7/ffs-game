@@ -1,6 +1,6 @@
 extends Control
 
-var options_screen
+var options_screen 
 
 func _ready():
 	var options_scene = preload("res://Scenes/options.tscn")
@@ -10,7 +10,7 @@ func _ready():
 	add_child(options_screen)
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 
 func _on_simulate_pressed():

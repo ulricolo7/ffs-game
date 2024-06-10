@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqujjvkyrihhj"]
+
+[ext_resource type="Texture2D" uid="uid://ct25grf6ywi0j" path="res://Assets/Background/longer_background_worked.png" id="1_t0ank"]
+
+[node name="Background" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(160, 19)
+scale = Vector2(4.00003, 3.99999)
+texture = ExtResource("1_t0ank")
