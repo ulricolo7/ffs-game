@@ -48,7 +48,7 @@ func _ready():
 	death_screen.z_index = 10
 	add_child(death_screen)
 	
-	var pause_scene = preload("res://Scenes/Paused.tscn")
+	var pause_scene = preload("res://Scenes/paused.tscn")
 	pause_screen = pause_scene.instantiate()
 	pause_screen.visible = false
 	pause_screen.z_index = 10

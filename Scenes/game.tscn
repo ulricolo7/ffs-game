@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://behvlrbs5v7nc"]
 
-[ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://player_character.tscn" id="1_8ee4c"]
-[ext_resource type="Script" path="res://Main.gd" id="1_25aoq"]
+[ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://Scenes/player_character.tscn" id="1_8ee4c"]
 [ext_resource type="Texture2D" uid="uid://bb1otc3lr810g" path="res://Assets/Background/background.png" id="1_f1mkk"]
+[ext_resource type="Script" path="res://Script/Main.gd" id="1_ngral"]
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="3_sp6s2"]
-[ext_resource type="PackedScene" uid="uid://tl6f8b3r0wf7" path="res://Ground.tscn" id="5_i6pgo"]
+[ext_resource type="PackedScene" path="res://Ground.tscn" id="5_i6pgo"]
 [ext_resource type="PackedScene" uid="uid://cno6psg38v6ph" path="res://Scenes/level.tscn" id="6_wcohu"]
 [ext_resource type="AudioStream" uid="uid://dpexbxgqae5nt" path="res://Assets/BGM/2021-08-30_-_Boss_Time_-_www.FesliyanStudios.com.mp3" id="7_rkwy4"]
 
@@ -12,7 +12,7 @@
 size = Vector2(1280, 80)
 
 [node name="Game" type="Node"]
-script = ExtResource("1_25aoq")
+script = ExtResource("1_ngral")
 
 [node name="Level" parent="." instance=ExtResource("6_wcohu")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://n0ww81dt5p46"]
 
-[ext_resource type="Script" path="res://Options.gd" id="1_dud3u"]
-[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://gameover_mainmenu_button.tscn" id="2_26ya1"]
+[ext_resource type="Script" path="res://Script/Options.gd" id="1_3a2tm"]
+[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://Scenes/gameover_mainmenu_button.tscn" id="2_26ya1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8coo"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -12,7 +12,7 @@ anchors_preset = 0
 offset_top = 31.0
 offset_right = 40.0
 offset_bottom = 71.0
-script = ExtResource("1_dud3u")
+script = ExtResource("1_3a2tm")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 texture_filter = 1

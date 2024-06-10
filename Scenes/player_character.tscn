@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dy4wnm8hd1fpu"]
 
-[ext_resource type="Script" path="res://Player_Character.gd" id="1_7awo2"]
+[ext_resource type="Script" path="res://Script/PlayerCharacter.gd" id="1_coqyr"]
 [ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_qqpyt"]
 
 [node name="Player" type="CharacterBody2D"]
 light_mask = 2
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1_7awo2")
+script = ExtResource("1_coqyr")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 light_mask = 3

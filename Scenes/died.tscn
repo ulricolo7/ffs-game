@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://crvhx4lv4tq4q"]
 
-[ext_resource type="Script" path="res://Scenes/Died.gd" id="1_kkp87"]
-[ext_resource type="PackedScene" uid="uid://r13kdsx31qs1" path="res://gameover_replay_button.tscn" id="2_iy4a4"]
-[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://gameover_mainmenu_button.tscn" id="3_eosu8"]
+[ext_resource type="Script" path="res://Script/Died.gd" id="1_kkp87"]
+[ext_resource type="PackedScene" uid="uid://r13kdsx31qs1" path="res://Scenes/gameover_replay_button.tscn" id="2_iy4a4"]
+[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_eosu8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifsku"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.447059)

@@ -18,7 +18,7 @@ func _on_simulate_pressed():
 
 
 func _on_editor_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Editor.tscn")
+	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 
 
 func _on_options_pressed():
