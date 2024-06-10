@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://efiyyg5ilvjy"]
+[gd_scene load_steps=17 format=3 uid="uid://efiyyg5ilvjy"]
 
 [ext_resource type="Texture2D" uid="uid://dj8oxce4hpmfe" path="res://Assets/Background/editor_background.png" id="1_07tgd"]
 [ext_resource type="Script" path="res://Scenes/Editor_screen.gd" id="1_egri6"]
@@ -26,21 +26,15 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_updhw"]
+
 [node name="Editor" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(454.48, 419.983)
+position = Vector2(454.262, 420.282)
 scale = Vector2(4.00326, 3.99994)
 texture = ExtResource("1_07tgd")
-
-[node name="Editor_screen" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 80.0
-offset_right = 909.0
-offset_bottom = 760.0
-script = ExtResource("1_egri6")
 
 [node name="GUI Panel" type="Panel" parent="."]
 offset_left = 909.0
@@ -149,3 +143,13 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_wrk0y")
 text = "PROPERTIES"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 910.0
+offset_bottom = 837.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_updhw")
+horizontal_scroll_mode = 2
+
+[node name="Editor_screen" type="Control" parent="ScrollContainer"]
+layout_mode = 2
+script = ExtResource("1_egri6")

@@ -10,7 +10,7 @@ const FLAPPER_SPRITE = preload("res://Scenes/Enemies/Flapper/filtered_flapper.ts
 const CRAWLER1_SPRITE = preload("res://Scenes/Enemies/Crawler/filtered_crawler_ground.tscn")
 const CRAWLER2_SPRITE = preload("res://Scenes/Enemies/Crawler/filtered_crawler_air.tscn")
 
-const CRAWLER1_GROUND_LEVEL_MAX = 735
+const CRAWLER1_GROUND_LEVEL_MAX = 600
 #const CRAWLER1_GROUND_LEVEL_MIN = 770
 
 func _can_drop_data(position, data):
