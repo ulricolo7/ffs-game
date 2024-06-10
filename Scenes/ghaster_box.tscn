@@ -2,7 +2,7 @@
 
 [ext_resource type="FontVariation" uid="uid://j16qpduaga5p" path="res://Assets/UI/FONT/CharlesWright.tres" id="1_le251"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_7vfe1"]
-[ext_resource type="Script" path="res://Ghaster_button.gd" id="3_yvlq0"]
+[ext_resource type="Script" path="res://Script/GhasterButton.gd" id="3_yvlq0"]
 
 [node name="GhasterBox" type="VBoxContainer"]
 texture_filter = 1

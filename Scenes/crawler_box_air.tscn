@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://di1oa0dnx7ho2"]
 
 [ext_resource type="Texture2D" uid="uid://dmg22a5y341i" path="res://Assets/Characters/Enemies/Crawler/crawler_air_shorter2.png" id="1_kqec5"]
-[ext_resource type="Script" path="res://crawler_air_button.gd" id="2_7tnn2"]
+[ext_resource type="Script" path="res://Script/CrawlerAirButton.gd" id="2_7tnn2"]
 
 [node name="CrawlerBox2" type="VBoxContainer"]
 custom_minimum_size = Vector2(80, 86)

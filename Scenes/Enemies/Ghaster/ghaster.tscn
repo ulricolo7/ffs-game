@@ -1,23 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://dtwtunnseofxv"]
 
-[ext_resource type="Script" path="res://Ghaster.gd" id="1_0o8o6"]
+[ext_resource type="Script" path="res://Script/Ghaster.gd" id="1_4r0ai"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_wfwk6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iucoc"]
-size = Vector2(64.659, 140.669)
+size = Vector2(57, 122)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkjoy"]
-size = Vector2(36.0777, 51.7094)
+size = Vector2(39.247, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xt47t"]
-size = Vector2(33.6981, 30.9893)
+size = Vector2(27.0305, 24.024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gf4r"]
-size = Vector2(33.1082, 22.7591)
+size = Vector2(34, 22.7591)
 
 [node name="Ghaster" type="Area2D" groups=["Enemies"]]
 texture_filter = 1
-script = ExtResource("1_0o8o6")
+script = ExtResource("1_4r0ai")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -25,19 +25,19 @@ scale = Vector2(4.8, 4.705)
 texture = ExtResource("2_wfwk6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3.66265, 0.19536)
+position = Vector2(4.5, 1.90735e-06)
 shape = SubResource("RectangleShape2D_iucoc")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(54.2082, 12.036)
+position = Vector2(52.6235, 11)
 shape = SubResource("RectangleShape2D_wkjoy")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(-59.8186, -19.4707)
+position = Vector2(-56.4848, -15.988)
 shape = SubResource("RectangleShape2D_xt47t")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
-position = Vector2(-45.4858, 7.47604)
+position = Vector2(-41, 7.47604)
 shape = SubResource("RectangleShape2D_0gf4r")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

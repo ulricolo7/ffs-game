@@ -1,17 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://efiyyg5ilvjy"]
+[gd_scene load_steps=16 format=3 uid="uid://efiyyg5ilvjy"]
 
-[ext_resource type="Texture2D" uid="uid://dj8oxce4hpmfe" path="res://Assets/Background/editor_background.png" id="1_07tgd"]
-[ext_resource type="Script" path="res://Scenes/Editor_screen.gd" id="1_egri6"]
-[ext_resource type="PackedScene" uid="uid://c44d2a6y55kki" path="res://New_button.tscn" id="2_sdde2"]
-[ext_resource type="PackedScene" uid="uid://cw2vfk33o4tyd" path="res://open_button.tscn" id="3_7oorx"]
-[ext_resource type="PackedScene" uid="uid://co5l7tw274177" path="res://save_button.tscn" id="5_yf7f7"]
-[ext_resource type="PackedScene" uid="uid://48sri73p2lu7" path="res://share_button.tscn" id="6_atunf"]
-[ext_resource type="PackedScene" uid="uid://cl2slcij5ec15" path="res://settings_button.tscn" id="7_li4cu"]
-[ext_resource type="PackedScene" uid="uid://c6shnhu0jw1y2" path="res://ghaster_box.tscn" id="7_tuocd"]
-[ext_resource type="PackedScene" uid="uid://c6i5wgr3qv57a" path="res://flapper_box.tscn" id="8_7d1nc"]
-[ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://quit_button.tscn" id="8_nykqq"]
-[ext_resource type="PackedScene" uid="uid://drhaskdwmt1ya" path="res://crawler_box_1.tscn" id="9_vsclg"]
-[ext_resource type="PackedScene" uid="uid://di1oa0dnx7ho2" path="res://crawler_box_2.tscn" id="10_uwj6i"]
+[ext_resource type="Texture2D" uid="uid://dj8oxce4hpmfe" path="res://Assets/Background/editor_background.png" id="1_o8sse"]
+[ext_resource type="PackedScene" uid="uid://c44d2a6y55kki" path="res://Scenes/new_button.tscn" id="2_jrrcg"]
+[ext_resource type="PackedScene" uid="uid://cw2vfk33o4tyd" path="res://Scenes/open_button.tscn" id="3_toi2l"]
+[ext_resource type="PackedScene" uid="uid://co5l7tw274177" path="res://Scenes/save_button.tscn" id="4_qf0di"]
+[ext_resource type="PackedScene" uid="uid://48sri73p2lu7" path="res://Scenes/share_button.tscn" id="5_mgiaw"]
+[ext_resource type="PackedScene" uid="uid://cl2slcij5ec15" path="res://Scenes/settings_button.tscn" id="6_0pmtf"]
+[ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="7_pi0iq"]
+[ext_resource type="PackedScene" uid="uid://c6shnhu0jw1y2" path="res://Scenes/ghaster_box.tscn" id="8_e2raq"]
+[ext_resource type="PackedScene" uid="uid://c6i5wgr3qv57a" path="res://Scenes/flapper_box.tscn" id="9_sydwx"]
+[ext_resource type="PackedScene" uid="uid://drhaskdwmt1ya" path="res://Scenes/crawler_box_ground.tscn" id="10_0tyaq"]
+[ext_resource type="PackedScene" uid="uid://di1oa0dnx7ho2" path="res://Scenes/crawler_box_air.tscn" id="11_4ydu0"]
+[ext_resource type="Script" path="res://Script/EditorScreen.gd" id="12_ggo3y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijdtb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -26,15 +26,22 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_updhw"]
-
 [node name="Editor" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(454.262, 420.282)
 scale = Vector2(4.00326, 3.99994)
-texture = ExtResource("1_07tgd")
+texture = ExtResource("1_o8sse")
+
+[node name="EditorScreen" type="Control" parent="."]
+custom_minimum_size = Vector2(0.955, 1.64)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 79.0
+offset_right = 910.0
+offset_bottom = 765.0
+script = ExtResource("12_ggo3y")
 
 [node name="GUI Panel" type="Panel" parent="."]
 offset_left = 909.0
@@ -59,22 +66,22 @@ offset_bottom = 26.1591
 theme_override_constants/separation = 5
 alignment = 1
 
-[node name="New_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("2_sdde2")]
+[node name="New_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("2_jrrcg")]
 layout_mode = 2
 
-[node name="Open_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("3_7oorx")]
+[node name="Open_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("3_toi2l")]
 layout_mode = 2
 
-[node name="Save_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("5_yf7f7")]
+[node name="Save_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("4_qf0di")]
 layout_mode = 2
 
-[node name="Share_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("6_atunf")]
+[node name="Share_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("5_mgiaw")]
 layout_mode = 2
 
-[node name="Settings_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("7_li4cu")]
+[node name="Settings_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("6_0pmtf")]
 layout_mode = 2
 
-[node name="Quit_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("8_nykqq")]
+[node name="Quit_Button" parent="GUI Panel/Toolbar/HBoxContainer" instance=ExtResource("7_pi0iq")]
 layout_mode = 2
 
 [node name="Entity_Panel" type="Panel" parent="GUI Panel"]
@@ -98,28 +105,28 @@ label_settings = SubResource("LabelSettings_x4ykc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GhasterBox" parent="GUI Panel/Entity_Panel" instance=ExtResource("7_tuocd")]
+[node name="GhasterBox" parent="GUI Panel/Entity_Panel" instance=ExtResource("8_e2raq")]
 layout_mode = 0
 offset_left = 7.34161
 offset_top = 31.826
 offset_right = 84.1616
 offset_bottom = 108.751
 
-[node name="FlapperBox" parent="GUI Panel/Entity_Panel" instance=ExtResource("8_7d1nc")]
+[node name="FlapperBox" parent="GUI Panel/Entity_Panel" instance=ExtResource("9_sydwx")]
 layout_mode = 0
 offset_left = 103.712
 offset_top = 32.572
 offset_right = 162.387
 offset_bottom = 109.497
 
-[node name="CrawlerBox1" parent="GUI Panel/Entity_Panel" instance=ExtResource("9_vsclg")]
+[node name="CrawlerBox1" parent="GUI Panel/Entity_Panel" instance=ExtResource("10_0tyaq")]
 layout_mode = 1
 offset_left = -84.3801
 offset_top = 12.3958
 offset_right = 1.61993
 offset_bottom = 98.3958
 
-[node name="CrawlerBox2" parent="GUI Panel/Entity_Panel" instance=ExtResource("10_uwj6i")]
+[node name="CrawlerBox2" parent="GUI Panel/Entity_Panel" instance=ExtResource("11_4ydu0")]
 texture_filter = 1
 layout_mode = 0
 offset_left = 96.2979
@@ -143,13 +150,3 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_wrk0y")
 text = "PROPERTIES"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_right = 910.0
-offset_bottom = 837.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_updhw")
-horizontal_scroll_mode = 2
-
-[node name="Editor_screen" type="Control" parent="ScrollContainer"]
-layout_mode = 2
-script = ExtResource("1_egri6")

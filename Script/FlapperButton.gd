@@ -1,13 +1,13 @@
 extends TextureButton
 
-const DRAGPREVIEW = preload("res://drag_preview_ghaster.tscn")
+const DRAGPREVIEW = preload("res://Scenes/drag_preview_flapper.tscn")
 
 func _get_drag_data(position: Vector2):
 	var original_instance = self.get_parent()
 	
 	var data = {}
 	data["instance"] = original_instance.duplicate()
-	data["type"] = "ghaster"
+	data["type"] = "flapper"
 	data["offset"] = position
 	
 	var dragPreview = DRAGPREVIEW.instantiate()
@@ -22,6 +22,6 @@ func _get_drag_data(position: Vector2):
 	return data
 
 func _ready():
-	print("ghaster button ready")
+	print("flapper button ready")
 	
 	

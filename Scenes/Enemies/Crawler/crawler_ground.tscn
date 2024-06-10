@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://dg7e6gpg8oojs"]
 
-[ext_resource type="Script" path="res://CrawlerGround.gd" id="1_tgj4s"]
+[ext_resource type="Script" path="res://Script/CrawlerGround.gd" id="1_kq1x1"]
 [ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="2_cqodp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut4fi"]
-size = Vector2(63.9987, 44.0009)
+size = Vector2(59.5, 27.5)
 
 [node name="CrawlerGround" type="Area2D" groups=["Enemies"]]
 texture_filter = 1
 scale = Vector2(2, 2)
-script = ExtResource("1_tgj4s")
+script = ExtResource("1_kq1x1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -17,7 +17,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_cqodp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.030859, -0.00870657)
+position = Vector2(0.25, -0.25)
 shape = SubResource("RectangleShape2D_ut4fi")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

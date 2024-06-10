@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Ffs-game"
-run/main_scene="res://Menu_Interface.tscn"
+run/main_scene="res://Scenes/menu_interface.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Main="*res://Main.gd"
+Main="*res://Script/Main.gd"
 
 [display]
 
