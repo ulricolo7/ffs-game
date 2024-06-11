@@ -6,6 +6,8 @@
 size = Vector2(1279.97, 80.0183)
 
 [node name="Ground" type="StaticBody2D"]
+z_index = 2
+z_as_relative = false
 position = Vector2(160.01, 193.662)
 collision_layer = 2
 

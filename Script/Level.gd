@@ -16,7 +16,7 @@ var pause_screen
 var player
 var x 
 var y 
-	
+
 
 var enemy_data = [
 	{"position": Vector2(900, 329), "type": "gh"},
@@ -27,8 +27,8 @@ var enemy_data = [
 	{"position": Vector2(2000, 720), "type": "cg"},
 	{"position": Vector2(2000, 80), "type": "ca"},
 	{"position": Vector2(2100, 200), "type": "gh"},
-	{"position": Vector2(2050, 350), "type": "gh"},
-	{"position": Vector2(2450, 600), "type": "gh"},
+	{"position": Vector2(2050, 550), "type": "gh"},
+	{"position": Vector2(2450, 400), "type": "gh"},
 	{"position": Vector2(2900, 320), "type": "gh"},
 	{"position": Vector2(3270, 160), "type": "fl"},
 	{"position": Vector2(3600, 720), "type": "cg"},
@@ -56,8 +56,12 @@ var enemy_data = [
 	{"position": Vector2(5400, 460), "type": "fl"},
 	{"position": Vector2(6500, 0), "type": "ca"},
 	{"position": Vector2(6600, 720), "type": "cg"},
+	{"position": Vector2(31000, 320), "type": "gh"},
 ]
 
+var last_enemy = enemy_data[-1]
+var LEVEL_LENGTH = last_enemy["position"].x + 1000
+	
 func _ready():
 	var victory_scene = preload("res://Scenes/win.tscn")
 	victory_screen = victory_scene.instantiate()
@@ -88,13 +92,16 @@ func _ready():
 	player.connect("player_died", Callable(self, "die"))
 	player.connect("paused", Callable(self, "pause"))
 	pause_screen.connect("resumed", Callable(self, "resume"))
+	
+	print("Level ready")
 
 
 func _process(delta):
 	$Camera.position.x += Main.SCROLL_SPEED * delta
-	$Background.position.x += Main.SCROLL_SPEED * delta * 0.995
+	$Background.position.x += Main.SCROLL_SPEED * delta * 0.99	
+	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
 	
-	if $Camera.position.x > 6800:
+	if $Camera.position.x > LEVEL_LENGTH - 600:
 		print("You win!")
 		win()
 	
@@ -113,13 +120,12 @@ func spawn_enemies():
 			
 		enemy_instance.position = data["position"]
 		add_child(enemy_instance)
-		print("Enemy spawned with speed: ", enemy_instance.XSPEED + Main.SCROLL_SPEED)
 		
 func spawn_ground(value):
 	var dist_covered = 0
 	var ground_instance
 	
-	while dist_covered < 10000:
+	while dist_covered < LEVEL_LENGTH:
 		ground_instance = GroundScene.instantiate()
 		ground_instance.position = Vector2(dist_covered, 193.662)
 		dist_covered += value
@@ -129,7 +135,7 @@ func spawn_trees():
 	var dist_covered = 0
 	var tree_instance
 	
-	while dist_covered < 10000:
+	while dist_covered < LEVEL_LENGTH:
 		var rand = randi() % 3
 		
 		if rand == 1:
@@ -141,7 +147,7 @@ func spawn_trees():
 			
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
-		var dist_between = rng.randf_range(150.0, 1000.0)
+		var dist_between = rng.randf_range(150.0, 1500.0)
 		
 		dist_covered += dist_between
 		tree_instance.position = Vector2(dist_covered, 530)

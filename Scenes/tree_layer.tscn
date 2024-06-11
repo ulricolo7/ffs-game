@@ -1,0 +1,120 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbiaj5jm3hha8"]
+
+[ext_resource type="PackedScene" uid="uid://dko5msqcmjgae" path="res://Scenes/tree_tall.tscn" id="1_vuipw"]
+[ext_resource type="PackedScene" uid="uid://nvjrtdxpp3cd" path="res://Scenes/tree_medium.tscn" id="2_oy35v"]
+[ext_resource type="PackedScene" uid="uid://cnmwe1xxofcj6" path="res://Scenes/tree_short.tscn" id="3_pc136"]
+
+[node name="TreeLayer" type="Node2D"]
+
+[node name="TreeLine2" type="Node2D" parent="."]
+position = Vector2(1350, 0)
+
+[node name="TreeMedium7" parent="TreeLine2" instance=ExtResource("2_oy35v")]
+position = Vector2(1200, 45.6)
+scale = Vector2(0.81, 0.81)
+
+[node name="TreeShort" parent="TreeLine2" instance=ExtResource("3_pc136")]
+position = Vector2(825, 0)
+
+[node name="TreeTall2" parent="TreeLine2" instance=ExtResource("1_vuipw")]
+position = Vector2(150, 0)
+
+[node name="TreeMedium" parent="TreeLine2" instance=ExtResource("2_oy35v")]
+position = Vector2(300, 0)
+
+[node name="TreeMedium4" parent="TreeLine2" instance=ExtResource("2_oy35v")]
+position = Vector2(50, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeMedium6" parent="TreeLine2" instance=ExtResource("2_oy35v")]
+position = Vector2(1050, 0)
+
+[node name="TreeMedium5" parent="TreeLine2" instance=ExtResource("2_oy35v")]
+position = Vector2(650, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeTall" parent="TreeLine2" instance=ExtResource("1_vuipw")]
+position = Vector2(500, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeMedium3" parent="TreeLine2" instance=ExtResource("2_oy35v")]
+position = Vector2(750, 24)
+scale = Vector2(0.9, 0.9)
+
+[node name="TreeLine3" type="Node2D" parent="."]
+position = Vector2(2700, 0)
+
+[node name="TreeMedium7" parent="TreeLine3" instance=ExtResource("2_oy35v")]
+position = Vector2(1200, 45.6)
+scale = Vector2(0.81, 0.81)
+
+[node name="TreeShort" parent="TreeLine3" instance=ExtResource("3_pc136")]
+position = Vector2(825, 0)
+
+[node name="TreeTall2" parent="TreeLine3" instance=ExtResource("1_vuipw")]
+position = Vector2(150, 0)
+
+[node name="TreeMedium" parent="TreeLine3" instance=ExtResource("2_oy35v")]
+position = Vector2(300, 0)
+
+[node name="TreeMedium4" parent="TreeLine3" instance=ExtResource("2_oy35v")]
+position = Vector2(50, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeMedium6" parent="TreeLine3" instance=ExtResource("2_oy35v")]
+position = Vector2(1050, 0)
+
+[node name="TreeMedium5" parent="TreeLine3" instance=ExtResource("2_oy35v")]
+position = Vector2(650, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeTall" parent="TreeLine3" instance=ExtResource("1_vuipw")]
+position = Vector2(500, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeMedium3" parent="TreeLine3" instance=ExtResource("2_oy35v")]
+position = Vector2(750, 24)
+scale = Vector2(0.9, 0.9)
+
+[node name="TreeLine" type="Node2D" parent="."]
+
+[node name="TreeMedium7" parent="TreeLine" instance=ExtResource("2_oy35v")]
+position = Vector2(1200, 45.6)
+scale = Vector2(0.81, 0.81)
+
+[node name="TreeShort" parent="TreeLine" instance=ExtResource("3_pc136")]
+position = Vector2(825, 0)
+
+[node name="TreeTall2" parent="TreeLine" instance=ExtResource("1_vuipw")]
+position = Vector2(150, 0)
+
+[node name="TreeMedium" parent="TreeLine" instance=ExtResource("2_oy35v")]
+position = Vector2(300, 0)
+
+[node name="TreeMedium4" parent="TreeLine" instance=ExtResource("2_oy35v")]
+position = Vector2(50, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeMedium6" parent="TreeLine" instance=ExtResource("2_oy35v")]
+position = Vector2(1050, 0)
+
+[node name="TreeMedium5" parent="TreeLine" instance=ExtResource("2_oy35v")]
+position = Vector2(650, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeTall" parent="TreeLine" instance=ExtResource("1_vuipw")]
+position = Vector2(500, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="TreeMedium3" parent="TreeLine" instance=ExtResource("2_oy35v")]
+position = Vector2(750, 24)
+scale = Vector2(0.9, 0.9)
