@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://co5l7tw274177"]
 
-[ext_resource type="Texture2D" uid="uid://bcxic0ttosfjl" path="res://Assets/UI/Save_Button/save_button.png" id="1_whbgh"]
+[ext_resource type="Texture2D" uid="uid://ctd0wxoy330gq" path="res://Assets/UI/Save_Button/savebutton_new.png" id="1_71ng1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdevg"]
 bg_color = Color(0.968627, 0.976471, 0.596078, 1)
@@ -8,10 +8,11 @@ bg_color = Color(0.968627, 0.976471, 0.596078, 1)
 [node name="Save_Button" type="Button"]
 custom_minimum_size = Vector2(24, 24)
 theme_override_styles/normal = SubResource("StyleBoxFlat_kdevg")
+flat = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_right = 24.0
 offset_bottom = 24.0
-texture = ExtResource("1_whbgh")
+texture = ExtResource("1_71ng1")

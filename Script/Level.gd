@@ -101,7 +101,7 @@ func _process(delta):
 	$Background.position.x += Main.SCROLL_SPEED * delta * 0.99	
 	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
 	
-	if $Camera.position.x > LEVEL_LENGTH - 600:
+	if $Camera.position.x > LEVEL_LENGTH - 500:
 		print("You win!")
 		win()
 	
@@ -144,7 +144,6 @@ func spawn_trees():
 			tree_instance = TreeMedScene.instantiate()
 		else:
 			tree_instance = TreeTallScene.instantiate()
-		tree_instance = TreeShortScene.instantiate()
 			
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()

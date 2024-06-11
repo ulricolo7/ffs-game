@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cw2vfk33o4tyd"]
 
-[ext_resource type="Texture2D" uid="uid://cbhfgckxwllsg" path="res://Assets/UI/Open_Button/open_button.png" id="1_7lbae"]
+[ext_resource type="Texture2D" uid="uid://b0ws474qhrmls" path="res://Assets/UI/Open_Button/openbutton_new.png" id="1_jx0qe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajjw6"]
 bg_color = Color(0.968627, 0.976471, 0.596078, 1)
@@ -8,6 +8,7 @@ bg_color = Color(0.968627, 0.976471, 0.596078, 1)
 [node name="Open_Button" type="Button"]
 custom_minimum_size = Vector2(24, 24)
 theme_override_styles/normal = SubResource("StyleBoxFlat_ajjw6")
+flat = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
@@ -16,4 +17,4 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = 24.0
 offset_bottom = 26.0
-texture = ExtResource("1_7lbae")
+texture = ExtResource("1_jx0qe")
