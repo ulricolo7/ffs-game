@@ -179,7 +179,6 @@ func pause():
 	pause_screen.position = Vector2(x - 640, y - 420)
 	pause_screen.visible = true
 	player.freeze()
-	enemy_instance.freeze()
 	# can make the music change to the main menu here?
 
 func resume():

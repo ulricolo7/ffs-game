@@ -11,6 +11,10 @@ func _process(delta):
 	position.x += XDIR * XSPEED * delta * Main.no_pause_state
 	position.y += YDIR * YSPEED * delta * Main.no_pause_state
 	
+	if Main.no_pause_state == 0:
+		self.freeze()
+	else:
+		self.unfreeze()
 		
 func _on_body_entered(body):
 	if body.is_in_group("Player"):

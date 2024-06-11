@@ -11,3 +11,5 @@ var YSPEED = 0
 var XDIR = -1
 var YDIR = 0
 
+
+
