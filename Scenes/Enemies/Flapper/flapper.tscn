@@ -1,7 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvrd3tlxxcsta"]
+[gd_scene load_steps=8 format=3 uid="uid://bvrd3tlxxcsta"]
 
 [ext_resource type="Script" path="res://Script/Flapper.gd" id="1_vvow3"]
-[ext_resource type="Texture2D" uid="uid://5l2vfrcsncqp" path="res://Assets/Characters/Enemies/Flapper/flapper.png" id="2_0ctk2"]
+[ext_resource type="Texture2D" uid="uid://c8q67xnfqv4wn" path="res://Assets/Characters/Enemies/Flapper/frame1.png" id="2_n1ykg"]
+[ext_resource type="Texture2D" uid="uid://b6lv0xo2c5o0j" path="res://Assets/Characters/Enemies/Flapper/frame2.png" id="3_hjjjh"]
+[ext_resource type="Texture2D" uid="uid://3wi7mdyrcr3l" path="res://Assets/Characters/Enemies/Flapper/frame3.png" id="4_ylwii"]
+[ext_resource type="Texture2D" uid="uid://ek7gg2kci0k3" path="res://Assets/Characters/Enemies/Flapper/frame4.png" id="5_w3sbg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g75mh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_n1ykg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hjjjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ylwii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_w3sbg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_evhjo"]
 radius = 14.6734
@@ -11,9 +34,9 @@ texture_filter = 1
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_vvow3")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(2.75, 2.75)
-texture = ExtResource("2_0ctk2")
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-2.75, 2.75)
+sprite_frames = SubResource("SpriteFrames_g75mh")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

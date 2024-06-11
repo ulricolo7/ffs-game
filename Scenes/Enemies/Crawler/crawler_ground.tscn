@@ -1,7 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg7e6gpg8oojs"]
+[gd_scene load_steps=6 format=3 uid="uid://dg7e6gpg8oojs"]
 
 [ext_resource type="Script" path="res://Script/CrawlerGround.gd" id="1_kq1x1"]
-[ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="2_cqodp"]
+[ext_resource type="Texture2D" uid="uid://cnyor5t3s817" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_ground/frame1.png" id="2_kxp6v"]
+[ext_resource type="Texture2D" uid="uid://b4isrsy4j516k" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_ground/frame2.png" id="3_ke70j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wv5y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kxp6v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ke70j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut4fi"]
 size = Vector2(59.5, 27.5)
@@ -11,10 +26,10 @@ texture_filter = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_kq1x1")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-texture = ExtResource("2_cqodp")
+sprite_frames = SubResource("SpriteFrames_4wv5y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.25, -0.25)

@@ -14,6 +14,7 @@ var victory_screen
 var death_screen
 var pause_screen
 var player
+var enemy_instance
 var x 
 var y 
 
@@ -106,8 +107,7 @@ func _process(delta):
 		win()
 	
 func spawn_enemies():
-	var enemy_instance
-		
+	
 	for data in enemy_data:
 		if data["type"] == "gh":
 			enemy_instance = GhasterScene.instantiate()
@@ -179,6 +179,7 @@ func pause():
 	pause_screen.position = Vector2(x - 640, y - 420)
 	pause_screen.visible = true
 	player.freeze()
+	enemy_instance.freeze()
 	# can make the music change to the main menu here?
 
 func resume():
@@ -186,6 +187,7 @@ func resume():
 	Main.no_pause_state = 1
 	pause_screen.visible = false
 	player.unfreeze()
+	enemy_instance.unfreeze()
 	
 	
 

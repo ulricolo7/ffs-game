@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://tl6f8b3r0wf7"]
 
-[ext_resource type="Texture2D" uid="uid://bfmv84inwddcc" path="res://Assets/Background/ground_tile.png" id="1_jvunt"]
+[ext_resource type="Texture2D" uid="uid://bl6e5uoumbaj6" path="res://Assets/Background/ground_tile_3.png" id="1_inngn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcria"]
 size = Vector2(1279.97, 80.0183)
@@ -21,4 +21,4 @@ shape = SubResource("RectangleShape2D_kcria")
 texture_filter = 1
 position = Vector2(498, 567)
 scale = Vector2(4.10725, 4.58451)
-texture = ExtResource("1_jvunt")
+texture = ExtResource("1_inngn")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddefxeug0fug3"]
 
 [ext_resource type="Script" path="res://Script/QuitButton.gd" id="1_r8uen"]
-[ext_resource type="Texture2D" uid="uid://bk7fqetbu4lm8" path="res://Assets/UI/Quit_Button/quitbutton_outlined2.png" id="2_ygvtv"]
+[ext_resource type="Texture2D" uid="uid://dulnj6ihjgeeu" path="res://Assets/UI/Quit_Button/quitbutton_outlined3.png" id="2_1vxpe"]
 
 [node name="Quit_Button" type="Button"]
 custom_minimum_size = Vector2(24, 24)
@@ -13,6 +13,6 @@ texture_filter = 1
 layout_mode = 0
 offset_right = 24.0
 offset_bottom = 24.0
-texture = ExtResource("2_ygvtv")
+texture = ExtResource("2_1vxpe")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
