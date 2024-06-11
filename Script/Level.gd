@@ -6,9 +6,9 @@ const CrawlerGroundScene = preload("res://Scenes/Enemies/Crawler/crawler_ground.
 const CrawlerAirScene = preload("res://Scenes/Enemies/Crawler/crawler_air.tscn")
 
 const GroundScene = preload("res://Scenes/ground.tscn")
-const TreeShortScene = preload("res://Scenes/tree_short.tscn")
-const TreeMedScene = preload("res://Scenes/tree_medium.tscn")
-const TreeTallScene = preload("res://Scenes/tree_tall.tscn")
+const TreeShortScene = preload("res://Scenes/tree_short_2.tscn")
+const TreeMedScene = preload("res://Scenes/tree_medium_2.tscn")
+const TreeTallScene = preload("res://Scenes/tree_tall_2.tscn")
 
 var victory_screen
 var death_screen
@@ -144,6 +144,7 @@ func spawn_trees():
 			tree_instance = TreeMedScene.instantiate()
 		else:
 			tree_instance = TreeTallScene.instantiate()
+		tree_instance = TreeShortScene.instantiate()
 			
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()

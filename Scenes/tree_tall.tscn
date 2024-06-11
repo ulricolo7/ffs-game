@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dko5msqcmjgae"]
 
-[ext_resource type="Texture2D" uid="uid://d2x6tk5d1q1kj" path="res://Assets/Background/dead_tree_tall.png" id="1_lygi0"]
+[ext_resource type="Texture2D" uid="uid://sjgpvwh6fal" path="res://Assets/Background/dead_tree_tall_7.png" id="1_ma5vq"]
 
 [node name="TreeTall" type="Node2D"]
 
@@ -8,4 +8,4 @@
 texture_filter = 1
 position = Vector2(16, 0)
 scale = Vector2(7, 7)
-texture = ExtResource("1_lygi0")
+texture = ExtResource("1_ma5vq")

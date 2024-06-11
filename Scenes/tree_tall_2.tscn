@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjrc540xxq5iq"]
+
+[ext_resource type="Texture2D" uid="uid://cu13ofnfq07f2" path="res://Assets/Background/dead_tree_tall_11.png" id="1_is0ki"]
+
+[node name="tree_tall_2" type="Node2D"]
+scale = Vector2(7, 7)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_is0ki")
