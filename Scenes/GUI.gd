@@ -9,19 +9,32 @@ var enemy_scenes = {
 	"crawler_ground": preload("res://Scenes/Enemies/Crawler/crawler_ground_static.tscn"),
 	"crawler_air": preload("res://Scenes/Enemies/Crawler/crawler_air_static.tscn") 
 }
+var h_scroll_bar
+var editor_screen
+var editor_screen_map
+var background
+var scroll_factor = 0.05
+
 
 func _ready():
+	editor_screen = get_node("../EditorScreen")
+	#editor_screen_map = get_node("../EditorScreen/Map")
+	background = get_node("../EditorScreen/Map/Sprite2D")
+	h_scroll_bar = get_node("../HScrollBar")
 	$Panel/GhasterButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("ghaster"))
 	$Panel/FlapperButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("flapper"))
 	$Panel/CrawlerGroundButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("crawler_ground"))
 	$Panel/CrawlerAirButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("crawler_air"))
+	
+	h_scroll_bar.connect("value_changed", Callable(self, "_on_h_scroll_bar_value_changed"))
+	h_scroll_bar.max_value = 32000
 	set_process_input(true)
+
 
 func _on_enemy_button_pressed(enemy_type):
 	var enemy_scene = enemy_scenes.get(enemy_type)
 	if enemy_scene:
 		var enemy_instance = enemy_scene.instantiate()
-		enemy_instance.set("input_pickable", true) # Ensure input is pickable
 		if enemy_type == "ghaster":
 			enemy_instance.position = Vector2(600, 420)
 		elif enemy_type == "flapper":
@@ -31,7 +44,7 @@ func _on_enemy_button_pressed(enemy_type):
 		else:
 			enemy_instance.position = Vector2(600, 150)
 
-		get_node("../EditorScreen/Map").add_child(enemy_instance)
+		editor_screen.add_child(enemy_instance)
 		enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
 		enemy_data.append({"position": enemy_instance.position, "type": enemy_type})
 		
@@ -55,10 +68,17 @@ func _on_delete_button_pressed():
 	print("delete button pressed")
 	if last_enemy:
 		print("delete button executed")
-		get_node("../EditorScreen/Map").remove_child(last_enemy)
+		editor_screen_map.remove_child(last_enemy)
 		last_enemy.queue_free()
 		last_enemy = null
 
 func _on_play_button_pressed():
 	$Panel.visible = false
 	# logic to make this into a level and play
+
+
+
+func _on_h_scroll_bar_value_changed(value):
+	var scroll_value = -value * scroll_factor
+	editor_screen.position.x = scroll_value
+	background.position.x = scroll_value * 0.05
