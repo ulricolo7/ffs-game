@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvcmgx506f6ka"]
+
+[ext_resource type="Texture2D" uid="uid://bayo3f52ob8j5" path="res://Assets/Characters/Enemies/Crawler/web.png" id="1_7ly1i"]
+[ext_resource type="Texture2D" uid="uid://byrt8nbp27s7a" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_air/frame2.png" id="2_yfx0v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ljgqc"]
+line_spacing = 2.0
+font_size = 18
+
+[node name="VBoxContainer" type="VBoxContainer"]
+texture_filter = 1
+offset_left = -91.0
+offset_right = 40.0
+offset_bottom = 76.0
+theme_override_constants/separation = -9
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+text = "CRAWLER (AIR)"
+label_settings = SubResource("LabelSettings_ljgqc")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(3.9, 47.395)
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect3"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 32.5269
+offset_top = 9.59617
+offset_right = 63.4419
+offset_bottom = 40.5112
+scale = Vector2(2, 2)
+texture = ExtResource("1_7ly1i")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect3"]
+layout_mode = 2
+offset_left = 2.82841
+offset_top = 42.8596
+offset_right = 42.8284
+offset_bottom = 74.8596
+scale = Vector2(3, 3)
+texture = ExtResource("2_yfx0v")

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://rp2bv4346xes"]
+
+[ext_resource type="Script" path="res://Script/crawler_ground_static.gd" id="1_nnk5j"]
+[ext_resource type="Texture2D" uid="uid://cnyor5t3s817" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_ground/frame1.png" id="2_w3fs6"]
+[ext_resource type="Texture2D" uid="uid://b4isrsy4j516k" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_ground/frame2.png" id="3_62sds"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wv5y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w3fs6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_62sds")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ut4fi"]
+size = Vector2(59.5, 27.5)
+
+[node name="CrawlerGround_static" type="Area2D" groups=["Enemies"]]
+texture_filter = 1
+scale = Vector2(2, 2)
+script = ExtResource("1_nnk5j")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4wv5y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, -0.25)
+shape = SubResource("RectangleShape2D_ut4fi")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

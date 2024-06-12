@@ -28,3 +28,7 @@ scale = Vector2(1.5, 1.5)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_kw51f")
 autoplay = true
+
+[node name="PauseTimer" type="Timer" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="."]

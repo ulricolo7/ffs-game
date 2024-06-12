@@ -9,6 +9,7 @@ func _ready():
 	options_screen.z_index = 10
 	add_child(options_screen)
 
+
 func _on_resume_pressed():
 	print("resume button pressed")
 	emit_signal("resumed")

@@ -28,7 +28,6 @@ func _on_body_entered(body):
 		body.die()
 
 func freeze():
-	print("crawlerair paused")
 	$AnimatedSprite.pause()
 
 func unfreeze():

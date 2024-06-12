@@ -18,6 +18,10 @@ var enemy_instance
 var x 
 var y 
 
+var is_paused = false
+@onready var pause_timer = $PauseTimer
+@onready var death_timer = $DeathTimer
+
 
 var enemy_data = [
 	{"position": Vector2(900, 329), "type": "gh"},
@@ -64,6 +68,10 @@ var last_enemy = enemy_data[-1]
 var LEVEL_LENGTH = last_enemy["position"].x + 1000
 	
 func _ready():
+	pause_timer.one_shot = true
+	death_timer.one_shot = true
+	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
+	
 	var victory_scene = preload("res://Scenes/win.tscn")
 	victory_screen = victory_scene.instantiate()
 	victory_screen.visible = false
@@ -98,6 +106,8 @@ func _ready():
 
 
 func _process(delta):
+	if Input.is_action_just_pressed("pause"):
+		toggle_pause()
 	$Camera.position.x += Main.SCROLL_SPEED * delta
 	$Background.position.x += Main.SCROLL_SPEED * delta * 0.99	
 	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
@@ -105,6 +115,13 @@ func _process(delta):
 	if $Camera.position.x > LEVEL_LENGTH - 500:
 		print("You win!")
 		win()
+
+func toggle_pause():
+	if is_paused:
+		resume()
+	else:
+		pause()
+	pause_timer.start(0.1)	
 	
 func spawn_enemies():
 	
@@ -162,31 +179,39 @@ func win():
 	player.freeze()
 
 func die():
-	Main.no_pause_state = 0
+	Main.no_pause_state = 0 
+	
 	print("Game Over")
 	x = $Camera.position.x
 	y = $Camera.position.y
 
 	death_screen.position = Vector2(x - 480, y - 240)
 	death_screen.visible = true
+	death_timer.start(1.0)
+	
 
 func pause():
-	Main.no_pause_state = 0
-	print("Paused")
-	x = $Camera.position.x
-	y = $Camera.position.y
+	if Main.no_pause_state == 1:
+		Main.no_pause_state = 0
+		print("Paused")
+		x = $Camera.position.x
+		y = $Camera.position.y
 
-	pause_screen.position = Vector2(x - 640, y - 420)
-	pause_screen.visible = true
-	player.freeze()
+		pause_screen.position = Vector2(x - 640, y - 420)
+		pause_screen.visible = true
+		player.freeze()
 	# can make the music change to the main menu here?
+		is_paused = true
 
 func resume():
 	print("resumed")
-	Main.no_pause_state = 1
-	pause_screen.visible = false
-	player.unfreeze()
-	enemy_instance.unfreeze()
-	
-	
+	if Main.no_pause_state == 0:
+		Main.no_pause_state = 1
+		pause_screen.visible = false
+		player.unfreeze()
+		enemy_instance.unfreeze()
+		is_paused = false
+		
+func _on_death_timeout():
+	get_tree().reload_current_scene()
 

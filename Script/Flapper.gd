@@ -27,7 +27,6 @@ func _on_body_entered(body):
 		body.die()
 
 func freeze():
-	print("flapper paused")
 	$AnimatedSprite.pause()
 
 func unfreeze():

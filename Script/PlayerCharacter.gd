@@ -6,7 +6,7 @@ const FLOAT_SPEED = 50
 const MAX_SPEED = 500
 
 signal player_died
-signal paused
+#signal paused
 var is_frozen = false
 
 func _ready():
@@ -35,8 +35,8 @@ func _process(delta):
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
-	if Input.is_action_pressed("pause"):
-		emit_signal("paused")
+	#if Input.is_action_pressed("pause"):
+	#	emit_signal("paused")
 
 	
 func die():

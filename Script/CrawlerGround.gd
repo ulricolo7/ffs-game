@@ -22,7 +22,6 @@ func _on_body_entered(body):
 
 
 func freeze():
-	print("crawlerground paused")
 	$AnimatedSprite.pause()
 
 func unfreeze():

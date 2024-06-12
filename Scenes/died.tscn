@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://crvhx4lv4tq4q"]
 
 [ext_resource type="Script" path="res://Script/Died.gd" id="1_kkp87"]
-[ext_resource type="PackedScene" uid="uid://r13kdsx31qs1" path="res://Scenes/gameover_replay_button.tscn" id="2_iy4a4"]
-[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_eosu8"]
+[ext_resource type="PackedScene" path="res://Scenes/gameover_replay_button.tscn" id="2_iy4a4"]
+[ext_resource type="PackedScene" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_eosu8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifsku"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.447059)
@@ -20,10 +20,10 @@ script = ExtResource("1_kkp87")
 [node name="BackgroundPanel" type="Panel" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 164.0
-offset_top = 80.155
-offset_right = 462.0
-offset_bottom = 284.155
+offset_left = 264.0
+offset_top = 80.0
+offset_right = 466.0
+offset_bottom = 162.0
 scale = Vector2(2, 2)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ifsku")
 
@@ -42,18 +42,18 @@ vertical_alignment = 1
 
 [node name="Replay_Button" parent="." instance=ExtResource("2_iy4a4")]
 layout_mode = 0
-offset_left = 322.781
-offset_top = 232.531
-offset_right = 466.781
-offset_bottom = 272.531
+offset_left = -651.925
+offset_top = 698.695
+offset_right = -507.925
+offset_bottom = 738.695
 scale = Vector2(2, 2)
 
 [node name="MainMenu_Button" parent="." instance=ExtResource("3_eosu8")]
 layout_mode = 0
-offset_left = 325.337
-offset_top = 320.728
-offset_right = 469.337
-offset_bottom = 360.728
+offset_left = -662.083
+offset_top = 861.054
+offset_right = -518.083
+offset_bottom = 901.054
 scale = Vector2(2, 2)
 
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]

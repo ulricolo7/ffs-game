@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://k1mn5ixp6r26"]
-
-[ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="1_4xayb"]
-
-[node name="filtered_crawler_ground" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("1_4xayb")
