@@ -10,7 +10,8 @@ signal player_died
 var is_frozen = false
 
 func _ready():
-	print("Ready!")
+	#print("Ready!")
+	pass
 	
 func _process(delta):
 	
@@ -40,7 +41,7 @@ func _process(delta):
 
 	
 func die():
-	print("Player died")
+	#print("Player died")
 	emit_signal("player_died")
 	queue_free()
 	

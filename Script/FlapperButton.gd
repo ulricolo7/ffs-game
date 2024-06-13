@@ -1,6 +1,7 @@
 extends TextureButton
 
-const DRAGPREVIEW = preload("res://Scenes/drag_preview_flapper.tscn")
+#const DRAGPREVIEW = preload("res://Scenes/drag_preview_flapper.tscn")
+var DRAGPREVIEW
 
 func _get_drag_data(position: Vector2):
 	var original_instance = self.get_parent()

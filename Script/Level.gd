@@ -40,7 +40,7 @@ var enemy_data = [
 	{"position": Vector2(3600, 200), "type": "gh"},
 	{"position": Vector2(3850, 400), "type": "fl"},
 	{"position": Vector2(4000, 720), "type": "cg"},
-	{"position": Vector2(4000, 80), "type": "ca"},
+	{"position": Vector2(4200, 80), "type": "ca"},
 	{"position": Vector2(4050, 300), "type": "gh"},
 	{"position": Vector2(4280, 650), "type": "gh"},
 	{"position": Vector2(4700, 500), "type": "gh"},
@@ -61,11 +61,15 @@ var enemy_data = [
 	{"position": Vector2(5400, 460), "type": "fl"},
 	{"position": Vector2(6500, 0), "type": "ca"},
 	{"position": Vector2(6600, 720), "type": "cg"},
-	{"position": Vector2(31000, 320), "type": "gh"},
+	{"position": Vector2(6600, 560), "type": "gh"},
+	{"position": Vector2(6700, 420), "type": "gh"},
 ]
 
 var last_enemy = enemy_data[-1]
 var LEVEL_LENGTH = last_enemy["position"].x + 1000
+
+#SWITCH IF TESTING BOTS
+var bot_mode = true
 	
 func _ready():
 	pause_timer.one_shot = true
@@ -97,9 +101,13 @@ func _ready():
 	spawn_enemies()
 	spawn_ground(1000)
 	
-	player = get_node("Camera/Player")
+	if bot_mode == false:
+		player = get_node("Camera/Player")
+	else:
+		player = get_node("Camera/Bot")
+	
 	player.connect("player_died", Callable(self, "die"))
-	player.connect("paused", Callable(self, "pause"))
+	#player.connect("paused", Callable(self, "pause"))
 	pause_screen.connect("resumed", Callable(self, "resume"))
 	
 	print("Level ready")
@@ -187,7 +195,7 @@ func die():
 
 	death_screen.position = Vector2(x - 480, y - 240)
 	death_screen.visible = true
-	death_timer.start(1.0)
+	death_timer.start(0.9)
 	
 
 func pause():
