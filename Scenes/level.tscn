@@ -11,7 +11,7 @@
 script = ExtResource("1_grugo")
 
 [node name="Background" parent="." instance=ExtResource("2_0lj03")]
-position = Vector2(800, 441)
+position = Vector2(800, 440)
 
 [node name="TreeLayer" parent="." instance=ExtResource("6_wc6u0")]
 position = Vector2(78, 520)

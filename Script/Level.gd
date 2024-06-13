@@ -109,7 +109,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		toggle_pause()
 	$Camera.position.x += Main.SCROLL_SPEED * delta
-	$Background.position.x += Main.SCROLL_SPEED * delta * 0.99	
+	$Background.position.x += Main.SCROLL_SPEED * delta * Main.BG_SPEED
 	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
 	
 	if $Camera.position.x > LEVEL_LENGTH - 500:

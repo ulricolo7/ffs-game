@@ -13,6 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="8_q8ebd"]
 [ext_resource type="Texture2D" uid="uid://bl6e5uoumbaj6" path="res://Assets/Background/ground_tile_3.png" id="9_qvc2e"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
+size = Vector2(944.976, 79.8015)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srsn5"]
+size = Vector2(945.968, 88.8076)
+
 [sub_resource type="Theme" id="Theme_2chbh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t7fty"]
@@ -31,194 +37,17 @@ font_size = 21
 line_spacing = 2.0
 font_size = 18
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
-size = Vector2(944.976, 79.8015)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_srsn5"]
-size = Vector2(945.968, 88.8076)
-
-[node name="editor_2" type="Node"]
-
-[node name="GUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 926.0
-offset_right = 1280.0
-offset_bottom = 840.0
-script = ExtResource("1_arwl1")
-
-[node name="Panel" type="Panel" parent="GUI"]
-z_index = 1
-layout_mode = 1
-anchors_preset = -1
-offset_left = 19.0
-offset_right = 354.0
-offset_bottom = 840.0
-
-[node name="DeleteButton" type="TextureButton" parent="GUI/Panel"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 19.39
-offset_top = 758.345
-offset_right = 51.39
-offset_bottom = 790.345
-scale = Vector2(2, 2)
-theme = SubResource("Theme_2chbh")
-texture_normal = ExtResource("2_nn6a7")
-
-[node name="PlayButton" type="TextureButton" parent="GUI/Panel"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 200.0
-offset_top = 700.0
-offset_right = 234.0
-offset_bottom = 732.0
-scale = Vector2(2, 2)
-texture_normal = ExtResource("3_mqrfk")
-
-[node name="TextureButton" type="TextureButton" parent="GUI/Panel"]
-layout_mode = 0
-offset_left = 16.0361
-offset_top = 47.2176
-offset_right = 56.0361
-offset_bottom = 87.2176
-
-[node name="TextureButton2" type="TextureButton" parent="GUI/Panel"]
-layout_mode = 0
-offset_left = 59.6902
-offset_top = 40.5359
-offset_right = 99.6902
-offset_bottom = 80.5359
-
-[node name="GhasterButton" type="Button" parent="GUI/Panel"]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 90.0
-offset_right = 151.0
-offset_bottom = 242.0
-flat = true
-icon_alignment = 1
-text_direction = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Panel/GhasterButton"]
-layout_mode = 0
-offset_right = 125.0
-offset_bottom = 152.0
-
-[node name="Label" type="Label" parent="GUI/Panel/GhasterButton/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "GHASTER"
-label_settings = SubResource("LabelSettings_t7fty")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Panel/GhasterButton/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-texture = ExtResource("2_ojstu")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="FlapperButton" type="Button" parent="GUI/Panel"]
-layout_mode = 0
-offset_left = 180.0
-offset_top = 90.0
-offset_right = 305.0
-offset_bottom = 242.0
-flat = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Panel/FlapperButton"]
-layout_mode = 0
-offset_right = 125.0
-offset_bottom = 118.0
-
-[node name="Label" type="Label" parent="GUI/Panel/FlapperButton/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "FLAPPER"
-label_settings = SubResource("LabelSettings_khcv1")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Panel/FlapperButton/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-texture = ExtResource("4_nnm15")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="CrawlerGroundButton" type="Button" parent="GUI/Panel"]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 263.864
-offset_right = 150.0
-offset_bottom = 415.864
-flat = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Panel/CrawlerGroundButton"]
-layout_mode = 0
-offset_right = 124.0
-offset_bottom = 170.0
-
-[node name="Label" type="Label" parent="GUI/Panel/CrawlerGroundButton/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "CRAWLER (GROUND)"
-label_settings = SubResource("LabelSettings_lgl6c")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Panel/CrawlerGroundButton/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-texture = ExtResource("5_b8gj2")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="CrawlerAirButton" type="Button" parent="GUI/Panel"]
-layout_mode = 0
-offset_left = 180.0
-offset_top = 263.86
-offset_right = 305.0
-offset_bottom = 415.86
-flat = true
-
-[node name="CrawlerAirCont" parent="GUI/Panel/CrawlerAirButton" instance=ExtResource("6_bs73g")]
-layout_mode = 0
-offset_left = 35.0
-offset_right = 95.0
-offset_bottom = 151.0
-
-[node name="TextureRect2" parent="GUI/Panel/CrawlerAirButton/CrawlerAirCont/TextureRect3" index="0"]
-offset_left = -1.36554
-offset_top = 7.21776
-offset_right = 29.5495
-offset_bottom = 38.1328
-
-[node name="TextureRect" parent="GUI/Panel/CrawlerAirButton/CrawlerAirCont/TextureRect3" index="1"]
-offset_left = -31.6586
-offset_top = 40.4812
-offset_right = 8.34137
-offset_bottom = 72.4812
-
-[node name="HScrollBar" type="HScrollBar" parent="."]
-z_index = 1
-offset_left = 27.0
-offset_top = 34.0
-offset_right = 929.0
-offset_bottom = 49.0
+[node name="Editor" type="Node"]
 
 [node name="EditorScreen" type="Node2D" parent="."]
 
-[node name="Map" type="Node2D" parent="EditorScreen"]
-
-[node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Map"]
+[node name="Sprite2D" type="Sprite2D" parent="EditorScreen"]
 texture_filter = 1
-position = Vector2(800.042, 439.832)
+position = Vector2(800, 440)
 scale = Vector2(4, 4)
 texture = ExtResource("7_07fk5")
+
+[node name="Map" type="Node2D" parent="EditorScreen"]
 
 [node name="Top_boundary" type="StaticBody2D" parent="EditorScreen/Map"]
 
@@ -244,8 +73,185 @@ texture = ExtResource("9_qvc2e")
 position = Vector2(472.984, 795.596)
 shape = SubResource("RectangleShape2D_srsn5")
 
-[connection signal="pressed" from="GUI/Panel/DeleteButton" to="GUI" method="_on_delete_button_pressed"]
-[connection signal="pressed" from="GUI/Panel/PlayButton" to="GUI" method="_on_play_button_pressed"]
-[connection signal="value_changed" from="HScrollBar" to="GUI" method="_on_h_scroll_bar_value_changed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 420)
 
-[editable path="GUI/Panel/CrawlerAirButton/CrawlerAirCont"]
+[node name="GUI" type="Control" parent="Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 285.0
+offset_top = -419.0
+offset_right = 639.0
+offset_bottom = 421.0
+script = ExtResource("1_arwl1")
+
+[node name="Panel" type="Panel" parent="Camera2D/GUI"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+offset_left = 19.0
+offset_right = 354.0
+offset_bottom = 840.0
+
+[node name="DeleteButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 19.39
+offset_top = 758.345
+offset_right = 51.39
+offset_bottom = 790.345
+scale = Vector2(2, 2)
+theme = SubResource("Theme_2chbh")
+texture_normal = ExtResource("2_nn6a7")
+
+[node name="PlayButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 200.0
+offset_top = 700.0
+offset_right = 234.0
+offset_bottom = 732.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_mqrfk")
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 16.0361
+offset_top = 47.2176
+offset_right = 56.0361
+offset_bottom = 87.2176
+
+[node name="TextureButton2" type="TextureButton" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 59.6902
+offset_top = 40.5359
+offset_right = 99.6902
+offset_bottom = 80.5359
+
+[node name="GhasterButton" type="Button" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 90.0
+offset_right = 151.0
+offset_bottom = 242.0
+flat = true
+icon_alignment = 1
+text_direction = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/GUI/Panel/GhasterButton"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 152.0
+
+[node name="Label" type="Label" parent="Camera2D/GUI/Panel/GhasterButton/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "GHASTER"
+label_settings = SubResource("LabelSettings_t7fty")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/GUI/Panel/GhasterButton/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_ojstu")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="FlapperButton" type="Button" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 90.0
+offset_right = 305.0
+offset_bottom = 242.0
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/GUI/Panel/FlapperButton"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 118.0
+
+[node name="Label" type="Label" parent="Camera2D/GUI/Panel/FlapperButton/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "FLAPPER"
+label_settings = SubResource("LabelSettings_khcv1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/GUI/Panel/FlapperButton/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_nnm15")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="CrawlerGroundButton" type="Button" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 263.864
+offset_right = 150.0
+offset_bottom = 415.864
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/GUI/Panel/CrawlerGroundButton"]
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 170.0
+
+[node name="Label" type="Label" parent="Camera2D/GUI/Panel/CrawlerGroundButton/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "CRAWLER (GROUND)"
+label_settings = SubResource("LabelSettings_lgl6c")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/GUI/Panel/CrawlerGroundButton/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("5_b8gj2")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CrawlerAirButton" type="Button" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 263.86
+offset_right = 305.0
+offset_bottom = 415.86
+flat = true
+
+[node name="CrawlerAirCont" parent="Camera2D/GUI/Panel/CrawlerAirButton" instance=ExtResource("6_bs73g")]
+layout_mode = 0
+offset_left = 35.0
+offset_right = 95.0
+offset_bottom = 151.0
+
+[node name="TextureRect2" parent="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont/TextureRect3" index="0"]
+offset_left = -1.36554
+offset_top = 7.21776
+offset_right = 29.5495
+offset_bottom = 38.1328
+
+[node name="TextureRect" parent="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont/TextureRect3" index="1"]
+offset_left = -31.6586
+offset_top = 40.4812
+offset_right = 8.34137
+offset_bottom = 72.4812
+
+[node name="HScrollBar" type="HScrollBar" parent="Camera2D"]
+z_index = 1
+offset_left = -614.0
+offset_top = -385.0
+offset_right = 288.0
+offset_bottom = -370.0
+max_value = 30000.0
+step = 1.0
+
+[connection signal="pressed" from="Camera2D/GUI/Panel/DeleteButton" to="Camera2D/GUI" method="_on_delete_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
+[connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
+
+[editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]
