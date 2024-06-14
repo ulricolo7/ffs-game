@@ -14,11 +14,18 @@ light_mask = 2
 collision_mask = 2
 script = ExtResource("1_coodm")
 
-[node name="Scanner" type="Area2D" parent="."]
+[node name="NearScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
-[node name="FirstScan" type="CollisionPolygon2D" parent="Scanner"]
-polygon = PackedVector2Array(18, -50, 48, -37, 128, -20, 159, 0, 128, 23, 52, 36, 17, 47, -4, 42, -24, 37, -41, 3, -26, -41, -7, -48)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NearScan"]
+polygon = PackedVector2Array(18, -50, 48, -37, 122, -27, 141, 0, 122, 26, 52, 36, 17, 47, -4, 42, -24, 37, -41, 3, -26, -41, -7, -48)
+
+[node name="FarScan" type="Area2D" parent="."]
+material = SubResource("CanvasItemMaterial_d1k00")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarScan"]
+position = Vector2(-75, -35)
+polygon = PackedVector2Array(400, -85, 460, 34, 403, 149, 53, 73, 34, 38, 46, -2)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 light_mask = 3
@@ -33,5 +40,7 @@ material = SubResource("CanvasItemMaterial_bk02v")
 scale = Vector2(2.5, 2.49219)
 texture = ExtResource("1_881u3")
 
-[connection signal="area_entered" from="Scanner" to="." method="_on_scanner_area_entered"]
-[connection signal="area_exited" from="Scanner" to="." method="_on_scanner_area_exited"]
+[connection signal="area_entered" from="NearScan" to="." method="_on_near_scan_area_entered"]
+[connection signal="area_exited" from="NearScan" to="." method="_on_near_scan_area_exited"]
+[connection signal="area_entered" from="FarScan" to="." method="_on_far_scan_area_entered"]
+[connection signal="area_exited" from="FarScan" to="." method="_on_far_scan_area_exited"]

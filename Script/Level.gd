@@ -29,11 +29,12 @@ var LEVEL_LENGTH
 
 
 #SWITCH IF TESTING BOTS
-var bot_mode = false
+var bot_mode = true
 	
 func _ready():
 	# change what script to load here
 	var level_data = load("res://Script/Level_1.gd").new()
+	#var level_data = load("res://Script/Level_BotTest.gd").new()
 	enemy_data = level_data.enemy_data
 	last_enemy = enemy_data[enemy_data.keys()[-1]]
 	LEVEL_LENGTH = last_enemy["position"].x + 1000
@@ -86,7 +87,6 @@ func _process(delta):
 	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
 	
 	if $Camera.position.x > LEVEL_LENGTH - 500:
-		print("You win!")
 		win()
 
 func toggle_pause():

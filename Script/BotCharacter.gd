@@ -12,6 +12,7 @@ var is_frozen = false
 var move_dir
 var soft_dir
 var hori_dir
+var state
 
 func _ready():
 	#print("Ready!")
@@ -29,16 +30,22 @@ func _process(delta):
 		velocity.y -= 150
 	else:
 		velocity.y = 0
+		print(global_position.y)
 		
 	if soft_dir == "down":
-		velocity.y += 100
+		velocity.y += 90
 	elif soft_dir == "up":
-		velocity.y -= 100
+		velocity.y -= 90
+	else:
+		velocity.y += 0
 		
 	if global_position.x < get_parent().global_position.x:
 		velocity.x += 100
 	else:
 		velocity.x = 0
+		
+	if state == "returning" && (global_position.y <= 560 || global_position.y <= 280):
+		velocity.y = 0
 		
 	#scan_and_dodge()
 	
@@ -50,6 +57,9 @@ func _process(delta):
 	#	emit_signal("paused")
 
 func return_to_centre():
+	if state == "dodging":
+		return
+	
 	if global_position.y >= 560:
 		print("returning up")
 		move_dir = "up"
@@ -72,16 +82,43 @@ func freeze():
 func unfreeze():
 	is_frozen = false
 
-func _on_scanner_area_entered(area):
+
+func _on_far_scan_area_entered(area):
+	if state == "dodging" || state == "adjusting":
+		return
+		
 	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
-		print("enemy under")
+		print("floating up")
+		state = "adjusting"
+		move_dir = ""
+		soft_dir = "up"
+	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
+		print("floating down")
+		state = "adjusting"
+		move_dir = ""
+		soft_dir = "down"
+
+
+func _on_near_scan_area_entered(area):
+	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
+		print("dodging up")
+		state = "dodging"
+		move_dir = ""
 		move_dir = "up"
 		soft_dir = ""
 	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
-		print("enemy above")
+		print("dodging down")
+		state = "dodging"
+		move_dir = ""
 		move_dir = "down"
 		soft_dir = ""
 
 
-func _on_scanner_area_exited(area):
+func _on_near_scan_area_exited(area):
+	velocity.y = 0
+	state = "returning"
+	return_to_centre()
+
+
+func _on_far_scan_area_exited(area):
 	return_to_centre()
