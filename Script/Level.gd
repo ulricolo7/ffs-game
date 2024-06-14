@@ -23,55 +23,20 @@ var is_paused = false
 @onready var death_timer = $DeathTimer
 
 
-var enemy_data = [
-	{"position": Vector2(900, 329), "type": "gh"},
-	{"position": Vector2(1270, 160), "type": "fl"},
-	{"position": Vector2(1600, 720), "type": "cg"},
-	{"position": Vector2(1600, 200), "type": "gh"},
-	{"position": Vector2(1930, 400), "type": "fl"},
-	{"position": Vector2(2000, 720), "type": "cg"},
-	{"position": Vector2(2000, 80), "type": "ca"},
-	{"position": Vector2(2100, 200), "type": "gh"},
-	{"position": Vector2(2050, 550), "type": "gh"},
-	{"position": Vector2(2450, 400), "type": "gh"},
-	{"position": Vector2(2900, 320), "type": "gh"},
-	{"position": Vector2(3270, 160), "type": "fl"},
-	{"position": Vector2(3600, 720), "type": "cg"},
-	{"position": Vector2(3600, 200), "type": "gh"},
-	{"position": Vector2(3850, 400), "type": "fl"},
-	{"position": Vector2(4000, 720), "type": "cg"},
-	{"position": Vector2(4200, 80), "type": "ca"},
-	{"position": Vector2(4050, 300), "type": "gh"},
-	{"position": Vector2(4280, 650), "type": "gh"},
-	{"position": Vector2(4700, 500), "type": "gh"},
-	{"position": Vector2(4730, 650), "type": "gh"},
-	{"position": Vector2(4800, 160), "type": "fl"},
-	{"position": Vector2(4800, 460), "type": "fl"},
-	{"position": Vector2(4900, 220), "type": "fl"},
-	{"position": Vector2(4900, 520), "type": "fl"},
-	{"position": Vector2(5000, 280), "type": "fl"},
-	{"position": Vector2(5000, 580), "type": "fl"},
-	{"position": Vector2(5100, 340), "type": "fl"},
-	{"position": Vector2(5100, 640), "type": "fl"},
-	{"position": Vector2(5200, 280), "type": "fl"},
-	{"position": Vector2(5200, 580), "type": "fl"},
-	{"position": Vector2(5300, 220), "type": "fl"},
-	{"position": Vector2(5300, 520), "type": "fl"},
-	{"position": Vector2(5400, 160), "type": "fl"},
-	{"position": Vector2(5400, 460), "type": "fl"},
-	{"position": Vector2(6500, 0), "type": "ca"},
-	{"position": Vector2(6600, 720), "type": "cg"},
-	{"position": Vector2(6600, 560), "type": "gh"},
-	{"position": Vector2(6700, 420), "type": "gh"},
-]
+var enemy_data 
+var last_enemy
+var LEVEL_LENGTH
 
-var last_enemy = enemy_data[-1]
-var LEVEL_LENGTH = last_enemy["position"].x + 1000
 
 #SWITCH IF TESTING BOTS
-var bot_mode = true
+var bot_mode = false
 	
 func _ready():
+	# change what script to load here
+	var level_data = load("res://Script/Level_1.gd").new()
+	enemy_data = level_data.enemy_data
+	last_enemy = enemy_data[enemy_data.keys()[-1]]
+	LEVEL_LENGTH = last_enemy["position"].x + 1000
 	pause_timer.one_shot = true
 	death_timer.one_shot = true
 	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
@@ -133,7 +98,8 @@ func toggle_pause():
 	
 func spawn_enemies():
 	
-	for data in enemy_data:
+	for idx in enemy_data.keys():
+		var data = enemy_data[idx]
 		if data["type"] == "gh":
 			enemy_instance = GhasterScene.instantiate()
 		elif data["type"] == "fl":

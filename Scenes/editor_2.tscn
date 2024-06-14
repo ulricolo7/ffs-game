@@ -1,11 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=21 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
-[ext_resource type="Script" path="res://Scenes/GUI.gd" id="1_arwl1"]
 [ext_resource type="Texture2D" uid="uid://bpwti457hcpon" path="res://Assets/UI/Delete_File_Button/delete_file_button.png" id="2_nn6a7"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
 [ext_resource type="FontVariation" uid="uid://j16qpduaga5p" path="res://Assets/UI/FONT/CharlesWright.tres" id="3_fflh0"]
 [ext_resource type="Texture2D" uid="uid://yv3egcw4acjx" path="res://Assets/UI/Play_Button/play_button.png" id="3_mqrfk"]
+[ext_resource type="Script" path="res://Script/GUI.gd" id="4_6ljl8"]
 [ext_resource type="Texture2D" uid="uid://c8q67xnfqv4wn" path="res://Assets/Characters/Enemies/Flapper/frame1.png" id="4_nnm15"]
 [ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="5_b8gj2"]
 [ext_resource type="PackedScene" uid="uid://cvcmgx506f6ka" path="res://crawler_air_btn_container.tscn" id="6_bs73g"]
@@ -37,39 +37,58 @@ font_size = 21
 line_spacing = 2.0
 font_size = 18
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmtcs"]
+bg_color = Color(0.803922, 0.803922, 0.803922, 0.478431)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hid5"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 16
+border_width_right = 16
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="Editor" type="Node"]
 
 [node name="EditorScreen" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="EditorScreen"]
+[node name="Background" type="Sprite2D" parent="EditorScreen"]
 texture_filter = 1
 position = Vector2(800, 440)
 scale = Vector2(4, 4)
 texture = ExtResource("7_07fk5")
 
-[node name="Map" type="Node2D" parent="EditorScreen"]
+[node name="Boundaries" type="Node2D" parent="EditorScreen"]
 
-[node name="Top_boundary" type="StaticBody2D" parent="EditorScreen/Map"]
+[node name="Top_boundary" type="StaticBody2D" parent="EditorScreen/Boundaries"]
 
-[node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Map/Top_boundary"]
+[node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Boundaries/Top_boundary"]
 z_as_relative = false
 position = Vector2(639.989, 39.9044)
 scale = Vector2(63.999, 3.99)
 texture = ExtResource("8_q8ebd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EditorScreen/Map/Top_boundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EditorScreen/Boundaries/Top_boundary"]
 position = Vector2(472.484, 39.9099)
 shape = SubResource("RectangleShape2D_tuaid")
 
-[node name="Ground" type="StaticBody2D" parent="EditorScreen/Map"]
+[node name="Ground" type="StaticBody2D" parent="EditorScreen/Boundaries"]
 
-[node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Map/Ground"]
+[node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Boundaries/Ground"]
 texture_filter = 1
 position = Vector2(657.127, 764.342)
 scale = Vector2(4.107, 4.585)
 texture = ExtResource("9_qvc2e")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EditorScreen/Map/Ground"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EditorScreen/Boundaries/Ground"]
 position = Vector2(472.984, 795.596)
 shape = SubResource("RectangleShape2D_srsn5")
 
@@ -83,7 +102,7 @@ offset_left = 285.0
 offset_top = -419.0
 offset_right = 639.0
 offset_bottom = 421.0
-script = ExtResource("1_arwl1")
+script = ExtResource("4_6ljl8")
 
 [node name="Panel" type="Panel" parent="Camera2D/GUI"]
 z_index = 1
@@ -244,9 +263,11 @@ offset_bottom = 72.4812
 [node name="HScrollBar" type="HScrollBar" parent="Camera2D"]
 z_index = 1
 offset_left = -614.0
-offset_top = -385.0
+offset_top = -390.0
 offset_right = 288.0
 offset_bottom = -370.0
+theme_override_styles/scroll = SubResource("StyleBoxFlat_hmtcs")
+theme_override_styles/grabber = SubResource("StyleBoxFlat_6hid5")
 max_value = 30000.0
 step = 1.0
 
