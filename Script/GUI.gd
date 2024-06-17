@@ -142,3 +142,13 @@ func _on_h_scroll_bar_value_changed(value):
 #320px difference = real time speed of which the background can shift left relative to camer
 #320 / 0.01 = 32000 max length
 
+
+
+func _on_create_new_button_pressed():
+	var file = FileAccess.open("res://Script/untitled.gd", FileAccess.WRITE)
+	print("file created")
+	if file.file_exists(file.get_path()):
+		file.close()
+		print("old file removed")
+	file.store_var(enemy_data)
+		

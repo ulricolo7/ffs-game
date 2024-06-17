@@ -162,7 +162,7 @@ texture_pressed = ExtResource("12_decvk")
 texture_hover = ExtResource("12_decvk")
 texture_disabled = ExtResource("13_xdgt1")
 
-[node name="TextureButton2" type="TextureButton" parent="Camera2D/GUI/Panel"]
+[node name="CreateNewButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 7.0
@@ -308,6 +308,7 @@ step = 1.0
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/DeleteButton" to="Camera2D/GUI" method="_on_delete_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
 
 [editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]
