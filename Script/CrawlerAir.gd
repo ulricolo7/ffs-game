@@ -15,8 +15,8 @@ func _process(delta):
 	elif position.y < start_pos.y:
 		YDIR = 1
 	
-	position.x += XDIR * XSPEED * delta * Main.no_pause_state
-	position.y += YDIR * YSPEED * delta * Main.no_pause_state
+	position.x += XDIR * XSPEED * delta * Main.no_pause_state * Main.TEST_SPEED
+	position.y += YDIR * YSPEED * delta * Main.no_pause_state * Main.TEST_SPEED
 	
 	if Main.no_pause_state == 0:
 		self.freeze()

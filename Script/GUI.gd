@@ -139,7 +139,7 @@ func _on_h_scroll_bar_value_changed(value):
 
 #1600
 #1280
-#320px difference = real time speed of which the background can shift left relative to camer
+#320px difference = real time speed of which the background can shift left relative to camera
 #320 / 0.01 = 32000 max length
 
 

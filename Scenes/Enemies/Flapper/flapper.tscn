@@ -27,7 +27,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_evhjo"]
-radius = 14.6734
+radius = 12.4524
 
 [node name="Flapper" type="Area2D" groups=["Enemies"]]
 texture_filter = 1
@@ -35,12 +35,12 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("1_vvow3")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
 scale = Vector2(-2.75, 2.75)
 sprite_frames = SubResource("SpriteFrames_g75mh")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_evhjo")
 

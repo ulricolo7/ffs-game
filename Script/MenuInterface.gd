@@ -11,10 +11,12 @@ func _ready():
 
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
+	Main.BOT_NAME = ""
 
 
 func _on_simulate_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://Scenes/level.tscn")
+	Main.BOT_NAME = "Scanner"
 
 
 func _on_editor_pressed():

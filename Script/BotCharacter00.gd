@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
-
 const GRAVITY = 0
 var ACCELERATION = 150 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
+const NAME = "00"
 
 signal player_died
 #signal paused
 var is_frozen = false
+var state
 
 func _ready():
 	#print("Ready!")
+	print(global_position)
 	pass
 	
 func _process(delta):
@@ -18,30 +20,13 @@ func _process(delta):
 	if is_frozen:
 		return
 		
-	if Input.is_action_pressed("move_down"):
-		velocity.y += ACCELERATION
-	elif Input.is_action_pressed("move_up"):
-		velocity.y -= ACCELERATION
-	else:
-		velocity.y = 0
-		
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= ACCELERATION
-	elif Input.is_action_pressed("move_right"):
-		velocity.x += ACCELERATION
-	else:
-		velocity.x = 0
 	
 	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
-	#if Input.is_action_pressed("pause"):
-	#	emit_signal("paused")
-
-	
 func die():
-	#print("Player died")
+	print("Player died")
 	emit_signal("player_died")
 	queue_free()
 	
@@ -51,3 +36,12 @@ func freeze():
 func unfreeze():
 	is_frozen = false
 
+
+func _on_far_scan_area_entered(area):
+	pass
+	
+func _on_near_scan_area_exited(area):
+	pass
+
+func _on_far_scan_area_exited(area):
+	pass

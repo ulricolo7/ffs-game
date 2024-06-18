@@ -14,6 +14,7 @@ var victory_screen
 var death_screen
 var pause_screen
 var player
+var player_scene
 var enemy_instance
 var x 
 var y 
@@ -26,10 +27,6 @@ var is_paused = false
 var enemy_data 
 var last_enemy
 var LEVEL_LENGTH
-
-
-#SWITCH IF TESTING BOTS
-var bot_mode = true
 	
 func _ready():
 	# change what script to load here
@@ -37,7 +34,8 @@ func _ready():
 	#var level_data = load("res://Script/Level_BotTest.gd").new()
 	enemy_data = level_data.enemy_data
 	last_enemy = enemy_data[enemy_data.keys()[-1]]
-	LEVEL_LENGTH = last_enemy["position"].x + 1000
+	Main.LEVEL_LENGTH = last_enemy["position"].x + 1000
+	LEVEL_LENGTH = Main.LEVEL_LENGTH
 	pause_timer.one_shot = true
 	death_timer.one_shot = true
 	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
@@ -67,10 +65,21 @@ func _ready():
 	spawn_enemies()
 	spawn_ground(1000)
 	
-	if bot_mode == false:
-		player = get_node("Camera/Player")
+	var camera = $Camera
+	
+	if Main.BOT_NAME == "00":
+		player_scene = preload("res://Scenes/Player/bot_character_00.tscn")
+	elif Main.BOT_NAME == "Scanner":
+		player_scene = preload("res://Scenes/Player/bot_character_SC.tscn")
 	else:
-		player = get_node("Camera/Bot")
+		player_scene = preload("res://Scenes/Player/player_character.tscn")
+	
+	
+	player = player_scene.instantiate()
+	player.position = Vector2(-500, 20)
+	player.scale = Vector2(1.5, 1.5)
+	camera.add_child(player)
+	
 	
 	player.connect("player_died", Callable(self, "die"))
 	#player.connect("paused", Callable(self, "pause"))

@@ -1,10 +1,12 @@
 extends CharacterBody2D
 
 const GRAVITY = 0
-const FLOAT_SPEED = 50
-const MAX_SPEED = 500
-const NAME = "2ndTry"
-#after he dies the first time, let him try again. don't ask.
+var ACCELERATION = 150 * Main.TEST_SPEED
+var SOFT_ACC = 100 * Main.TEST_SPEED
+var HORI_ACC = 50 * Main.TEST_SPEED
+var MAX_SPEED = 500 * Main.TEST_SPEED
+const NAME = "Scanner"
+#DO NOT TOUCH ANYTHING
 
 signal player_died
 #signal paused
@@ -25,27 +27,31 @@ func _process(delta):
 		return
 		
 	if move_dir == "down":
-		velocity.y += 150
+		velocity.y += ACCELERATION
 	elif move_dir == "up":
-		velocity.y -= 150
+		velocity.y -= ACCELERATION
 	else:
 		velocity.y = 0
-		print(global_position.y)
 		
 	if soft_dir == "down":
-		velocity.y += 90
+		velocity.y += SOFT_ACC
 	elif soft_dir == "up":
-		velocity.y -= 90
+		velocity.y -= SOFT_ACC
 	else:
 		velocity.y += 0
 		
 	if global_position.x < get_parent().global_position.x:
-		velocity.x += 100
+		velocity.x += HORI_ACC
 	else:
 		velocity.x = 0
 		
-	if state == "returning" && (global_position.y <= 560 || global_position.y <= 280):
+	if state == "returning" && (global_position.y <= 560 || global_position.y >= 280):
 		velocity.y = 0
+	
+	if state != "dodging" && (global_position.y < 280):
+		soft_dir = "down"
+	elif state != "dodging" && (global_position.y > 560):
+		soft_dir = "up"
 		
 	#scan_and_dodge()
 	
@@ -57,14 +63,14 @@ func _process(delta):
 	#	emit_signal("paused")
 
 func return_to_centre():
-	if state == "dodging":
+	if state == "dodging" || (state == "adjusting" && (global_position.y >= 160 && global_position.y <= 720)) :
 		return
 	
-	if global_position.y >= 560:
+	if global_position.y >= 580:
 		print("returning up")
 		move_dir = "up"
 		soft_dir = "down"
-	elif global_position.y <= 280:
+	elif global_position.y <= 260:
 		print("returning down")
 		move_dir = "down"
 		soft_dir = "up"
@@ -84,16 +90,16 @@ func unfreeze():
 
 
 func _on_far_scan_area_entered(area):
-	if state == "dodging" || state == "adjusting":
+	if state == "dodging":
 		return
 		
 	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
-		print("floating up")
+		print("adjusting up")
 		state = "adjusting"
 		move_dir = ""
 		soft_dir = "up"
 	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
-		print("floating down")
+		print("adjusting down")
 		state = "adjusting"
 		move_dir = ""
 		soft_dir = "down"
@@ -103,13 +109,13 @@ func _on_near_scan_area_entered(area):
 	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
 		print("dodging up")
 		state = "dodging"
-		move_dir = ""
+		velocity.y = 0
 		move_dir = "up"
 		soft_dir = ""
 	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
 		print("dodging down")
 		state = "dodging"
-		move_dir = ""
+		velocity.y = 0
 		move_dir = "down"
 		soft_dir = ""
 
