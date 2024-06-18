@@ -19,6 +19,10 @@ var enemy_instance
 var x 
 var y 
 
+var camera
+var bg
+var progress_bar
+
 var is_paused = false
 @onready var pause_timer = $PauseTimer
 @onready var death_timer = $DeathTimer
@@ -34,7 +38,7 @@ func _ready():
 	#var level_data = load("res://Script/Level_BotTest.gd").new()
 	enemy_data = level_data.enemy_data
 	last_enemy = enemy_data[enemy_data.keys()[-1]]
-	Main.LEVEL_LENGTH = last_enemy["position"].x + 1000
+	Main.LEVEL_LENGTH = last_enemy["position"].x + 640
 	LEVEL_LENGTH = Main.LEVEL_LENGTH
 	pause_timer.one_shot = true
 	death_timer.one_shot = true
@@ -66,6 +70,8 @@ func _ready():
 	spawn_ground(1000)
 	
 	var camera = $Camera
+	var bg = $Background
+	var progress_bar = $Camera/ProgressBar
 	
 	if Main.BOT_NAME == "00":
 		player_scene = preload("res://Scenes/Player/bot_character_00.tscn")
@@ -94,8 +100,9 @@ func _process(delta):
 	$Camera.position.x += Main.SCROLL_SPEED * delta
 	$Background.position.x += Main.SCROLL_SPEED * delta * Main.BG_SPEED
 	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
+	$Camera/ProgressBar.value = (($Camera.global_position.x - 640) / (LEVEL_LENGTH - 640)) * 100
 	
-	if $Camera.position.x > LEVEL_LENGTH - 500:
+	if $Camera.position.x > LEVEL_LENGTH:
 		win()
 
 func toggle_pause():

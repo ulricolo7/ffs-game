@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cno6psg38v6ph"]
+[gd_scene load_steps=8 format=3 uid="uid://cno6psg38v6ph"]
 
 [ext_resource type="Script" path="res://Script/Level.gd" id="1_grugo"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_0lj03"]
 [ext_resource type="PackedScene" uid="uid://bn3v6pr4ix326" path="res://Scenes/camera.tscn" id="2_ygeoa"]
 [ext_resource type="AudioStream" uid="uid://dpexbxgqae5nt" path="res://Assets/BGM/2021-08-30_-_Boss_Time_-_www.FesliyanStudios.com.mp3" id="4_kw51f"]
 [ext_resource type="PackedScene" uid="uid://bbiaj5jm3hha8" path="res://Scenes/tree_layer.tscn" id="6_wc6u0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w23k"]
+bg_color = Color(0.298039, 0.192157, 0.341176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_we8dn"]
+bg_color = Color(0, 0.592157, 0.494118, 1)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_grugo")
@@ -16,6 +22,14 @@ position = Vector2(800, 440)
 position = Vector2(78, 520)
 
 [node name="Camera" parent="." instance=ExtResource("2_ygeoa")]
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera"]
+offset_left = -540.0
+offset_top = -395.0
+offset_right = 540.0
+offset_bottom = -365.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8w23k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_we8dn")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_kw51f")
