@@ -84,6 +84,7 @@ alignment = 1
 icon_alignment = 1
 
 [node name="AutoReplayLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 430.0
 offset_top = 404.0
 offset_right = 626.0

@@ -36,12 +36,12 @@ func _process(delta):
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
-	#if Input.is_action_pressed("pause"):
-	#	emit_signal("paused")
+	if position.x < -800 || position.x > 780:
+		die()
 
 	
 func die():
-	#print("Player died")
+	print("Player died")
 	emit_signal("player_died")
 	queue_free()
 	

@@ -15,13 +15,14 @@ var LEVEL_LENGTH
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 
 		linear_to_db(MASTER_VOLUME))
+		
+	
 
 func _process(delta):
 	if no_pause_state == 1:
 		SCROLL_SPEED = 700 * TEST_SPEED
 	elif no_pause_state == 0:
-		SCROLL_SPEED = 0 * TEST_SPEED
-		
+		SCROLL_SPEED = 0 * TEST_SPEED	
 
 func pause():
 	no_pause_state = 0

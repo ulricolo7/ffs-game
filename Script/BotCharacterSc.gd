@@ -53,14 +53,12 @@ func _process(delta):
 	elif state != "dodging" && (global_position.y > 560):
 		soft_dir = "up"
 		
-	#scan_and_dodge()
-	
 	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
-	#if Input.is_action_pressed("pause"):
-	#	emit_signal("paused")
+	if position.x < -800 || position.x > 780:
+		die()
 
 func return_to_centre():
 	if state == "dodging" || (state == "adjusting" && (global_position.y >= 160 && global_position.y <= 720)) :
