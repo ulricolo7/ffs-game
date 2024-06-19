@@ -15,11 +15,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tvbyo")
 
+[node name="Win" parent="." instance=ExtResource("3_k31j6")]
+
 [node name="Died" parent="." instance=ExtResource("2_rdulu")]
 layout_mode = 1
-offset_right = 639.0
-offset_bottom = 419.0
-
-[node name="Win" parent="." instance=ExtResource("3_k31j6")]
-offset_right = 641.0
-offset_bottom = 419.0
+offset_right = 754.56
+offset_bottom = 487.2

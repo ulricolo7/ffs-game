@@ -11,30 +11,26 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.447059)
 layout_mode = 3
 anchor_right = 0.821
 anchor_bottom = 0.84
-offset_left = -39.1996
-offset_top = -18.8542
-offset_right = -39.1996
-offset_bottom = -33.4742
+offset_right = 229.12
+offset_bottom = 134.4
 script = ExtResource("1_kkp87")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 264.0
-offset_top = 80.0
-offset_right = 466.0
-offset_bottom = 162.0
-scale = Vector2(2, 2)
+offset_right = 1280.0
+offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ifsku")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 233.0
 offset_top = 113.0
-offset_right = 466.0
-offset_bottom = 170.0
+offset_right = 642.0
+offset_bottom = 425.0
 scale = Vector2(2, 2)
-theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
 text = "YOU DIED
 "
 horizontal_alignment = 1
@@ -42,18 +38,18 @@ vertical_alignment = 1
 
 [node name="Replay_Button" parent="." instance=ExtResource("2_iy4a4")]
 layout_mode = 0
-offset_left = -651.925
-offset_top = 698.695
-offset_right = -507.925
-offset_bottom = 738.695
+offset_left = -747.842
+offset_top = 114.0
+offset_right = -603.842
+offset_bottom = 154.0
 scale = Vector2(2, 2)
 
 [node name="MainMenu_Button" parent="." instance=ExtResource("3_eosu8")]
 layout_mode = 0
-offset_left = -662.083
-offset_top = 861.054
-offset_right = -518.083
-offset_bottom = 901.054
+offset_left = -746.0
+offset_top = 199.0
+offset_right = -602.0
+offset_bottom = 239.0
 scale = Vector2(2, 2)
 
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]

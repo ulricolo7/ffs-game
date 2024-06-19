@@ -23,28 +23,28 @@ script = ExtResource("1_irhu0")
 
 [node name="BGPanel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 342.497
-offset_top = 220.054
-offset_right = 933.497
-offset_bottom = 642.054
+offset_right = 1280.0
+offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6dakm")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 540.272
-offset_top = 264.282
-offset_right = 732.272
-offset_bottom = 322.282
+offset_left = 523.551
+offset_top = 249.0
+offset_right = 715.551
+offset_bottom = 307.0
+scale = Vector2(1.4, 1.4)
+theme_override_font_sizes/font_size = 20
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_x6tev")
 
 [node name="Resume" type="Button" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 493.449
-offset_top = 327.944
-offset_right = 766.449
-offset_bottom = 399.944
+offset_left = 522.0
+offset_top = 339.944
+offset_right = 795.0
+offset_bottom = 411.944
 icon = ExtResource("1_ijn1d")
 flat = true
 icon_alignment = 1
@@ -53,10 +53,10 @@ expand_icon = true
 [node name="Options" type="Button" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 525.161
-offset_top = 405.988
-offset_right = 747.161
-offset_bottom = 467.988
+offset_left = 548.712
+offset_top = 417.988
+offset_right = 770.712
+offset_bottom = 479.988
 icon = ExtResource("2_ota2a")
 flat = true
 icon_alignment = 1
@@ -65,10 +65,10 @@ expand_icon = true
 [node name="Restart" type="Button" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 524.0
-offset_top = 465.0
-offset_right = 747.0
-offset_bottom = 527.0
+offset_left = 547.551
+offset_top = 477.0
+offset_right = 770.551
+offset_bottom = 539.0
 icon = ExtResource("4_61ijo")
 flat = true
 icon_alignment = 1
@@ -77,10 +77,10 @@ expand_icon = true
 [node name="MainMenu" type="Button" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 523.734
-offset_top = 525.523
-offset_right = 746.734
-offset_bottom = 587.523
+offset_left = 547.285
+offset_top = 537.523
+offset_right = 770.285
+offset_bottom = 599.523
 icon = ExtResource("3_7hu0j")
 flat = true
 icon_alignment = 1

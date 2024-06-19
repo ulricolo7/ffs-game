@@ -10,29 +10,25 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.466667)
 [node name="Win" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 16.0
-offset_right = 40.0
-offset_bottom = 56.0
+offset_right = 1280.0
+offset_bottom = 840.0
 script = ExtResource("1_yq8ee")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 164.0
-offset_top = 84.0
-offset_right = 462.0
-offset_bottom = 288.0
-scale = Vector2(2, 2)
+offset_right = 1280.0
+offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_o8coo")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 231.02
-offset_top = 124.439
-offset_right = 464.02
-offset_bottom = 181.439
+offset_left = 329.0
+offset_top = 275.0
+offset_right = 638.0
+offset_bottom = 358.0
 scale = Vector2(2, 2)
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 80
 text = "YOU WON
 "
 horizontal_alignment = 1
@@ -40,18 +36,18 @@ vertical_alignment = 1
 
 [node name="Replay_Button" parent="." instance=ExtResource("2_hwfas")]
 layout_mode = 0
-offset_left = 321.337
-offset_top = 239.134
-offset_right = 465.337
-offset_bottom = 279.134
+offset_left = 509.0
+offset_top = 449.0
+offset_right = 653.0
+offset_bottom = 489.0
 scale = Vector2(2, 2)
 
 [node name="MainMenu_Button" parent="." instance=ExtResource("3_y3g5w")]
 layout_mode = 0
-offset_left = 322.839
-offset_top = 325.728
-offset_right = 466.839
-offset_bottom = 365.728
+offset_left = 511.0
+offset_top = 536.0
+offset_right = 655.0
+offset_bottom = 576.0
 scale = Vector2(2, 2)
 
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]

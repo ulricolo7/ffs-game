@@ -1,108 +1,67 @@
 extends Node2D
 
+#enemy scenes
 const GhasterScene = preload("res://Scenes/Enemies/Ghaster/ghaster.tscn")
 const FlapperScene = preload("res://Scenes/Enemies/Flapper/flapper.tscn")
 const CrawlerGroundScene = preload("res://Scenes/Enemies/Crawler/crawler_ground.tscn")
 const CrawlerAirScene = preload("res://Scenes/Enemies/Crawler/crawler_air.tscn")
 
+#level scenes
 const GroundScene = preload("res://Scenes/ground.tscn")
 const TreeShortScene = preload("res://Scenes/tree_short_2.tscn")
 const TreeMedScene = preload("res://Scenes/tree_medium_2.tscn")
 const TreeTallScene = preload("res://Scenes/tree_tall_2.tscn")
 
+#interface scenes
+const victory_scene = preload("res://Scenes/win.tscn")
+const death_scene = preload("res://Scenes/died.tscn")
+const pause_scene = preload("res://Scenes/paused.tscn")
+
+#variables
 var victory_screen
 var death_screen
 var pause_screen
+
 var player
 var player_scene
-var enemy_instance
-var x 
-var y 
 
-var camera
-var bg
-var progress_bar
+@onready var camera = $Camera
+@onready var bg = $Background
+@onready var progress_bar = $Camera/ProgressBar
+@onready var tree_layer = $TreeLayer
 
 var is_paused = false
 @onready var pause_timer = $PauseTimer
 @onready var death_timer = $DeathTimer
 
-
 var enemy_data 
 var last_enemy
 var LEVEL_LENGTH
-	
+
+#functions
 func _ready():
 	# change what script to load here
-	var level_data = load("res://Script/Level_1.gd").new()
-	#var level_data = load("res://Script/Level_BotTest.gd").new()
-	enemy_data = level_data.enemy_data
-	last_enemy = enemy_data[enemy_data.keys()[-1]]
-	Main.LEVEL_LENGTH = last_enemy["position"].x + 640
-	LEVEL_LENGTH = Main.LEVEL_LENGTH
-	pause_timer.one_shot = true
-	death_timer.one_shot = true
-	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
+	var level_script = "res://Script/Level_1.gd"
+	#var level_script = "res://Script/Level_BotTest.gd"
 	
-	var victory_scene = preload("res://Scenes/win.tscn")
-	victory_screen = victory_scene.instantiate()
-	victory_screen.visible = false
-	victory_screen.z_index = 10
-	add_child(victory_screen)
-	
-	var death_scene = preload("res://Scenes/died.tscn")
-	death_screen = death_scene.instantiate()
-	death_screen.visible = false
-	death_screen.z_index = 10
-	add_child(death_screen)
-	
-	var pause_scene = preload("res://Scenes/paused.tscn")
-	pause_screen = pause_scene.instantiate()
-	pause_screen.visible = false
-	pause_screen.z_index = 10
-	add_child(pause_screen)
-	
-	Main.no_pause_state = 1
-	
+	init_level(level_script)
 	spawn_ground(1200)
 	spawn_trees()
 	spawn_enemies()
 	spawn_ground(1000)
-	
-	var camera = $Camera
-	var bg = $Background
-	var progress_bar = $Camera/ProgressBar
-	
-	if Main.BOT_NAME == "00":
-		player_scene = preload("res://Scenes/Player/bot_character_00.tscn")
-	elif Main.BOT_NAME == "Scanner":
-		player_scene = preload("res://Scenes/Player/bot_character_SC.tscn")
-	else:
-		player_scene = preload("res://Scenes/Player/player_character.tscn")
-	
-	
-	player = player_scene.instantiate()
-	player.position = Vector2(-500, 20)
-	player.scale = Vector2(1.5, 1.5)
-	camera.add_child(player)
-	
-	
-	player.connect("player_died", Callable(self, "die"))
-	#player.connect("paused", Callable(self, "pause"))
-	pause_screen.connect("resumed", Callable(self, "resume"))
+	player = init_player(Main.BOT_NAME)
 	
 	print("Level ready")
-
 
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		toggle_pause()
-	$Camera.position.x += Main.SCROLL_SPEED * delta
-	$Background.position.x += Main.SCROLL_SPEED * delta * Main.BG_SPEED
-	$TreeLayer.position.x += Main.SCROLL_SPEED * delta * 0.9
-	$Camera/ProgressBar.value = (($Camera.global_position.x - 640) / (LEVEL_LENGTH - 640)) * 100
+	camera.position.x += Main.SCROLL_SPEED * delta
+	bg.position.x += Main.SCROLL_SPEED * delta * Main.BG_SPEED
+	tree_layer.position.x += Main.SCROLL_SPEED * delta * 0.9
+	progress_bar.value = ((camera.global_position.x - 640) / (LEVEL_LENGTH - 640)) * 100
 	
-	if $Camera.position.x > LEVEL_LENGTH:
+	if camera.position.x > LEVEL_LENGTH:
 		win()
 
 func toggle_pause():
@@ -111,8 +70,57 @@ func toggle_pause():
 	else:
 		pause()
 	pause_timer.start(0.1)	
+
+func init_level(level_script):
+	var level_data = load(level_script).new()
+	enemy_data = level_data.enemy_data
+	last_enemy = enemy_data[enemy_data.keys()[-1]]
+	Main.LEVEL_LENGTH = last_enemy["position"].x + 640
+	LEVEL_LENGTH = Main.LEVEL_LENGTH
 	
+	pause_timer.one_shot = true
+	death_timer.one_shot = true
+	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
+	
+	victory_screen = init_screen(victory_screen, victory_scene, false, 10)
+	death_screen = init_screen(death_screen, death_scene, false, 10)
+	pause_screen = init_screen(pause_screen, pause_scene, false, 10)
+	
+	Main.no_pause_state = 1
+	
+	print("Level initialized")
+
+func init_screen(var_name, scene_name, visibility, z_ind):
+
+	var_name = scene_name.instantiate()
+	var_name.set_visible(visibility)
+	var_name.set_z_index(z_ind)
+	add_child(var_name)
+	
+	print(var_name, " initialized")
+	return var_name
+
+func init_player(bot_name):
+	if bot_name == "00":
+		player_scene = preload("res://Scenes/Player/bot_character_00.tscn")
+	elif bot_name == "Scanner":
+		player_scene = preload("res://Scenes/Player/bot_character_SC.tscn")
+	else:
+		player_scene = preload("res://Scenes/Player/player_character.tscn")
+	
+	player = player_scene.instantiate()
+	player.position = Vector2(-500, 20)
+	player.scale = Vector2(1.5, 1.5)
+	camera.add_child(player)
+	
+	player.connect("player_died", Callable(self, "die"))
+	pause_screen.connect("resumed", Callable(self, "resume"))
+	
+	print("Player intialized")
+	return player
+
 func spawn_enemies():
+	var enemy_instance
 	
 	for idx in enemy_data.keys():
 		var data = enemy_data[idx]
@@ -127,7 +135,9 @@ func spawn_enemies():
 			
 		enemy_instance.position = data["position"]
 		add_child(enemy_instance)
-		
+	
+	print("Enemies spawned")
+
 func spawn_ground(value):
 	var dist_covered = 0
 	var ground_instance
@@ -137,6 +147,8 @@ func spawn_ground(value):
 		ground_instance.position = Vector2(dist_covered, 193.662)
 		dist_covered += value
 		add_child(ground_instance)
+	
+	print("Ground spawned")
 	
 func spawn_trees():
 	var dist_covered = 0
@@ -158,49 +170,57 @@ func spawn_trees():
 		
 		dist_covered += dist_between
 		tree_instance.position = Vector2(dist_covered, 530)
-		add_child(tree_instance)	
+		add_child(tree_instance)
+	
+	print("Trees spawned")
 
 func win():
-	Main.no_pause_state = 0
-	x = $Camera.position.x
-	y = $Camera.position.y
-	victory_screen.position = Vector2(x - 480, y - 240)
-	victory_screen.visible = true
+	Main.pause()
+	
+	victory_screen.set_position(Vector2(camera.get_position().x - 640, 
+		camera.get_position().y - 420))
+		
+	if victory_screen.visible == false:
+		print("Win!")
+		
+	victory_screen.set_visible(true)
 	player.freeze()
 
 func die():
-	Main.no_pause_state = 0 
+	Main.pause()
+
+	death_screen.set_position(Vector2(camera.get_position().x - 640, 
+		camera.get_position().y - 420))
+	death_screen._ready()
+	death_screen.set_visible(true)
+	
+	if Main.AUTO_REPLAY == true:
+		death_timer.start(0.9)
 	
 	print("Game Over")
-	x = $Camera.position.x
-	y = $Camera.position.y
-
-	death_screen.position = Vector2(x - 480, y - 240)
-	death_screen.visible = true
-	death_timer.start(0.9)
-	
 
 func pause():
 	if Main.no_pause_state == 1:
 		Main.no_pause_state = 0
-		print("Paused")
-		x = $Camera.position.x
-		y = $Camera.position.y
-
-		pause_screen.position = Vector2(x - 640, y - 420)
-		pause_screen.visible = true
+		
+		pause_screen.set_position(Vector2(camera.get_position().x - 640, 
+			camera.get_position().y - 420))
+		pause_screen.set_visible(true)
 		player.freeze()
+		
 	# can make the music change to the main menu here?
 		is_paused = true
+		
+		print("Paused")
 
 func resume():
-	print("resumed")
 	if Main.no_pause_state == 0:
 		Main.no_pause_state = 1
 		pause_screen.visible = false
 		player.unfreeze()
-		enemy_instance.unfreeze()
 		is_paused = false
+		
+		print("Resumed")
 		
 func _on_death_timeout():
 	get_tree().reload_current_scene()
