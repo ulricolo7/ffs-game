@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=11 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b01ahr3ttvrcj" path="res://Scenes/mainmenu_options_button.tscn" id="7_664qd"]
 [ext_resource type="PackedScene" uid="uid://bprfaytmumg7r" path="res://Scenes/mainmenu_quit_button.tscn" id="8_54qqn"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/2019-05-01_-_Undercover_Spy_Agent_-_David_Fesliyan.mp3" id="9_ehetc"]
+[ext_resource type="Texture2D" uid="uid://6r483mgcbdp" path="res://Assets/title2.png" id="10_2weya"]
 
 [node name="Menu_Interface" type="Control"]
 layout_mode = 3
@@ -24,52 +25,58 @@ position = Vector2(770, 476)
 scale = Vector2(5.17, 5.32222)
 
 [node name="Player" parent="." instance=ExtResource("3_7dhf0")]
-position = Vector2(392, 480)
+position = Vector2(390, 478)
 scale = Vector2(1.8, 1.8)
 
 [node name="Play" parent="." instance=ExtResource("4_b8wfp")]
 layout_mode = 0
-offset_left = 500.448
-offset_top = 436.0
-offset_right = 644.448
-offset_bottom = 472.0
+offset_left = 490.0
+offset_top = 416.0
+offset_right = 634.0
+offset_bottom = 452.0
 scale = Vector2(2, 2)
 
 [node name="Simulate" parent="." instance=ExtResource("5_3mnt4")]
 layout_mode = 0
-offset_left = 500.389
-offset_top = 511.15
-offset_right = 644.389
-offset_bottom = 547.15
+offset_left = 490.0
+offset_top = 491.15
+offset_right = 634.0
+offset_bottom = 527.15
 scale = Vector2(2, 2)
 
 [node name="Editor" parent="." instance=ExtResource("6_rv6no")]
 layout_mode = 0
-offset_left = 500.359
-offset_top = 586.405
-offset_right = 644.359
-offset_bottom = 622.405
+offset_left = 490.0
+offset_top = 566.405
+offset_right = 634.0
+offset_bottom = 602.405
 scale = Vector2(2, 2)
 
 [node name="Options" parent="." instance=ExtResource("7_664qd")]
 layout_mode = 0
-offset_left = 500.0
-offset_top = 661.714
-offset_right = 644.0
-offset_bottom = 697.714
+offset_left = 490.0
+offset_top = 641.714
+offset_right = 634.0
+offset_bottom = 677.714
 scale = Vector2(2, 2)
 
 [node name="Quit" parent="." instance=ExtResource("8_54qqn")]
 layout_mode = 0
-offset_left = 500.308
-offset_top = 737.177
-offset_right = 644.308
-offset_bottom = 773.177
+offset_left = 490.0
+offset_top = 717.177
+offset_right = 634.0
+offset_bottom = 753.177
 scale = Vector2(2, 2)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_ehetc")
 autoplay = true
+
+[node name="Title" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(641, 311)
+scale = Vector2(3.5, 4.45833)
+texture = ExtResource("10_2weya")
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]
