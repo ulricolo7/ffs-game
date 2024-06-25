@@ -112,8 +112,11 @@ func _on_delete_button_pressed():
 func _on_play_button_pressed():
 	$Panel.visible = false
 	# logic to make this into a level and play
-
-
+	delete_file("res://Script/Levels/Untitled.gd")
+	create_file("res://Script/Levels/Untitled.gd", enemy_data)
+	Main.BOT_NAME = ""
+	Main.LEVEL_SCRIPT = "res://Script/Levels/Untitled.gd"
+	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_h_scroll_bar_value_changed(value):
 	#lemme explain the code
@@ -145,10 +148,39 @@ func _on_h_scroll_bar_value_changed(value):
 
 
 func _on_create_new_button_pressed():
-	var file = FileAccess.open("res://Script/untitled.gd", FileAccess.WRITE)
-	print("file created")
-	if file.file_exists(file.get_path()):
-		file.close()
-		print("old file removed")
-	file.store_var(enemy_data)
+	delete_file("res://Script/Levels/Untitled.gd")
+	create_file("res://Script/Levels/Untitled.gd", enemy_data)
+
+func delete_file(file_path: String): 
+	if FileAccess.file_exists(file_path):
+		var err = DirAccess.remove_absolute(file_path)
+		if err == OK:
+			print("File deleted successfully")
+		else:
+			print("Error deleting file: ", err)
+	else:
+		print("File does not exist")
+
+func create_file(file_path: String, enemy_data: Dictionary):
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file:
+		#if it works, it works.
+		file.store_line("extends Node")
+		file.store_line("")
+		file.store_line("var enemy_data = {")
 		
+		var i = 0
+		for idx in enemy_data.keys():
+			var data = enemy_data[idx]
+			var str = "	{0}: {\"position\": Vector2{1}, \"type\": \"{2}\"},"
+			file.store_line(str.format([i, data["position"], data["type"]]))
+			i += 1
+		
+		file.store_line("}")
+		file.close()
+		print("File created")
+
+		#if FileAccess.file_exists(file_path):
+			#delete_file(file_path)
+	else:
+		print("Error creating file")

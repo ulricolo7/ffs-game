@@ -40,11 +40,7 @@ var LEVEL_LENGTH
 
 #functions
 func _ready():
-	# change what script to load here
-	var level_script = "res://Script/Level_1.gd"
-	#var level_script = "res://Script/Level_BotTest.gd"
-	
-	init_level(level_script)
+	init_level(Main.LEVEL_SCRIPT)
 	spawn_ground(1200)
 	spawn_trees()
 	spawn_enemies()

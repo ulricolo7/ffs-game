@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://rp2bv4346xes"]
 
-[ext_resource type="Script" path="res://Script/crawler_ground_static.gd" id="1_nnk5j"]
+[ext_resource type="Script" path="res://Script/CrawlerGroundStatic.gd" id="1_nnk5j"]
 [ext_resource type="Texture2D" uid="uid://cnyor5t3s817" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_ground/frame1.png" id="2_w3fs6"]
 [ext_resource type="Texture2D" uid="uid://b4isrsy4j516k" path="res://Assets/Characters/Enemies/Crawler/animated/crawler_ground/frame2.png" id="3_62sds"]
 

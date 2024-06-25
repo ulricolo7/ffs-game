@@ -11,12 +11,15 @@ var AUTO_REPLAY = true
 
 var BOT_NAME
 var LEVEL_LENGTH
-
+# change what script to load here
+var LEVEL_SCRIPT = "res://Script/Levels/Level_1.gd"
+#var LEVEL_SCRIPT = "res://Script/Levels/Level_1.gd"
+#var LEVEL_SCRIPT = "res://Script/Levels/Level_BotTest.gd"
+#var LEVEL_SCRIPT = "res://Script/Levels/Untitled.gd"
+		
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 
 		linear_to_db(MASTER_VOLUME))
-		
-	
 
 func _process(delta):
 	if no_pause_state == 1:
