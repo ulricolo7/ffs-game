@@ -82,6 +82,7 @@ texture = ExtResource("7_07fk5")
 [node name="Top_boundary" type="StaticBody2D" parent="EditorScreen/Boundaries"]
 
 [node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Boundaries/Top_boundary"]
+z_index = 1
 z_as_relative = false
 position = Vector2(639.989, 39.9044)
 scale = Vector2(63.999, 3.99)

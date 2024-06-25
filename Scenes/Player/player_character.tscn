@@ -1,7 +1,87 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy4wnm8hd1fpu"]
+[gd_scene load_steps=11 format=3 uid="uid://dy4wnm8hd1fpu"]
 
 [ext_resource type="Script" path="res://Script/PlayerCharacter.gd" id="1_coqyr"]
-[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_qqpyt"]
+[ext_resource type="Texture2D" uid="uid://bqfkc0x2cryxr" path="res://Assets/Characters/Player/player_game/player_game1.png" id="2_lfv0j"]
+[ext_resource type="Texture2D" uid="uid://dnuest7dwjr67" path="res://Assets/Characters/Player/player_game/player_game2.png" id="3_y7055"]
+[ext_resource type="Texture2D" uid="uid://eoldgeb5b2s2" path="res://Assets/Characters/Player/player_game/player_game3.png" id="4_r23n4"]
+[ext_resource type="Texture2D" uid="uid://6euq6pxvbmyv" path="res://Assets/Characters/Player/player_game/player_game4.png" id="5_lm08b"]
+[ext_resource type="Texture2D" uid="uid://yngmaofti4u7" path="res://Assets/Characters/Player/player_menu/player_menu1.png" id="6_8oy7d"]
+[ext_resource type="Texture2D" uid="uid://cuk40rrjvf8wb" path="res://Assets/Characters/Player/player_menu/player_menu2.png" id="7_baxqg"]
+[ext_resource type="Texture2D" uid="uid://dyexml7rm48g3" path="res://Assets/Characters/Player/player_menu/player_menu3.png" id="8_4hh1t"]
+[ext_resource type="Texture2D" uid="uid://bm8u8exesswvw" path="res://Assets/Characters/Player/player_menu/player_menu4.png" id="9_elnix"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d66in"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lfv0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y7055")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r23n4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lm08b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.25
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lfv0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y7055")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r23n4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lm08b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8oy7d")
+}, {
+"duration": 1.4,
+"texture": ExtResource("7_baxqg")
+}, {
+"duration": 3.0,
+"texture": ExtResource("8_4hh1t")
+}, {
+"duration": 1.4,
+"texture": ExtResource("9_elnix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lfv0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y7055")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r23n4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lm08b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lfv0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y7055")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r23n4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lm08b")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.25
+}]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 light_mask = 2
@@ -14,9 +94,11 @@ light_mask = 3
 visibility_layer = 3
 position = Vector2(10, 10)
 scale = Vector2(2.14583, 2.0625)
-polygon = PackedVector2Array(-14.9952, -24.5424, -2.87865, -24.5424, 4.57767, -16.3, 5.04369, -9.99695, 3.17961, -7.08785, 4.6602, -2.90909, 10.7185, -4.76837e-07, 12.034, 3.09396, 9.70389, 4.54851, 5.97573, 4.54851, 2.71359, 2.12427, 0.383488, 7.94245, -4.27671, 11.3364, -6.14079, 12.3061, -8.00488, 12.7909, -10.801, 13.7606, -14.0631, 14.7303, -17.3253, 13.7606, -11.733, 5.03336, -16.8593, 3.57881, -19.6554, 0.669721, -20.0389, -1.45455, -16.7767, -0.484849, -11.733, -3.20907, -9.40294, -6.60301, -11.733, -9.99695, -12.1991, -17.7545, -15.9272, -13.3909, -18.2573, -13.3909, -19.6554, -15.8151, -19.6554, -19.6939)
+polygon = PackedVector2Array(-14.1611, -23.3168, -3.58046, -23.4187, 3.52227, -16.029, 3.5534, -10.2424, 0.328374, -6.53743, 4.06497, -2.54188, 10.1888, 1.18369, 9.04709, 3.61342, 4.37635, 2.37156, 1.93718, 0.805734, -1.74751, 7.12301, -6.71678, 9.71245, -12.3947, 12.2808, -13.6907, 13.5008, -16.036, 13.0514, -8.50655, 1.23674, -12.0421, 3.8475, -14.9428, 3.01277, -18.0286, 0.829632, -15.1896, 0.508582, -11.1164, -1.61034, -9.40294, -6.60301, -11.733, -9.99695, -11.369, -18.4753, -15.4837, -14.3982, -17.8349, -14.9588, -17.8839, -19.0359)
 
-[node name="PlayerSprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+position = Vector2(-0.397301, 0)
 scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_qqpyt")
+sprite_frames = SubResource("SpriteFrames_d66in")
+animation = &"idle"

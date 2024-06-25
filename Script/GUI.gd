@@ -18,6 +18,13 @@ var camera
 var scroll_factor = 0.01
 var idx_counter
 
+var y_constraints = {
+	"gh": { "min": 160, "max": 670 },
+	"fl": { "min": 130, "max": 700 },
+	"cg": { "fixed": 710 },
+	"ca": { "min": 120, "max": 380 }
+}
+
 #overall, what I did was I added a Camera2D as a child to Editor and attached GUI to it,
 #and moved the Background Sprite to be separate from the Map
 
@@ -80,8 +87,28 @@ func _input(event):
 		if curr_enemy:
 			var idx = enemy_indices.get(curr_enemy)
 			if enemy_data.has(idx):
-				enemy_data[idx]["position"] = Vector2(get_global_mouse_position().x, get_global_mouse_position().y)
-				curr_enemy.position = get_global_mouse_position()
+				var new_position = get_global_mouse_position()
+				
+				if enemy_data[idx]["type"] == "gh":
+					if new_position.y < 160:
+						new_position.y = 160
+					if new_position.y > 670:
+						new_position.y = 670
+				if enemy_data[idx]["type"] == "fl":
+					if new_position.y < 130:
+						new_position.y = 130
+					if new_position.y > 700:
+						new_position.y = 700
+				if enemy_data[idx]["type"] == "cg":
+					new_position.y = 710
+				if enemy_data[idx]["type"] == "ca":
+					if new_position.y > 380:
+						new_position.y = 380
+					if new_position.y < 120:
+						new_position.y = 120
+						
+				enemy_data[idx]["position"] = new_position
+				curr_enemy.position = new_position
 				print(enemy_data)
 			else:
 				print("Error: No enemy data found for index ", idx)
@@ -184,3 +211,4 @@ func create_file(file_path: String, enemy_data: Dictionary):
 			#delete_file(file_path)
 	else:
 		print("Error creating file")
+
