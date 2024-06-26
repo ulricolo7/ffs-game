@@ -9,18 +9,24 @@ signal player_died
 #signal paused
 var is_frozen = false
 var state
+var move
 
 func _ready():
-	#print("Ready!")
 	print(global_position)
-	pass
+	state = "chilling"
 	
 func _process(delta):
 	
 	if is_frozen:
 		return
 		
-	
+	if move == "up":
+		velocity.y -= ACCELERATION
+	elif move == "down":
+		velocity.y += ACCELERATION
+	else:
+		velocity.y = 0
+		
 	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
@@ -44,7 +50,27 @@ func _on_far_scan_area_entered(area):
 	pass
 	
 func _on_near_scan_area_exited(area):
-	pass
+	move = ""
+
+func _on_near_scan_area_entered(area):
+	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
+		print("dodging up")
+		state = "dodging"
+		velocity.y = 0
+		move = "up"
+	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
+		print("dodging down")
+		state = "dodging"
+		velocity.y = 0
+		move = "down"
 
 func _on_far_scan_area_exited(area):
+	pass
+
+
+func _on_counter_area_entered(area):
+	pass
+
+
+func _on_counter_area_exited(area):
 	pass

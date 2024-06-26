@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://byf11tcdw5up2"]
+[gd_scene load_steps=6 format=3 uid="uid://byf11tcdw5up2"]
 
-[ext_resource type="Script" path="res://Script/level_select_sim.gd" id="1_ilj6h"]
+[ext_resource type="Script" path="res://Script/LevelSelectSim.gd" id="1_rdjcn"]
+[ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_skdvf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hao3j"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -11,7 +12,7 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 line_spacing = 0.0
 font_size = 32
 
-[node name="level_select" type="Control"]
+[node name="Level_Select" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +27,7 @@ offset_left = 350.0
 offset_right = 930.0
 offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hao3j")
-script = ExtResource("1_ilj6h")
+script = ExtResource("1_rdjcn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 0
@@ -48,3 +49,10 @@ vertical_alignment = 1
 [node name="Line2D" type="Line2D" parent="Panel"]
 points = PackedVector2Array(580.114, 66.8034, -0.863159, 66.8517)
 width = 2.0
+
+[node name="Quit_Button" parent="." instance=ExtResource("2_skdvf")]
+layout_mode = 0
+offset_left = 880.0
+offset_top = 25.0
+offset_right = 904.0
+offset_bottom = 49.0

@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=12 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
 [ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://Scenes/Player/player_character.tscn" id="3_7dhf0"]
-[ext_resource type="PackedScene" path="res://Scenes/mainmenu_play_button.tscn" id="4_b8wfp"]
-[ext_resource type="PackedScene" path="res://Scenes/mainmenu_simulate_button.tscn" id="5_3mnt4"]
-[ext_resource type="PackedScene" path="res://Scenes/mainmenu_editor_button.tscn" id="6_rv6no"]
-[ext_resource type="PackedScene" path="res://Scenes/mainmenu_options_button.tscn" id="7_664qd"]
-[ext_resource type="PackedScene" path="res://Scenes/mainmenu_quit_button.tscn" id="8_54qqn"]
+[ext_resource type="PackedScene" uid="uid://bbiaj5jm3hha8" path="res://Scenes/tree_layer.tscn" id="3_rsguk"]
+[ext_resource type="PackedScene" uid="uid://c30q2yd6cqwjy" path="res://Scenes/mainmenu_play_button.tscn" id="4_b8wfp"]
+[ext_resource type="PackedScene" uid="uid://daf3idayk00t4" path="res://Scenes/mainmenu_simulate_button.tscn" id="5_3mnt4"]
+[ext_resource type="PackedScene" uid="uid://o4ywk5eo8vrp" path="res://Scenes/mainmenu_editor_button.tscn" id="6_rv6no"]
+[ext_resource type="PackedScene" uid="uid://b01ahr3ttvrcj" path="res://Scenes/mainmenu_options_button.tscn" id="7_664qd"]
+[ext_resource type="PackedScene" uid="uid://bprfaytmumg7r" path="res://Scenes/mainmenu_quit_button.tscn" id="8_54qqn"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/2019-05-01_-_Undercover_Spy_Agent_-_David_Fesliyan.mp3" id="9_ehetc"]
 [ext_resource type="Texture2D" uid="uid://6r483mgcbdp" path="res://Assets/title2.png" id="10_2weya"]
 
@@ -21,12 +22,11 @@ grow_vertical = 2
 script = ExtResource("1_1r1ny")
 
 [node name="Background" parent="." instance=ExtResource("2_t3did")]
-position = Vector2(770, 476)
-scale = Vector2(5.17, 5.32222)
+position = Vector2(747, 443)
+scale = Vector2(4.8025, 4.99444)
 
-[node name="Player" parent="." instance=ExtResource("3_7dhf0")]
-position = Vector2(390, 478)
-scale = Vector2(1.8, 1.8)
+[node name="TreeLayer" parent="." instance=ExtResource("3_rsguk")]
+position = Vector2(-769, 616)
 
 [node name="Play" parent="." instance=ExtResource("4_b8wfp")]
 layout_mode = 0
@@ -77,6 +77,13 @@ texture_filter = 1
 position = Vector2(641, 311)
 scale = Vector2(3.5, 4.45833)
 texture = ExtResource("10_2weya")
+
+[node name="Centre" type="Node2D" parent="."]
+position = Vector2(640, 420)
+
+[node name="Player" parent="Centre" instance=ExtResource("3_7dhf0")]
+position = Vector2(-310, 92)
+scale = Vector2(1.8, 1.8)
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]

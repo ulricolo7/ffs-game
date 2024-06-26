@@ -54,3 +54,7 @@ func _on_level_button_pressed(file_path: String):
 	Main.LEVEL_SCRIPT = file_path
 	emit_signal("switch_screens")
 	print("signal emitted")
+
+
+func _on_switch_screens():
+	print("hello") # Replace with function body.

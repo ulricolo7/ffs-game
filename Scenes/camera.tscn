@@ -10,14 +10,12 @@ position = Vector2(640, 420)
 
 [node name="Top_Boundary" type="StaticBody2D" parent="."]
 texture_filter = 1
-position = Vector2(-322.997, -207.003)
+position = Vector2(0, -380)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top_Boundary"]
-position = Vector2(322.997, -172.997)
 shape = SubResource("RectangleShape2D_auuq0")
 
 [node name="Sprite2D" type="Sprite2D" parent="Top_Boundary"]
-position = Vector2(323.026, -172.904)
 scale = Vector2(63.9961, 3.99007)
 texture = ExtResource("3_c7ky4")
