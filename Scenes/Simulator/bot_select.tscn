@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkp7j3tudueut"]
+
+[ext_resource type="Script" path="res://Script/bot_select.gd" id="1_12m1d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueo80"]
+bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
+
+[sub_resource type="Theme" id="Theme_fy8xk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5sb8e"]
+line_spacing = 0.0
+font_size = 32
+
+[node name="bot_select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -1
+offset_left = 350.0
+offset_right = 930.0
+offset_bottom = 840.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueo80")
+script = ExtResource("1_12m1d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_top = 71.0
+offset_right = 580.0
+offset_bottom = 840.0
+theme = SubResource("Theme_fy8xk")
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 579.0
+offset_bottom = 80.0
+text = "  SELECT A BOT"
+label_settings = SubResource("LabelSettings_5sb8e")
+vertical_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="Panel"]
+points = PackedVector2Array(580.114, 66.8034, -0.863159, 66.8517)
+width = 2.0

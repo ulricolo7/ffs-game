@@ -17,6 +17,7 @@ var background
 var camera
 var scroll_factor = 0.01
 var idx_counter
+var level_file_name
 
 var y_constraints = {
 	"gh": { "min": 160, "max": 670 },
@@ -48,6 +49,9 @@ func _ready():
 	
 	# max_value input is in the inspector tab for the hscrollbar
 	#h_scroll_bar.max_value = 32000
+	level_file_name = "Untitled.gd"
+	$Panel/PlayButton.disabled = true
+	$Panel/SaveButton.disabled = true
 	set_process_input(true)
 
 
@@ -139,10 +143,10 @@ func _on_delete_button_pressed():
 func _on_play_button_pressed():
 	$Panel.visible = false
 	# logic to make this into a level and play
-	delete_file("res://Script/Levels/Untitled.gd")
-	create_file("res://Script/Levels/Untitled.gd", enemy_data)
+	#delete_file("res://Script/Levels/Untitled.gd")
+	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
 	Main.BOT_NAME = ""
-	Main.LEVEL_SCRIPT = "res://Script/Levels/Untitled.gd"
+	Main.LEVEL_SCRIPT = "res://Script/Levels/" + level_file_name
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_h_scroll_bar_value_changed(value):
@@ -175,8 +179,9 @@ func _on_h_scroll_bar_value_changed(value):
 
 
 func _on_create_new_button_pressed():
-	delete_file("res://Script/Levels/Untitled.gd")
-	create_file("res://Script/Levels/Untitled.gd", enemy_data)
+	#delete_file("res://Script/Levels/Untitled.gd")
+	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
+	pass
 
 func delete_file(file_path: String): 
 	if FileAccess.file_exists(file_path):
@@ -212,3 +217,19 @@ func create_file(file_path: String, enemy_data: Dictionary):
 	else:
 		print("Error creating file")
 
+
+
+func _on_line_edit_text_submitted(new_text):
+	if new_text.strip_edges() != "":
+		level_file_name = new_text.strip_edges() + ".gd"
+		$Panel/SaveButton.disabled = false
+		print("Level file name updated to: ", level_file_name)
+	else:
+		print("Error: File name cannot be empty")
+
+
+func _on_save_button_pressed():
+	delete_file("res://Script/Levels/Untitled.gd")
+	create_file("res://Script/Levels/" + level_file_name, enemy_data)
+	$Panel/PlayButton.disabled = false  # Enable the play button after saving
+	print("Level saved as: ", level_file_name)

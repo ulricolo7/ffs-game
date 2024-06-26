@@ -160,7 +160,6 @@ offset_top = 765.682
 offset_right = 280.201
 offset_bottom = 797.682
 scale = Vector2(1.9, 1.9)
-disabled = true
 texture_normal = ExtResource("11_ydrsa")
 texture_pressed = ExtResource("12_decvk")
 texture_hover = ExtResource("12_decvk")
@@ -307,6 +306,15 @@ offset_right = 334.0
 offset_bottom = 42.0
 scale = Vector2(2, 2)
 
+[node name="LineEdit" type="LineEdit" parent="Camera2D/GUI/Panel"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 713.0
+offset_right = 360.0
+offset_bottom = 757.0
+placeholder_text = "Enter level name"
+max_length = 20
+
 [node name="HScrollBar" type="HScrollBar" parent="Camera2D"]
 z_index = 1
 offset_left = -614.0
@@ -328,7 +336,9 @@ scale = Vector2(1.5, 1.5)
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/DeleteButton" to="Camera2D/GUI" method="_on_delete_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
+[connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
 
 [editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]
