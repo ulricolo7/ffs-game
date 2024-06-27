@@ -138,7 +138,7 @@ func spawn_ground(value):
 	var dist_covered = 0
 	var ground_instance
 	
-	while dist_covered < LEVEL_LENGTH:
+	while dist_covered < LEVEL_LENGTH + 2000:
 		ground_instance = GroundScene.instantiate()
 		ground_instance.position = Vector2(dist_covered, 193.662)
 		dist_covered += value
