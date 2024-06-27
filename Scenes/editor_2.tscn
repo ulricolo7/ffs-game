@@ -70,6 +70,7 @@ corner_radius_bottom_left = 10
 [node name="Editor" type="Node"]
 
 [node name="EditorScreen" type="Node2D" parent="."]
+z_index = 20
 
 [node name="Background" type="Sprite2D" parent="EditorScreen"]
 texture_filter = 1
@@ -80,6 +81,7 @@ texture = ExtResource("7_07fk5")
 [node name="Boundaries" type="Node2D" parent="EditorScreen"]
 
 [node name="Top_boundary" type="StaticBody2D" parent="EditorScreen/Boundaries"]
+z_index = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="EditorScreen/Boundaries/Top_boundary"]
 z_index = 1

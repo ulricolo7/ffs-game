@@ -39,8 +39,8 @@ shape = SubResource("RectangleShape2D_c5dvw")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_as_relative = false
 texture_filter = 1
-position = Vector2(0.8919, -127.947)
-scale = Vector2(0.59121, 2.39584)
+position = Vector2(0.8919, -208.473)
+scale = Vector2(0.59121, 4.07347)
 texture = ExtResource("4_487w8")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

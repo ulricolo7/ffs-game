@@ -22,6 +22,7 @@ position = Vector2(800, 440)
 position = Vector2(78, 520)
 
 [node name="Camera" parent="." instance=ExtResource("2_ygeoa")]
+z_index = 20
 
 [node name="ProgressBar" type="ProgressBar" parent="Camera"]
 offset_left = -540.0

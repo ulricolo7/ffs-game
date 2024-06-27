@@ -25,7 +25,7 @@ var y_constraints = {
 	"gh": { "min": 160, "max": 670 },
 	"fl": { "min": 130, "max": 700 },
 	"cg": { "fixed": 710 },
-	"ca": { "min": 120, "max": 380 }
+	"ca": { "min": 120, "max": 420 }
 }
 
 #overall, what I did was I added a Camera2D as a child to Editor and attached GUI to it,

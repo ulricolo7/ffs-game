@@ -6,7 +6,7 @@ func _ready():
 	YSPEED = 50
 	YDIR = 1
 	start_pos = global_position
-	target_pos = Vector2(position.x, position.y + 1000)
+	target_pos = Vector2(position.x, position.y + 300)
 
 func _process(delta):
 	$AnimatedSprite.play("default")
