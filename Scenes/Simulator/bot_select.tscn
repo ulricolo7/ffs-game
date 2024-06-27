@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkp7j3tudueut"]
 
 [ext_resource type="Script" path="res://Script/bot_select.gd" id="1_12m1d"]
-[ext_resource type="PackedScene" uid="uid://b23qbeu8am3dx" path="res://Scenes/close_button.tscn" id="2_4dgis"]
+[ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_qfpv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueo80"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -12,7 +12,7 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 line_spacing = 0.0
 font_size = 32
 
-[node name="Bot_Select" type="Control"]
+[node name="bot_select" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,8 +50,10 @@ vertical_alignment = 1
 points = PackedVector2Array(580.114, 66.8034, -0.863159, 66.8517)
 width = 2.0
 
-[node name="Close_Button" parent="." instance=ExtResource("2_4dgis")]
-offset_left = 880.0
-offset_top = 15.0
-offset_right = 920.0
-offset_bottom = 55.0
+[node name="Quit_Button" parent="." instance=ExtResource("2_qfpv1")]
+layout_mode = 0
+offset_left = 882.0
+offset_top = 19.0
+offset_right = 907.0
+offset_bottom = 46.0
+scale = Vector2(1.1, 1.1)

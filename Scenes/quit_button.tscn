@@ -5,8 +5,6 @@
 
 [node name="Quit_Button" type="Button"]
 custom_minimum_size = Vector2(24, 24)
-offset_right = 26.0
-offset_bottom = 28.0
 flat = true
 script = ExtResource("1_r8uen")
 

@@ -95,25 +95,7 @@ func _input(event):
 			var idx = enemy_indices.get(curr_enemy)
 			if enemy_data.has(idx):
 				var new_position = get_global_mouse_position()
-				
-				if enemy_data[idx]["type"] == "gh":
-					if new_position.y < 160:
-						new_position.y = 160
-					if new_position.y > 670:
-						new_position.y = 670
-				if enemy_data[idx]["type"] == "fl":
-					if new_position.y < 130:
-						new_position.y = 130
-					if new_position.y > 700:
-						new_position.y = 700
-				if enemy_data[idx]["type"] == "cg":
-					new_position.y = 710
-				if enemy_data[idx]["type"] == "ca":
-					if new_position.y > 380:
-						new_position.y = 380
-					if new_position.y < 120:
-						new_position.y = 120
-						
+				new_position = apply_constraints(new_position, enemy_data[idx]["type"])
 				enemy_data[idx]["position"] = new_position
 				curr_enemy.position = new_position
 				print(enemy_data)
@@ -125,7 +107,9 @@ func _input(event):
 			pass
 	elif curr_enemy and event is InputEventMouseMotion:
 		$Panel.visible = false
-		curr_enemy.position += event.relative
+		var new_position = curr_enemy.position + event.relative
+		new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
+		curr_enemy.position = new_position
 		
 
 func _on_delete_button_pressed(): 
@@ -255,4 +239,18 @@ func _on_save_button_pressed():
 	$Panel/PlayButton.disabled = false  # Enable the play button after saving
 	print("Level saved as: ", level_file_name)
 
-
+func apply_constraints(pos: Vector2, enemy_type: String):
+	print("applied constraint")
+	var constraints = y_constraints.get(enemy_type, {})
+	if constraints.has("fixed"):
+		pos.y = constraints["fixed"]
+		print("fixed y")
+	else:
+		if pos.y < constraints.get("min", pos.y):
+			pos.y = constraints["min"]
+			print("min y")
+			
+		if pos.y > constraints.get("max", pos.y):
+			pos.y = constraints["max"]
+			print("max y")
+	return Vector2(pos.x, pos.y)
