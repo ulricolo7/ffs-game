@@ -42,6 +42,7 @@ func _on_simulate_pressed():
 
 
 func _on_editor_pressed():
+	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor_2.tscn")
 
 

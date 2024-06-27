@@ -23,6 +23,7 @@ theme_override_constants/h_separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(580, 125)
+layout_mode = 0
 offset_right = 580.0
 offset_bottom = 125.0
 theme_override_constants/separation = 0

@@ -26,11 +26,16 @@ offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mtkgh")
 script = ExtResource("1_lxj5w")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 0
-offset_top = 71.0
+offset_top = 70.0
 offset_right = 580.0
 offset_bottom = 840.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = SubResource("Theme_qbwyo")
 theme_override_constants/separation = 6
 
@@ -38,7 +43,7 @@ theme_override_constants/separation = 6
 texture_filter = 1
 layout_mode = 0
 offset_right = 579.0
-offset_bottom = 80.0
+offset_bottom = 81.0
 text = "  SELECT A LEVEL"
 label_settings = SubResource("LabelSettings_rfd1n")
 vertical_alignment = 1

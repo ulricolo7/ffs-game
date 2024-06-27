@@ -2,6 +2,7 @@ extends Panel
 
 @export var levels_folder: String = "res://Script/Levels/"
 @export var button_scene = preload("res://Scenes/level_button.tscn")
+var show_dev_levels = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,8 +15,9 @@ func _scan_levels_folder():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir() and file_name.ends_with(".gd"):
-				var file_path = levels_folder + file_name
-				_add_level_button(file_path)
+				if show_dev_levels or not file_name.begins_with("dev_"):
+					var file_path = levels_folder + file_name
+					_add_level_button(file_path)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	else:
@@ -35,7 +37,7 @@ func _add_level_button(file_path: String):
 	
 	
 	button_instance.connect("pressed", Callable(self, "_on_level_button_pressed").bind(file_path))
-	$VBoxContainer.add_child(button_instance)
+	$ScrollContainer/VBoxContainer.add_child(button_instance)
 	
 
 func _get_file_last_modified(file_path):

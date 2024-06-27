@@ -16,11 +16,13 @@ const TreeTallScene = preload("res://Scenes/tree_tall_2.tscn")
 const victory_scene = preload("res://Scenes/win.tscn")
 const death_scene = preload("res://Scenes/died.tscn")
 const pause_scene = preload("res://Scenes/paused.tscn")
+const pause_scene_editor = preload("res://Scenes/pause_editor.tscn")
 
 #variables
 var victory_screen
 var death_screen
 var pause_screen
+var pause_screen_editor
 
 var player
 var player_scene
@@ -81,6 +83,7 @@ func init_level(level_script):
 	victory_screen = init_screen(victory_screen, victory_scene, false, 10)
 	death_screen = init_screen(death_screen, death_scene, false, 10)
 	pause_screen = init_screen(pause_screen, pause_scene, false, 10)
+	pause_screen_editor = init_screen(pause_screen_editor, pause_scene_editor, false, 10)
 	
 	Main.no_pause_state = 1
 	
@@ -201,7 +204,10 @@ func pause():
 		
 		pause_screen.set_position(Vector2(camera.get_position().x - 640, 
 			camera.get_position().y - 420))
-		pause_screen.set_visible(true)
+		if Main.in_editor:
+			pause_screen_editor.set_visible(true)
+		else:
+			pause_screen.set_visible(true)
 		player.freeze()
 		
 	# can make the music change to the main menu here?

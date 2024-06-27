@@ -163,13 +163,6 @@ func _on_h_scroll_bar_value_changed(value):
 #320px difference = real time speed of which the background can shift left relative to camera
 #320 / 0.01 = 32000 max length
 
-
-
-func _on_create_new_button_pressed():
-	#delete_file("res://Script/Levels/Untitled.gd")
-	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
-	pass
-
 func delete_file(file_path: String): 
 	if FileAccess.file_exists(file_path):
 		var err = DirAccess.remove_absolute(file_path)
@@ -254,3 +247,13 @@ func apply_constraints(pos: Vector2, enemy_type: String):
 			pos.y = constraints["max"]
 			print("max y")
 	return Vector2(pos.x, pos.y)
+
+
+func _on_create_new_button_pressed():
+	#delete_file("res://Script/Levels/Untitled.gd")
+	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
+	pass
+
+func _on_open_button_pressed():
+	var level_select_scene = preload("res://Scenes/level_select.tscn").instantiate()
+	level_select_scene.show_dev_levels = false  # Set the flag to false when opening from the editor
