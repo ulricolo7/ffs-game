@@ -1,5 +1,8 @@
 extends Control
 
+const level_select_scene = preload("res://Scenes/level_select.tscn")
+var level_select_screen
+
 var curr_enemy = null
 var last_enemy = null
 var enemy_data = {}
@@ -56,6 +59,13 @@ func _ready():
 	$Panel/SaveButton.disabled = true
 	$Panel/WarningLabel.visible = false
 	set_process_input(true)
+	
+	level_select_screen = level_select_scene.instantiate()
+	level_select_screen.visible = false
+	level_select_screen.set_z_index(35)
+	level_select_screen.position = Vector2(-885,0)
+	add_child(level_select_screen)
+	
 
 
 func _on_enemy_button_pressed(enemy_type):
@@ -255,5 +265,7 @@ func _on_create_new_button_pressed():
 	pass
 
 func _on_open_button_pressed():
-	var level_select_scene = preload("res://Scenes/level_select.tscn").instantiate()
-	level_select_scene.show_dev_levels = false  # Set the flag to false when opening from the editor
+	print("open button pressed")
+	level_select_screen.visible = true
+	#level_select_scene.find_child("Panel").show_dev_levels = false  # Set the flag to false when opening from the editor
+	#get_tree().root.add_child(level_select_scene)

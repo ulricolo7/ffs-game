@@ -22,12 +22,14 @@ grow_vertical = 2
 script = ExtResource("1_l526l")
 
 [node name="BGPanel2" type="Panel" parent="."]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_lmsph")
 
 [node name="Label2" type="Label" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_left = 523.551
 offset_top = 249.0
 offset_right = 715.551
@@ -39,6 +41,7 @@ label_settings = SubResource("LabelSettings_y11so")
 
 [node name="Resume2" type="Button" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_left = 522.0
 offset_top = 339.944
 offset_right = 795.0
@@ -50,6 +53,7 @@ expand_icon = true
 
 [node name="Options2" type="Button" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_left = 548.712
 offset_top = 417.988
 offset_right = 770.712
@@ -61,6 +65,7 @@ expand_icon = true
 
 [node name="Restart2" type="Button" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_left = 547.551
 offset_top = 477.0
 offset_right = 770.551
@@ -72,6 +77,7 @@ expand_icon = true
 
 [node name="Editor2" type="Button" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_left = 547.285
 offset_top = 537.523
 offset_right = 770.285
