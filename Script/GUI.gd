@@ -19,6 +19,8 @@ var scroll_factor = 0.01
 var idx_counter
 var level_file_name
 
+var curr_file_path
+
 var y_constraints = {
 	"gh": { "min": 160, "max": 670 },
 	"fl": { "min": 130, "max": 700 },
@@ -52,6 +54,7 @@ func _ready():
 	level_file_name = "Untitled.gd"
 	$Panel/PlayButton.disabled = true
 	$Panel/SaveButton.disabled = true
+	$Panel/WarningLabel.visible = false
 	set_process_input(true)
 
 
@@ -220,16 +223,36 @@ func create_file(file_path: String, enemy_data: Dictionary):
 
 
 func _on_line_edit_text_submitted(new_text):
-	if new_text.strip_edges() != "":
+	new_text = new_text.strip_edges()
+	if new_text != "" and not FileAccess.file_exists(curr_file_path):
 		level_file_name = new_text.strip_edges() + ".gd"
 		$Panel/SaveButton.disabled = false
 		print("Level file name updated to: ", level_file_name)
-	else:
+	elif new_text == "":
 		print("Error: File name cannot be empty")
+	else:
+		print("Error: a file under this name already exists")
 
+func _on_line_edit_text_changed(new_text):
+	new_text = new_text.strip_edges()
+	if new_text != "":
+		curr_file_path = "res://Script/Levels/" + new_text + ".gd"
+		if FileAccess.file_exists(curr_file_path):
+			$Panel/WarningLabel.visible = true
+			$Panel/SaveButton.disabled = true
+		else:
+			$Panel/WarningLabel.visible = false
+			$Panel/SaveButton.disabled = false
+	else:
+		$Panel/WarningLabel.visible = false
+		$Panel/SaveButton.disabled = true
 
 func _on_save_button_pressed():
 	delete_file("res://Script/Levels/Untitled.gd")
+	if FileAccess.file_exists(curr_file_path):
+		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + level_file_name, enemy_data)
 	$Panel/PlayButton.disabled = false  # Enable the play button after saving
 	print("Level saved as: ", level_file_name)
+
+

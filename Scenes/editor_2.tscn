@@ -300,11 +300,21 @@ offset_bottom = 61.0
 
 [node name="Quit_Button" parent="Camera2D/GUI/Panel" instance=ExtResource("21_20ur6")]
 layout_mode = 0
-offset_left = 310.0
-offset_top = 18.0
-offset_right = 334.0
-offset_bottom = 42.0
+offset_left = 307.879
+offset_top = 12.3431
+offset_right = 332.879
+offset_bottom = 38.3431
 scale = Vector2(2, 2)
+
+[node name="WarningLabel" type="Label" parent="Camera2D/GUI/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.009
+offset_top = 689.664
+offset_right = 373.009
+offset_bottom = 709.664
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "A FILE UNDER THIS NAME ALREADY EXISTS"
 
 [node name="LineEdit" type="LineEdit" parent="Camera2D/GUI/Panel"]
 layout_mode = 0
@@ -338,6 +348,7 @@ autoplay = true
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
+[connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
 

@@ -11,8 +11,8 @@ script = ExtResource("1_r8uen")
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
+offset_right = 26.0
+offset_bottom = 28.0
 texture = ExtResource("2_1vxpe")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

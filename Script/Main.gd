@@ -9,7 +9,7 @@ var BG_SPEED = 0.99
 
 var AUTO_REPLAY = true
 
-var BOT_NAME = "00"
+var BOT_NAME 
 var LEVEL_LENGTH
 # change what script to load here
 var LEVEL_SCRIPT

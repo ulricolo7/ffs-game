@@ -97,9 +97,9 @@ func init_screen(var_name, scene_name, visibility, z_ind):
 	return var_name
 
 func init_player(bot_name):
-	if bot_name == "00":
+	if bot_name == "res://Scenes/Player/bot_character_00.tscn":
 		player_scene = preload("res://Scenes/Player/bot_character_00.tscn")
-	elif bot_name == "Scanner":
+	elif bot_name == "res://Scenes/Player/bot_character_SC.tscn":
 		player_scene = preload("res://Scenes/Player/bot_character_SC.tscn")
 	else:
 		player_scene = preload("res://Scenes/Player/player_character.tscn")

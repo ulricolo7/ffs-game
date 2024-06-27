@@ -49,7 +49,8 @@ width = 2.0
 
 [node name="Quit_Button" parent="." instance=ExtResource("2_doah5")]
 layout_mode = 0
-offset_left = 880.0
-offset_top = 25.0
-offset_right = 904.0
-offset_bottom = 49.0
+offset_left = 882.0
+offset_top = 19.0
+offset_right = 907.0
+offset_bottom = 46.0
+scale = Vector2(1.1, 1.1)
