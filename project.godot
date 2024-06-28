@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Main="*res://Script/Main.gd"
+EditorMain="*res://Script/Editor_Main.gd"
 
 [display]
 

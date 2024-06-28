@@ -28,7 +28,8 @@ func _process(_delta):
 		return
 	
 	var current_time = Time.get_ticks_msec() / 1000.0
-		
+	
+	
 	if Input.is_action_pressed("move_down"):
 		velocity.y += ACCELERATION
 		reset_idle_timer()

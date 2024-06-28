@@ -18,7 +18,7 @@ var LEVEL_SCRIPT
 #var LEVEL_SCRIPT = "res://Script/Levels/Untitled.gd"
 
 var in_editor = false
-		
+
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 
 		linear_to_db(MASTER_VOLUME))

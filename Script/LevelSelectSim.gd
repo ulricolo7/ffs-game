@@ -28,10 +28,7 @@ func _add_level_button(file_path: String):
 	var name_label = button_instance.get_node("level_button/VBoxContainer/LevelName")
 	#var desc_label = button_instance.get_node("Button/level_button/VBoxContainer/LevelDesc")
 	var last_edited_label = button_instance.get_node("level_button/VBoxContainer/LastEdited")
-	print(name_label)
-	print(last_edited_label)
 	name_label.text = file_path.get_file().get_basename()
-	print(name_label.text)
 	#desc_label.text = file_path.get_file()
 	last_edited_label.text = "Last edited: " + _get_file_last_modified(file_path)
 	

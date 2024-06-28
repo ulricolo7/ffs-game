@@ -25,9 +25,7 @@ var idx_counter
 var level_file_name
 
 var curr_file_path
-var curr_level # maybe unnecessary
-# need to track what level is currently opened. So that when the player goes back 
-# to editor, that level is still loaded
+
 
 var y_constraints = {
 	"gh": { "min": 160, "max": 670 },
@@ -37,6 +35,10 @@ var y_constraints = {
 }
 
 func _ready():
+	if EditorMain.curr_level:
+		print("REACHED")
+		# logic to load the enemies
+	
 	idx_counter = 0
 	
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -216,6 +218,7 @@ func _on_line_edit_text_changed(name_typed):
 			$Panel/WarningLabel.visible = false
 			$Panel/SaveButton.disabled = false
 			level_file_name = name_typed + ".gd"
+			EditorMain.curr_level = curr_file_path
 	else:
 		$Panel/WarningLabel.visible = false
 		$Panel/SaveButton.disabled = true
