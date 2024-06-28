@@ -21,7 +21,7 @@ func _ready():
 	print(global_position)
 	pass
 	
-func _process(delta):
+func _process(_delta):
 	
 	if is_frozen:
 		return
@@ -118,11 +118,11 @@ func _on_near_scan_area_entered(area):
 		soft_dir = ""
 
 
-func _on_near_scan_area_exited(area):
+func _on_near_scan_area_exited(_area):
 	velocity.y = 0
 	state = "returning"
 	return_to_centre()
 
 
-func _on_far_scan_area_exited(area):
+func _on_far_scan_area_exited(_area):
 	return_to_centre()

@@ -3,8 +3,8 @@
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
 [ext_resource type="FontVariation" uid="uid://j16qpduaga5p" path="res://Assets/UI/FONT/CharlesWright.tres" id="3_fflh0"]
-[ext_resource type="Script" path="res://Script/GUI.gd" id="4_6ljl8"]
 [ext_resource type="Texture2D" uid="uid://c8q67xnfqv4wn" path="res://Assets/Characters/Enemies/Flapper/frame1.png" id="4_nnm15"]
+[ext_resource type="Script" path="res://Script/EditorGUI.gd" id="4_tg40t"]
 [ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="5_b8gj2"]
 [ext_resource type="Texture2D" uid="uid://rbtqu2d68lk3" path="res://Assets/UI/Delete_File_Button/deletefilebutton3.png" id="5_hf68f"]
 [ext_resource type="PackedScene" uid="uid://cvcmgx506f6ka" path="res://crawler_air_btn_container.tscn" id="6_bs73g"]
@@ -73,13 +73,13 @@ corner_radius_bottom_left = 10
 [node name="EditorScreen" type="Node2D" parent="."]
 z_index = 20
 
-[node name="Boundaries" type="Node2D" parent="EditorScreen"]
-
-[node name="Background" type="Sprite2D" parent="EditorScreen/Boundaries"]
+[node name="Background" type="Sprite2D" parent="EditorScreen"]
 texture_filter = 1
 position = Vector2(800, 440)
 scale = Vector2(4, 4)
 texture = ExtResource("7_07fk5")
+
+[node name="Boundaries" type="Node2D" parent="EditorScreen"]
 
 [node name="Top_boundary" type="StaticBody2D" parent="EditorScreen/Boundaries"]
 z_index = 20
@@ -117,7 +117,7 @@ offset_left = 285.0
 offset_top = -419.0
 offset_right = 639.0
 offset_bottom = 421.0
-script = ExtResource("4_6ljl8")
+script = ExtResource("4_tg40t")
 
 [node name="Panel" type="Panel" parent="Camera2D/GUI"]
 z_index = 21

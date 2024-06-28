@@ -31,7 +31,7 @@ func _ready():
 	
 func _on_play_pressed():
 	#get_tree().change_scene_to_file("res://Scenes/level.tscn")
-	#Main.BOT_NAME = ""
+	Main.BOT_NAME = ""
 	level_select_screen.visible = true
 
 

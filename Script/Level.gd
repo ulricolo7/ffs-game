@@ -19,6 +19,8 @@ const pause_scene = preload("res://Scenes/paused.tscn")
 const pause_scene_editor = preload("res://Scenes/pause_editor.tscn")
 
 #variables
+var SCREEN_LAYER = 30
+
 var victory_screen
 var death_screen
 var pause_screen
@@ -72,18 +74,18 @@ func toggle_pause():
 func init_level(level_script):
 	var level_data = load(level_script).new()
 	enemy_data = level_data.enemy_data
-	last_enemy = enemy_data[enemy_data.keys()[-1]]
-	Main.LEVEL_LENGTH = last_enemy["position"].x + 640
+	#change this
+	Main.LEVEL_LENGTH = level_data.last_enemy_x + 640
 	LEVEL_LENGTH = Main.LEVEL_LENGTH
 	
 	pause_timer.one_shot = true
 	death_timer.one_shot = true
 	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
 	
-	victory_screen = init_screen(victory_screen, victory_scene, false, 10)
-	death_screen = init_screen(death_screen, death_scene, false, 10)
-	pause_screen = init_screen(pause_screen, pause_scene, false, 10)
-	pause_screen_editor = init_screen(pause_screen_editor, pause_scene_editor, false, 10)
+	victory_screen = init_screen(victory_screen, victory_scene, false, SCREEN_LAYER)
+	death_screen = init_screen(death_screen, death_scene, false, SCREEN_LAYER)
+	pause_screen = init_screen(pause_screen, pause_scene, false, SCREEN_LAYER)
+	pause_screen_editor = init_screen(pause_screen_editor, pause_scene_editor, false, SCREEN_LAYER)
 	
 	Main.no_pause_state = 1
 	

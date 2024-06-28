@@ -12,7 +12,7 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 line_spacing = 0.0
 font_size = 32
 
-[node name="level_select" type="Control"]
+[node name="Level_Select" type="Control"]
 z_index = -1
 layout_mode = 3
 anchors_preset = 0

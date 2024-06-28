@@ -1,5 +1,6 @@
 extends Node
 
+var last_enemy_x = 8400
 
 var enemy_data = {
 	0: {"position": Vector2(900, 329), "type": "gh"},

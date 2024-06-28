@@ -5,6 +5,8 @@ var level_select_screen
 
 var curr_enemy = null
 var last_enemy = null
+var largest_x = -100
+
 var enemy_data = {}
 var enemy_indices = {}
 var enemy_scenes = {
@@ -31,12 +33,9 @@ var y_constraints = {
 	"ca": { "min": 120, "max": 420 }
 }
 
-#overall, what I did was I added a Camera2D as a child to Editor and attached GUI to it,
-#and moved the Background Sprite to be separate from the Map
-
 func _ready():
 	idx_counter = 0
-	#You made good call for references *thumbsup
+	
 	editor_screen = get_parent().get_node("../EditorScreen")
 	editor_screen_bounds = get_parent().get_node("../EditorScreen/Boundaries")
 	background = get_parent().get_node("../EditorScreen/Background")
@@ -48,12 +47,6 @@ func _ready():
 	$Panel/CrawlerGroundButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("cg"))
 	$Panel/CrawlerAirButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("ca"))
 	
-	#The HSCrollbar is already emitting a signal. GPT doesnt know this and
-	#this line to 'connect' is actually unnecessary
-	#h_scroll_bar.connect("value_changed", Callable(self, "_on_h_scroll_bar_value_changed"))
-	
-	# max_value input is in the inspector tab for the hscrollbar
-	#h_scroll_bar.max_value = 32000
 	level_file_name = "Untitled.gd"
 	$Panel/PlayButton.disabled = true
 	$Panel/SaveButton.disabled = true
@@ -98,6 +91,7 @@ func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
 		last_enemy = curr_enemy
 	
 func _input(event):
+	adjust_largest_x()
 	if event is InputEventMouseButton and event.is_released():
 		$Panel.visible = true
 		print(curr_enemy, " placed at: ", get_global_mouse_position().x, ", ", get_global_mouse_position().y)
@@ -108,6 +102,7 @@ func _input(event):
 				new_position = apply_constraints(new_position, enemy_data[idx]["type"])
 				enemy_data[idx]["position"] = new_position
 				curr_enemy.position = new_position
+				adjust_largest_x()
 				print(enemy_data)
 			else:
 				print("Error: No enemy data found for index ", idx)
@@ -120,6 +115,7 @@ func _input(event):
 		var new_position = curr_enemy.position + event.relative
 		new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
 		curr_enemy.position = new_position
+		adjust_largest_x()
 		
 
 func _on_delete_button_pressed(): 
@@ -147,31 +143,16 @@ func _on_play_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_h_scroll_bar_value_changed(value):
-	#lemme explain the code
-	#the argument 'value' is the value of the scroller in the hscrollbar
-	#we can set its min and max in the inspector tab or manually like what u did
-	#to make it simple, I just gave it min 0 max 30000 as that is our max level length
-	#you can find a logic to auto change the max level length according to the last enemy
-	#I leave that to u
 	var scroll_value = value
-	
-	#as the value starts from 0, the camera might snap backwards as the camera
-	#should start from 640 (middle of screen). Hence it is 640 + scroll_value
 	camera.position.x = scroll_value + 640
-	
-	#the editor screen starts from 0 anyways (refer to the 2D tab/check position 
-	#under transform). So this I just leave it to scroll_value
 	editor_screen_bounds.position.x = scroll_value
-	
-	#the speed of the bg is 0.99 (now I have edited so that Main.gd has that data)
-	#the background is also longer than other sprites and it starts at 800, not 640
-	#(the centre of the background is at 800), hence:
 	background.position.x = scroll_value * Main.BG_SPEED + 800
 
-#1600
-#1280
-#320px difference = real time speed of which the background can shift left relative to camera
-#320 / 0.01 = 32000 max length
+func adjust_largest_x():
+	for idx in enemy_data.keys():
+		var data = enemy_data[idx]
+		if data["position"].x > largest_x:
+			largest_x = data["position"].x
 
 func delete_file(file_path: String): 
 	if FileAccess.file_exists(file_path):
@@ -183,11 +164,12 @@ func delete_file(file_path: String):
 	else:
 		print("File does not exist")
 
-func create_file(file_path: String, enemy_data: Dictionary):
+func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
-		#if it works, it works.
 		file.store_line("extends Node")
+		file.store_line("")
+		file.store_line("var last_enemy_x = {0}".format([largest_x]))
 		file.store_line("")
 		file.store_line("var enemy_data = {")
 		
@@ -199,11 +181,10 @@ func create_file(file_path: String, enemy_data: Dictionary):
 			i += 1
 		
 		file.store_line("}")
+		
 		file.close()
 		print("File created")
-
-		#if FileAccess.file_exists(file_path):
-			#delete_file(file_path)
+		
 	else:
 		print("Error creating file")
 
@@ -238,7 +219,7 @@ func _on_save_button_pressed():
 	delete_file("res://Script/Levels/Untitled.gd")
 	if FileAccess.file_exists(curr_file_path):
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
-	create_file("res://Script/Levels/" + level_file_name, enemy_data)
+	create_file("res://Script/Levels/" + level_file_name, enemy_data, largest_x)
 	$Panel/PlayButton.disabled = false  # Enable the play button after saving
 	print("Level saved as: ", level_file_name)
 

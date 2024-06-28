@@ -30,7 +30,7 @@ size = Vector2(21.0305, 24.024)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gf4r"]
 size = Vector2(29, 22.7591)
 
-[node name="Ghaster" type="Area2D" groups=["Enemies"]]
+[node name="Ghaster" type="Area2D" groups=["Enemies", "Ghaster"]]
 texture_filter = 1
 script = ExtResource("1_4r0ai")
 

@@ -43,7 +43,7 @@ func _add_level_button(file_path: String):
 func _get_file_last_modified(file_path):
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
-		var mod_time = file.get_modified_time(file_path)
+		var mod_time = FileAccess.get_modified_time(file_path)
 		file.close()
 		var date = Time.get_datetime_string_from_unix_time(mod_time)
 		return date

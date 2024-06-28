@@ -22,7 +22,7 @@ func _ready():
 	last_input_time = Time.get_ticks_msec() / 1000.0
 	set_process(true)
 	
-func _process(delta):
+func _process(_delta):
 	
 	if is_frozen:
 		return

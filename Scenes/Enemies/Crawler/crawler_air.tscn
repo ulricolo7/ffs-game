@@ -22,7 +22,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5dvw"]
 size = Vector2(59.5, 26.0331)
 
-[node name="CrawlerAir" type="Area2D" groups=["Enemies"]]
+[node name="CrawlerAir" type="Area2D" groups=["Crawler", "Enemies"]]
 scale = Vector2(2, 2)
 script = ExtResource("1_mp61g")
 

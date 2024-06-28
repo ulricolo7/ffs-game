@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci1waqr6y00p0"]
+[gd_scene load_steps=5 format=3 uid="uid://b5d6kvwb1yg5r"]
 
-[ext_resource type="Script" path="res://Script/Bots/BotCharacter00.gd" id="1_tiwdf"]
-[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="3_opi15"]
+[ext_resource type="Script" path="res://Script/Bots/BotCharacterSc.gd" id="1_2w2op"]
+[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_vlayx"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d1k00"]
 
@@ -9,10 +9,17 @@
 blend_mode = 1
 light_mode = 1
 
-[node name="Bot_00" type="CharacterBody2D" groups=["Player"]]
+[node name="Bot_SC" type="CharacterBody2D" groups=["Player"]]
 light_mask = 2
 collision_mask = 2
-script = ExtResource("1_tiwdf")
+script = ExtResource("1_2w2op")
+
+[node name="FarScan" type="Area2D" parent="."]
+material = SubResource("CanvasItemMaterial_d1k00")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarScan"]
+position = Vector2(-75, -35)
+polygon = PackedVector2Array(469, -132, 500, 37, 457, 190, 53, 71, 35, 35, 52, -6)
 
 [node name="NearScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
@@ -31,7 +38,9 @@ polygon = PackedVector2Array(-14.9952, -24.5424, -2.87865, -24.5424, 4.57767, -1
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_bk02v")
 scale = Vector2(2.5, 2.49219)
-texture = ExtResource("3_opi15")
+texture = ExtResource("2_vlayx")
 
+[connection signal="area_entered" from="FarScan" to="." method="_on_far_scan_area_entered"]
+[connection signal="area_exited" from="FarScan" to="." method="_on_far_scan_area_exited"]
 [connection signal="area_entered" from="NearScan" to="." method="_on_near_scan_area_entered"]
 [connection signal="area_exited" from="NearScan" to="." method="_on_near_scan_area_exited"]

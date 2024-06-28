@@ -21,7 +21,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut4fi"]
 size = Vector2(59.5, 27.5)
 
-[node name="CrawlerGround" type="Area2D" groups=["Enemies"]]
+[node name="CrawlerGround" type="Area2D" groups=["Crawler", "Enemies"]]
 texture_filter = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_kq1x1")

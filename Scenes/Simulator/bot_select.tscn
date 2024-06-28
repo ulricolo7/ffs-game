@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkp7j3tudueut"]
 
-[ext_resource type="Script" path="res://Script/bot_select.gd" id="1_12m1d"]
+[ext_resource type="Script" path="res://Script/BotSelect.gd" id="1_hdl5h"]
 [ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_qfpv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueo80"]
@@ -27,7 +27,7 @@ offset_left = 350.0
 offset_right = 930.0
 offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueo80")
-script = ExtResource("1_12m1d")
+script = ExtResource("1_hdl5h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 0
