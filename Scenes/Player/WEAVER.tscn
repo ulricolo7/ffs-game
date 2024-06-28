@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5d6kvwb1yg5r"]
 
-[ext_resource type="Script" path="res://Script/Bots/BotCharacterSc.gd" id="1_2w2op"]
-[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_vlayx"]
+[ext_resource type="Script" path="res://Script/Bots/BotCharacterSc.gd" id="1_fnggu"]
+[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_jfd2c"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d1k00"]
 
@@ -12,7 +12,7 @@ light_mode = 1
 [node name="Bot_SC" type="CharacterBody2D" groups=["Player"]]
 light_mask = 2
 collision_mask = 2
-script = ExtResource("1_2w2op")
+script = ExtResource("1_fnggu")
 
 [node name="FarScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
@@ -38,7 +38,7 @@ polygon = PackedVector2Array(-14.9952, -24.5424, -2.87865, -24.5424, 4.57767, -1
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_bk02v")
 scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_vlayx")
+texture = ExtResource("2_jfd2c")
 
 [connection signal="area_entered" from="FarScan" to="." method="_on_far_scan_area_entered"]
 [connection signal="area_exited" from="FarScan" to="." method="_on_far_scan_area_exited"]

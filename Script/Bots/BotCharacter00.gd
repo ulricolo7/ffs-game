@@ -28,27 +28,25 @@ func _process(delta):
 	if is_frozen:
 		return
 		
-	counters.global_position.y = counters_gp.y
-	counters_gp.x += 700 * delta
-	counters.global_position.x = counters_gp.x
 	
 	if move == "up":
 		velocity.y -= ACCELERATION
 	elif move == "down":
 		velocity.y += ACCELERATION
-	else:
-		velocity.y = 0
-		
+	
 		
 	if enemies_near == 0:
 		state = "chilling"
+		velocity.y = 0
 	
 	if state == "chilling":
-		var safest_pos_y = (find_lowest_counter() - 2) * 75 + 440
+		var safest_pos_y = round((find_lowest_counter() - 2) * 75 + 440)
 		if global_position.y < safest_pos_y:
-			velocity.y += 50
+			velocity.y += 150
 		elif global_position.y > safest_pos_y:
-			velocity.y -= 50
+			velocity.y -= 150
+		else:
+			velocity.y = 0
 		
 	if global_position.x < get_parent().global_position.x - 300:
 		velocity.x = 100
@@ -91,7 +89,6 @@ func adjust_counter(area, counter, enter):
 			counter -= 2
 		elif area.is_in_group("Flapper"):
 			counter -= 3
-			
 	return counter
 	
 func find_lowest_counter():
