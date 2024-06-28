@@ -29,33 +29,35 @@ func _process(_delta):
 	
 	var current_time = Time.get_ticks_msec() / 1000.0
 	
-	
-	if Input.is_action_pressed("move_down"):
-		velocity.y += ACCELERATION
-		reset_idle_timer()
-	elif Input.is_action_pressed("move_up"):
-		velocity.y -= ACCELERATION
-		reset_idle_timer()
+	if Main.player_input_disabled:
+		pass
 	else:
-		velocity.y = 0
+		if Input.is_action_pressed("move_down"):
+			velocity.y += ACCELERATION
+			reset_idle_timer()
+		elif Input.is_action_pressed("move_up"):
+			velocity.y -= ACCELERATION
+			reset_idle_timer()
+		else:
+			velocity.y = 0
+			
+		if Input.is_action_pressed("move_left"):
+			velocity.x -= ACCELERATION
+			reset_idle_timer()
+		elif Input.is_action_pressed("move_right"):
+			velocity.x += ACCELERATION
+			reset_idle_timer()
+		else:
+			velocity.x = 0
+			
+		if current_time - last_input_time > idle_threshold:
+			if not is_idle:
+				$AnimatedSprite.play("idle")
+				is_idle = true
 		
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= ACCELERATION
-		reset_idle_timer()
-	elif Input.is_action_pressed("move_right"):
-		velocity.x += ACCELERATION
-		reset_idle_timer()
-	else:
-		velocity.x = 0
-		
-	if current_time - last_input_time > idle_threshold:
-		if not is_idle:
-			$AnimatedSprite.play("idle")
-			is_idle = true
-	
-	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
-	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
-	move_and_slide()
+		velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
+		velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
+		move_and_slide()
 	
 	if position.x < -800 || position.x > 780:
 		die()

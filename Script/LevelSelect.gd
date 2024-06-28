@@ -4,8 +4,12 @@ extends Panel
 @export var button_scene = preload("res://Scenes/level_button.tscn")
 var show_dev_levels = true
 
+signal load_selected_level
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Main.in_editor:
+		show_dev_levels = false
 	_scan_levels_folder()
 
 func _scan_levels_folder():
@@ -47,5 +51,9 @@ func _get_file_last_modified(file_path):
 	return "Unknown"
 
 func _on_level_button_pressed(file_path: String):
-	Main.LEVEL_SCRIPT = file_path
-	get_tree().change_scene_to_file("res://Scenes/level.tscn")
+	if Main.in_editor:
+		pass
+		# logic to handle what to do upon level selected in editor
+	else:
+		Main.LEVEL_SCRIPT = file_path
+		get_tree().change_scene_to_file("res://Scenes/level.tscn")

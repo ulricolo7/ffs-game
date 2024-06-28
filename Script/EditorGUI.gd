@@ -26,7 +26,6 @@ var level_file_name
 
 var curr_file_path
 
-
 var y_constraints = {
 	"gh": { "min": 160, "max": 670 },
 	"fl": { "min": 130, "max": 700 },
@@ -35,7 +34,7 @@ var y_constraints = {
 }
 
 func _ready():
-	if EditorMain.curr_level:
+	if Main.CACHED_EDITOR_LEVEL:
 		print("REACHED")
 		# logic to load the enemies
 	
@@ -54,7 +53,10 @@ func _ready():
 	
 	level_file_name = "Untitled.gd"
 	$Panel/PlayButton.disabled = true
-	$Panel/SaveButton.disabled = true
+	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
+		$Panel/SaveButton.disabled = false
+	else:
+		$Panel/SaveButton.disabled = true
 	$Panel/WarningLabel.visible = false
 	set_process_input(true)
 	
@@ -121,6 +123,12 @@ func _input(event):
 		new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
 		curr_enemy.position = new_position
 		adjust_largest_x()
+	
+	if Main.player_input_disabled and (event is InputEventMouseButton and event.pressed):
+		var mouse_pos = get_global_mouse_position()
+		var line_edit_rect = Rect2($Panel/LineEdit.global_position, $Panel/LineEdit.size)
+		if not line_edit_rect.has_point(mouse_pos):
+			$Panel/LineEdit.release_focus()
 		
 
 func _on_delete_button_pressed(): 
@@ -137,15 +145,6 @@ func _on_delete_button_pressed():
 			# Note: Don't decrement idx_counter, as it is used to give unique IDs.
 		else:
 			print("Error: No index found for the selected enemy")
-
-func _on_play_button_pressed():
-	$Panel.visible = false
-	# logic to make this into a level and play
-	#delete_file("res://Script/Levels/Untitled.gd")
-	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
-	Main.BOT_NAME = ""
-	Main.LEVEL_SCRIPT = "res://Script/Levels/" + level_file_name
-	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_h_scroll_bar_value_changed(value):
 	var scroll_value = value
@@ -196,16 +195,7 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 
 
 func _on_line_edit_text_submitted(new_text):
-	#new_text = new_text.strip_edges()
-	#if new_text != "" and not FileAccess.file_exists(curr_file_path):
-	#	level_file_name = new_text.strip_edges() + ".gd"
-	#	$Panel/SaveButton.disabled = false
-	#	print("Level file name updated to: ", level_file_name)
-	#elif new_text == "":
-	#	print("Error: File name cannot be empty")
-	#else:
-	#	print("Error: a file under this name already exists")
-	pass
+	$Panel/LineEdit.release_focus()
 
 func _on_line_edit_text_changed(name_typed):
 	name_typed = name_typed.strip_edges()
@@ -213,48 +203,54 @@ func _on_line_edit_text_changed(name_typed):
 		curr_file_path = "res://Script/Levels/" + name_typed + ".gd"
 		if FileAccess.file_exists(curr_file_path):
 			$Panel/WarningLabel.visible = true
-			$Panel/SaveButton.disabled = true
+			$Panel/PlayButton.disabled = true
 		else:
 			$Panel/WarningLabel.visible = false
-			$Panel/SaveButton.disabled = false
+			$Panel/PlayButton.disabled = false
 			level_file_name = name_typed + ".gd"
-			EditorMain.curr_level = curr_file_path
+			Main.CACHED_EDITOR_LEVEL = curr_file_path
 	else:
 		$Panel/WarningLabel.visible = false
-		$Panel/SaveButton.disabled = true
+		$Panel/PlayButton.disabled = true
 
-func _on_save_button_pressed():
+func _on_play_button_pressed():
 	delete_file("res://Script/Levels/Untitled.gd")
 	if FileAccess.file_exists(curr_file_path):
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + level_file_name, enemy_data, largest_x)
-	$Panel/PlayButton.disabled = false  # Enable the play button after saving
+	Main.player_input_disabled = false 
+	$Panel.visible = false
+	Main.BOT_NAME = ""
+	Main.LEVEL_SCRIPT = "res://Script/Levels/" + level_file_name
+	get_tree().change_scene_to_file("res://Scenes/level.tscn")
+	# add an editor levle complete scene. To then update the Main.Cached level completed to true
+
+func _on_save_button_pressed():
+	Main.player_input_disabled = false
+	
+	# $Panel/PlayButton.disabled = false  # Enable the play button after saving
 	print("Level saved as: ", level_file_name)
 
 func apply_constraints(pos: Vector2, enemy_type: String):
-	print("applied constraint")
 	var constraints = y_constraints.get(enemy_type, {})
 	if constraints.has("fixed"):
 		pos.y = constraints["fixed"]
-		print("fixed y")
 	else:
 		if pos.y < constraints.get("min", pos.y):
 			pos.y = constraints["min"]
-			print("min y")
-			
 		if pos.y > constraints.get("max", pos.y):
 			pos.y = constraints["max"]
-			print("max y")
 	return Vector2(pos.x, pos.y)
-
 
 func _on_create_new_button_pressed():
 	#delete_file("res://Script/Levels/Untitled.gd")
 	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
-	pass
+	Main.CACHED_EDITOR_LEVEL = ""
+	get_tree().reload_current_scene()
 
 func _on_open_button_pressed():
 	print("open button pressed")
 	level_select_screen.visible = true
-	#level_select_scene.find_child("Panel").show_dev_levels = false  # Set the flag to false when opening from the editor
-	#get_tree().root.add_child(level_select_scene)
+
+func _on_line_edit_focus_entered():
+	Main.player_input_disabled = true

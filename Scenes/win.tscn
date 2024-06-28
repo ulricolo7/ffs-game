@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0hvfjnuatfk2"]
+[gd_scene load_steps=6 format=3 uid="uid://c0hvfjnuatfk2"]
 
 [ext_resource type="Script" path="res://Script/Win.gd" id="1_yq8ee"]
-[ext_resource type="PackedScene" uid="uid://r13kdsx31qs1" path="res://Scenes/gameover_replay_button.tscn" id="2_hwfas"]
-[ext_resource type="PackedScene" uid="uid://dtxw0fcec8pyo" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_y3g5w"]
+[ext_resource type="PackedScene" path="res://Scenes/gameover_replay_button.tscn" id="2_hwfas"]
+[ext_resource type="PackedScene" uid="uid://cbxhh4iwf7vjx" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_y3g5w"]
+[ext_resource type="PackedScene" uid="uid://cc7ftu0t717f2" path="res://Scenes/back_to_editor_button_win.tscn" id="4_cb4a0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8coo"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.466667)
@@ -51,5 +52,15 @@ offset_right = 655.0
 offset_bottom = 576.0
 scale = Vector2(2, 2)
 
+[node name="Editor_Button" parent="." instance=ExtResource("4_cb4a0")]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 536.0
+offset_right = 655.0
+offset_bottom = 576.0
+scale = Vector2(2, 2)
+flat = true
+
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Editor_Button" to="." method="_on_editor_button_pressed"]

@@ -1,7 +1,6 @@
-[gd_scene load_steps=34 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=33 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
-[ext_resource type="Script" path="res://Script/Editor_Main.gd" id="1_v73uk"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
 [ext_resource type="FontVariation" uid="uid://j16qpduaga5p" path="res://Assets/UI/FONT/CharlesWright.tres" id="3_fflh0"]
 [ext_resource type="Texture2D" uid="uid://c8q67xnfqv4wn" path="res://Assets/Characters/Enemies/Flapper/frame1.png" id="4_nnm15"]
@@ -70,7 +69,6 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="Editor" type="Node"]
-script = ExtResource("1_v73uk")
 
 [node name="EditorScreen" type="Node2D" parent="."]
 z_index = 20
@@ -366,6 +364,8 @@ autoplay = true
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/OpenButton" to="Camera2D/GUI" method="_on_open_button_pressed"]
+[connection signal="focus_entered" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_focus_entered"]
+[connection signal="focus_exited" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_focus_exited"]
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]

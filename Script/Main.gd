@@ -18,6 +18,10 @@ var LEVEL_SCRIPT
 #var LEVEL_SCRIPT = "res://Script/Levels/Untitled.gd"
 
 var in_editor = false
+var CACHED_EDITOR_LEVEL
+var CACHED_EDITOR_LEVEL_COMPLETED = false
+# or am i supposed to attach this completed variable to each level?
+var player_input_disabled = false 
 
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 

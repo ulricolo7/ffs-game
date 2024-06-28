@@ -116,6 +116,7 @@ func init_player(bot_name):
 	
 	player.connect("player_died", Callable(self, "die"))
 	pause_screen.connect("resumed", Callable(self, "resume"))
+	pause_screen_editor.connect("resumed", Callable(self, "resume"))
 	
 	print("Player intialized")
 	return player
@@ -220,9 +221,16 @@ func pause():
 		print("Paused")
 
 func resume():
-	if Main.no_pause_state == 0:
+	if Main.no_pause_state == 0 and not Main.in_editor:
 		Main.no_pause_state = 1
 		pause_screen.visible = false
+		player.unfreeze()
+		is_paused = false
+		
+		print("Resumed")
+	elif Main.no_pause_state == 0 and Main.in_editor:
+		Main.no_pause_state = 1
+		pause_screen_editor.visible = false
 		player.unfreeze()
 		is_paused = false
 		
