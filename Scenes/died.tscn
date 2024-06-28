@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://crvhx4lv4tq4q"]
 
 [ext_resource type="Script" path="res://Script/Died.gd" id="1_kkp87"]
-[ext_resource type="PackedScene" path="res://Scenes/gameover_replay_button.tscn" id="2_iy4a4"]
+[ext_resource type="PackedScene" uid="uid://digi0o7tot7cq" path="res://Scenes/gameover_replay_button.tscn" id="2_iy4a4"]
 [ext_resource type="PackedScene" uid="uid://cbxhh4iwf7vjx" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_eosu8"]
 [ext_resource type="PackedScene" uid="uid://bqc6wjr6tn44d" path="res://Scenes/back_to_editor_button_die.tscn" id="4_sbs84"]
 

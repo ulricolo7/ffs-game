@@ -36,7 +36,7 @@ var y_constraints = {
 func _ready():
 	if Main.CACHED_EDITOR_LEVEL:
 		print("REACHED")
-		# logic to load the enemies
+		load_enemies(Main.CACHED_EDITOR_LEVEL)
 	
 	idx_counter = 0
 	
@@ -254,3 +254,19 @@ func _on_open_button_pressed():
 
 func _on_line_edit_focus_entered():
 	Main.player_input_disabled = true
+	
+func load_enemies(file_path: String):
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	print("A")
+	if file:
+		print("B")
+		var script_content = file.get_as_text()
+		print("C")
+		file.close()
+		print("D")
+		
+		var script_instance = load(file_path).new()
+		print("E")
+		var enemy_data = script_instance.enemy_data
+		print("F")
+		

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c0hvfjnuatfk2"]
 
 [ext_resource type="Script" path="res://Script/Win.gd" id="1_yq8ee"]
-[ext_resource type="PackedScene" path="res://Scenes/gameover_replay_button.tscn" id="2_hwfas"]
+[ext_resource type="PackedScene" uid="uid://digi0o7tot7cq" path="res://Scenes/gameover_replay_button.tscn" id="2_hwfas"]
 [ext_resource type="PackedScene" uid="uid://cbxhh4iwf7vjx" path="res://Scenes/gameover_mainmenu_button.tscn" id="3_y3g5w"]
 [ext_resource type="PackedScene" uid="uid://cc7ftu0t717f2" path="res://Scenes/back_to_editor_button_win.tscn" id="4_cb4a0"]
 

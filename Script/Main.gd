@@ -11,11 +11,7 @@ var AUTO_REPLAY = true
 
 var BOT_NAME 
 var LEVEL_LENGTH
-# change what script to load here
 var LEVEL_SCRIPT
-#var LEVEL_SCRIPT = "res://Script/Levels/Level_1.gd"
-#var LEVEL_SCRIPT = "res://Script/Levels/Level_BotTest.gd"
-#var LEVEL_SCRIPT = "res://Script/Levels/Untitled.gd"
 
 var in_editor = false
 var CACHED_EDITOR_LEVEL
