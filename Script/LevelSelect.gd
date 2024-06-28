@@ -4,7 +4,7 @@ extends Panel
 @export var button_scene = preload("res://Scenes/level_button.tscn")
 var show_dev_levels = true
 
-signal load_selected_level
+signal level_selected
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,16 +14,32 @@ func _ready():
 
 func _scan_levels_folder():
 	var dir = DirAccess.open(levels_folder)
+	var dev_files = []
+	var normal_files = []
+	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir() and file_name.ends_with(".gd"):
-				if show_dev_levels or not file_name.begins_with("dev_"):
-					var file_path = levels_folder + file_name
-					_add_level_button(file_path)
+				# Sorting the levels so that dev levels stay on top
+				if file_name.begins_with("dev_"):
+					dev_files.append(file_name)
+				else:
+					normal_files.append(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
+		
+		var all_files = dev_files + normal_files
+		if show_dev_levels:
+			for file in all_files:
+				var file_path = levels_folder + file
+				_add_level_button(file_path)
+		else:
+			for file in normal_files:
+				var file_path = levels_folder + file
+				_add_level_button(file_path)
+		
 	else:
 		print("Failed to open directory: " + levels_folder)
 
@@ -52,8 +68,9 @@ func _get_file_last_modified(file_path):
 
 func _on_level_button_pressed(file_path: String):
 	if Main.in_editor:
-		pass
-		# logic to handle what to do upon level selected in editor
+		print(file_path)
+		Main.CACHED_EDITOR_LEVEL = file_path
+		emit_signal("level_selected")
 	else:
 		Main.LEVEL_SCRIPT = file_path
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")

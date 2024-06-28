@@ -35,8 +35,13 @@ var y_constraints = {
 
 func _ready():
 	if Main.CACHED_EDITOR_LEVEL:
-		print("REACHED")
-		load_enemies(Main.CACHED_EDITOR_LEVEL)
+		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
+		$Panel/LineEdit.text = cached_lvl_name
+		curr_file_path = Main.CACHED_EDITOR_LEVEL
+		level_file_name = cached_lvl_name + ".gd"
+		print(level_file_name)
+	else:
+		level_file_name = "Untitled.gd"
 	
 	idx_counter = 0
 	
@@ -51,8 +56,11 @@ func _ready():
 	$Panel/CrawlerGroundButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("cg"))
 	$Panel/CrawlerAirButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("ca"))
 	
-	level_file_name = "Untitled.gd"
-	$Panel/PlayButton.disabled = true
+	
+	if Main.CACHED_EDITOR_LEVEL:
+		$Panel/PlayButton.disabled = false
+	else:
+		$Panel/PlayButton.disabled = true
 	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
 		$Panel/SaveButton.disabled = false
 	else:
@@ -65,7 +73,10 @@ func _ready():
 	level_select_screen.set_z_index(35)
 	level_select_screen.position = Vector2(-885,0)
 	add_child(level_select_screen)
+	level_select_screen.find_child("Panel").connect("level_selected", Callable(self, "disable_level_select"))
 	
+	if Main.CACHED_EDITOR_LEVEL:
+		load_enemies(Main.CACHED_EDITOR_LEVEL)
 
 
 func _on_enemy_button_pressed(enemy_type):
@@ -187,7 +198,7 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 		file.store_line("}")
 		
 		file.close()
-		print("File created")
+		#print("File created")
 		
 	else:
 		print("Error creating file")
@@ -216,7 +227,9 @@ func _on_line_edit_text_changed(name_typed):
 func _on_play_button_pressed():
 	delete_file("res://Script/Levels/Untitled.gd")
 	if FileAccess.file_exists(curr_file_path):
+		print("deleting: ", curr_file_path)
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
+	print("created file: ", level_file_name)
 	create_file("res://Script/Levels/" + level_file_name, enemy_data, largest_x)
 	Main.player_input_disabled = false 
 	$Panel.visible = false
@@ -254,19 +267,44 @@ func _on_open_button_pressed():
 
 func _on_line_edit_focus_entered():
 	Main.player_input_disabled = true
+
+func disable_level_select():
+	get_tree().reload_current_scene()	
+	load_enemies(Main.CACHED_EDITOR_LEVEL)
 	
 func load_enemies(file_path: String):
+	
+	if Main.CACHED_EDITOR_LEVEL:
+		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
+		$Panel/LineEdit.text = cached_lvl_name	
 	var file = FileAccess.open(file_path, FileAccess.READ)
-	print("A")
 	if file:
-		print("B")
-		var script_content = file.get_as_text()
-		print("C")
-		file.close()
-		print("D")
-		
 		var script_instance = load(file_path).new()
-		print("E")
 		var enemy_data = script_instance.enemy_data
-		print("F")
-		
+		print(enemy_data)
+		for idx in enemy_data.keys():
+			var data = enemy_data[idx]
+			var enemy_type = data["type"]
+			var enemy_scene = enemy_scenes.get(enemy_type)
+			
+			if enemy_scene:
+				var enemy_instance = enemy_scene.instantiate()
+				enemy_instance.position = data["position"]
+				editor_screen.add_child(enemy_instance) # editor screen didnt get instantiated yet
+				enemy_indices[enemy_instance] = idx
+				enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
+				# Ensure enemy_data dictionary in the editor is up to date
+				self.enemy_data[idx] = {"position": enemy_instance.position, "type": enemy_type}
+				
+				if enemy_instance.position.x > largest_x:
+					largest_x = enemy_instance.position.x
+					
+			else:
+				print("Error: No scene found for enemy type: ", enemy_type)
+	else:
+		print("Error: Could not open file: ", file_path)
+
+func clear_enemies(): # only call this if user is opening a level on top of another level
+	if Main.CACHED_EDITOR_LEVEL:
+		$Panel/LineEdit.text = ""
+	

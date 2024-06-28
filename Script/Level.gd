@@ -138,7 +138,7 @@ func spawn_enemies():
 		enemy_instance.position = data["position"]
 		add_child(enemy_instance)
 	
-	print("Enemies spawned")
+	#print("Enemies spawned")
 
 func spawn_ground(value):
 	var dist_covered = 0
@@ -150,7 +150,7 @@ func spawn_ground(value):
 		dist_covered += value
 		add_child(ground_instance)
 	
-	print("Ground spawned")
+	#print("Ground spawned")
 	
 func spawn_trees():
 	var dist_covered = 0
@@ -174,7 +174,7 @@ func spawn_trees():
 		tree_instance.position = Vector2(dist_covered, 530)
 		add_child(tree_instance)
 	
-	print("Trees spawned")
+	#print("Trees spawned")
 
 func win():
 	Main.pause()
@@ -182,8 +182,8 @@ func win():
 	victory_screen.set_position(Vector2(camera.get_position().x - 640, 
 		camera.get_position().y - 420))
 		
-	if victory_screen.visible == false:
-		print("Win!")
+	#if victory_screen.visible == false:
+	#	print("Win!")
 		
 	victory_screen.set_visible(true)
 	player.freeze()
@@ -199,7 +199,7 @@ func die():
 	if Main.AUTO_REPLAY == true:
 		death_timer.start(0.9)
 	
-	print("Game Over")
+	#print("Game Over")
 
 func pause():
 	if Main.no_pause_state == 1:
