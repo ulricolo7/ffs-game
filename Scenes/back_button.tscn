@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbie1obdioxtj"]
+
+[ext_resource type="Texture2D" uid="uid://yv3egcw4acjx" path="res://Assets/UI/Play_Button/play_button.png" id="1_nxbfs"]
+
+[node name="Back_Button" type="Button"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 36.0
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 36.0
+offset_top = -4.0
+offset_right = 76.0
+offset_bottom = 36.0
+scale = Vector2(-1, 1)
+texture = ExtResource("1_nxbfs")

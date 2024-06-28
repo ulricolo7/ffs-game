@@ -27,7 +27,8 @@ func _ready():
 	level_select_sim_screen = init_screen(level_select_sim_screen, level_select_sim_scene, false, 10)
 	bot_select_screen = init_screen(bot_select_screen, bot_select_scene, false, 10)
 	
-	level_select_sim_screen.find_child("Panel").connect("switch_screens", Callable(self, "_on_level_selected"))
+	level_select_sim_screen.find_child("Panel").connect("switch_screens", Callable(self, "transition"))
+	bot_select_screen.find_child("Panel").connect("switch_screens", Callable(self, "transition"))
 	
 func _on_play_pressed():
 	#get_tree().change_scene_to_file("res://Scenes/level.tscn")
@@ -53,8 +54,12 @@ func _on_options_pressed():
 func _on_quit_pressed():
 	get_tree().quit()
 	
-func _on_level_selected():
+func transition():
 	print("switched screen")
-	level_select_sim_screen.visible = false
-	bot_select_screen.visible = true
+	if level_select_sim_screen.visible:
+		level_select_sim_screen.visible = false
+		bot_select_screen.visible = true
+	else:
+		level_select_sim_screen.visible = true
+		bot_select_screen.visible = false
 	

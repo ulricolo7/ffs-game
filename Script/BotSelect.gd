@@ -3,6 +3,8 @@ extends Panel
 @export var bots_folder: String = "res://Scenes/Player/"
 @export var button_scene = preload("res://Scenes/Simulator/bot_button.tscn")
 
+signal switch_screens
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_scan_bots_folder()
@@ -51,3 +53,7 @@ func _on_bot_button_pressed(file_path: String):
 	print("bot selected")
 	Main.BOT_NAME = file_path
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
+
+
+func _on_back_button_pressed():
+	emit_signal("switch_screens")

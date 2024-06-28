@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkp7j3tudueut"]
+[gd_scene load_steps=7 format=3 uid="uid://bkp7j3tudueut"]
 
 [ext_resource type="Script" path="res://Script/BotSelect.gd" id="1_hdl5h"]
 [ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_qfpv1"]
+[ext_resource type="PackedScene" uid="uid://dbie1obdioxtj" path="res://Scenes/back_button.tscn" id="3_ujxk4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueo80"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -40,8 +41,10 @@ theme_override_constants/separation = 6
 [node name="Label" type="Label" parent="Panel"]
 texture_filter = 1
 layout_mode = 0
-offset_right = 579.0
-offset_bottom = 80.0
+offset_left = 33.5929
+offset_top = -0.0379086
+offset_right = 612.593
+offset_bottom = 79.9621
 text = "  SELECT A BOT"
 label_settings = SubResource("LabelSettings_5sb8e")
 vertical_alignment = 1
@@ -57,3 +60,12 @@ offset_top = 19.0
 offset_right = 907.0
 offset_bottom = 46.0
 scale = Vector2(1.1, 1.1)
+
+[node name="Back_Button" parent="." instance=ExtResource("3_ujxk4")]
+layout_mode = 0
+offset_left = 360.952
+offset_top = 20.0868
+offset_right = 392.952
+offset_bottom = 52.0868
+
+[connection signal="pressed" from="Back_Button" to="Panel" method="_on_back_button_pressed"]

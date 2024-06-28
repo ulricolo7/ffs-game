@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl1f3akenwdto"]
+
+[ext_resource type="Texture2D" uid="uid://dulnj6ihjgeeu" path="res://Assets/UI/Quit_Button/quitbutton_outlined3.png" id="1_511ka"]
+
+[node name="open_file_quit" type="Button"]
+texture_filter = 1
+offset_right = 26.0
+offset_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+flat = true
+icon_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 28.0
+texture = ExtResource("1_511ka")

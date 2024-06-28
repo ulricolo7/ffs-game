@@ -25,6 +25,9 @@ var idx_counter
 var level_file_name
 
 var curr_file_path
+var curr_level # maybe unnecessary
+# need to track what level is currently opened. So that when the player goes back 
+# to editor, that level is still loaded
 
 var y_constraints = {
 	"gh": { "min": 160, "max": 670 },
@@ -191,26 +194,28 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 
 
 func _on_line_edit_text_submitted(new_text):
-	new_text = new_text.strip_edges()
-	if new_text != "" and not FileAccess.file_exists(curr_file_path):
-		level_file_name = new_text.strip_edges() + ".gd"
-		$Panel/SaveButton.disabled = false
-		print("Level file name updated to: ", level_file_name)
-	elif new_text == "":
-		print("Error: File name cannot be empty")
-	else:
-		print("Error: a file under this name already exists")
+	#new_text = new_text.strip_edges()
+	#if new_text != "" and not FileAccess.file_exists(curr_file_path):
+	#	level_file_name = new_text.strip_edges() + ".gd"
+	#	$Panel/SaveButton.disabled = false
+	#	print("Level file name updated to: ", level_file_name)
+	#elif new_text == "":
+	#	print("Error: File name cannot be empty")
+	#else:
+	#	print("Error: a file under this name already exists")
+	pass
 
-func _on_line_edit_text_changed(new_text):
-	new_text = new_text.strip_edges()
-	if new_text != "":
-		curr_file_path = "res://Script/Levels/" + new_text + ".gd"
+func _on_line_edit_text_changed(name_typed):
+	name_typed = name_typed.strip_edges()
+	if name_typed != "":
+		curr_file_path = "res://Script/Levels/" + name_typed + ".gd"
 		if FileAccess.file_exists(curr_file_path):
 			$Panel/WarningLabel.visible = true
 			$Panel/SaveButton.disabled = true
 		else:
 			$Panel/WarningLabel.visible = false
 			$Panel/SaveButton.disabled = false
+			level_file_name = name_typed + ".gd"
 	else:
 		$Panel/WarningLabel.visible = false
 		$Panel/SaveButton.disabled = true
