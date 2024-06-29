@@ -33,15 +33,32 @@ var y_constraints = {
 	"ca": { "min": 120, "max": 420 }
 }
 
-func _ready():
+func set_button_able():
+	# i made this function separated from _ready() in an attempt to have a reload function 
+	# that doesnt create infinite loop. didnt work
 	if Main.CACHED_EDITOR_LEVEL:
 		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
 		$Panel/LineEdit.text = cached_lvl_name
 		curr_file_path = Main.CACHED_EDITOR_LEVEL
 		level_file_name = cached_lvl_name + ".gd"
-		print(level_file_name)
+		$Panel/PlayButton.disabled = false
+		if check_level_validity(Main.CACHED_EDITOR_LEVEL):
+			# BUG RIGHT HERE: LEVEL ISNT VALID FOR SOEM REASON
+			print("LEVEL IS VALID")
+			$Panel/SaveButton.disabled = false
+		else:
+			print("LEVEL ISN'T VALID")
+			$Panel/SaveButton.disabled = true
 	else:
+		$Panel/PlayButton.disabled = true
+		$Panel/SaveButton.disabled = true
 		level_file_name = "Untitled.gd"
+		
+func _ready():
+	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
+		mark_level_completed()
+	
+	set_button_able()
 	
 	idx_counter = 0
 	
@@ -57,15 +74,18 @@ func _ready():
 	$Panel/CrawlerAirButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("ca"))
 	
 	
-	if Main.CACHED_EDITOR_LEVEL:
-		$Panel/PlayButton.disabled = false
-	else:
-		$Panel/PlayButton.disabled = true
-	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
-		$Panel/SaveButton.disabled = false
-	else:
-		$Panel/SaveButton.disabled = true
+	#if Main.CACHED_EDITOR_LEVEL:
+	#	$Panel/PlayButton.disabled = false
+	#	if check_level_validity(Main.CACHED_EDITOR_LEVEL):
+	#		$Panel/SaveButton.disabled = false
+	#	else:
+	#		$Panel/SaveButton.disabled = true
+	#else:
+	#	$Panel/PlayButton.disabled = true
+	#	$Panel/SaveButton.disabled = true
+		
 	$Panel/WarningLabel.visible = false
+	$Panel/WarningLabel2.visible = false
 	set_process_input(true)
 	
 	level_select_screen = level_select_scene.instantiate()
@@ -74,6 +94,7 @@ func _ready():
 	level_select_screen.position = Vector2(-885,0)
 	add_child(level_select_screen)
 	level_select_screen.find_child("Panel").connect("level_selected", Callable(self, "disable_level_select"))
+	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 	
 	if Main.CACHED_EDITOR_LEVEL:
 		load_enemies(Main.CACHED_EDITOR_LEVEL)
@@ -95,24 +116,24 @@ func _on_enemy_button_pressed(enemy_type):
 			enemy_instance.position = Vector2(inst_location, 150)
 
 		editor_screen.add_child(enemy_instance)
-		print("spawned in ", inst_location)
+		#print("spawned in ", inst_location)
 		enemy_indices[enemy_instance] = idx_counter
 		enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
 		enemy_data[idx_counter] = {"position": enemy_instance.position, "type": enemy_type}
 		idx_counter += 1
-		print("Index Counter: ", enemy_indices[enemy_instance])
+		#print("Index Counter: ", enemy_indices[enemy_instance])
 		
 func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
-		print("Selected enemy: ", enemy_instance)
+		#print("Selected enemy: ", enemy_instance)
 		last_enemy = curr_enemy
 	
 func _input(event):
 	adjust_largest_x()
 	if event is InputEventMouseButton and event.is_released():
 		$Panel.visible = true
-		print(curr_enemy, " placed at: ", get_global_mouse_position().x, ", ", get_global_mouse_position().y)
+		# print(curr_enemy, " placed at: ", get_global_mouse_position().x, ", ", get_global_mouse_position().y)
 		if curr_enemy:
 			var idx = enemy_indices.get(curr_enemy)
 			if enemy_data.has(idx):
@@ -141,11 +162,8 @@ func _input(event):
 		if not line_edit_rect.has_point(mouse_pos):
 			$Panel/LineEdit.release_focus()
 		
-
 func _on_delete_button_pressed(): 
-	print("delete button pressed")
 	if last_enemy:
-		print("delete button executed")
 		var idx = enemy_indices.get(last_enemy, null)  # Use enemy_indices to get the index
 		if idx != null:
 			editor_screen.remove_child(last_enemy)
@@ -182,7 +200,7 @@ func delete_file(file_path: String):
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
-		file.store_line("extends Node")
+		file.store_line("var is_completed = false") # setup the default false value
 		file.store_line("")
 		file.store_line("var last_enemy_x = {0}".format([largest_x]))
 		file.store_line("")
@@ -212,11 +230,17 @@ func _on_line_edit_text_changed(name_typed):
 	name_typed = name_typed.strip_edges()
 	if name_typed != "":
 		curr_file_path = "res://Script/Levels/" + name_typed + ".gd"
-		if FileAccess.file_exists(curr_file_path):
+		if name_typed.begins_with("dev_"):
+			$Panel/WarningLabel.visible = false
+			$Panel/WarningLabel2.visible = true
+			$Panel/PlayButton.disabled = true
+		elif FileAccess.file_exists(curr_file_path):
 			$Panel/WarningLabel.visible = true
+			$Panel/WarningLabel2.visible = false
 			$Panel/PlayButton.disabled = true
 		else:
 			$Panel/WarningLabel.visible = false
+			$Panel/WarningLabel2.visible = false
 			$Panel/PlayButton.disabled = false
 			level_file_name = name_typed + ".gd"
 			Main.CACHED_EDITOR_LEVEL = curr_file_path
@@ -227,9 +251,9 @@ func _on_line_edit_text_changed(name_typed):
 func _on_play_button_pressed():
 	delete_file("res://Script/Levels/Untitled.gd")
 	if FileAccess.file_exists(curr_file_path):
-		print("deleting: ", curr_file_path)
+		#print("deleting: ", curr_file_path)
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
-	print("created file: ", level_file_name)
+	#print("created file: ", level_file_name)
 	create_file("res://Script/Levels/" + level_file_name, enemy_data, largest_x)
 	Main.player_input_disabled = false 
 	$Panel.visible = false
@@ -240,8 +264,6 @@ func _on_play_button_pressed():
 
 func _on_save_button_pressed():
 	Main.player_input_disabled = false
-	
-	# $Panel/PlayButton.disabled = false  # Enable the play button after saving
 	print("Level saved as: ", level_file_name)
 
 func apply_constraints(pos: Vector2, enemy_type: String):
@@ -256,13 +278,11 @@ func apply_constraints(pos: Vector2, enemy_type: String):
 	return Vector2(pos.x, pos.y)
 
 func _on_create_new_button_pressed():
-	#delete_file("res://Script/Levels/Untitled.gd")
-	#create_file("res://Script/Levels/Untitled.gd", enemy_data)
 	Main.CACHED_EDITOR_LEVEL = ""
 	get_tree().reload_current_scene()
+	# NOT DONE IMPLEMENTING 
 
 func _on_open_button_pressed():
-	print("open button pressed")
 	level_select_screen.visible = true
 
 func _on_line_edit_focus_entered():
@@ -276,7 +296,10 @@ func load_enemies(file_path: String):
 	
 	if Main.CACHED_EDITOR_LEVEL:
 		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
-		$Panel/LineEdit.text = cached_lvl_name	
+		$Panel/LineEdit.text = cached_lvl_name
+		if not check_level_validity(Main.CACHED_EDITOR_LEVEL):
+			print("this file is not validated")
+			$Panel/SaveButton.disabled = true
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
 		var script_instance = load(file_path).new()
@@ -307,4 +330,60 @@ func load_enemies(file_path: String):
 func clear_enemies(): # only call this if user is opening a level on top of another level
 	if Main.CACHED_EDITOR_LEVEL:
 		$Panel/LineEdit.text = ""
+		# NOT DONE IMPLEMENTING
+
+func close_selector():
+	if level_select_screen.visible:
+		level_select_screen.visible = false
+		
+func check_level_validity(file_path: String) -> bool:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		#var script_instance = load(file_path).new()
+		#return script_instance.is_completed
+		# the 2 lines above only works if the user reloads the editor one more time. Then the 
+		# buttons will light up properly 
+		var line = file.get_line()
+		return line == "var is_completed = true"
+	else:
+		print("Error: Could not open file: ", file_path)
+		return false
+
+func mark_level_completed():
+	# print("marked")
+	var file = FileAccess.open(Main.CACHED_EDITOR_LEVEL_COMPLETED, FileAccess.READ)
+	if not file:
+		print("Error: Could not open file")
+		return
 	
+	var lines = []
+	while not file.eof_reached():
+		lines.append(file.get_line())
+	file.close()
+	delete_file(Main.CACHED_EDITOR_LEVEL_COMPLETED)
+	
+	var new_lines = []
+	for line in lines:
+		if line.strip_edges().begins_with("var is_completed"):
+			new_lines.append("var is_completed = true")
+		else:
+			new_lines.append(line)
+			
+	file = FileAccess.open(Main.CACHED_EDITOR_LEVEL_COMPLETED, FileAccess.WRITE)
+	
+	for line in new_lines:
+		file.store_line(line)
+	file.close()
+	
+	#print("Updated lines in the file:")
+	#for line in new_lines:
+	#	print(line)
+	
+	# they're updated so idk why tf is the script of 
+	
+	set_button_able()
+	# the lines below cause infinite loop
+	# get_tree().reload_current_scene()
+	# _ready()
+
+

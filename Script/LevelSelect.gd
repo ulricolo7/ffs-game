@@ -9,7 +9,10 @@ signal level_selected
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Main.in_editor:
+		$Quit_Button.visible = false
 		show_dev_levels = false
+	else:
+		$open_file_quit.visible = false
 	_scan_levels_folder()
 
 func _scan_levels_folder():
@@ -74,3 +77,5 @@ func _on_level_button_pressed(file_path: String):
 	else:
 		Main.LEVEL_SCRIPT = file_path
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
+
+

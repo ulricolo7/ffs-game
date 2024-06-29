@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=34 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -48,6 +48,9 @@ font_size = 21
 [sub_resource type="LabelSettings" id="LabelSettings_lgl6c"]
 line_spacing = 2.0
 font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_5wnxd"]
+font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmtcs"]
 bg_color = Color(0.803922, 0.803922, 0.803922, 0.478431)
@@ -339,6 +342,16 @@ offset_bottom = 757.0
 placeholder_text = "Enter level name"
 max_length = 20
 
+[node name="WarningLabel2" type="Label" parent="Camera2D/GUI/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.0
+offset_top = 689.555
+offset_right = 373.0
+offset_bottom = 709.555
+text = "INVALID FILE NAME"
+label_settings = SubResource("LabelSettings_5wnxd")
+
 [node name="Player" parent="Camera2D" instance=ExtResource("23_aqmxl")]
 z_index = 30
 position = Vector2(-500, 20)
@@ -365,7 +378,6 @@ autoplay = true
 [connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/OpenButton" to="Camera2D/GUI" method="_on_open_button_pressed"]
 [connection signal="focus_entered" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_focus_entered"]
-[connection signal="focus_exited" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_focus_exited"]
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]

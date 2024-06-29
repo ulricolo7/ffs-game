@@ -15,8 +15,7 @@ var LEVEL_SCRIPT
 
 var in_editor = false
 var CACHED_EDITOR_LEVEL
-var CACHED_EDITOR_LEVEL_COMPLETED = false
-# or am i supposed to attach this completed variable to each level?
+var CACHED_EDITOR_LEVEL_COMPLETED 
 var player_input_disabled = false 
 
 func _ready():

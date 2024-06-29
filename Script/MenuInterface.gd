@@ -10,6 +10,7 @@ var level_select_screen
 var level_select_sim_screen
 var bot_select_screen
 
+
 func init_screen(var_name, scene_name, visibility, z_ind):
 
 	var_name = scene_name.instantiate()
@@ -21,7 +22,7 @@ func init_screen(var_name, scene_name, visibility, z_ind):
 	return var_name
 	
 func _ready():
-	
+	print(Main.CACHED_EDITOR_LEVEL)
 	options_screen = init_screen(options_screen, options_scene, false, 10)
 	level_select_screen = init_screen(level_select_screen, level_select_scene, false, 10)
 	level_select_sim_screen = init_screen(level_select_sim_screen, level_select_sim_scene, false, 10)

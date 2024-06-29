@@ -2,7 +2,6 @@ extends Control
 
 func _ready():
 	if Main.in_editor:
-		Main.CACHED_EDITOR_LEVEL_COMPLETED = true
 		$MainMenu_Button.visible = false
 		$Editor_Button.visible = true
 	else:
@@ -18,4 +17,6 @@ func _on_main_menu_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 func _on_editor_button_pressed():
+	Main.CACHED_EDITOR_LEVEL_COMPLETED = Main.CACHED_EDITOR_LEVEL
 	get_tree().change_scene_to_file("res://Scenes/editor_2.tscn")
+
