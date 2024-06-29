@@ -40,6 +40,7 @@ func set_button_able():
 		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
 		$Panel/LineEdit.text = cached_lvl_name
 		curr_file_path = Main.CACHED_EDITOR_LEVEL
+		print(Main.CACHED_EDITOR_LEVEL)
 		level_file_name = cached_lvl_name + ".gd"
 		$Panel/PlayButton.disabled = false
 		if check_level_validity(Main.CACHED_EDITOR_LEVEL):
@@ -53,6 +54,7 @@ func set_button_able():
 		$Panel/PlayButton.disabled = true
 		$Panel/SaveButton.disabled = true
 		level_file_name = "Untitled.gd"
+		print("SET_BUTT")
 		
 func _ready():
 	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
@@ -98,7 +100,6 @@ func _ready():
 	
 	if Main.CACHED_EDITOR_LEVEL:
 		load_enemies(Main.CACHED_EDITOR_LEVEL)
-
 
 func _on_enemy_button_pressed(enemy_type):
 	var enemy_scene = enemy_scenes.get(enemy_type)
@@ -221,8 +222,6 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	else:
 		print("Error creating file")
 
-
-
 func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
 
@@ -339,19 +338,21 @@ func close_selector():
 func check_level_validity(file_path: String) -> bool:
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
-		#var script_instance = load(file_path).new()
-		#return script_instance.is_completed
+		var script_instance = load(file_path).new()
+		print(script_instance.is_completed)
+		return script_instance.is_completed
 		# the 2 lines above only works if the user reloads the editor one more time. Then the 
 		# buttons will light up properly 
-		var line = file.get_line()
-		return line == "var is_completed = true"
+		#var line = file.get_line()
+		#return line == "var is_completed = true"
 	else:
 		print("Error: Could not open file: ", file_path)
 		return false
 
 func mark_level_completed():
-	# print("marked")
-	var file = FileAccess.open(Main.CACHED_EDITOR_LEVEL_COMPLETED, FileAccess.READ)
+	print("marked")
+	var file = FileAccess.open(Main.CACHED_EDITOR_LEVEL_COMPLETED, FileAccess.READ_WRITE)
+	print(Main.CACHED_EDITOR_LEVEL_COMPLETED)
 	if not file:
 		print("Error: Could not open file")
 		return
@@ -370,20 +371,14 @@ func mark_level_completed():
 			new_lines.append(line)
 			
 	file = FileAccess.open(Main.CACHED_EDITOR_LEVEL_COMPLETED, FileAccess.WRITE)
+	print(Main.CACHED_EDITOR_LEVEL_COMPLETED)
 	
 	for line in new_lines:
 		file.store_line(line)
 	file.close()
 	
-	#print("Updated lines in the file:")
-	#for line in new_lines:
-	#	print(line)
-	
 	# they're updated so idk why tf is the script of 
 	
 	set_button_able()
-	# the lines below cause infinite loop
-	# get_tree().reload_current_scene()
-	# _ready()
 
 
