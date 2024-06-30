@@ -2,7 +2,6 @@ extends Panel
 
 @export var levels_folder: String = "res://Script/Levels/"
 @export var button_scene = preload("res://Scenes/level_button.tscn")
-var show_dev_levels = true
 
 signal level_selected
 
@@ -10,7 +9,6 @@ signal level_selected
 func _ready():
 	if Main.in_editor:
 		$Quit_Button.visible = false
-		show_dev_levels = false
 	else:
 		$open_file_quit.visible = false
 	_scan_levels_folder()
@@ -34,17 +32,32 @@ func _scan_levels_folder():
 		dir.list_dir_end()
 		
 		var all_files = dev_files + normal_files
-		if show_dev_levels:
-			for file in all_files:
-				var file_path = levels_folder + file
-				_add_level_button(file_path)
-		else:
+		if Main.in_editor:
 			for file in normal_files:
 				var file_path = levels_folder + file
 				_add_level_button(file_path)
+		else:
+			for file in all_files:
+				var file_path = levels_folder + file
+				if not file.begins_with("dev_"):
+					if is_level_saved(file_path):
+						_add_level_button(file_path)
+				else:
+					_add_level_button(file_path)
 		
 	else:
 		print("Failed to open directory: " + levels_folder)
+
+func is_level_saved(file_path: String) -> bool:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		var line
+		while not file.eof_reached():
+			line = file.get_line().strip_edges()
+			if line.begins_with("var is_saved"):
+				return line == "var is_saved = true"
+		file.close()
+	return false
 
 func _add_level_button(file_path: String):
 	var button_instance = button_scene.instantiate()
