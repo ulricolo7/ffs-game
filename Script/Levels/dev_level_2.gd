@@ -70,6 +70,7 @@ var enemy_data = {
 	63: {"position": Vector2(6109, 710), "type": "cg"},
 	64: {"position": Vector2(6445, 586), "type": "gh"},
 	65: {"position": Vector2(6167, 339), "type": "fl"},
+	66: {"position": Vector2(2204, 160), "type": "gh"},
 }
 
 

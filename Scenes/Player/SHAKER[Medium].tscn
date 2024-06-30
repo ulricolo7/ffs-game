@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ci1waqr6y00p0"]
 
-[ext_resource type="Script" path="res://Script/Bots/BotCharacter00.gd" id="1_c243o"]
-[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_ukhvw"]
+[ext_resource type="Script" path="res://Script/Bots/SHAKER[Medium].gd" id="1_lnbro"]
+[ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_krjat"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d1k00"]
 
@@ -18,7 +18,7 @@ size = Vector2(470, 130)
 [node name="Bot_CO" type="CharacterBody2D" groups=["Player"]]
 light_mask = 2
 collision_mask = 2
-script = ExtResource("1_c243o")
+script = ExtResource("1_lnbro")
 
 [node name="NearScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
@@ -37,7 +37,7 @@ polygon = PackedVector2Array(-14.9952, -24.5424, -2.87865, -24.5424, 4.57767, -1
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_bk02v")
 scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_ukhvw")
+texture = ExtResource("2_krjat")
 
 [node name="Counters" type="Node2D" parent="."]
 
@@ -47,25 +47,11 @@ texture = ExtResource("2_ukhvw")
 position = Vector2(211, 150)
 shape = SubResource("RectangleShape2D_ls4si")
 
-[node name="PlayerSprite2D6" type="Sprite2D" parent="Counters/Position5"]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_bk02v")
-position = Vector2(413, 150)
-scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_ukhvw")
-
 [node name="Position4" type="Area2D" parent="Counters"]
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Counters/Position4"]
 position = Vector2(211, 75)
 shape = SubResource("RectangleShape2D_ls4si")
-
-[node name="PlayerSprite2D5" type="Sprite2D" parent="Counters/Position4"]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_bk02v")
-position = Vector2(413, 75)
-scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_ukhvw")
 
 [node name="Position3" type="Area2D" parent="Counters"]
 
@@ -73,38 +59,17 @@ texture = ExtResource("2_ukhvw")
 position = Vector2(211, 0)
 shape = SubResource("RectangleShape2D_ls4si")
 
-[node name="PlayerSprite2D4" type="Sprite2D" parent="Counters/Position3"]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_bk02v")
-position = Vector2(413, 0)
-scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_ukhvw")
-
 [node name="Position2" type="Area2D" parent="Counters"]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Counters/Position2"]
 position = Vector2(211, -75)
 shape = SubResource("RectangleShape2D_ls4si")
 
-[node name="PlayerSprite2D3" type="Sprite2D" parent="Counters/Position2"]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_bk02v")
-position = Vector2(413, -75)
-scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_ukhvw")
-
 [node name="Position1" type="Area2D" parent="Counters"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Counters/Position1"]
 position = Vector2(211, -150)
 shape = SubResource("RectangleShape2D_sxyhk")
-
-[node name="PlayerSprite2D2" type="Sprite2D" parent="Counters/Position1"]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_bk02v")
-position = Vector2(413, -152)
-scale = Vector2(2.5, 2.49219)
-texture = ExtResource("2_ukhvw")
 
 [connection signal="area_entered" from="NearScan" to="." method="_on_near_scan_area_entered"]
 [connection signal="area_exited" from="NearScan" to="." method="_on_near_scan_area_exited"]

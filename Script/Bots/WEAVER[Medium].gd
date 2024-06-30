@@ -5,7 +5,7 @@ var ACCELERATION = 150 * Main.TEST_SPEED
 var SOFT_ACC = 100 * Main.TEST_SPEED
 var HORI_ACC = 50 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
-const NAME = "Scanner"
+const NAME = "WEAVER"
 #DO NOT TOUCH ANYTHING
 
 signal player_died
