@@ -51,7 +51,7 @@ func _ready():
 	spawn_ground(1000)
 	player = init_player(Main.BOT_NAME)
 	
-	print("Level ready")
+	#print("Level ready")
 
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
@@ -89,7 +89,7 @@ func init_level(level_script):
 	
 	Main.no_pause_state = 1
 	
-	print("Level initialized")
+	#print("Level initialized")
 
 func init_screen(var_name, scene_name, visibility, z_ind):
 
@@ -98,7 +98,7 @@ func init_screen(var_name, scene_name, visibility, z_ind):
 	var_name.set_z_index(z_ind)
 	add_child(var_name)
 	
-	print(var_name, " initialized")
+	#print(var_name, " initialized")
 	return var_name
 
 func init_player(bot_name):

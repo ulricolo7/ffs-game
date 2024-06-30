@@ -4,6 +4,7 @@ extends Panel
 @export var button_scene = preload("res://Scenes/level_button.tscn")
 
 signal level_selected
+#signal level_deleted
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,9 +68,12 @@ func _add_level_button(file_path: String):
 	name_label.text = file_path.get_file().get_basename()
 	#desc_label.text = file_path.get_file()
 	last_edited_label.text = "Last edited: " + _get_file_last_modified(file_path)
-	
+	var lvl_name = name_label.text
 	
 	button_instance.connect("pressed", Callable(self, "_on_level_button_pressed").bind(file_path))
+	button_instance.find_child("DeleteButton").connect("pressed", Callable(self, "_on_delete_lvl_button_pressed").bind(button_instance, file_path))
+	if lvl_name.begins_with("dev_"):
+		button_instance.find_child("DeleteButton").visible = false
 	$ScrollContainer/VBoxContainer.add_child(button_instance)
 	
 
@@ -86,9 +90,50 @@ func _on_level_button_pressed(file_path: String):
 	if Main.in_editor:
 		print(file_path)
 		Main.CACHED_EDITOR_LEVEL = file_path
+		var file = FileAccess.open(file_path, FileAccess.READ)
+		if file:
+			var enemy_data = {}
+			var largest_x = 0
+			var in_enemy_data = false
+			var regex = RegEx.new()
+			var result
+			regex.compile("(\\d+): {\"position\": Vector2\\(([^,]+), ([^\\)]+)\\), \"type\": \"([^\"]+)\"},")
+		
+			while not file.eof_reached():
+				var line = file.get_line().strip_edges()
+				if line == "var enemy_data = {":
+					in_enemy_data = true
+					continue
+				elif line == "}":
+					in_enemy_data = false
+					continue
+	#		
+				if in_enemy_data:
+					result = regex.search(line)
+					if result:
+						var idx = result.get_string(1).to_int()
+						var pos_x = result.get_string(2).to_float()
+						var pos_y = result.get_string(3).to_float()
+						var enemy_type = result.get_string(4)
+						enemy_data[idx] = {"position": Vector2(pos_x, pos_y), "type": enemy_type}
+			Main.curr_editor_level_enemy_data = enemy_data
 		emit_signal("level_selected")
 	else:
 		Main.LEVEL_SCRIPT = file_path
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
-
+func _on_delete_lvl_button_pressed(button_instance, file_path: String):
+	if FileAccess.file_exists(file_path):
+		var err = DirAccess.remove_absolute(file_path)
+		if err == OK:
+			print("File: ", file_path, "deleted successfully")
+			button_instance.queue_free()
+		else:
+			print("Error deleting file: ", err)
+	else:
+		print("File does not exist")
+		
+	if Main.CACHED_EDITOR_LEVEL == file_path:
+		Main.CACHED_EDITOR_LEVEL = ""
+	if Main.CACHED_EDITOR_LEVEL_COMPLETED == file_path:
+		Main.CACHED_EDITOR_LEVEL_COMPLETED = ""

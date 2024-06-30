@@ -17,6 +17,7 @@ var in_editor = false
 var CACHED_EDITOR_LEVEL
 var CACHED_EDITOR_LEVEL_COMPLETED 
 var player_input_disabled = false 
+var curr_editor_level_enemy_data: Dictionary
 
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 

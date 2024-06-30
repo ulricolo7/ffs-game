@@ -4,18 +4,18 @@ func _ready():
 	if Main.AUTO_REPLAY:
 		$Label.position = Vector2(233, 113)
 		$Replay_Button.position = Vector2(-2000, 449)
-		$MainMenu_Button.position = Vector2(-2000, 536)
+		$MainMenu_Button.position = Vector2(-2000, 530)
 		$Editor_Button.position = Vector2(-1000, 200)
 	elif not Main.AUTO_REPLAY and not Main.in_editor:
 		$Label.position = Vector2(233, 50)
 		$Replay_Button.position = Vector2(509, 449)
-		$MainMenu_Button.position = Vector2(511, 536)
+		$MainMenu_Button.position = Vector2(511, 530)
 		$Editor_Button.position = Vector2(-1000, 200)
 	elif not Main.AUTO_REPLAY and Main.in_editor:
 		$Label.position = Vector2(233, 50)
 		$Replay_Button.position = Vector2(509, 449)
 		$MainMenu_Button.position = Vector2(-1000, 200)
-		$Editor_Button.position = Vector2(511, 536)
+		$Editor_Button.position = Vector2(511, 530)
 		
 		
 func _on_replay_button_pressed():

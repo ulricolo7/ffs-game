@@ -39,17 +39,17 @@ scale = Vector2(2, 2)
 [node name="Simulate" parent="." instance=ExtResource("5_3mnt4")]
 layout_mode = 0
 offset_left = 490.0
-offset_top = 491.15
+offset_top = 566.405
 offset_right = 634.0
-offset_bottom = 527.15
+offset_bottom = 602.405
 scale = Vector2(2, 2)
 
 [node name="Editor" parent="." instance=ExtResource("6_rv6no")]
 layout_mode = 0
 offset_left = 490.0
-offset_top = 566.405
+offset_top = 491.0
 offset_right = 634.0
-offset_bottom = 602.405
+offset_bottom = 527.0
 scale = Vector2(2, 2)
 
 [node name="Options" parent="." instance=ExtResource("7_664qd")]

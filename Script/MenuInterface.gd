@@ -18,7 +18,7 @@ func init_screen(var_name, scene_name, visibility, z_ind):
 	var_name.set_z_index(z_ind)
 	add_child(var_name)
 	
-	print(var_name, " initialized")
+	#print(var_name, " initialized")
 	return var_name
 	
 func _ready():
@@ -56,7 +56,7 @@ func _on_quit_pressed():
 	get_tree().quit()
 	
 func screen_switch():
-	print("switched screen")
+	#print("switched screen")
 	if level_select_sim_screen.visible:
 		level_select_sim_screen.visible = false
 		bot_select_screen.visible = true

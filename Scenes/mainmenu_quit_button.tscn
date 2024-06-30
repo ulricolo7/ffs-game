@@ -1,19 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://b183ehqte8hmw"]
+[gd_scene load_steps=4 format=3 uid="uid://b183ehqte8hmw"]
 
-[ext_resource type="Texture2D" uid="uid://l0fchaoiq360" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_quit.png" id="1_kfbi0"]
+[ext_resource type="Texture2D" uid="uid://bjfppxqsgg8hk" path="res://Assets/New UI/mainmenu_quit1.png" id="1_eyxbj"]
+[ext_resource type="Texture2D" uid="uid://bgtm1i8l03eue" path="res://Assets/New UI/mainmenu_quit3.png" id="2_hdqrd"]
+[ext_resource type="Texture2D" uid="uid://catubp6i57e0i" path="res://Assets/New UI/mainmenu_quit2.png" id="3_vfoi4"]
 
-[node name="Quit" type="Button"]
+[node name="Quit" type="TextureButton"]
+texture_filter = 1
 offset_left = 4.88219
 offset_top = 20.1587
 offset_right = 148.882
 offset_bottom = 56.1587
-flat = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_left = -0.365628
-offset_top = -0.264751
-offset_right = 143.634
-offset_bottom = 35.7352
-texture = ExtResource("1_kfbi0")
+texture_normal = ExtResource("1_eyxbj")
+texture_pressed = ExtResource("2_hdqrd")
+texture_hover = ExtResource("3_vfoi4")
+stretch_mode = 4

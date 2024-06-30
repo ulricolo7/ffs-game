@@ -1,17 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlec8snukxoa6"]
+[gd_scene load_steps=4 format=3 uid="uid://dlec8snukxoa6"]
 
-[ext_resource type="Texture2D" uid="uid://dvnpuks0qyr1u" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_editor.png" id="1_hakw5"]
+[ext_resource type="Texture2D" uid="uid://sry4v41fk1vp" path="res://Assets/New UI/mainmenu_editor1.png" id="1_bq5u8"]
+[ext_resource type="Texture2D" uid="uid://clnjqvgtncbjf" path="res://Assets/New UI/mainmenu_editor3.png" id="2_v2736"]
+[ext_resource type="Texture2D" uid="uid://bjyfq3u8jnf5p" path="res://Assets/New UI/mainmenu_editor2.png" id="3_jbfjx"]
 
-[node name="Editor" type="Button"]
+[node name="Editor" type="TextureButton"]
+texture_filter = 1
 offset_left = 42.4063
 offset_top = 28.7934
 offset_right = 186.406
 offset_bottom = 64.7934
-flat = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 36.0
-texture = ExtResource("1_hakw5")
+texture_normal = ExtResource("1_bq5u8")
+texture_pressed = ExtResource("2_v2736")
+texture_hover = ExtResource("3_jbfjx")
+stretch_mode = 4

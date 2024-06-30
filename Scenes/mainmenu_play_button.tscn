@@ -1,21 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbpat7pffk1uf"]
+[gd_scene load_steps=5 format=3 uid="uid://dbpat7pffk1uf"]
 
-[ext_resource type="Texture2D" uid="uid://ddpcviyam5nbk" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_play.png" id="1_hgdjn"]
+[ext_resource type="Texture2D" uid="uid://bm5560fa6d5rk" path="res://Assets/New UI/mainmenu_play1.png" id="1_fwjyv"]
+[ext_resource type="Texture2D" uid="uid://cx4mokrsikyqi" path="res://Assets/New UI/mainmenu_play3.png" id="2_jqtb4"]
+[ext_resource type="Texture2D" uid="uid://llckp6hsbrce" path="res://Assets/New UI/mainmenu_play2.png" id="3_bb3od"]
 
 [sub_resource type="Theme" id="Theme_3cgwp"]
 
-[node name="Button" type="Button"]
+[node name="Button" type="TextureButton"]
 texture_filter = 1
 custom_minimum_size = Vector2(54.06, 0)
 offset_right = 144.0
 offset_bottom = 36.0
 theme = SubResource("Theme_3cgwp")
-flat = true
-icon_alignment = 1
-expand_icon = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 36.0
-texture = ExtResource("1_hgdjn")
+texture_normal = ExtResource("1_fwjyv")
+texture_pressed = ExtResource("2_jqtb4")
+texture_hover = ExtResource("3_bb3od")
+stretch_mode = 4

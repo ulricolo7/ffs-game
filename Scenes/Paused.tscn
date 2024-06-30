@@ -1,10 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0a55o2l75auk"]
+[gd_scene load_steps=16 format=3 uid="uid://c0a55o2l75auk"]
 
-[ext_resource type="Texture2D" uid="uid://bk24ttkysy0e" path="res://Assets/UI/Resume_Button/resume.png" id="1_ijn1d"]
 [ext_resource type="Script" path="res://Script/Paused.gd" id="1_irhu0"]
-[ext_resource type="Texture2D" uid="uid://bsr1y7ryy256p" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_options.png" id="2_ota2a"]
-[ext_resource type="Texture2D" uid="uid://4j27suseo4lh" path="res://Assets/UI/Game_Over_Buttons/gameover_mainmenu.png" id="3_7hu0j"]
-[ext_resource type="Texture2D" uid="uid://2q7rhdy3kd17" path="res://Assets/UI/Restart_Button/restart.png" id="4_61ijo"]
+[ext_resource type="Texture2D" uid="uid://bneqs2vsbip7i" path="res://Assets/New UI/resume1.png" id="2_abkiq"]
+[ext_resource type="Texture2D" uid="uid://c6ildse333nh1" path="res://Assets/New UI/resume3.png" id="3_ixfhx"]
+[ext_resource type="Texture2D" uid="uid://b4se3bvj72fv5" path="res://Assets/New UI/resume2.png" id="4_4vnx0"]
+[ext_resource type="Texture2D" uid="uid://dkejq3kpb1ncy" path="res://Assets/New UI/mainmenu_options1.png" id="5_eyinx"]
+[ext_resource type="Texture2D" uid="uid://bd4kqk782dhi1" path="res://Assets/New UI/mainmenu_options3.png" id="6_1dipr"]
+[ext_resource type="Texture2D" uid="uid://rsxubuuwnsvh" path="res://Assets/New UI/mainmenu_options2.png" id="7_dvhfb"]
+[ext_resource type="Texture2D" uid="uid://dxnll2tu2hci3" path="res://Assets/New UI/restart1.png" id="8_c8ygh"]
+[ext_resource type="Texture2D" uid="uid://bwr2100uxeqhx" path="res://Assets/New UI/restart3.png" id="9_a25wj"]
+[ext_resource type="Texture2D" uid="uid://bx75nebyloohu" path="res://Assets/New UI/restart2.png" id="10_tnr0q"]
+[ext_resource type="Texture2D" uid="uid://grebqgkdi0rm" path="res://Assets/New UI/gameover_mainmenu1.png" id="11_6kjm8"]
+[ext_resource type="Texture2D" uid="uid://cvdiivro5p1in" path="res://Assets/New UI/gameover_mainmenu3.png" id="12_uck54"]
+[ext_resource type="Texture2D" uid="uid://bhhl3bk2cbclg" path="res://Assets/New UI/gameover_mainmenu2.png" id="13_bgwgh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dakm"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.470588)
@@ -39,53 +47,53 @@ theme_override_font_sizes/font_size = 20
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_x6tev")
 
-[node name="Resume" type="Button" parent="."]
+[node name="Resume" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_left = 522.0
 offset_top = 339.944
 offset_right = 795.0
 offset_bottom = 411.944
-icon = ExtResource("1_ijn1d")
-flat = true
-icon_alignment = 1
-expand_icon = true
+texture_normal = ExtResource("2_abkiq")
+texture_pressed = ExtResource("3_ixfhx")
+texture_hover = ExtResource("4_4vnx0")
+stretch_mode = 4
 
-[node name="Options" type="Button" parent="."]
+[node name="Options" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 548.712
-offset_top = 417.988
-offset_right = 770.712
-offset_bottom = 479.988
-icon = ExtResource("2_ota2a")
-flat = true
-icon_alignment = 1
-expand_icon = true
+offset_left = 549.0
+offset_top = 418.0
+offset_right = 771.0
+offset_bottom = 474.0
+texture_normal = ExtResource("5_eyinx")
+texture_pressed = ExtResource("6_1dipr")
+texture_hover = ExtResource("7_dvhfb")
+stretch_mode = 4
 
-[node name="Restart" type="Button" parent="."]
+[node name="Restart" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 547.551
+offset_left = 548.0
 offset_top = 477.0
-offset_right = 770.551
-offset_bottom = 539.0
-icon = ExtResource("4_61ijo")
-flat = true
-icon_alignment = 1
-expand_icon = true
+offset_right = 771.0
+offset_bottom = 534.0
+texture_normal = ExtResource("8_c8ygh")
+texture_pressed = ExtResource("9_a25wj")
+texture_hover = ExtResource("10_tnr0q")
+stretch_mode = 4
 
-[node name="MainMenu" type="Button" parent="."]
+[node name="MainMenu" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 547.285
-offset_top = 537.523
-offset_right = 770.285
-offset_bottom = 599.523
-icon = ExtResource("3_7hu0j")
-flat = true
-icon_alignment = 1
-expand_icon = true
+offset_left = 547.0
+offset_top = 538.0
+offset_right = 770.0
+offset_bottom = 595.0
+texture_normal = ExtResource("11_6kjm8")
+texture_pressed = ExtResource("12_uck54")
+texture_hover = ExtResource("13_bgwgh")
+stretch_mode = 4
 
 [connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

@@ -1,10 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcdyd2xkvr60c"]
+[gd_scene load_steps=16 format=3 uid="uid://dcdyd2xkvr60c"]
 
 [ext_resource type="Script" path="res://Script/PauseEditor.gd" id="1_l526l"]
-[ext_resource type="Texture2D" uid="uid://bk24ttkysy0e" path="res://Assets/UI/Resume_Button/resume.png" id="2_rq4na"]
-[ext_resource type="Texture2D" uid="uid://bsr1y7ryy256p" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_options.png" id="3_tdnk5"]
-[ext_resource type="Texture2D" uid="uid://2q7rhdy3kd17" path="res://Assets/UI/Restart_Button/restart.png" id="4_o4s50"]
-[ext_resource type="Texture2D" uid="uid://dvnpuks0qyr1u" path="res://Assets/UI/Main_Menu_Buttons/mainmenu_editor.png" id="5_nqm4i"]
+[ext_resource type="Texture2D" uid="uid://bneqs2vsbip7i" path="res://Assets/New UI/resume1.png" id="2_jxp6j"]
+[ext_resource type="Texture2D" uid="uid://c6ildse333nh1" path="res://Assets/New UI/resume3.png" id="3_tn122"]
+[ext_resource type="Texture2D" uid="uid://b4se3bvj72fv5" path="res://Assets/New UI/resume2.png" id="4_yrelc"]
+[ext_resource type="Texture2D" uid="uid://dkejq3kpb1ncy" path="res://Assets/New UI/mainmenu_options1.png" id="5_ag23k"]
+[ext_resource type="Texture2D" uid="uid://bd4kqk782dhi1" path="res://Assets/New UI/mainmenu_options3.png" id="6_ppvaw"]
+[ext_resource type="Texture2D" uid="uid://rsxubuuwnsvh" path="res://Assets/New UI/mainmenu_options2.png" id="7_v1hte"]
+[ext_resource type="Texture2D" uid="uid://dxnll2tu2hci3" path="res://Assets/New UI/restart1.png" id="8_7otu2"]
+[ext_resource type="Texture2D" uid="uid://bwr2100uxeqhx" path="res://Assets/New UI/restart3.png" id="9_e5tje"]
+[ext_resource type="Texture2D" uid="uid://bx75nebyloohu" path="res://Assets/New UI/restart2.png" id="10_61h45"]
+[ext_resource type="Texture2D" uid="uid://sry4v41fk1vp" path="res://Assets/New UI/mainmenu_editor1.png" id="11_sik7b"]
+[ext_resource type="Texture2D" uid="uid://clnjqvgtncbjf" path="res://Assets/New UI/mainmenu_editor3.png" id="12_65r0y"]
+[ext_resource type="Texture2D" uid="uid://bjyfq3u8jnf5p" path="res://Assets/New UI/mainmenu_editor2.png" id="13_eiqh5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmsph"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.470588)
@@ -39,53 +47,53 @@ theme_override_font_sizes/font_size = 20
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_y11so")
 
-[node name="Resume2" type="Button" parent="."]
+[node name="Resume2" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_left = 522.0
 offset_top = 339.944
 offset_right = 795.0
 offset_bottom = 411.944
-icon = ExtResource("2_rq4na")
-flat = true
-icon_alignment = 1
-expand_icon = true
+texture_normal = ExtResource("2_jxp6j")
+texture_pressed = ExtResource("3_tn122")
+texture_hover = ExtResource("4_yrelc")
+stretch_mode = 4
 
-[node name="Options2" type="Button" parent="."]
+[node name="Options2" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_left = 548.712
 offset_top = 417.988
 offset_right = 770.712
 offset_bottom = 479.988
-icon = ExtResource("3_tdnk5")
-flat = true
-icon_alignment = 1
-expand_icon = true
+texture_normal = ExtResource("5_ag23k")
+texture_pressed = ExtResource("6_ppvaw")
+texture_hover = ExtResource("7_v1hte")
+stretch_mode = 4
 
-[node name="Restart2" type="Button" parent="."]
+[node name="Restart2" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_left = 547.551
 offset_top = 477.0
 offset_right = 770.551
 offset_bottom = 539.0
-icon = ExtResource("4_o4s50")
-flat = true
-icon_alignment = 1
-expand_icon = true
+texture_normal = ExtResource("8_7otu2")
+texture_pressed = ExtResource("9_e5tje")
+texture_hover = ExtResource("10_61h45")
+stretch_mode = 4
 
-[node name="Editor2" type="Button" parent="."]
+[node name="Editor2" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 0
 offset_left = 547.285
 offset_top = 537.523
 offset_right = 770.285
 offset_bottom = 599.523
-icon = ExtResource("5_nqm4i")
-flat = true
-icon_alignment = 1
-expand_icon = true
+texture_normal = ExtResource("11_sik7b")
+texture_pressed = ExtResource("12_65r0y")
+texture_hover = ExtResource("13_eiqh5")
+stretch_mode = 4
 
 [connection signal="pressed" from="Resume2" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Options2" to="." method="_on_options_pressed"]
