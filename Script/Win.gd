@@ -18,5 +18,5 @@ func _on_main_menu_button_pressed():
 
 func _on_editor_button_pressed():
 	Main.CACHED_EDITOR_LEVEL_COMPLETED = Main.CACHED_EDITOR_LEVEL
-	get_tree().change_scene_to_file("res://Scenes/editor_2.tscn")
+	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 

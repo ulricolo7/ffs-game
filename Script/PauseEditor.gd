@@ -25,4 +25,4 @@ func _on_restart_pressed():
 
 func _on_editor_2_pressed():
 	print("editor button pressed")
-	get_tree().change_scene_to_file("res://Scenes/editor_2.tscn")
+	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
