@@ -72,10 +72,14 @@ func toggle_pause():
 	pause_timer.start(0.1)	
 
 func init_level(level_script):
-	var level_data = load(level_script).new()
-	enemy_data = level_data.enemy_data
+	if Main.in_editor:
+		enemy_data = Main.curr_editor_level_enemy_data
+	else:
+		var level_data = load(level_script).new()
+		enemy_data = level_data.enemy_data
 	#change this
-	Main.LEVEL_LENGTH = level_data.last_enemy_x + 640
+	
+	Main.LEVEL_LENGTH = extract_largest_x(level_script) + 640
 	LEVEL_LENGTH = Main.LEVEL_LENGTH
 	
 	pause_timer.one_shot = true
@@ -241,3 +245,17 @@ func resume():
 func _on_death_timeout():
 	get_tree().reload_current_scene()
 
+	
+func extract_largest_x(level_script):
+	var file = FileAccess.open(level_script, FileAccess.READ)
+	if file:
+		var line
+		while not file.eof_reached():
+			line = file.get_line()
+			if line.begins_with("var last_enemy_x = "):
+				var parts = line.split(" = ")
+				return parts[1].to_float()
+		return 0.0	
+	else:
+		print("Error: Could not open file: ", level_script)
+		return 0.0
