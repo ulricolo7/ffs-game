@@ -1,118 +1,116 @@
 extends Control
 
-const level_select_scene = preload("res://Scenes/level_select.tscn")
-var level_select_screen
-
-var curr_enemy = null
-var last_enemy = null
-var largest_x = -100
-
-var enemy_data = {}
-var enemy_indices = {}
-var enemy_scenes = {
+const LEVEL_SELECT_SCENE = preload("res://Scenes/level_select.tscn")
+const ENEMY_SCENES = {
 	"gh": preload("res://Scenes/Enemies/Ghaster/ghaster_static.tscn"),
 	"fl": preload("res://Scenes/Enemies/Flapper/flapper_static.tscn"),
 	"cg": preload("res://Scenes/Enemies/Crawler/crawler_ground_static.tscn"),
-	"ca": preload("res://Scenes/Enemies/Crawler/crawler_air_static.tscn") 
+	"ca": preload("res://Scenes/Enemies/Crawler/crawler_air_static.tscn")
 }
-var h_scroll_bar
-var editor_screen
-var editor_screen_bounds
-var background
-var camera
-var scroll_factor = 0.01
-var idx_counter
-var level_file_name
-
-var curr_file_path
-
-var y_constraints = {
+const LEVELS_FOLDER = "res://Script/Levels/"
+const FILE_EXTENSION = ".gd"
+const Y_CONSTRAINTS = {
 	"gh": { "min": 160, "max": 670 },
 	"fl": { "min": 130, "max": 700 },
 	"cg": { "fixed": 710 },
 	"ca": { "min": 120, "max": 420 }
 }
 
-func set_button_able():
-	if Main.CACHED_EDITOR_LEVEL:
-		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
-		$Panel/LineEdit.text = cached_lvl_name
-		curr_file_path = Main.CACHED_EDITOR_LEVEL
-		print(Main.CACHED_EDITOR_LEVEL)
-		level_file_name = cached_lvl_name + ".gd"
-		$Panel/PlayButton.disabled = false
-		if check_level_validity(Main.CACHED_EDITOR_LEVEL):
-			$Panel/SaveButton.disabled = false
-		else:
-			$Panel/SaveButton.disabled = true
-	else:
-		$Panel/PlayButton.disabled = true
-		$Panel/SaveButton.disabled = true
-		
+const SCROLL_FACTOR = 0.01
+
+var level_select_screen
+var curr_enemy = null
+var last_enemy = null
+var largest_x = -100
+var enemy_data = {}
+var enemy_indices = {}
+var h_scroll_bar
+var editor_screen
+var editor_screen_bounds
+var background
+var camera
+var idx_counter
+var level_file_name
+var curr_file_path
+
 func _ready():
 	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
 		mark_level("completed")
-	
 	set_button_able()
-	
+	initialize_scene_references()
+	initialize_enemy_buttons()
+	initialize_level_select_screen()
+	$Panel/WarningLabel.visible = false
+	$Panel/WarningLabel2.visible = false
+	if Main.CACHED_EDITOR_LEVEL:
+		load_enemies(Main.curr_editor_level_enemy_data)
+	idx_counter = count_enemies()
+	set_process_input(true)
+
+func set_button_able():
+	if Main.CACHED_EDITOR_LEVEL:
+		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION)
+		$Panel/LineEdit.text = cached_lvl_name
+		curr_file_path = Main.CACHED_EDITOR_LEVEL
+		level_file_name = cached_lvl_name + FILE_EXTENSION
+		$Panel/PlayButton.disabled = false
+		$Panel/SaveButton.disabled = not check_level_validity(Main.CACHED_EDITOR_LEVEL)
+	else:
+		$Panel/PlayButton.disabled = true
+		$Panel/SaveButton.disabled = true
+
+func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
 	editor_screen_bounds = get_parent().get_node("../EditorScreen/Boundaries")
 	background = get_parent().get_node("../EditorScreen/Background")
 	camera = get_parent()
 	h_scroll_bar = get_node("../HScrollBar")
-	
+
+func initialize_enemy_buttons():
 	$Panel/GhasterButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("gh"))
 	$Panel/FlapperButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("fl"))
 	$Panel/CrawlerGroundButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("cg"))
 	$Panel/CrawlerAirButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("ca"))
-		
-	$Panel/WarningLabel.visible = false
-	$Panel/WarningLabel2.visible = false
-	set_process_input(true)
-	
-	level_select_screen = init_screen(level_select_screen, level_select_scene, false, 35)
-	level_select_screen.position = Vector2(-885,0)
+
+func initialize_level_select_screen():
+	level_select_screen = init_screen(level_select_screen, LEVEL_SELECT_SCENE, false, 35)
+	level_select_screen.position = Vector2(-885, 0)
 	level_select_screen.find_child("Panel").connect("level_selected", Callable(self, "disable_level_select"))
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
-	
-	if Main.CACHED_EDITOR_LEVEL:
-		#enemy_data = Main.curr_editor_level_enemy_data
-		#load_enemies(Main.CACHED_EDITOR_LEVEL)
-		load_enemies(Main.curr_editor_level_enemy_data)
-	idx_counter = count_enemies()
-	
+
 func _on_enemy_button_pressed(enemy_type):
-	var enemy_scene = enemy_scenes.get(enemy_type)
+	var enemy_scene = ENEMY_SCENES.get(enemy_type)
 	var inst_location = camera.position.x
-	
+
 	if enemy_scene:
 		var enemy_instance = enemy_scene.instantiate()
-		if enemy_type == "gh":
-			enemy_instance.position = Vector2(inst_location, 420)
-		elif enemy_type == "fl":
-			enemy_instance.position = Vector2(inst_location, 420)
-		elif enemy_type == "cg":
-			enemy_instance.position = Vector2(inst_location, 710)
-		elif enemy_type == "ca":
-			enemy_instance.position = Vector2(inst_location, 150)
+		enemy_instance.position = get_enemy_initial_position(enemy_type, inst_location)
+		add_enemy_to_screen(enemy_instance, enemy_type)
 
-		editor_screen.add_child(enemy_instance)
-		enemy_indices[enemy_instance] = idx_counter
-		enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
-		enemy_data[idx_counter] = {"position": enemy_instance.position, "type": enemy_type}
-		idx_counter += 1
-		
+func get_enemy_initial_position(enemy_type, inst_location):
+	var y_pos = 420
+	if enemy_type == "cg":
+		y_pos = 710
+	elif enemy_type == "ca":
+		y_pos = 150
+	return Vector2(inst_location, y_pos)
+
+func add_enemy_to_screen(enemy_instance, enemy_type):
+	editor_screen.add_child(enemy_instance)
+	enemy_indices[enemy_instance] = idx_counter
+	enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
+	enemy_data[idx_counter] = {"position": enemy_instance.position, "type": enemy_type}
+	idx_counter += 1
+
 func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
-		#print("Selected enemy: ", enemy_instance)
 		last_enemy = curr_enemy
 	
 func _input(event):
 	adjust_largest_x()
 	if event is InputEventMouseButton and event.is_released():
 		$Panel.visible = true
-		# print(curr_enemy, " placed at: ", get_global_mouse_position().x, ", ", get_global_mouse_position().y)
 		if curr_enemy:
 			var idx = enemy_indices.get(curr_enemy)
 			if enemy_data.has(idx):
@@ -121,9 +119,7 @@ func _input(event):
 				enemy_data[idx]["position"] = new_position
 				curr_enemy.position = new_position
 				adjust_largest_x()
-				print(enemy_data)
 				$Panel/SaveButton.disabled = true
-				
 			else:
 				print("Error: No enemy data found for index ", idx)
 			curr_enemy = null
@@ -145,32 +141,6 @@ func _input(event):
 			$Panel/LineEdit.release_focus()
 
 	Main.curr_editor_level_enemy_data = enemy_data
-	
-func count_enemies():
-	return enemy_data.size()
-			
-func _on_delete_button_pressed(): 
-	if last_enemy:
-		var idx = enemy_indices.get(last_enemy, null)  # Use enemy_indices to get the index
-		if idx != null:
-			editor_screen.remove_child(last_enemy)
-			last_enemy.queue_free()
-			enemy_data.erase(idx)
-			enemy_indices.erase(last_enemy)  # Remove from enemy_indices dictionary
-			last_enemy = null
-			# Note: Don't decrement idx_counter, as it is used to give unique IDs.
-		else:
-			print("Error: No index found for the selected enemy")
-
-func delete_file(file_path: String): 
-	if FileAccess.file_exists(file_path):
-		var err = DirAccess.remove_absolute(file_path)
-		if err == OK:
-			print("File: ", file_path, " deleted successfully")
-		else:
-			print("Error deleting file: ", err)
-	else:
-		print("File does not exist")
 
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	if FileAccess.file_exists(file_path):
@@ -196,8 +166,15 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	else:
 		print("Error creating file")
 
-func _on_line_edit_text_submitted(new_text):
-	$Panel/LineEdit.release_focus()
+func delete_file(file_path: String): 
+	if FileAccess.file_exists(file_path):
+		var err = DirAccess.remove_absolute(file_path)
+		if err == OK:
+			print("File: ", file_path, " deleted successfully")
+		else:
+			print("Error deleting file: ", err)
+	else:
+		print("File does not exist")
 
 func _on_line_edit_text_changed(name_typed):
 	name_typed = name_typed.strip_edges()
@@ -221,6 +198,9 @@ func _on_line_edit_text_changed(name_typed):
 		$Panel/WarningLabel.visible = false
 		$Panel/PlayButton.disabled = true
 
+func _on_line_edit_text_submitted(new_text):
+	$Panel/LineEdit.release_focus()
+
 func _on_play_button_pressed():
 	Main.curr_editor_level_enemy_data = enemy_data
 	print(Main.curr_editor_level_enemy_data)
@@ -237,8 +217,21 @@ func _on_save_button_pressed():
 	$Panel/LineEdit.release_focus()
 	mark_level("saved")
 
+func _on_delete_button_pressed(): 
+	if last_enemy:
+		var idx = enemy_indices.get(last_enemy, null)  # Use enemy_indices to get the index
+		if idx != null:
+			editor_screen.remove_child(last_enemy)
+			last_enemy.queue_free()
+			enemy_data.erase(idx)
+			enemy_indices.erase(last_enemy)  # Remove from enemy_indices dictionary
+			last_enemy = null
+			# Note: Don't decrement idx_counter, as it is used to give unique IDs.
+		else:
+			print("Error: No index found for the selected enemy")
+
 func apply_constraints(pos: Vector2, enemy_type: String):
-	var constraints = y_constraints.get(enemy_type, {})
+	var constraints = Y_CONSTRAINTS.get(enemy_type, {})
 	if pos.x < 600:
 		pos.x = 600
 	if constraints.has("fixed"):
@@ -252,30 +245,29 @@ func apply_constraints(pos: Vector2, enemy_type: String):
 	
 func load_enemies(e_data: Dictionary):
 	print(e_data)
-	if Main.CACHED_EDITOR_LEVEL: # cached editor level needs to cache enemy data
-		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix("res://Script/Levels/").trim_suffix(".gd")
+	if Main.CACHED_EDITOR_LEVEL:
+		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION)
 		$Panel/LineEdit.text = cached_lvl_name
 		if not check_level_validity(Main.CACHED_EDITOR_LEVEL):
 			print("this file is not validated")
-			$Panel/SaveButton.disabled = true				
+			$Panel/SaveButton.disabled = true
 	for idx in e_data.keys():
-		var data = e_data[idx]
-		var enemy_type = data["type"]
-		var enemy_scene = enemy_scenes.get(enemy_type)
-			
-		if enemy_scene:
-			var enemy_instance = enemy_scene.instantiate()
-			enemy_instance.position = data["position"]
-			editor_screen.add_child(enemy_instance) 
-			enemy_indices[enemy_instance] = idx
-			enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
-			self.enemy_data[idx] = {"position": enemy_instance.position, "type": enemy_type}
-				
-			if enemy_instance.position.x > largest_x:
-				largest_x = enemy_instance.position.x
-					
-		else:
-			print("Error: No scene found for enemy type: ", enemy_type)
+		add_enemy_instance(e_data[idx], idx)
+
+func add_enemy_instance(data, idx):
+	var enemy_type = data["type"]
+	var enemy_scene = ENEMY_SCENES.get(enemy_type)
+	if enemy_scene:
+		var enemy_instance = enemy_scene.instantiate()
+		enemy_instance.position = data["position"]
+		editor_screen.add_child(enemy_instance)
+		enemy_indices[enemy_instance] = idx
+		enemy_instance.connect("input_event", Callable(self, "_on_enemy_selected").bind(enemy_instance))
+		enemy_data[idx] = {"position": enemy_instance.position, "type": enemy_type}
+		update_largest_x(enemy_instance.position.x)
+	else:
+		print("Error: No scene found for enemy type: ", enemy_type)
+
 		
 func check_level_validity(file_path: String) -> bool:
 	var file = FileAccess.open(file_path, FileAccess.READ)
@@ -336,6 +328,10 @@ func _on_h_scroll_bar_value_changed(value):
 	editor_screen_bounds.position.x = scroll_value
 	background.position.x = scroll_value * Main.BG_SPEED + 800
 
+func update_largest_x(x):
+	if x > largest_x:
+		largest_x = x
+
 func adjust_largest_x():
 	for idx in enemy_data.keys():
 		var data = enemy_data[idx]
@@ -358,3 +354,6 @@ func _on_create_new_button_pressed():
 	
 func _on_open_button_pressed():
 	level_select_screen.visible = true
+
+func count_enemies():
+	return enemy_data.size()

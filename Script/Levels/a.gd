@@ -1,5 +1,5 @@
-var is_completed = false
-var is_saved = false
+var is_completed = true
+var is_saved = true
 
 var last_enemy_x = 3349
 
@@ -11,3 +11,6 @@ var enemy_data = {
 	4: {"position": Vector2(3347, 170), "type": "fl"},
 	5: {"position": Vector2(3349, 304), "type": "fl"},
 }
+
+
+
