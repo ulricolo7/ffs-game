@@ -69,9 +69,8 @@ func reset_idle_timer():
 		is_idle = false
 	
 func die():
-	print("Player died")
 	emit_signal("player_died")
-	queue_free()
+	$AnimatedSprite.play("death")
 	
 func freeze():
 	is_frozen = true

@@ -44,6 +44,7 @@ var LEVEL_LENGTH
 
 #functions
 func _ready():
+	Main.player_input_disabled = false
 	init_level(Main.LEVEL_SCRIPT)
 	spawn_ground(1200)
 	spawn_trees()
@@ -196,6 +197,7 @@ func win():
 
 func die():
 	Main.pause()
+	Main.player_input_disabled = true
 
 	death_screen.set_position(Vector2(camera.get_position().x - 640, 
 		camera.get_position().y - 420))

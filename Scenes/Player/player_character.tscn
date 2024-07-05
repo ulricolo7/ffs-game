@@ -1,17 +1,58 @@
-[gd_scene load_steps=11 format=3 uid="uid://dy4wnm8hd1fpu"]
+[gd_scene load_steps=20 format=3 uid="uid://dy4wnm8hd1fpu"]
 
 [ext_resource type="Script" path="res://Script/PlayerCharacter.gd" id="1_coqyr"]
+[ext_resource type="Texture2D" uid="uid://d1psp27lgbd8i" path="res://Assets/Characters/Player/player_death/player_death1.png" id="2_f4nyq"]
 [ext_resource type="Texture2D" uid="uid://bqfkc0x2cryxr" path="res://Assets/Characters/Player/player_game/player_game1.png" id="2_lfv0j"]
+[ext_resource type="Texture2D" uid="uid://cech2ca58qpic" path="res://Assets/Characters/Player/player_death/player_death2.png" id="3_lcbbh"]
 [ext_resource type="Texture2D" uid="uid://dnuest7dwjr67" path="res://Assets/Characters/Player/player_game/player_game2.png" id="3_y7055"]
+[ext_resource type="Texture2D" uid="uid://dq5hcax8ydep8" path="res://Assets/Characters/Player/player_death/player_death3.png" id="4_4sfic"]
 [ext_resource type="Texture2D" uid="uid://eoldgeb5b2s2" path="res://Assets/Characters/Player/player_game/player_game3.png" id="4_r23n4"]
+[ext_resource type="Texture2D" uid="uid://b8xfefc8yqdiw" path="res://Assets/Characters/Player/player_death/player_death4.png" id="5_5yrmk"]
 [ext_resource type="Texture2D" uid="uid://6euq6pxvbmyv" path="res://Assets/Characters/Player/player_game/player_game4.png" id="5_lm08b"]
+[ext_resource type="Texture2D" uid="uid://dumelfq7dcruh" path="res://Assets/Characters/Player/player_death/player_death5.png" id="6_6wubq"]
 [ext_resource type="Texture2D" uid="uid://yngmaofti4u7" path="res://Assets/Characters/Player/player_menu/player_menu1.png" id="6_8oy7d"]
 [ext_resource type="Texture2D" uid="uid://cuk40rrjvf8wb" path="res://Assets/Characters/Player/player_menu/player_menu2.png" id="7_baxqg"]
+[ext_resource type="Texture2D" uid="uid://dlr8if8v3nqm3" path="res://Assets/Characters/Player/player_death/player_death6.png" id="7_n4jal"]
 [ext_resource type="Texture2D" uid="uid://dyexml7rm48g3" path="res://Assets/Characters/Player/player_menu/player_menu3.png" id="8_4hh1t"]
+[ext_resource type="Texture2D" uid="uid://c7j223fec5pdi" path="res://Assets/Characters/Player/player_death/player_death7.png" id="8_4oad8"]
 [ext_resource type="Texture2D" uid="uid://bm8u8exesswvw" path="res://Assets/Characters/Player/player_menu/player_menu4.png" id="9_elnix"]
+[ext_resource type="Texture2D" uid="uid://b1jh7qdmf21sg" path="res://Assets/Characters/Player/player_death/player_death8.png" id="9_op5fc"]
+[ext_resource type="Texture2D" uid="uid://bg1jgvxj1cump" path="res://Assets/Characters/Player/player_death/player_death.png" id="10_dw38n"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d66in"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f4nyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lcbbh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4sfic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5yrmk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6wubq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_n4jal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4oad8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_op5fc")
+}, {
+"duration": 3.0,
+"texture": ExtResource("10_dw38n")
+}],
+"loop": false,
+"name": &"death",
+"speed": 60.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_lfv0j")
@@ -101,4 +142,4 @@ texture_filter = 1
 position = Vector2(-0.397301, 0)
 scale = Vector2(2.5, 2.49219)
 sprite_frames = SubResource("SpriteFrames_d66in")
-animation = &"idle"
+animation = &"death"

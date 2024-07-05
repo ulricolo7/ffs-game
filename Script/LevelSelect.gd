@@ -4,9 +4,7 @@ extends Panel
 @export var button_scene = preload("res://Scenes/level_button.tscn")
 
 signal level_selected
-#signal level_deleted
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	if Main.in_editor:
 		$Quit_Button.visible = false
