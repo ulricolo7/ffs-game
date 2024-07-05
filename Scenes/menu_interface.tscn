@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=15 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://b183ehqte8hmw" path="res://Scenes/mainmenu_quit_button.tscn" id="8_54qqn"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/2019-05-01_-_Undercover_Spy_Agent_-_David_Fesliyan.mp3" id="9_ehetc"]
 [ext_resource type="Texture2D" uid="uid://6r483mgcbdp" path="res://Assets/title2.png" id="10_2weya"]
+[ext_resource type="Texture2D" uid="uid://c8wjgxudqtp34" path="res://Assets/New UI/instructions_button1.png" id="12_17gi3"]
+[ext_resource type="Texture2D" uid="uid://crqduc1aybtyp" path="res://Assets/New UI/instructions_button3.png" id="13_3thik"]
+[ext_resource type="Texture2D" uid="uid://oq0rpsiqp5na" path="res://Assets/New UI/instructions_button2.png" id="14_lpwuq"]
 
 [node name="Menu_Interface" type="Control"]
 layout_mode = 3
@@ -84,6 +87,25 @@ position = Vector2(640, 420)
 [node name="Player" parent="Centre" instance=ExtResource("3_7dhf0")]
 position = Vector2(-310, 92)
 scale = Vector2(1.8, 1.8)
+
+[node name="Instructions" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1200.91
+offset_top = 760.218
+offset_right = 1266.91
+offset_bottom = 827.218
+texture_normal = ExtResource("12_17gi3")
+texture_pressed = ExtResource("13_3thik")
+texture_hover = ExtResource("14_lpwuq")
+stretch_mode = 4
+
+[node name="InstructionsPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 24.0
+offset_right = 634.0
+offset_bottom = 388.0
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]

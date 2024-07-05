@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://q2lqt02mu7nv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hm6xa"]
+font_size = 36
+
+[node name="make_new_lvl_button" type="Button"]
+z_index = 1
+custom_minimum_size = Vector2(580, 125)
+offset_left = 350.0
+offset_right = 930.0
+offset_bottom = 125.0
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 118.261
+offset_top = 46.0346
+offset_right = 455.261
+offset_bottom = 86.0346
+text = "+ MAKE A NEW LEVEL"
+label_settings = SubResource("LabelSettings_hm6xa")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0.00812244, 124.681, 579.776, 124.687)
+width = 2.0
