@@ -55,3 +55,14 @@ func screen_switch():
 		level_select_sim_screen.visible = true
 		bot_select_screen.visible = false
 	
+func _on_instructions_pressed():
+	if $InstructionsPanel.visible: 
+		$InstructionsPanel.visible = false
+		$Instructions.button_pressed = false
+	else:
+		$InstructionsPanel.visible = true
+		$Instructions.button_pressed = true
+
+func _on_close_instructions_pressed():
+	$InstructionsPanel.visible = false
+	$Instructions.button_pressed = false

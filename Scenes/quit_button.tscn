@@ -1,18 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddefxeug0fug3"]
+[gd_scene load_steps=5 format=3 uid="uid://ddefxeug0fug3"]
 
+[ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="1_6r03b"]
 [ext_resource type="Script" path="res://Script/QuitButton.gd" id="1_r8uen"]
-[ext_resource type="Texture2D" uid="uid://dulnj6ihjgeeu" path="res://Assets/UI/Quit_Button/quitbutton_outlined3.png" id="2_1vxpe"]
+[ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="2_66vjm"]
+[ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="3_rwi3k"]
 
-[node name="Quit_Button" type="Button"]
-custom_minimum_size = Vector2(24, 24)
-flat = true
-script = ExtResource("1_r8uen")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="Quit_Button" type="TextureButton"]
 texture_filter = 1
-layout_mode = 0
-offset_right = 26.0
-offset_bottom = 28.0
-texture = ExtResource("2_1vxpe")
+custom_minimum_size = Vector2(24, 24)
+texture_normal = ExtResource("1_6r03b")
+texture_pressed = ExtResource("2_66vjm")
+texture_hover = ExtResource("3_rwi3k")
+stretch_mode = 4
+script = ExtResource("1_r8uen")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

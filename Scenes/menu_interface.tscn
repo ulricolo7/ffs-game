@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=21 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
@@ -11,9 +11,26 @@
 [ext_resource type="PackedScene" uid="uid://b183ehqte8hmw" path="res://Scenes/mainmenu_quit_button.tscn" id="8_54qqn"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/2019-05-01_-_Undercover_Spy_Agent_-_David_Fesliyan.mp3" id="9_ehetc"]
 [ext_resource type="Texture2D" uid="uid://6r483mgcbdp" path="res://Assets/title2.png" id="10_2weya"]
-[ext_resource type="Texture2D" uid="uid://c8wjgxudqtp34" path="res://Assets/New UI/instructions_button1.png" id="12_17gi3"]
-[ext_resource type="Texture2D" uid="uid://crqduc1aybtyp" path="res://Assets/New UI/instructions_button3.png" id="13_3thik"]
-[ext_resource type="Texture2D" uid="uid://oq0rpsiqp5na" path="res://Assets/New UI/instructions_button2.png" id="14_lpwuq"]
+[ext_resource type="Texture2D" uid="uid://dtkwocles7v8b" path="res://Assets/New UI/instructions_button_excl1.png" id="12_jatrw"]
+[ext_resource type="Texture2D" uid="uid://dcc5wcavxn1x3" path="res://Assets/New UI/instructions_button_excl3.png" id="13_0wqon"]
+[ext_resource type="Texture2D" uid="uid://cmdfd3550v1q8" path="res://Assets/New UI/instructions_button_excl2.png" id="14_imfg2"]
+[ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="15_2djww"]
+[ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="16_8cjab"]
+[ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="17_u5x8i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neb82"]
+bg_color = Color(0, 0.0588235, 0.0509804, 0.972549)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_npscw"]
+line_spacing = 16.0
+font_size = 39
+
+[sub_resource type="LabelSettings" id="LabelSettings_gq1s8"]
+font_size = 18
 
 [node name="Menu_Interface" type="Control"]
 layout_mode = 3
@@ -95,20 +112,75 @@ offset_left = 1200.91
 offset_top = 760.218
 offset_right = 1266.91
 offset_bottom = 827.218
-texture_normal = ExtResource("12_17gi3")
-texture_pressed = ExtResource("13_3thik")
-texture_hover = ExtResource("14_lpwuq")
+toggle_mode = true
+texture_normal = ExtResource("12_jatrw")
+texture_pressed = ExtResource("13_0wqon")
+texture_hover = ExtResource("14_imfg2")
 stretch_mode = 4
 
 [node name="InstructionsPanel" type="Panel" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 30.0
-offset_top = 24.0
-offset_right = 634.0
-offset_bottom = 388.0
+offset_left = 320.0
+offset_top = 200.0
+offset_right = 960.0
+offset_bottom = 725.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_neb82")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InstructionsPanel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 12.0
+offset_right = 624.0
+offset_bottom = 419.0
+
+[node name="title" type="Label" parent="InstructionsPanel/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "                   INSTRUCTIONS"
+label_settings = SubResource("LabelSettings_npscw")
+vertical_alignment = 1
+max_lines_visible = 1
+
+[node name="content" type="Label" parent="InstructionsPanel/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+text = "PLAY: 
+Dive into the heart of the game! Select from the default levels or any custom levels you've created. Use the following controls to navigate your character:
+
+W or UP: Move Up
+A or LEFT: Move Left
+S or DOWN: Move Down
+D or RIGHT: Move Right
+
+EDITOR:
+Unleash your creativity in the Level Editor. Design your own levels, test them out, and share your unique creations with friends.
+
+SIMULATE:
+Put your levels to the test with our bots. See how they perform and refine your designs.
+
+OPTIONS:
+Customize your gaming experience. Set your preferences and enjoy the game your way."
+label_settings = SubResource("LabelSettings_gq1s8")
+autowrap_mode = 2
+
+[node name="CloseInstructions" type="TextureButton" parent="InstructionsPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 582.971
+offset_top = 18.3206
+offset_right = 618.971
+offset_bottom = 54.3206
+texture_normal = ExtResource("15_2djww")
+texture_pressed = ExtResource("16_8cjab")
+texture_hover = ExtResource("17_u5x8i")
+stretch_mode = 4
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]
 [connection signal="pressed" from="Editor" to="." method="_on_editor_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Instructions" to="." method="_on_instructions_pressed"]
+[connection signal="pressed" from="InstructionsPanel/CloseInstructions" to="." method="_on_close_instructions_pressed"]

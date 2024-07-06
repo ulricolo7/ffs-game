@@ -51,7 +51,6 @@ func _ready():
 	spawn_enemies()
 	spawn_ground(1000)
 	player = init_player(Main.BOT_NAME)
-	
 	#print("Level ready")
 
 func _process(delta):
