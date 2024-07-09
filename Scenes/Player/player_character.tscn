@@ -51,7 +51,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 60.0
+"speed": 45.0
 }, {
 "frames": [{
 "duration": 1.0,

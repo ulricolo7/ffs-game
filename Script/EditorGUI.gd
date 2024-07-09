@@ -358,3 +358,13 @@ func _on_open_button_pressed():
 
 func count_enemies():
 	return enemy_data.size()
+
+func _on_upload_music_button_pressed():
+	var dialog = $Panel/UploadMusic
+	dialog.visible = true
+
+func _on_upload_music_file_selected(path):
+	var audio_player = $"../../AudioStreamPlayer"
+	audio_player.stream = path
+	audio_player.play()
+	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=44 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -26,13 +26,14 @@
 [ext_resource type="Texture2D" uid="uid://dom8vrc21na7d" path="res://Assets/New UI/openbutton_aniamted3.png" id="18_viibb"]
 [ext_resource type="Texture2D" uid="uid://d1gfdjhc6ccak" path="res://Assets/New UI/openbutton_aniamted2.png" id="19_kh420"]
 [ext_resource type="Texture2D" uid="uid://eq601muy0vla" path="res://Assets/New UI/sharebutton1.png" id="20_udh2j"]
-[ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/2019-05-01_-_Undercover_Spy_Agent_-_David_Fesliyan.mp3" id="21_2d0ef"]
 [ext_resource type="Texture2D" uid="uid://dkncsoqf1jqbm" path="res://Assets/New UI/sharebutton3.png" id="21_cwmhk"]
 [ext_resource type="Texture2D" uid="uid://ccq1bwyuoeh2f" path="res://Assets/New UI/sharebutton2.png" id="22_iyqiq"]
 [ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://Scenes/Player/player_character.tscn" id="23_aqmxl"]
 [ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="29_3l3at"]
 [ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="30_ekael"]
 [ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="31_42vc7"]
+[ext_resource type="PackedScene" uid="uid://dfsvfh775epcp" path="res://Scenes/upload_music_button.tscn" id="32_4r7sh"]
+[ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/Mystery.mp3" id="34_5xkv1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
 size = Vector2(1279.57, 79.8015)
@@ -380,6 +381,21 @@ texture_pressed = ExtResource("30_ekael")
 texture_hover = ExtResource("31_42vc7")
 stretch_mode = 4
 
+[node name="Upload_Music_Button" parent="Camera2D/GUI/Panel" instance=ExtResource("32_4r7sh")]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 538.0
+offset_right = 174.0
+offset_bottom = 562.0
+scale = Vector2(3, 3)
+
+[node name="UploadMusic" type="FileDialog" parent="Camera2D/GUI/Panel"]
+title = "Open a File"
+position = Vector2i(640, 420)
+size = Vector2i(275, 136)
+ok_button_text = "Open"
+file_mode = 0
+
 [node name="Player" parent="Camera2D" instance=ExtResource("23_aqmxl")]
 z_index = 30
 position = Vector2(-500, 20)
@@ -396,8 +412,23 @@ theme_override_styles/grabber = SubResource("StyleBoxFlat_6hid5")
 max_value = 30000.0
 step = 1.0
 
+[node name="SideBorders" type="Node2D" parent="Camera2D"]
+position = Vector2(-640, -420)
+
+[node name="BlackBorder" type="Sprite2D" parent="Camera2D/SideBorders"]
+z_index = 50
+position = Vector2(-100, 420)
+scale = Vector2(10, 50)
+texture = ExtResource("8_q8ebd")
+
+[node name="BlackBorder2" type="Sprite2D" parent="Camera2D/SideBorders"]
+z_index = 50
+position = Vector2(1380, 420)
+scale = Vector2(10, 50)
+texture = ExtResource("8_q8ebd")
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("21_2d0ef")
+stream = ExtResource("34_5xkv1")
 autoplay = true
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/DeleteButton" to="Camera2D/GUI" method="_on_delete_button_pressed"]
@@ -409,6 +440,8 @@ autoplay = true
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/QuitButton" to="Camera2D/GUI" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/Upload_Music_Button" to="Camera2D/GUI" method="_on_upload_music_button_pressed"]
+[connection signal="file_selected" from="Camera2D/GUI/Panel/UploadMusic" to="Camera2D/GUI" method="_on_upload_music_file_selected"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
 
 [editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]

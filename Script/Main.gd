@@ -1,13 +1,16 @@
 extends Node
 
+var MASTER_VOLUME = 0.5
+var AUTO_REPLAY = true
+var FULL_SCREEN = false
+
 var no_pause_state = 1
 var SCROLL_SPEED 
 var options_screen
-var MASTER_VOLUME = 0.5
 var TEST_SPEED = 1
 var BG_SPEED = 0.99
 
-var AUTO_REPLAY = true
+
 
 var BOT_NAME 
 var LEVEL_LENGTH

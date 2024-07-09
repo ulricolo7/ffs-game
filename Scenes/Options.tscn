@@ -42,15 +42,14 @@ vertical_alignment = 1
 
 [node name="VolumeLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 413.0
+offset_left = 430.0
 offset_top = 312.0
-offset_right = 572.0
+offset_right = 589.0
 offset_bottom = 367.0
 scale = Vector2(0.8, 0.8)
 theme_override_font_sizes/font_size = 38
 text = "Volume
 "
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VolumeSlider" type="HSlider" parent="."]
@@ -71,18 +70,6 @@ offset_top = 187.0
 offset_right = 934.0
 offset_bottom = 227.0
 
-[node name="AutoReplayCheckBox" type="CheckBox" parent="."]
-layout_mode = 0
-offset_left = 839.0
-offset_top = 422.0
-offset_right = 855.0
-offset_bottom = 438.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_nxwbq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hvfr5")
-button_pressed = true
-alignment = 1
-icon_alignment = 1
-
 [node name="AutoReplayLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 430.0
@@ -93,8 +80,44 @@ scale = Vector2(0.8, 0.8)
 theme_override_font_sizes/font_size = 38
 text = "Auto-Replay
 "
-horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AutoReplayCheckBox" type="CheckBox" parent="AutoReplayLabel"]
+layout_mode = 0
+offset_left = 511.25
+offset_top = 22.5
+offset_right = 527.25
+offset_bottom = 38.5
+theme_override_styles/normal = SubResource("StyleBoxFlat_nxwbq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hvfr5")
+button_pressed = true
+alignment = 1
+icon_alignment = 1
+
+[node name="FullScreenLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 465.0
+offset_right = 626.0
+offset_bottom = 520.0
+scale = Vector2(0.8, 0.8)
+theme_override_font_sizes/font_size = 38
+text = "Full Screen
+"
+vertical_alignment = 1
+
+[node name="FullScreenCheckBox" type="CheckBox" parent="FullScreenLabel"]
+layout_mode = 0
+offset_left = 511.25
+offset_top = 22.5
+offset_right = 527.25
+offset_bottom = 38.5
+theme_override_styles/normal = SubResource("StyleBoxFlat_nxwbq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hvfr5")
+button_pressed = true
+alignment = 1
+icon_alignment = 1
+
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="toggled" from="AutoReplayCheckBox" to="." method="_on_auto_replay_check_box_toggled"]
+[connection signal="toggled" from="AutoReplayLabel/AutoReplayCheckBox" to="." method="_on_auto_replay_check_box_toggled"]
+[connection signal="toggled" from="FullScreenLabel/FullScreenCheckBox" to="." method="_on_full_screen_check_box_toggled"]

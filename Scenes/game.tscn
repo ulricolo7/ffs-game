@@ -6,4 +6,4 @@
 [node name="Game" type="Node"]
 script = ExtResource("1_ngral")
 
-[node name="Menu_Interface" parent="." instance=ExtResource("2_cybv7")]
+[node name="MenuInterface" parent="." instance=ExtResource("2_cybv7")]

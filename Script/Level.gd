@@ -33,10 +33,12 @@ var player_scene
 @onready var bg = $Background
 @onready var progress_bar = $Camera/ProgressBar
 @onready var tree_layer = $TreeLayer
+@onready var go_sign = $"GO!"
 
 var is_paused = false
 @onready var pause_timer = $PauseTimer
 @onready var death_timer = $DeathTimer
+@onready var start_timer = $StartTimer
 
 var enemy_data 
 var last_enemy
@@ -52,14 +54,18 @@ func _ready():
 	spawn_ground(1000)
 	player = init_player(Main.BOT_NAME)
 	#print("Level ready")
+	start_run()
+	
 
 func _process(delta):
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") && start_timer.is_stopped():
 		toggle_pause()
 	camera.position.x += Main.SCROLL_SPEED * delta
 	bg.position.x += Main.SCROLL_SPEED * delta * Main.BG_SPEED
 	tree_layer.position.x += Main.SCROLL_SPEED * delta * 0.9
 	progress_bar.value = ((camera.global_position.x - 640) / (LEVEL_LENGTH - 640)) * 100
+	go_sign.global_position.x -= delta * 50
+	
 	
 	if camera.position.x > LEVEL_LENGTH:
 		win()
@@ -81,9 +87,7 @@ func init_level(level_script):
 	
 	Main.LEVEL_LENGTH = extract_largest_x(level_script) + 640
 	LEVEL_LENGTH = Main.LEVEL_LENGTH
-	
-	pause_timer.one_shot = true
-	death_timer.one_shot = true
+
 	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
 	
 	victory_screen = init_screen(victory_screen, victory_scene, false, SCREEN_LAYER)
@@ -116,7 +120,7 @@ func init_player(bot_name):
 		player_scene = preload("res://Scenes/Player/player_character.tscn")
 	
 	player = player_scene.instantiate()
-	player.position = Vector2(-500, 20)
+	player.position = Vector2(-450, 0)
 	player.scale = Vector2(1.5, 1.5)
 	camera.add_child(player)
 	
@@ -182,6 +186,14 @@ func spawn_trees():
 	
 	#print("Trees spawned")
 
+func start_run():
+	pause()
+	if Main.in_editor:
+		pause_screen_editor.set_visible(false)
+	else:
+		pause_screen.set_visible(false)
+	start_timer.start(1)
+
 func win():
 	Main.pause()
 	
@@ -246,7 +258,6 @@ func resume():
 func _on_death_timeout():
 	get_tree().reload_current_scene()
 
-	
 func extract_largest_x(level_script):
 	var file = FileAccess.open(level_script, FileAccess.READ)
 	if file:
@@ -260,3 +271,7 @@ func extract_largest_x(level_script):
 	else:
 		print("Error: Could not open file: ", level_script)
 		return 0.0
+
+func _on_start_timer_timeout():
+	print("start time")
+	toggle_pause()
