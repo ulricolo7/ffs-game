@@ -319,7 +319,8 @@ func _on_line_edit_focus_entered():
 	Main.player_input_disabled = true
 
 func disable_level_select():
-	get_tree().reload_current_scene()	
+	# add here the verification
+	get_tree().reload_current_scene()
 	load_enemies(Main.curr_editor_level_enemy_data)
 	
 func _on_h_scroll_bar_value_changed(value):

@@ -1,20 +1,22 @@
-extends Panel
+extends Control
 
 @export var levels_folder: String = "res://Script/Levels/"
 @export var button_scene = preload("res://Scenes/level_button.tscn")
 const make_new_lvl_button_scene = preload("res://Scenes/make_new_lvl_button.tscn")
+var file_to_delete = ""
+var button_instance_to_free = null
 
 signal level_selected
 
 func _ready():
 	if Main.in_editor:
-		$Quit_Button.visible = false
+		$Panel/Quit_Button.visible = false
 	else:
-		$open_file_quit.visible = false
+		$Panel/open_file_quit.visible = false
 	_scan_levels_folder()
 	var make_new_lvl_instance = make_new_lvl_button_scene.instantiate()
 	make_new_lvl_instance.connect("pressed", Callable(self, "open_editor"))
-	$ScrollContainer/VBoxContainer.add_child(make_new_lvl_instance)
+	$Panel/ScrollContainer/VBoxContainer.add_child(make_new_lvl_instance)
 	
 
 func _scan_levels_folder():
@@ -75,7 +77,7 @@ func _add_level_button(file_path: String):
 	button_instance.find_child("DeleteButton").connect("pressed", Callable(self, "_on_delete_lvl_button_pressed").bind(button_instance, file_path))
 	if lvl_name.begins_with("dev_"):
 		button_instance.find_child("DeleteButton").visible = false
-	$ScrollContainer/VBoxContainer.add_child(button_instance)
+	$Panel/ScrollContainer/VBoxContainer.add_child(button_instance)
 	
 
 func _get_file_last_modified(file_path):
@@ -124,22 +126,36 @@ func _on_level_button_pressed(file_path: String):
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_delete_lvl_button_pressed(button_instance, file_path: String):
-	if FileAccess.file_exists(file_path):
-		var err = DirAccess.remove_absolute(file_path)
-		if err == OK:
-			print("File: ", file_path, "deleted successfully")
-			button_instance.queue_free()
-		else:
-			print("Error deleting file: ", err)
-	else:
-		print("File does not exist")
-		
-	if Main.CACHED_EDITOR_LEVEL == file_path:
-		Main.CACHED_EDITOR_LEVEL = ""
-	if Main.CACHED_EDITOR_LEVEL_COMPLETED == file_path:
-		Main.CACHED_EDITOR_LEVEL_COMPLETED = ""
+	file_to_delete = file_path
+	button_instance_to_free = button_instance
+	$WarningPanel.visible = true
+	$WarningPanel/Content.text = "Are you sure you want to delete {0}? (this action cannot be undone)".format([file_path.get_file().get_basename()])
 	
 func open_editor():
 	print("reached")
 	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
+
+
+func _on_delete_pressed():
+	if file_to_delete != "":
+		
+		if FileAccess.file_exists(file_to_delete):
+			var err = DirAccess.remove_absolute(file_to_delete)
+			if err == OK:
+				print("File: ", file_to_delete, "deleted successfully")
+				button_instance_to_free.queue_free()
+			else:
+				print("Error deleting file: ", err)
+		else:
+			print("File does not exist")
+		
+		if Main.CACHED_EDITOR_LEVEL == file_to_delete:
+			Main.CACHED_EDITOR_LEVEL = ""
+		if Main.CACHED_EDITOR_LEVEL_COMPLETED == file_to_delete:
+			Main.CACHED_EDITOR_LEVEL_COMPLETED = ""
+			
+		#reset the vars on top
+		file_to_delete = ""
+		button_instance_to_free = null
+		$WarningPanel.visible = false

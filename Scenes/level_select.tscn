@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxfobiaxrxk4a"]
+[gd_scene load_steps=9 format=3 uid="uid://bxfobiaxrxk4a"]
 
 [ext_resource type="Script" path="res://Script/LevelSelect.gd" id="1_lxj5w"]
 [ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_doah5"]
 [ext_resource type="PackedScene" uid="uid://cl1f3akenwdto" path="res://Scenes/open_file_quit.tscn" id="3_tx4s3"]
+[ext_resource type="Texture2D" uid="uid://yngmaofti4u7" path="res://Assets/Characters/Player/player_menu/player_menu1.png" id="4_2fal1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtkgh"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -13,10 +14,14 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 line_spacing = 0.0
 font_size = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyvig"]
+bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
+
 [node name="Level_Select" type="Control"]
 z_index = -1
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_lxj5w")
 
 [node name="Panel" type="Panel" parent="."]
 z_index = -1
@@ -25,7 +30,6 @@ offset_left = 350.0
 offset_right = 930.0
 offset_bottom = 840.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mtkgh")
-script = ExtResource("1_lxj5w")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 0
@@ -68,3 +72,56 @@ offset_top = 18.9008
 offset_right = 557.901
 offset_bottom = 46.9008
 scale = Vector2(1.1, 1.1)
+
+[node name="WarningPanel" type="Panel" parent="."]
+visible = false
+z_index = 4096
+layout_mode = 0
+offset_left = 302.0
+offset_top = 314.0
+offset_right = 975.0
+offset_bottom = 507.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyvig")
+
+[node name="Title" type="Label" parent="WarningPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.0
+offset_top = 1.0
+offset_right = 579.0
+offset_bottom = 64.0
+text = "WARNING"
+label_settings = SubResource("LabelSettings_rfd1n")
+vertical_alignment = 1
+
+[node name="Line2D2" type="Line2D" parent="WarningPanel"]
+position = Vector2(48, -319.28)
+points = PackedVector2Array(624.896, 372.934, -47.8368, 372.882)
+width = 2.0
+
+[node name="Content" type="Label" parent="WarningPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 72.0091
+offset_right = 659.0
+offset_bottom = 121.009
+
+[node name="Delete" type="TextureButton" parent="WarningPanel"]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 118.0
+offset_right = 309.0
+offset_bottom = 182.0
+texture_normal = ExtResource("4_2fal1")
+stretch_mode = 3
+
+[node name="Cancel" type="TextureButton" parent="WarningPanel"]
+layout_mode = 0
+offset_left = 417.805
+offset_top = 139.491
+offset_right = 457.805
+offset_bottom = 179.491
+texture_normal = ExtResource("4_2fal1")
+stretch_mode = 4
+
+[connection signal="pressed" from="WarningPanel/Delete" to="." method="_on_delete_pressed"]

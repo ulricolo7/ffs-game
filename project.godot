@@ -23,6 +23,7 @@ Main="*res://Script/Main.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=840
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 mouse_cursor/custom_image="res://Assets/UI/Cursor/cursor.png"

@@ -59,7 +59,7 @@ func _process(_delta):
 		velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 		move_and_slide()
 	
-	if position.x < -800 || position.x > 780:
+	if position.x < -700 || position.x > 700:
 		die()
 
 func reset_idle_timer():

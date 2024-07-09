@@ -1,4 +1,4 @@
-extends Button
+extends TextureButton
 
 signal close_level_select
 

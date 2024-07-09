@@ -1,23 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl1f3akenwdto"]
+[gd_scene load_steps=5 format=3 uid="uid://cl1f3akenwdto"]
 
-[ext_resource type="Texture2D" uid="uid://dulnj6ihjgeeu" path="res://Assets/UI/Quit_Button/quitbutton_outlined3.png" id="1_511ka"]
+[ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="1_0eik1"]
 [ext_resource type="Script" path="res://Script/OpenFileQuit.gd" id="1_v4ciu"]
+[ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="2_oqaqa"]
+[ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="3_bphpu"]
 
-[node name="open_file_quit" type="Button"]
+[node name="open_file_quit" type="TextureButton"]
 texture_filter = 1
 offset_right = 26.0
 offset_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-flat = true
-icon_alignment = 1
+texture_normal = ExtResource("1_0eik1")
+texture_pressed = ExtResource("2_oqaqa")
+texture_hover = ExtResource("3_bphpu")
 script = ExtResource("1_v4ciu")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_right = 26.0
-offset_bottom = 28.0
-texture = ExtResource("1_511ka")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
