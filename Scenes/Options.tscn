@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://n0ww81dt5p46"]
+[gd_scene load_steps=7 format=3 uid="uid://n0ww81dt5p46"]
 
 [ext_resource type="Script" path="res://Script/Options.gd" id="1_3a2tm"]
 [ext_resource type="PackedScene" uid="uid://b23qbeu8am3dx" path="res://Scenes/close_button.tscn" id="2_1fisg"]
+[ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="3_t2ns5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8coo"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -117,6 +118,10 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_hvfr5")
 button_pressed = true
 alignment = 1
 icon_alignment = 1
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_t2ns5")
+volume_db = 5.0
 
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="toggled" from="AutoReplayLabel/AutoReplayCheckBox" to="." method="_on_auto_replay_check_box_toggled"]

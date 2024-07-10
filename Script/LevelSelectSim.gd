@@ -56,6 +56,7 @@ func is_level_saved(file_path: String) -> bool:
 	return false
 	
 func _add_level_button(file_path: String):
+	play_click_sfx()
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("level_button/VBoxContainer/LevelName")
 	#var desc_label = button_instance.get_node("Button/level_button/VBoxContainer/LevelDesc")
@@ -79,7 +80,11 @@ func _get_file_last_modified(file_path):
 	return "Unknown"
 
 func _on_level_button_pressed(file_path: String):
+	play_click_sfx()
 	print("button pressed")
 	Main.LEVEL_SCRIPT = file_path
 	emit_signal("switch_screens")
 	print("signal emitted")
+
+func play_click_sfx():
+	$ClickSFX.play()

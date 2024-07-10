@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=41 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="30_ekael"]
 [ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="31_42vc7"]
 [ext_resource type="PackedScene" uid="uid://dfsvfh775epcp" path="res://Scenes/upload_music_button.tscn" id="32_4r7sh"]
+[ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="32_dyf4s"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/Mystery.mp3" id="34_5xkv1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
@@ -411,6 +412,10 @@ texture = ExtResource("8_q8ebd")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("34_5xkv1")
 autoplay = true
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("32_dyf4s")
+volume_db = 5.0
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]

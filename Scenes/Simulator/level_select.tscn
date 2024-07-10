@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://byf11tcdw5up2"]
+[gd_scene load_steps=7 format=3 uid="uid://byf11tcdw5up2"]
 
 [ext_resource type="Script" path="res://Script/LevelSelectSim.gd" id="1_rdjcn"]
 [ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_skdvf"]
+[ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="2_y1ik2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hao3j"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -49,6 +50,11 @@ vertical_alignment = 1
 [node name="Line2D" type="Line2D" parent="Panel"]
 points = PackedVector2Array(580.114, 66.8034, -0.863159, 66.8517)
 width = 2.0
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="Panel"]
+position = Vector2(-350, 0)
+stream = ExtResource("2_y1ik2")
+volume_db = 5.0
 
 [node name="Quit_Button" parent="." instance=ExtResource("2_skdvf")]
 layout_mode = 0

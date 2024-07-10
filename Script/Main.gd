@@ -38,11 +38,10 @@ func _process(_delta):
 	if no_pause_state == 1:
 		SCROLL_SPEED = 700 * TEST_SPEED
 	elif no_pause_state == 0:
-		SCROLL_SPEED = 0 * TEST_SPEED	
+		SCROLL_SPEED = 0 * TEST_SPEED
 
 func pause():
 	no_pause_state = 0
 	
 func resume():
 	no_pause_state = 1
-

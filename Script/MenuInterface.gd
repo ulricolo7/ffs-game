@@ -30,21 +30,26 @@ func _ready():
 	bot_select_screen.find_child("Panel").connect("switch_screens", Callable(self, "screen_switch"))
 	
 func _on_play_pressed():
+	play_click_sfx()
 	#get_tree().change_scene_to_file("res://Scenes/level.tscn")
 	Main.BOT_NAME = ""
 	level_select_screen.visible = true
 
 func _on_simulate_pressed():
+	play_click_sfx()
 	level_select_sim_screen.visible = true
 
 func _on_editor_pressed():
+	play_click_sfx()
 	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 
 func _on_options_pressed():
+	play_click_sfx()
 	options_screen.visible = true
 
 func _on_quit_pressed():
+	play_click_sfx()
 	get_tree().quit()
 	
 func screen_switch():
@@ -56,6 +61,7 @@ func screen_switch():
 		bot_select_screen.visible = false
 	
 func _on_instructions_pressed():
+	play_click_sfx()
 	if $InstructionsPanel.visible: 
 		$InstructionsPanel.visible = false
 		$Instructions.button_pressed = false
@@ -64,13 +70,10 @@ func _on_instructions_pressed():
 		$Instructions.button_pressed = true
 
 func _on_close_instructions_pressed():
+	play_click_sfx()
 	$InstructionsPanel.visible = false
 	$Instructions.button_pressed = false
 
-
-func _on_restart_gmae_pressed():
-	var restart_script = preload("res://Scenes/restart_game.gd").new()
-	#var reloader = preload("res://Scenes/reload_scene.gd").new()
-	#reloader.reload_scene()
-	add_child(restart_script)
-	restart_script.restart_game()
+	
+func play_click_sfx():
+	$ClickSFX.play()

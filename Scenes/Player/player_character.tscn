@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dy4wnm8hd1fpu"]
+[gd_scene load_steps=21 format=3 uid="uid://dy4wnm8hd1fpu"]
 
 [ext_resource type="Script" path="res://Script/PlayerCharacter.gd" id="1_coqyr"]
 [ext_resource type="Texture2D" uid="uid://d1psp27lgbd8i" path="res://Assets/Characters/Player/player_death/player_death1.png" id="2_f4nyq"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bm8u8exesswvw" path="res://Assets/Characters/Player/player_menu/player_menu4.png" id="9_elnix"]
 [ext_resource type="Texture2D" uid="uid://b1jh7qdmf21sg" path="res://Assets/Characters/Player/player_death/player_death8.png" id="9_op5fc"]
 [ext_resource type="Texture2D" uid="uid://bg1jgvxj1cump" path="res://Assets/Characters/Player/player_death/player_death.png" id="10_dw38n"]
+[ext_resource type="AudioStream" uid="uid://nyy37airbesf" path="res://Assets/SFX/mixkit-arcade-game-explosion-2759.wav" id="19_7quha"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d66in"]
 animations = [{
@@ -143,3 +144,6 @@ position = Vector2(-0.397301, 0)
 scale = Vector2(2.5, 2.49219)
 sprite_frames = SubResource("SpriteFrames_d66in")
 animation = &"death"
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_7quha")

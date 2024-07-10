@@ -23,12 +23,14 @@ func _on_h_slider_value_changed(value):
 
 
 func _on_auto_replay_check_box_toggled(button_pressed):
+	play_click_sfx()
 	Main.AUTO_REPLAY = button_pressed
 	
 	update_saved_options()
 
 
 func _on_full_screen_check_box_toggled(button_pressed):
+	play_click_sfx()
 	Main.FULL_SCREEN = button_pressed
 	
 	if button_pressed:
@@ -58,3 +60,6 @@ func delete_file(file_path: String):
 			print("Error deleting file: ", err)
 	else:
 		print("File does not exist")
+
+func play_click_sfx():
+	$ClickSFX.play()

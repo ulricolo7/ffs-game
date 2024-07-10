@@ -68,6 +68,7 @@ func is_level_completed(file_path: String) -> bool:
 	return false
 
 func _add_level_button(file_path: String):
+	play_click_sfx()
 	#if file_path == "Untitled.gd":
 	#	return 
 	var button_instance = button_scene.instantiate()
@@ -94,6 +95,7 @@ func _get_file_last_modified(file_path):
 	return "Unknown"
 
 func _on_level_button_pressed(file_path: String):
+	play_click_sfx()
 	if Main.in_editor:
 		print(file_path)
 		Main.CURR_EDITOR_LEVEL = file_path
@@ -130,6 +132,7 @@ func _on_level_button_pressed(file_path: String):
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_delete_lvl_button_pressed(button_instance, file_path: String):
+	play_click_sfx()
 	file_to_delete = file_path
 	button_instance_to_free = button_instance
 	$WarningPanel.visible = true
@@ -142,6 +145,7 @@ func open_editor():
 
 
 func _on_delete_pressed():
+	play_click_sfx()
 	if file_to_delete != "":
 		
 		if FileAccess.file_exists(file_to_delete):
@@ -163,3 +167,6 @@ func _on_delete_pressed():
 		file_to_delete = ""
 		button_instance_to_free = null
 		$WarningPanel.visible = false
+
+func play_click_sfx():
+	$ClickSFX.play()

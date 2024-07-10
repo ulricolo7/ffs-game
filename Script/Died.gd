@@ -19,14 +19,20 @@ func _ready():
 		
 		
 func _on_replay_button_pressed():
+	play_click_sfx()
 	print("replay button pressed")
 	get_tree().reload_current_scene()
 
 
 func _on_main_menu_button_pressed():
+	play_click_sfx()
 	print("main menu button pressed")
 	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 
 func _on_editor_button_pressed():
+	play_click_sfx()
 	get_tree().change_scene_to_file("res://Scenes/editor_2.tscn")
+
+func play_click_sfx():
+	$ClickSFX.play()

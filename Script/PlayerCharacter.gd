@@ -77,7 +77,7 @@ func reset_idle_timer():
 func die():
 	emit_signal("player_died")
 	$AnimatedSprite.play("death")
-	
+	$DeathSFX.play()
 	
 func freeze():
 	is_frozen = true

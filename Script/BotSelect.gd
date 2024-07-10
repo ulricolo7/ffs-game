@@ -24,6 +24,7 @@ func _scan_bots_folder():
 		print("Failed to open directory: " + bots_folder)
 
 func _add_level_button(file_path: String):
+	play_click_sfx()
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("HBoxContainer/VBoxContainer/BotName")
 	#var desc_label = button_instance.get_node("Button/level_button/VBoxContainer/LevelDesc")
@@ -50,10 +51,15 @@ func _get_file_last_modified(file_path):
 	return "Unknown"
 
 func _on_bot_button_pressed(file_path: String):
+	play_click_sfx()
 	print("bot selected")
 	Main.BOT_NAME = file_path
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 
 func _on_back_button_pressed():
+	play_click_sfx()
 	emit_signal("switch_screens")
+
+func play_click_sfx():
+	$ClickSFX.play()

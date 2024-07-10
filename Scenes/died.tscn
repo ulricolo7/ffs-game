@@ -61,6 +61,9 @@ offset_top = 0.0
 offset_right = 144.0
 offset_bottom = 36.0
 
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
+
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Editor_Button" to="." method="_on_editor_button_pressed"]

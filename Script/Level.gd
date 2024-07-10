@@ -60,6 +60,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("pause") && start_timer.is_stopped():
+		play_click_sfx()
 		toggle_pause()
 	camera.position.x += Main.SCROLL_SPEED * delta
 	bg.position.x += Main.SCROLL_SPEED * delta * Main.BG_SPEED
@@ -300,3 +301,6 @@ func extract_line(line):
 
 func _on_start_timer_timeout():
 	toggle_pause()
+	
+func play_click_sfx():
+	$ClickSFX.play()

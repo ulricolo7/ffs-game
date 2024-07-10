@@ -84,6 +84,7 @@ func initialize_level_select_screen():
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 
 func _on_enemy_button_pressed(enemy_type):
+	play_click_sfx()
 	var enemy_scene = ENEMY_SCENES.get(enemy_type)
 	var inst_location = camera.position.x
 	mark_level("completed", "false")
@@ -110,6 +111,7 @@ func add_enemy_to_screen(enemy_instance, enemy_type):
 	idx_counter += 1
 
 func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
+	play_click_sfx()
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
 	
@@ -239,6 +241,7 @@ func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
 
 func _on_play_button_pressed():
+	play_click_sfx()
 	if FileAccess.file_exists(curr_file_path):
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + level_file_name, Main.curr_editor_level_enemy_data, largest_x)
@@ -250,6 +253,7 @@ func _on_play_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_save_button_pressed():
+	play_click_sfx()
 	if FileAccess.file_exists(curr_file_path):
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + level_file_name, Main.curr_editor_level_enemy_data, largest_x)
@@ -367,6 +371,7 @@ func adjust_largest_x():
 			largest_x = data["position"].x
 
 func _on_quit_button_pressed():
+	play_click_sfx()
 	Main.in_editor = false
 	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
@@ -375,23 +380,29 @@ func close_selector():
 		level_select_screen.visible = false
 
 func _on_create_new_button_pressed():
+	play_click_sfx()
 	Main.CURR_EDITOR_LEVEL = ""
 	Main.curr_editor_level_enemy_data = {}
 	get_tree().reload_current_scene()
 	# NOT DONE IMPLEMENTING 
 	
 func _on_open_button_pressed():
+	play_click_sfx()
 	level_select_screen.visible = true
 
 func count_enemies():
 	return enemy_data.size()
 
 func _on_upload_music_button_pressed():
+	play_click_sfx()
 	var dialog = $Panel/UploadMusic
 	dialog.visible = true
 
 func _on_upload_music_file_selected(path):
+	play_click_sfx()
 	var audio_player = $"../../AudioStreamPlayer"
 	audio_player.stream = path
 	audio_player.play()
-	
+
+func play_click_sfx():
+	$"../../ClickSFX".play()

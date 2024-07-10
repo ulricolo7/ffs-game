@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0a55o2l75auk"]
+[gd_scene load_steps=17 format=3 uid="uid://c0a55o2l75auk"]
 
 [ext_resource type="Script" path="res://Script/Paused.gd" id="1_irhu0"]
 [ext_resource type="Texture2D" uid="uid://bneqs2vsbip7i" path="res://Assets/New UI/resume1.png" id="2_abkiq"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://grebqgkdi0rm" path="res://Assets/New UI/gameover_mainmenu1.png" id="11_6kjm8"]
 [ext_resource type="Texture2D" uid="uid://cvdiivro5p1in" path="res://Assets/New UI/gameover_mainmenu3.png" id="12_uck54"]
 [ext_resource type="Texture2D" uid="uid://bhhl3bk2cbclg" path="res://Assets/New UI/gameover_mainmenu2.png" id="13_bgwgh"]
+[ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="14_jhtnp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dakm"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.470588)
@@ -95,6 +96,10 @@ texture_normal = ExtResource("11_6kjm8")
 texture_pressed = ExtResource("12_uck54")
 texture_hover = ExtResource("13_bgwgh")
 stretch_mode = 4
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_jhtnp")
+volume_db = 5.0
 
 [connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

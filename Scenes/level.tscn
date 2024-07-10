@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cno6psg38v6ph"]
+[gd_scene load_steps=11 format=3 uid="uid://cno6psg38v6ph"]
 
 [ext_resource type="Script" path="res://Script/Level.gd" id="1_grugo"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_0lj03"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="6_3fvu7"]
 [ext_resource type="PackedScene" uid="uid://bbiaj5jm3hha8" path="res://Scenes/tree_layer.tscn" id="6_wc6u0"]
 [ext_resource type="Texture2D" uid="uid://mivrjf8e0j5j" path="res://Assets/GO.png" id="7_ww3ft"]
+[ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="8_133lp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w23k"]
 bg_color = Color(0.298039, 0.192157, 0.341176, 1)
@@ -68,5 +69,9 @@ texture_filter = 1
 position = Vector2(670, 420)
 scale = Vector2(3, 3)
 texture = ExtResource("7_ww3ft")
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_133lp")
+volume_db = 5.0
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
