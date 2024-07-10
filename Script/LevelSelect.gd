@@ -32,6 +32,8 @@ func _scan_levels_folder():
 				# Sorting the levels so that dev levels stay on top
 				if file_name.begins_with("dev_"):
 					dev_files.append(file_name)
+				elif file_name.begins_with("Untitled"):
+					continue
 				else:
 					normal_files.append(file_name)
 			file_name = dir.get_next()
@@ -46,7 +48,7 @@ func _scan_levels_folder():
 			for file in all_files:
 				var file_path = levels_folder + file
 				if not file.begins_with("dev_"):
-					if is_level_saved(file_path):
+					if is_level_completed(file_path):
 						_add_level_button(file_path)
 				else:
 					_add_level_button(file_path)
@@ -54,14 +56,14 @@ func _scan_levels_folder():
 	else:
 		print("Failed to open directory: " + levels_folder)
 
-func is_level_saved(file_path: String) -> bool:
+func is_level_completed(file_path: String) -> bool:
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
 		var line
 		while not file.eof_reached():
 			line = file.get_line().strip_edges()
-			if line.begins_with("var is_saved"):
-				return line == "var is_saved = true"
+			if line.begins_with("var is_completed"):
+				return line == "var is_completed = true"
 		file.close()
 	return false
 
@@ -92,7 +94,7 @@ func _get_file_last_modified(file_path):
 func _on_level_button_pressed(file_path: String):
 	if Main.in_editor:
 		print(file_path)
-		Main.CACHED_EDITOR_LEVEL = file_path
+		Main.CURR_EDITOR_LEVEL = file_path
 		var file = FileAccess.open(file_path, FileAccess.READ)
 		if file:
 			var enemy_data = {}
