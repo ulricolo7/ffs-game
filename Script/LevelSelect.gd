@@ -32,18 +32,18 @@ func _scan_levels_folder():
 				# Sorting the levels so that dev levels stay on top
 				if file_name.begins_with("dev_"):
 					dev_files.append(file_name)
-				elif file_name.begins_with("Untitled"):
-					continue
 				else:
 					normal_files.append(file_name)
+			print(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 		
 		var all_files = dev_files + normal_files
 		if Main.in_editor:
 			for file in normal_files:
-				var file_path = levels_folder + file
-				_add_level_button(file_path)
+				if file != "Untitled.gd":
+					var file_path = levels_folder + file
+					_add_level_button(file_path)
 		else:
 			for file in all_files:
 				var file_path = levels_folder + file
@@ -68,6 +68,8 @@ func is_level_completed(file_path: String) -> bool:
 	return false
 
 func _add_level_button(file_path: String):
+	#if file_path == "Untitled.gd":
+	#	return 
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("level_button/VBoxContainer/LevelName")
 	var last_edited_label = button_instance.get_node("level_button/VBoxContainer/LastEdited")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq6jncicymv5"]
+
+[ext_resource type="Script" path="res://Scenes/restart_game.gd" id="1_jv30t"]
+
+[node name="restart_game" type="Node"]
+script = ExtResource("1_jv30t")

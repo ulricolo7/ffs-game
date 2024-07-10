@@ -66,3 +66,11 @@ func _on_instructions_pressed():
 func _on_close_instructions_pressed():
 	$InstructionsPanel.visible = false
 	$Instructions.button_pressed = false
+
+
+func _on_restart_gmae_pressed():
+	var restart_script = preload("res://Scenes/restart_game.gd").new()
+	#var reloader = preload("res://Scenes/reload_scene.gd").new()
+	#reloader.reload_scene()
+	add_child(restart_script)
+	restart_script.restart_game()

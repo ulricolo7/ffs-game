@@ -40,14 +40,15 @@ var is_paused = false
 @onready var death_timer = $DeathTimer
 @onready var start_timer = $StartTimer
 
-var enemy_data 
+var enemy_data
 var last_enemy
 var LEVEL_LENGTH
+var level_script
 
 #functions
 func _ready():
 	Main.player_input_disabled = false
-	init_level(Main.LEVEL_SCRIPT)
+	init_level(level_script)
 	spawn_ground(1200)
 	spawn_trees()
 	spawn_enemies()
@@ -77,15 +78,15 @@ func toggle_pause():
 		pause()
 	pause_timer.start(0.1)	
 
-func init_level(level_script):
+func init_level(level):
 	if Main.in_editor:
 		enemy_data = Main.curr_editor_level_enemy_data
 	else:
-		var level_data = load(level_script).new()
+		var level_data = level.new()
 		enemy_data = level_data.enemy_data
 	#change this
 	
-	Main.LEVEL_LENGTH = extract_largest_x(level_script) + 640
+	Main.LEVEL_LENGTH = extract_largest_x(Main.LEVEL_SCRIPT) + 640
 	LEVEL_LENGTH = Main.LEVEL_LENGTH
 
 	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
@@ -96,7 +97,6 @@ func init_level(level_script):
 	pause_screen_editor = init_screen(pause_screen_editor, pause_scene_editor, false, SCREEN_LAYER)
 	
 	Main.no_pause_state = 1
-	
 	#print("Level initialized")
 
 func init_screen(var_name, scene_name, visibility, z_ind):
@@ -135,7 +135,10 @@ func spawn_enemies():
 	var enemy_instance
 	
 	for idx in enemy_data.keys():
+		print(idx)
+		print(enemy_data)
 		var data = enemy_data[idx]
+		print(data)
 		if data["type"] == "gh":
 			enemy_instance = GhasterScene.instantiate()
 		elif data["type"] == "fl":
@@ -271,7 +274,33 @@ func extract_largest_x(level_script):
 	else:
 		print("Error: Could not open file: ", level_script)
 		return 0.0
+	
+func read_enemy_data(level_script):
+	var file = FileAccess.open(level_script, FileAccess.READ)
+	if file:
+		while not file.eof_reached():
+			var line = file.get_line()
+			print(line)
+			if line.begins_with("var enemy_data"):
+				line = file.get_line()
+				print(line)
+				#while not line.begins_with("}") and not file.eof_reached():
+					
+		file.close()
+	else:
+		print("Failed to open file: ", level_script)
+
+
 
 func _on_start_timer_timeout():
 	print("start time")
 	toggle_pause()
+
+
+func _on_tree_exited():
+	print("exit?")
+	level_script = null
+
+
+func _on_tree_entered():
+	level_script = load(Main.LEVEL_SCRIPT)

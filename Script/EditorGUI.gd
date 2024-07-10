@@ -63,10 +63,6 @@ func _process(delta):
 		$Panel/PlayButton.disabled = true
 		$Panel/SaveButton.disabled = true
 	
-	if check_level_validity(Main.CURR_EDITOR_LEVEL):
-		$Panel/SaveButton.disabled = false
-		$Panel/PlayButton.disabled = false
-	
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -237,7 +233,7 @@ func _on_line_edit_text_changed(name_typed):
 			Main.CURR_EDITOR_LEVEL = curr_file_path
 	else:
 		$Panel/WarningLabel.visible = false
-		$Panel/PlayButton.disabled = true
+		level_file_name = ""
 
 func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
@@ -364,6 +360,7 @@ func update_largest_x(x):
 		largest_x = x
 
 func adjust_largest_x():
+	largest_x = 0
 	for idx in enemy_data.keys():
 		var data = enemy_data[idx]
 		if data["position"].x > largest_x:

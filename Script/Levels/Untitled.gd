@@ -5,3 +5,5 @@ var last_enemy_x = 0
 
 var enemy_data = {
 }
+
+

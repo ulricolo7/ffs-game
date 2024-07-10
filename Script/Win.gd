@@ -15,6 +15,7 @@ func _on_replay_button_pressed():
 func _on_main_menu_button_pressed():
 	print("main menu button pressed")
 	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
+	#get_parent().unload_current_scene()
 
 func _on_editor_button_pressed():
 	Main.CURR_EDITOR_LEVEL_COMPLETED = Main.CURR_EDITOR_LEVEL

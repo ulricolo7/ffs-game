@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=23 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="16_8cjab"]
 [ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="17_u5x8i"]
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="18_e5eyi"]
+[ext_resource type="Texture2D" uid="uid://2q7rhdy3kd17" path="res://Assets/UI/Restart_Button/restart.png" id="19_yoh07"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neb82"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.972549)
@@ -195,6 +196,16 @@ position = Vector2(1380, 420)
 scale = Vector2(10, 50)
 texture = ExtResource("18_e5eyi")
 
+[node name="restartGmae" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 74.0
+offset_top = 498.0
+offset_right = 225.0
+offset_bottom = 536.0
+texture_normal = ExtResource("19_yoh07")
+stretch_mode = 4
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]
 [connection signal="pressed" from="Editor" to="." method="_on_editor_pressed"]
@@ -202,3 +213,4 @@ texture = ExtResource("18_e5eyi")
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Instructions" to="." method="_on_instructions_pressed"]
 [connection signal="pressed" from="InstructionsPanel/CloseInstructions" to="." method="_on_close_instructions_pressed"]
+[connection signal="pressed" from="restartGmae" to="." method="_on_restart_gmae_pressed"]
