@@ -251,19 +251,6 @@ func _on_save_button_pressed():
 	$Panel/LineEdit.release_focus()
 	mark_level("saved")
 
-func _on_delete_button_pressed(): 
-	if last_enemy:
-		var idx = enemy_indices.get(last_enemy, null)  # Use enemy_indices to get the index
-		if idx != null:
-			editor_screen.remove_child(last_enemy)
-			last_enemy.queue_free()
-			enemy_data.erase(idx)
-			enemy_indices.erase(last_enemy)  # Remove from enemy_indices dictionary
-			last_enemy = null
-			# Note: Don't decrement idx_counter, as it is used to give unique IDs.
-		else:
-			print("Error: No index found for the selected enemy")
-
 func apply_constraints(pos: Vector2, enemy_type: String):
 	var constraints = Y_CONSTRAINTS.get(enemy_type, {})
 	if pos.x < 600:

@@ -25,7 +25,7 @@ polygon = PackedVector2Array(469, -132, 500, 37, 457, 190, 53, 71, 35, 35, 52, -
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NearScan"]
-polygon = PackedVector2Array(18, -50, 48, -37, 122, -27, 141, 0, 122, 26, 48, 36, 17, 47, -4, 42, -24, 37, -40, 0, -26, -41, -7, -48)
+polygon = PackedVector2Array(18, -50, 48, -37, 122, -27, 141, 0, 122, 26, 48, 36, 17, 47, -7, 47, -26, 44, -40, 0, -26, -41, -7, -48)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 light_mask = 3

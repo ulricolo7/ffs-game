@@ -40,8 +40,10 @@ func _process(_delta):
 	else:
 		velocity.y += 0
 		
-	if global_position.x < get_parent().global_position.x:
+	if global_position.x < get_parent().global_position.x && state != "dodging":
 		velocity.x += HORI_ACC
+	elif state == "dodging":
+		velocity.x -= 20
 	else:
 		velocity.x = 0
 		
