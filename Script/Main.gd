@@ -1,16 +1,17 @@
 extends Node
 
-var MASTER_VOLUME = 0.5
-var AUTO_REPLAY = true
-var FULL_SCREEN = false
+var SAVE_PATH = "res://Script/SavedOptions.gd"
+var SAVED_OPTIONS = load(SAVE_PATH).new()
+
+var MASTER_VOLUME
+var AUTO_REPLAY
+var FULL_SCREEN
 
 var no_pause_state = 1
 var SCROLL_SPEED 
 var options_screen
 var TEST_SPEED = 1
 var BG_SPEED = 0.99
-
-
 
 var BOT_NAME 
 var LEVEL_LENGTH
@@ -23,8 +24,15 @@ var player_input_disabled = false
 var curr_editor_level_enemy_data: Dictionary
 
 func _ready():
+	MASTER_VOLUME = SAVED_OPTIONS.MASTER_VOLUME
+	AUTO_REPLAY = SAVED_OPTIONS.AUTO_REPLAY
+	FULL_SCREEN = SAVED_OPTIONS.FULL_SCREEN
+	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 
 		linear_to_db(MASTER_VOLUME))
+		
+	if FULL_SCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _process(_delta):
 	if no_pause_state == 1:
@@ -37,3 +45,4 @@ func pause():
 	
 func resume():
 	no_pause_state = 1
+

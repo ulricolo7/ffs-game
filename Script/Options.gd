@@ -16,18 +16,45 @@ func _on_main_menu_button_pressed():
 func _on_h_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(
 		AudioServer.get_bus_index("Master"), linear_to_db(value))
+		
 	Main.MASTER_VOLUME = value
+	
+	update_saved_options()
 
 
 func _on_auto_replay_check_box_toggled(button_pressed):
 	Main.AUTO_REPLAY = button_pressed
+	
+	update_saved_options()
 
 
 func _on_full_screen_check_box_toggled(button_pressed):
 	Main.FULL_SCREEN = button_pressed
-	var file = FileAccess.open("res://Script/Main.gd", FileAccess.READ_WRITE)
-	print(file.get_line())
+	
 	if button_pressed:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	
+	update_saved_options()
+
+func update_saved_options():
+	if FileAccess.file_exists(Main.SAVE_PATH):
+		delete_file(Main.SAVE_PATH)
+	
+	var file = FileAccess.open(Main.SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_line("var MASTER_VOLUME = {0}".format([Main.MASTER_VOLUME]))
+		file.store_line("var AUTO_REPLAY = {0}".format([Main.AUTO_REPLAY]))
+		file.store_line("var FULL_SCREEN = {0}".format([Main.FULL_SCREEN]))
+		file.close()
+
+func delete_file(file_path: String): 
+	if FileAccess.file_exists(file_path):
+		var err = DirAccess.remove_absolute(file_path)
+		if err == OK:
+			print("File: ", file_path, " deleted successfully")
+		else:
+			print("Error deleting file: ", err)
+	else:
+		print("File does not exist")
