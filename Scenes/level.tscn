@@ -69,6 +69,4 @@ position = Vector2(670, 420)
 scale = Vector2(3, 3)
 texture = ExtResource("7_ww3ft")
 
-[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
-[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

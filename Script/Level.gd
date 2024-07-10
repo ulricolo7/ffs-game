@@ -40,7 +40,7 @@ var is_paused = false
 @onready var death_timer = $DeathTimer
 @onready var start_timer = $StartTimer
 
-var enemy_data
+var enemy_data: Dictionary
 var last_enemy
 var LEVEL_LENGTH
 var level_script
@@ -48,7 +48,7 @@ var level_script
 #functions
 func _ready():
 	Main.player_input_disabled = false
-	init_level(level_script)
+	init_level(Main.LEVEL_SCRIPT)
 	spawn_ground(1200)
 	spawn_trees()
 	spawn_enemies()
@@ -78,15 +78,14 @@ func toggle_pause():
 		pause()
 	pause_timer.start(0.1)	
 
-func init_level(level):
+func init_level(level_script):
 	if Main.in_editor:
 		enemy_data = Main.curr_editor_level_enemy_data
 	else:
-		var level_data = level.new()
-		enemy_data = level_data.enemy_data
+		read_enemy_data(level_script)
 	#change this
 	
-	Main.LEVEL_LENGTH = extract_largest_x(Main.LEVEL_SCRIPT) + 640
+	Main.LEVEL_LENGTH = extract_largest_x(level_script) + 640
 	LEVEL_LENGTH = Main.LEVEL_LENGTH
 
 	death_timer.connect("timeout", Callable(self, "_on_death_timeout"))
@@ -135,10 +134,7 @@ func spawn_enemies():
 	var enemy_instance
 	
 	for idx in enemy_data.keys():
-		print(idx)
-		print(enemy_data)
 		var data = enemy_data[idx]
-		print(data)
 		if data["type"] == "gh":
 			enemy_instance = GhasterScene.instantiate()
 		elif data["type"] == "fl":
@@ -280,27 +276,27 @@ func read_enemy_data(level_script):
 	if file:
 		while not file.eof_reached():
 			var line = file.get_line()
-			print(line)
 			if line.begins_with("var enemy_data"):
 				line = file.get_line()
-				print(line)
-				#while not line.begins_with("}") and not file.eof_reached():
-					
+				while not line.begins_with("}") and not file.eof_reached():
+					var parts = extract_line(line)
+					if parts.size() == 4:
+						var key = int(parts[0])
+						var position = Vector2(float(parts[1]), float(parts[2]))
+						var enemy_type = parts[3]
+						enemy_data[key] = {"position": position, "type": enemy_type}
+					line = file.get_line()
 		file.close()
 	else:
 		print("Failed to open file: ", level_script)
 
-
+func extract_line(line):
+	var temp = line.strip_edges()
+	temp = temp.replace(": {\"position\": Vector2(", ", ")
+	temp = temp.replace("), \"type\": ", ", ").replace("{", "").replace("},", "")
+	temp = temp.replace("\"","")
+	var arr = temp.split(", ")
+	return arr
 
 func _on_start_timer_timeout():
-	print("start time")
 	toggle_pause()
-
-
-func _on_tree_exited():
-	print("exit?")
-	level_script = null
-
-
-func _on_tree_entered():
-	level_script = load(Main.LEVEL_SCRIPT)
