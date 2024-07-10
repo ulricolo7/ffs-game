@@ -32,6 +32,7 @@ var camera
 var idx_counter
 var level_file_name
 var curr_file_path
+var right_click_pressed
 
 func _ready():
 	if Main.CACHED_EDITOR_LEVEL_COMPLETED:
@@ -46,7 +47,9 @@ func _ready():
 		load_enemies(Main.curr_editor_level_enemy_data)
 	idx_counter = count_enemies()
 	set_process_input(true)
-
+func _process(delta):
+	pass
+	#print(curr_enemy)
 func set_button_able():
 	if Main.CACHED_EDITOR_LEVEL:
 		var cached_lvl_name = Main.CACHED_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION)
@@ -75,7 +78,7 @@ func initialize_enemy_buttons():
 func initialize_level_select_screen():
 	level_select_screen = init_screen(level_select_screen, LEVEL_SELECT_SCENE, false, 35)
 	level_select_screen.position = Vector2(-885, 0)
-	level_select_screen.find_child("Panel").connect("level_selected", Callable(self, "disable_level_select"))
+	level_select_screen.connect("level_selected", Callable(self, "disable_level_select"))
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 
 func _on_enemy_button_pressed(enemy_type):
@@ -105,11 +108,21 @@ func add_enemy_to_screen(enemy_instance, enemy_type):
 func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
+		#print(curr_enemy)
 		last_enemy = curr_enemy
 	
 func _input(event):
 	adjust_largest_x()
-	if event is InputEventMouseButton and event.is_released():
+	if Input.is_action_pressed("delete_enemy"):
+		right_click_pressed = true
+
+	if  event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+		right_click_pressed = false
+		delete_curr_enemy()
+		$Panel.visible = true
+	
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+		right_click_pressed = false
 		$Panel.visible = true
 		if curr_enemy:
 			var idx = enemy_indices.get(curr_enemy)
@@ -127,21 +140,42 @@ func _input(event):
 			# Here you might add code to select a new enemy if needed.
 			pass
 	elif curr_enemy and event is InputEventMouseMotion:
-		$Panel.visible = false
-		var new_position = curr_enemy.position + event.relative
-		new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
-		curr_enemy.position = new_position
-		adjust_largest_x()
-		$Panel/SaveButton.disabled = true
+		if right_click_pressed:
+			return
+		else:
+			$Panel.visible = false
+			var new_position = curr_enemy.position + event.relative
+			new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
+			curr_enemy.position = new_position
+			adjust_largest_x()
+			$Panel/SaveButton.disabled = true
 	
 	if Main.player_input_disabled and (event is InputEventMouseButton and event.pressed):
 		var mouse_pos = get_global_mouse_position()
 		var line_edit_rect = Rect2($Panel/LineEdit.global_position, $Panel/LineEdit.size)
 		if not line_edit_rect.has_point(mouse_pos):
 			$Panel/LineEdit.release_focus()
+	
+	
 
 	Main.curr_editor_level_enemy_data = enemy_data
+	print(enemy_data)
 
+func delete_curr_enemy():
+	if curr_enemy:
+		var idx = enemy_indices.get(curr_enemy)
+		if enemy_data.has(idx):
+			editor_screen.remove_child(last_enemy)
+			enemy_data.erase(idx)
+			curr_enemy.queue_free()
+			curr_enemy = null
+			adjust_largest_x()
+			$Panel/SaveButton.disabled = true
+		else:
+			print("Error: No enemy data found for index ", idx)
+	else:
+		print("Error: No current enemy to delete")
+		
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	if FileAccess.file_exists(file_path):
 		delete_file(file_path)

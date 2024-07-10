@@ -1,9 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxfobiaxrxk4a"]
+[gd_scene load_steps=15 format=3 uid="uid://bxfobiaxrxk4a"]
 
 [ext_resource type="Script" path="res://Script/LevelSelect.gd" id="1_lxj5w"]
 [ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_doah5"]
 [ext_resource type="PackedScene" uid="uid://cl1f3akenwdto" path="res://Scenes/open_file_quit.tscn" id="3_tx4s3"]
-[ext_resource type="Texture2D" uid="uid://yngmaofti4u7" path="res://Assets/Characters/Player/player_menu/player_menu1.png" id="4_2fal1"]
+[ext_resource type="Texture2D" uid="uid://brivowsc8pe7" path="res://Assets/New UI/filepopups/deleteanyway1.png" id="4_cgi77"]
+[ext_resource type="Texture2D" uid="uid://ckw8yonw2q4k1" path="res://Assets/New UI/filepopups/deleteanyway3.png" id="5_yg7ty"]
+[ext_resource type="Texture2D" uid="uid://uq5ufxweg2rk" path="res://Assets/New UI/filepopups/deleteanyway2.png" id="6_6eequ"]
+[ext_resource type="Texture2D" uid="uid://c130jcuq35q0i" path="res://Assets/New UI/filepopups/back1.png" id="7_ygq15"]
+[ext_resource type="Texture2D" uid="uid://dj2xym6pch632" path="res://Assets/New UI/filepopups/back3.png" id="8_760su"]
+[ext_resource type="Texture2D" uid="uid://cw2ilk162hkmn" path="res://Assets/New UI/filepopups/back2.png" id="9_4l8cw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtkgh"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -12,10 +17,13 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rfd1n"]
 line_spacing = 0.0
-font_size = 32
+font_size = 48
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyvig"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n81kl"]
+font_size = 24
 
 [node name="Level_Select" type="Control"]
 z_index = -1
@@ -86,42 +94,52 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_fyvig")
 [node name="Title" type="Label" parent="WarningPanel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 14.0
-offset_top = 1.0
-offset_right = 579.0
-offset_bottom = 64.0
+offset_left = 13.2063
+offset_top = 6.55591
+offset_right = 578.206
+offset_bottom = 69.5559
 text = "WARNING"
 label_settings = SubResource("LabelSettings_rfd1n")
 vertical_alignment = 1
 
 [node name="Line2D2" type="Line2D" parent="WarningPanel"]
-position = Vector2(48, -319.28)
+position = Vector2(48, -307.295)
 points = PackedVector2Array(624.896, 372.934, -47.8368, 372.882)
 width = 2.0
 
 [node name="Content" type="Label" parent="WarningPanel"]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 72.0091
+offset_top = 79.9461
 offset_right = 659.0
-offset_bottom = 121.009
+offset_bottom = 128.946
+label_settings = SubResource("LabelSettings_n81kl")
 
 [node name="Delete" type="TextureButton" parent="WarningPanel"]
+texture_filter = 1
+custom_minimum_size = Vector2(92, 23)
 layout_mode = 0
-offset_left = 239.0
-offset_top = 118.0
-offset_right = 309.0
-offset_bottom = 182.0
-texture_normal = ExtResource("4_2fal1")
-stretch_mode = 3
+offset_left = 188.791
+offset_top = 141.619
+offset_right = 280.791
+offset_bottom = 164.619
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("4_cgi77")
+texture_pressed = ExtResource("5_yg7ty")
+texture_hover = ExtResource("6_6eequ")
+stretch_mode = 4
 
 [node name="Cancel" type="TextureButton" parent="WarningPanel"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 417.805
-offset_top = 139.491
-offset_right = 457.805
-offset_bottom = 179.491
-texture_normal = ExtResource("4_2fal1")
+offset_left = 345.45
+offset_top = 141.619
+offset_right = 437.45
+offset_bottom = 164.619
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("7_ygq15")
+texture_pressed = ExtResource("8_760su")
+texture_hover = ExtResource("9_4l8cw")
 stretch_mode = 4
 
 [connection signal="pressed" from="WarningPanel/Delete" to="." method="_on_delete_pressed"]
