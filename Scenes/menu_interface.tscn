@@ -199,6 +199,7 @@ texture = ExtResource("18_e5eyi")
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("19_83g2v")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]

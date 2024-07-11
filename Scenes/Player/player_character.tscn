@@ -147,3 +147,4 @@ animation = &"death"
 
 [node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("19_7quha")
+pitch_scale = 1.2

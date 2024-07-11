@@ -99,6 +99,7 @@ stretch_mode = 4
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_20x7g")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="pressed" from="Resume2" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Options2" to="." method="_on_options_pressed"]

@@ -122,6 +122,7 @@ icon_alignment = 1
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_t2ns5")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="toggled" from="AutoReplayLabel/AutoReplayCheckBox" to="." method="_on_auto_replay_check_box_toggled"]

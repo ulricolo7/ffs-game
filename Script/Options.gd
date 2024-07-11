@@ -9,6 +9,7 @@ func _ready():
 	$FullScreenLabel/FullScreenCheckBox.button_pressed = Main.FULL_SCREEN
 	
 func _on_main_menu_button_pressed():
+	play_click_sfx()
 	print("main menu button pressed")
 	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 

@@ -64,6 +64,7 @@ scale = Vector2(2, 2)
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_y8ku7")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="pressed" from="Replay_Button" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="MainMenu_Button" to="." method="_on_main_menu_button_pressed"]

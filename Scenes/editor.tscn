@@ -416,6 +416,7 @@ autoplay = true
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("32_dyf4s")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]

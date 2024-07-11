@@ -57,6 +57,8 @@ width = 2.0
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="Panel"]
 position = Vector2(-350, 0)
 stream = ExtResource("4_hpf88")
+volume_db = 5.0
+pitch_scale = 0.3
 
 [node name="Quit_Button" parent="." instance=ExtResource("2_qfpv1")]
 layout_mode = 0

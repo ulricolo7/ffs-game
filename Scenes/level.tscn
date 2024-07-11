@@ -73,5 +73,6 @@ texture = ExtResource("7_ww3ft")
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_133lp")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

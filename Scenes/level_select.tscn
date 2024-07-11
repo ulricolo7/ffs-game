@@ -146,5 +146,6 @@ stretch_mode = 4
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_5luiw")
 volume_db = 5.0
+pitch_scale = 0.3
 
 [connection signal="pressed" from="WarningPanel/Delete" to="." method="_on_delete_pressed"]
