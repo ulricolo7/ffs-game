@@ -29,7 +29,7 @@ func _process(_delta):
 	
 	var current_time = Time.get_ticks_msec() / 1000.0
 	
-	if Main.player_input_disabled:
+	if Main.player_input_disabled or Main.editor_paused:
 		pass
 	else:
 		if Input.is_action_pressed("move_down"):

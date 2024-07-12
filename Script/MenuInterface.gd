@@ -47,7 +47,7 @@ func _on_options_pressed():
 	options_screen.visible = true
 
 func _on_quit_pressed():
-	play_click_sfx()
+	play_click_sfx() # this one is useless
 	get_tree().quit()
 	
 func screen_switch():

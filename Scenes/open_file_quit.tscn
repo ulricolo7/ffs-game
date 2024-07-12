@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cl1f3akenwdto"]
+[gd_scene load_steps=6 format=3 uid="uid://cl1f3akenwdto"]
 
 [ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="1_0eik1"]
 [ext_resource type="Script" path="res://Script/OpenFileQuit.gd" id="1_v4ciu"]
 [ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="2_oqaqa"]
 [ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="3_bphpu"]
+[ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="5_m87na"]
 
 [node name="open_file_quit" type="TextureButton"]
 texture_filter = 1
@@ -15,5 +16,11 @@ texture_normal = ExtResource("1_0eik1")
 texture_pressed = ExtResource("2_oqaqa")
 texture_hover = ExtResource("3_bphpu")
 script = ExtResource("1_v4ciu")
+
+[node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_m87na")
+volume_db = 5.0
+pitch_scale = 0.3
+attenuation = 6.10352e-05
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
