@@ -9,13 +9,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
-
+	if Main.editor_paused:
+		self.disabled = true
+	else:
+		self.disabled = false
 
 func _on_pressed():
 	play_click_sfx()
 	Main.level_switching = false
+	Main.editor_paused = false
+	Main.player_input_disabled = false
 	emit_signal("close_level_select")
 
 func play_click_sfx():

@@ -51,13 +51,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_qbwyo")
-theme_override_constants/separation = 6
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="Panel"]
 texture_filter = 1
 layout_mode = 0
-offset_right = 579.0
-offset_bottom = 81.0
+offset_left = -9.0
+offset_top = -3.0
+offset_right = 576.0
+offset_bottom = 78.0
 text = "  SELECT A LEVEL"
 label_settings = SubResource("LabelSettings_rfd1n")
 vertical_alignment = 1
@@ -68,18 +70,18 @@ width = 2.0
 
 [node name="Quit_Button" parent="Panel" instance=ExtResource("2_doah5")]
 layout_mode = 0
-offset_left = 532.0
-offset_top = 19.0
-offset_right = 558.0
-offset_bottom = 47.0
+offset_left = 535.973
+offset_top = 19.2649
+offset_right = 567.973
+offset_bottom = 51.2649
 scale = Vector2(1.1, 1.1)
 
 [node name="open_file_quit" parent="Panel" instance=ExtResource("3_tx4s3")]
 layout_mode = 0
-offset_left = 531.901
+offset_left = 537.24
 offset_top = 18.9008
-offset_right = 557.901
-offset_bottom = 46.9008
+offset_right = 569.24
+offset_bottom = 50.9008
 scale = Vector2(1.1, 1.1)
 
 [node name="WarningPanel" type="Panel" parent="."]
@@ -149,3 +151,4 @@ volume_db = 5.0
 pitch_scale = 0.3
 
 [connection signal="pressed" from="WarningPanel/Delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="WarningPanel/Cancel" to="." method="_on_cancel_pressed"]

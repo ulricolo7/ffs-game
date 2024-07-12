@@ -178,6 +178,7 @@ func _on_delete_lvl_button_pressed(button_instance, file_path: String):
 	play_click_sfx()
 	file_to_delete = file_path
 	button_instance_to_free = button_instance
+	Main.editor_paused = true
 	$WarningPanel.visible = true
 	$WarningPanel/Content.text = "Are you sure you want to delete {0}? (this action cannot be undone)".format([file_path.get_file().get_basename()])
 	
@@ -210,6 +211,12 @@ func _on_delete_pressed():
 		file_to_delete = ""
 		button_instance_to_free = null
 		$WarningPanel.visible = false
+		Main.editor_paused = false
 
 func play_click_sfx():
 	$ClickSFX.play()
+
+func _on_cancel_pressed():
+	play_click_sfx()
+	$WarningPanel.visible = false
+	Main.editor_paused = true
