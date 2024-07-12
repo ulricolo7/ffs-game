@@ -18,6 +18,7 @@ var LEVEL_LENGTH
 var LEVEL_SCRIPT
 
 var in_editor = false
+var level_switching = false
 var CURR_EDITOR_LEVEL
 var CURR_EDITOR_LEVEL_COMPLETED 
 var player_input_disabled = false 

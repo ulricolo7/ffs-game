@@ -32,7 +32,7 @@ func _on_main_menu_button_pressed():
 
 func _on_editor_button_pressed():
 	play_click_sfx()
-	get_tree().change_scene_to_file("res://Scenes/editor_2.tscn")
+	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 
 func play_click_sfx():
 	$ClickSFX.play()

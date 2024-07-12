@@ -7,6 +7,7 @@ var file_to_delete = ""
 var button_instance_to_free = null
 
 signal level_selected
+signal level_not_saved
 
 func _ready():
 	if Main.in_editor:
@@ -34,7 +35,6 @@ func _scan_levels_folder():
 					dev_files.append(file_name)
 				else:
 					normal_files.append(file_name)
-			print(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 		
@@ -68,9 +68,6 @@ func is_level_completed(file_path: String) -> bool:
 	return false
 
 func _add_level_button(file_path: String):
-	play_click_sfx()
-	#if file_path == "Untitled.gd":
-	#	return 
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("level_button/VBoxContainer/LevelName")
 	var last_edited_label = button_instance.get_node("level_button/VBoxContainer/LastEdited")
@@ -82,6 +79,8 @@ func _add_level_button(file_path: String):
 	button_instance.find_child("DeleteButton").connect("pressed", Callable(self, "_on_delete_lvl_button_pressed").bind(button_instance, file_path))
 	if lvl_name.begins_with("dev_"):
 		button_instance.find_child("DeleteButton").visible = false
+	if not is_level_completed(file_path):
+		button_instance.find_child("ShareButton").visible = false
 	$Panel/ScrollContainer/VBoxContainer.add_child(button_instance)
 	
 
@@ -94,39 +93,55 @@ func _get_file_last_modified(file_path):
 		return date
 	return "Unknown"
 
+func check_level_saved(file_path: String) -> bool:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		var line
+		while not file.eof_reached():
+			line = file.get_line()
+			if line.begins_with("var is_saved"):
+				return line == "var is_saved = true"
+		return false	
+	else:
+		print("Error: Could not open file: ", file_path)
+		return false
+
 func _on_level_button_pressed(file_path: String):
-	play_click_sfx()
+	#play_click_sfx()
 	if Main.in_editor:
-		print(file_path)
-		Main.CURR_EDITOR_LEVEL = file_path
-		var file = FileAccess.open(file_path, FileAccess.READ)
-		if file:
-			var enemy_data = {}
-			var largest_x = 0
-			var in_enemy_data = false
-			var regex = RegEx.new()
-			var result
-			regex.compile("(\\d+): {\"position\": Vector2\\(([^,]+), ([^\\)]+)\\), \"type\": \"([^\"]+)\"},")
-		
-			while not file.eof_reached():
-				var line = file.get_line().strip_edges()
-				if line == "var enemy_data = {":
-					in_enemy_data = true
-					continue
-				elif line == "}":
-					in_enemy_data = false
-					continue
-	#		
-				if in_enemy_data:
-					result = regex.search(line)
-					if result:
-						var idx = result.get_string(1).to_int()
-						var pos_x = result.get_string(2).to_float()
-						var pos_y = result.get_string(3).to_float()
-						var enemy_type = result.get_string(4)
-						enemy_data[idx] = {"position": Vector2(pos_x, pos_y), "type": enemy_type}
-			Main.curr_editor_level_enemy_data = enemy_data
-		emit_signal("level_selected")
+		if Main.CURR_EDITOR_LEVEL != "res://Script/Levels/Untitled.gd" and not check_level_saved(Main.CURR_EDITOR_LEVEL):
+			print("reached")
+			emit_signal("level_not_saved")
+		else:
+			Main.CURR_EDITOR_LEVEL = file_path
+			var file = FileAccess.open(file_path, FileAccess.READ)
+			if file:
+				var enemy_data = {}
+				var largest_x = 0
+				var in_enemy_data = false
+				var regex = RegEx.new()
+				var result
+				regex.compile("(\\d+): {\"position\": Vector2\\(([^,]+), ([^\\)]+)\\), \"type\": \"([^\"]+)\"},")
+			
+				while not file.eof_reached():
+					var line = file.get_line().strip_edges()
+					if line == "var enemy_data = {":
+						in_enemy_data = true
+						continue
+					elif line == "}":
+						in_enemy_data = false
+						continue
+				
+					if in_enemy_data:
+						result = regex.search(line)
+						if result:
+							var idx = result.get_string(1).to_int()
+							var pos_x = result.get_string(2).to_float()
+							var pos_y = result.get_string(3).to_float()
+							var enemy_type = result.get_string(4)
+							enemy_data[idx] = {"position": Vector2(pos_x, pos_y), "type": enemy_type}
+				Main.curr_editor_level_enemy_data = enemy_data
+			emit_signal("level_selected")
 	else:
 		Main.LEVEL_SCRIPT = file_path
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
@@ -139,7 +154,7 @@ func _on_delete_lvl_button_pressed(button_instance, file_path: String):
 	$WarningPanel/Content.text = "Are you sure you want to delete {0}? (this action cannot be undone)".format([file_path.get_file().get_basename()])
 	
 func open_editor():
-	print("reached")
+	play_click_sfx()
 	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 
@@ -158,10 +173,10 @@ func _on_delete_pressed():
 		else:
 			print("File does not exist")
 		
-		if Main.CACHED_EDITOR_LEVEL == file_to_delete:
-			Main.CACHED_EDITOR_LEVEL = ""
-		if Main.CACHED_EDITOR_LEVEL_COMPLETED == file_to_delete:
-			Main.CACHED_EDITOR_LEVEL_COMPLETED = ""
+		if Main.CURR_EDITOR_LEVEL == file_to_delete:
+			Main.CURR_EDITOR_LEVEL = ""
+		if Main.CURR_EDITOR_LEVEL_COMPLETED == file_to_delete:
+			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 			
 		#reset the vars on top
 		file_to_delete = ""

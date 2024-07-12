@@ -31,7 +31,6 @@ func _ready():
 	
 func _on_play_pressed():
 	play_click_sfx()
-	#get_tree().change_scene_to_file("res://Scenes/level.tscn")
 	Main.BOT_NAME = ""
 	level_select_screen.visible = true
 
@@ -40,7 +39,6 @@ func _on_simulate_pressed():
 	level_select_sim_screen.visible = true
 
 func _on_editor_pressed():
-	play_click_sfx()
 	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 

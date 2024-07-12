@@ -24,7 +24,7 @@ func _scan_bots_folder():
 		print("Failed to open directory: " + bots_folder)
 
 func _add_level_button(file_path: String):
-	play_click_sfx()
+	#play_click_sfx()
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("HBoxContainer/VBoxContainer/BotName")
 	#var desc_label = button_instance.get_node("Button/level_button/VBoxContainer/LevelDesc")

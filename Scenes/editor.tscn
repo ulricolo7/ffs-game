@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=69 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -6,12 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://c8q67xnfqv4wn" path="res://Assets/Characters/Enemies/Flapper/frame1.png" id="4_nnm15"]
 [ext_resource type="Script" path="res://Script/EditorGUI.gd" id="4_tg40t"]
 [ext_resource type="Texture2D" uid="uid://dbg6chgtlywq4" path="res://Assets/Characters/Enemies/Crawler/crawler_ground.png" id="5_b8gj2"]
+[ext_resource type="Texture2D" uid="uid://cl8vfrxan6ysr" path="res://Assets/New UI/playbuttonv3_clicked.png" id="6_anqdv"]
 [ext_resource type="PackedScene" uid="uid://cvcmgx506f6ka" path="res://Scenes/Enemies/crawler_air_btn_container.tscn" id="6_bs73g"]
 [ext_resource type="Texture2D" uid="uid://ct25grf6ywi0j" path="res://Assets/Background/longer_background_worked.png" id="7_07fk5"]
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="8_q8ebd"]
 [ext_resource type="Texture2D" uid="uid://1is75ejgoxqr" path="res://Assets/UI/Play_Button/playbuttonv3_normal.png" id="8_wgx34"]
 [ext_resource type="Texture2D" uid="uid://b8yi431uciey2" path="res://Assets/UI/Play_Button/playbuttonv3_hover.png" id="9_8d0m3"]
 [ext_resource type="Texture2D" uid="uid://bl6e5uoumbaj6" path="res://Assets/Background/ground_tile_3.png" id="9_qvc2e"]
+[ext_resource type="Texture2D" uid="uid://ca6twc0br26br" path="res://Assets/New UI/savebuttonv3_clicked.png" id="10_16mxy"]
 [ext_resource type="Texture2D" uid="uid://mwbt7kgr7o6p" path="res://Assets/UI/Play_Button/playbuttonv3_disabled.png" id="10_ubeeq"]
 [ext_resource type="Texture2D" uid="uid://dlsipr2xsajom" path="res://Assets/UI/Save_Button/savebuttonv3_normal.png" id="11_ydrsa"]
 [ext_resource type="Texture2D" uid="uid://beqx6ef7v5yur" path="res://Assets/UI/Save_Button/savebuttonv3_hover.png" id="12_decvk"]
@@ -24,14 +26,26 @@
 [ext_resource type="Texture2D" uid="uid://d1gfdjhc6ccak" path="res://Assets/New UI/openbutton_aniamted2.png" id="19_kh420"]
 [ext_resource type="Texture2D" uid="uid://eq601muy0vla" path="res://Assets/New UI/sharebutton1.png" id="20_udh2j"]
 [ext_resource type="Texture2D" uid="uid://dkncsoqf1jqbm" path="res://Assets/New UI/sharebutton3.png" id="21_cwmhk"]
+[ext_resource type="Texture2D" uid="uid://6g2qj7qautxh" path="res://Assets/New UI/instructions_button_editorl1.png" id="22_8hq2n"]
 [ext_resource type="Texture2D" uid="uid://ccq1bwyuoeh2f" path="res://Assets/New UI/sharebutton2.png" id="22_iyqiq"]
 [ext_resource type="PackedScene" uid="uid://dy4wnm8hd1fpu" path="res://Scenes/Player/player_character.tscn" id="23_aqmxl"]
+[ext_resource type="Texture2D" uid="uid://hywuapgkggbs" path="res://Assets/New UI/instructions_button_editorl2.png" id="23_bxdg4"]
+[ext_resource type="Texture2D" uid="uid://wth28fs0xtkl" path="res://Assets/New UI/instructions_button_editor3.png" id="24_v5kva"]
 [ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="29_3l3at"]
 [ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="30_ekael"]
 [ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="31_42vc7"]
 [ext_resource type="PackedScene" uid="uid://dfsvfh775epcp" path="res://Scenes/upload_music_button.tscn" id="32_4r7sh"]
 [ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="32_dyf4s"]
+[ext_resource type="Texture2D" uid="uid://c130jcuq35q0i" path="res://Assets/New UI/filepopups/back1.png" id="33_nsue7"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/Mystery.mp3" id="34_5xkv1"]
+[ext_resource type="Texture2D" uid="uid://dj2xym6pch632" path="res://Assets/New UI/filepopups/back3.png" id="34_dvevk"]
+[ext_resource type="Texture2D" uid="uid://cw2ilk162hkmn" path="res://Assets/New UI/filepopups/back2.png" id="35_dr71o"]
+[ext_resource type="Texture2D" uid="uid://dhv2dsbrlhb5e" path="res://Assets/New UI/filepopups/savebutton1.png" id="35_lvx6d"]
+[ext_resource type="Texture2D" uid="uid://dnu331qua3lgs" path="res://Assets/New UI/filepopups/savebutton3.png" id="36_nhwyb"]
+[ext_resource type="Texture2D" uid="uid://dubc351w4qk6a" path="res://Assets/New UI/filepopups/savebutton2.png" id="37_crmrh"]
+[ext_resource type="Texture2D" uid="uid://cdknvdyws1c6m" path="res://Assets/New UI/filepopups/dontsave1.png" id="41_u3fls"]
+[ext_resource type="Texture2D" uid="uid://bodwwpjiwr2kc" path="res://Assets/New UI/filepopups/dontsave3.png" id="42_g58lm"]
+[ext_resource type="Texture2D" uid="uid://jbiqo4ajepqi" path="res://Assets/New UI/filepopups/dontsave2.png" id="43_cijup"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
 size = Vector2(1279.57, 79.8015)
@@ -76,6 +90,48 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjlla"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.764706)
+
+[sub_resource type="LabelSettings" id="LabelSettings_abhhb"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_lgk74"]
+font_size = 36
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0fkn"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ye3si"]
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_midbh"]
+font_size = 17
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1f5w"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ij6r6"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_owast"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ir3xd"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_y8min"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_4lgf8"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_djln8"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_l11av"]
+font_size = 18
 
 [node name="Editor" type="Node"]
 
@@ -145,7 +201,7 @@ offset_right = 116.022
 offset_bottom = 802.551
 scale = Vector2(1.6, 1.6)
 texture_normal = ExtResource("8_wgx34")
-texture_pressed = ExtResource("9_8d0m3")
+texture_pressed = ExtResource("6_anqdv")
 texture_hover = ExtResource("9_8d0m3")
 texture_disabled = ExtResource("10_ubeeq")
 stretch_mode = 5
@@ -159,17 +215,17 @@ offset_right = 280.201
 offset_bottom = 797.682
 scale = Vector2(1.9, 1.9)
 texture_normal = ExtResource("11_ydrsa")
-texture_pressed = ExtResource("12_decvk")
+texture_pressed = ExtResource("10_16mxy")
 texture_hover = ExtResource("12_decvk")
 texture_disabled = ExtResource("13_xdgt1")
 
 [node name="CreateNewButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 20.0945
-offset_top = 6.60316
-offset_right = 84.0945
-offset_bottom = 70.6032
+offset_left = 11.275
+offset_top = 7.23312
+offset_right = 75.275
+offset_bottom = 71.2332
 texture_normal = ExtResource("14_nu2tn")
 texture_pressed = ExtResource("15_g7p4p")
 texture_hover = ExtResource("16_fc1gs")
@@ -178,10 +234,10 @@ stretch_mode = 4
 [node name="OpenButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 97.0847
-offset_top = 9.37507
-offset_right = 161.085
-offset_bottom = 73.3751
+offset_left = 89.5618
+offset_top = 9.87807
+offset_right = 153.562
+offset_bottom = 73.8781
 texture_normal = ExtResource("17_2mgt7")
 texture_pressed = ExtResource("18_viibb")
 texture_hover = ExtResource("19_kh420")
@@ -190,13 +246,25 @@ stretch_mode = 4
 [node name="ShareButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 165.471
-offset_top = 7.55059
-offset_right = 229.471
-offset_bottom = 71.5506
+offset_left = 157.904
+offset_top = 8.18184
+offset_right = 221.904
+offset_bottom = 72.1818
 texture_normal = ExtResource("20_udh2j")
 texture_pressed = ExtResource("21_cwmhk")
 texture_hover = ExtResource("22_iyqiq")
+stretch_mode = 4
+
+[node name="InstructionsButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
+texture_filter = 1
+offset_left = 232.121
+offset_top = 7.81802
+offset_right = 288.121
+offset_bottom = 63.818
+scale = Vector2(1.1, 1.1)
+texture_normal = ExtResource("22_8hq2n")
+texture_pressed = ExtResource("23_bxdg4")
+texture_hover = ExtResource("24_v5kva")
 stretch_mode = 4
 
 [node name="GhasterButton" type="Button" parent="Camera2D/GUI/Panel"]
@@ -417,11 +485,242 @@ autoplay = true
 stream = ExtResource("32_dyf4s")
 volume_db = 5.0
 pitch_scale = 0.3
+max_distance = 32000.0
+attenuation = 1e-05
+
+[node name="NotSavedWarning" type="Control" parent="."]
+z_index = 40
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1000.0
+offset_top = 340.0
+offset_right = -320.0
+offset_bottom = 510.0
+
+[node name="Panel" type="Panel" parent="NotSavedWarning"]
+layout_mode = 0
+offset_right = 680.0
+offset_bottom = 170.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vjlla")
+
+[node name="Content" type="Label" parent="NotSavedWarning/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 67.0
+offset_right = 660.0
+offset_bottom = 101.0
+text = "SAVE YOUR CHANGES TO THIS LEVEL BEFORE LEAVING?"
+label_settings = SubResource("LabelSettings_abhhb")
+autowrap_mode = 2
+
+[node name="SaveAndExitButton" type="TextureButton" parent="NotSavedWarning/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 73.0
+offset_top = 114.0
+offset_right = 253.0
+offset_bottom = 154.0
+texture_normal = ExtResource("35_lvx6d")
+texture_pressed = ExtResource("36_nhwyb")
+texture_hover = ExtResource("37_crmrh")
+stretch_mode = 4
+
+[node name="BackButton" type="TextureButton" parent="NotSavedWarning/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 271.481
+offset_top = 113.251
+offset_right = 427.481
+offset_bottom = 152.251
+texture_normal = ExtResource("33_nsue7")
+texture_pressed = ExtResource("34_dvevk")
+texture_hover = ExtResource("35_dr71o")
+stretch_mode = 4
+
+[node name="DontSaveButton" type="TextureButton" parent="NotSavedWarning/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 440.54
+offset_top = 112.167
+offset_right = 620.54
+offset_bottom = 152.167
+texture_normal = ExtResource("41_u3fls")
+texture_pressed = ExtResource("42_g58lm")
+texture_hover = ExtResource("43_cijup")
+stretch_mode = 4
+
+[node name="Line2D" type="Line2D" parent="NotSavedWarning/Panel"]
+position = Vector2(0, 5.89)
+points = PackedVector2Array(-0.0100098, 47.8865, 282.467, 47.8666, 680.076, 47.8386)
+width = 2.0
+
+[node name="WarningLabel" type="Label" parent="NotSavedWarning/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.3702
+offset_top = 12.1784
+offset_right = 680.37
+offset_bottom = 52.1784
+text = "YOU HAVE UNSAVED CHANGES"
+label_settings = SubResource("LabelSettings_lgk74")
+autowrap_mode = 2
+
+[node name="RenameFileWarning" type="Panel" parent="."]
+z_index = 50
+offset_left = -1800.0
+offset_top = 360.0
+offset_right = -1374.0
+offset_bottom = 477.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l0fkn")
+
+[node name="title" type="Label" parent="RenameFileWarning"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 288.0
+offset_bottom = 40.0
+text = "NAME YOUR FILE"
+label_settings = SubResource("LabelSettings_ye3si")
+
+[node name="content" type="Label" parent="RenameFileWarning"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 48.0
+offset_right = 380.0
+offset_bottom = 69.0
+text = "PLEASE RENAME YOUR FILE BEFORE CONTINUING"
+label_settings = SubResource("LabelSettings_midbh")
+
+[node name="Line2D" type="Line2D" parent="RenameFileWarning"]
+points = PackedVector2Array(-0.163269, 41.2223, 426.142, 41.2536)
+width = 2.0
+
+[node name="GoBackButton" type="TextureButton" parent="RenameFileWarning"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 144.278
+offset_top = 73.8217
+offset_right = 280.278
+offset_bottom = 108.822
+texture_normal = ExtResource("33_nsue7")
+texture_pressed = ExtResource("34_dvevk")
+texture_hover = ExtResource("35_dr71o")
+stretch_mode = 4
+
+[node name="EditorInstructions" type="Panel" parent="."]
+z_index = 45
+offset_left = -2522.0
+offset_top = 134.0
+offset_right = -1859.0
+offset_bottom = 647.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g1f5w")
+
+[node name="title" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 357.0
+offset_bottom = 47.0
+text = "EDITOR INSTRUCTIONS"
+label_settings = SubResource("LabelSettings_ij6r6")
+
+[node name="Line2D" type="Line2D" parent="EditorInstructions"]
+position = Vector2(0, 5.2)
+points = PackedVector2Array(0.212402, 41.2297, 373.093, 41.1918, 662.778, 41.1624)
+width = 2.0
+
+[node name="Basics" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.2
+offset_top = 56.982
+offset_right = 96.2
+offset_bottom = 84.982
+text = "BASICS:"
+label_settings = SubResource("LabelSettings_owast")
+
+[node name="BasicsC" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.0
+offset_top = 85.0
+offset_right = 658.0
+offset_bottom = 221.0
+text = "Spawn Enemies: Click the enemy buttons on the panel to add enemies to the level screen. Drag them to your desired positions.
+Delete Enemies: Right-click on enemies to remove them.
+Scroll: Use the scroll button above to navigate through the level and place enemies."
+label_settings = SubResource("LabelSettings_ir3xd")
+autowrap_mode = 2
+
+[node name="TestingAndValidation" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 9.20122
+offset_top = 189.975
+offset_right = 290.201
+offset_bottom = 217.975
+text = "TESTING AND VALIDATION:"
+label_settings = SubResource("LabelSettings_y8min")
+
+[node name="TestingAndValidationC" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.4702
+offset_top = 219.072
+offset_right = 659.47
+offset_bottom = 373.072
+text = "Play: Press the play button to test your level.
+Validation: You must complete your level to validate it for sharing. Only validated levels appear in the Level Selection page under PLAY or SIMULATE.
+Revalidation: If you make any changes, you must complete the level again for revalidation.
+Save: Remember to save your progress before exiting if you don't have time to attempt your level."
+label_settings = SubResource("LabelSettings_4lgf8")
+autowrap_mode = 2
+
+[node name="FileManagement" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.2
+offset_top = 389.448
+offset_right = 148.2
+offset_bottom = 409.448
+text = "FILE MANAGEMENT:"
+label_settings = SubResource("LabelSettings_djln8")
+
+[node name="FileManagementC" type="Label" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.5381
+offset_top = 419.036
+offset_right = 655.538
+offset_bottom = 513.036
+text = "New File: Creates a new level file.
+Open File: Opens a previously saved level file.
+Share File: Generates a code to share your level with friends. Use the load file section to import levels shared by friends by copying their code.
+"
+label_settings = SubResource("LabelSettings_l11av")
+autowrap_mode = 2
+
+[node name="InstructionsQuitButton" type="TextureButton" parent="EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 621.0
+offset_top = 6.33408
+offset_right = 654.0
+offset_bottom = 39.3341
+texture_normal = ExtResource("29_3l3at")
+texture_pressed = ExtResource("30_ekael")
+texture_hover = ExtResource("31_42vc7")
+stretch_mode = 4
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/OpenButton" to="Camera2D/GUI" method="_on_open_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/InstructionsButton" to="Camera2D/GUI" method="_on_instructions_button_pressed"]
 [connection signal="focus_entered" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_focus_entered"]
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
@@ -429,5 +728,10 @@ pitch_scale = 0.3
 [connection signal="pressed" from="Camera2D/GUI/Panel/Upload_Music_Button" to="Camera2D/GUI" method="_on_upload_music_button_pressed"]
 [connection signal="file_selected" from="Camera2D/GUI/Panel/UploadMusic" to="Camera2D/GUI" method="_on_upload_music_file_selected"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
+[connection signal="pressed" from="NotSavedWarning/Panel/SaveAndExitButton" to="Camera2D/GUI" method="_on_save_and_exit_button_pressed"]
+[connection signal="pressed" from="NotSavedWarning/Panel/BackButton" to="Camera2D/GUI" method="_on_back_button_pressed"]
+[connection signal="pressed" from="NotSavedWarning/Panel/DontSaveButton" to="Camera2D/GUI" method="_on_dont_save_button_pressed"]
+[connection signal="pressed" from="RenameFileWarning/GoBackButton" to="Camera2D/GUI" method="_on_go_back_button_pressed"]
+[connection signal="pressed" from="EditorInstructions/InstructionsQuitButton" to="Camera2D/GUI" method="_on_instructions_quit_button_pressed"]
 
 [editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]

@@ -32,8 +32,13 @@ var idx_counter
 var level_file_name
 var curr_file_path
 var right_click_pressed
+var file_not_saved_popup
+var file_name_unchanged_popup
+var instructions_panel 
+var paused = false
 
 func _ready():
+	play_click_sfx()
 	#if Main.CURR_EDITOR_LEVEL_COMPLETED:
 	#	mark_level("completed", "true")
 	$Panel/PlayButton.disabled = true
@@ -52,6 +57,7 @@ func _ready():
 	else: 
 		create_file("res://Script/Levels/Untitled.gd", {}, 0)
 		Main.CURR_EDITOR_LEVEL = "res://Script/Levels/Untitled.gd"
+		curr_file_path = Main.CURR_EDITOR_LEVEL
 	idx_counter = count_enemies()
 	set_process_input(true)
 
@@ -70,6 +76,9 @@ func initialize_scene_references():
 	background = get_parent().get_node("../EditorScreen/Background")
 	camera = get_parent()
 	h_scroll_bar = get_node("../HScrollBar")
+	file_not_saved_popup = get_parent().get_node("../NotSavedWarning")
+	file_name_unchanged_popup = get_parent().get_node("../RenameFileWarning")
+	instructions_panel = get_parent().get_node("../EditorInstructions")
 
 func initialize_enemy_buttons():
 	$Panel/GhasterButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("gh"))
@@ -81,19 +90,24 @@ func initialize_level_select_screen():
 	level_select_screen = init_screen(level_select_screen, LEVEL_SELECT_SCENE, false, 35)
 	level_select_screen.position = Vector2(-885, 0)
 	level_select_screen.connect("level_selected", Callable(self, "disable_level_select"))
+	level_select_screen.connect("level_not_saved", Callable(self, "show_not_saved_warning"))
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 
 func _on_enemy_button_pressed(enemy_type):
-	play_click_sfx()
-	var enemy_scene = ENEMY_SCENES.get(enemy_type)
-	var inst_location = camera.position.x
-	mark_level("completed", "false")
-	mark_level("saved", "false")
+	if paused:
+		pass
+	else:
+		play_click_sfx()
+		var enemy_scene = ENEMY_SCENES.get(enemy_type)
+		var inst_location = camera.position.x
+		mark_level("completed", "false")
+		mark_level("saved", "false")
+		reload_level_select_screen()
 
-	if enemy_scene:
-		var enemy_instance = enemy_scene.instantiate()
-		enemy_instance.position = get_enemy_initial_position(enemy_type, inst_location)
-		add_enemy_to_screen(enemy_instance, enemy_type)
+		if enemy_scene:
+			var enemy_instance = enemy_scene.instantiate()
+			enemy_instance.position = get_enemy_initial_position(enemy_type, inst_location)
+			add_enemy_to_screen(enemy_instance, enemy_type)
 
 func get_enemy_initial_position(enemy_type, inst_location):
 	var y_pos = 420
@@ -111,7 +125,7 @@ func add_enemy_to_screen(enemy_instance, enemy_type):
 	idx_counter += 1
 
 func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
-	play_click_sfx()
+	#play_click_sfx()
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
 	
@@ -126,6 +140,7 @@ func _input(event):
 		$Panel.visible = true
 		mark_level("saved", "false")
 		mark_level("completed", "false")
+		reload_level_select_screen()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 		right_click_pressed = false
@@ -140,6 +155,7 @@ func _input(event):
 				adjust_largest_x()
 				mark_level("saved", "false")
 				mark_level("completed", "false")
+				reload_level_select_screen()
 			else:
 				print("Error: No enemy data found for index ", idx)
 			curr_enemy = null
@@ -242,9 +258,19 @@ func _on_line_edit_text_submitted(new_text):
 
 func _on_play_button_pressed():
 	play_click_sfx()
+	var curr_lvl_is_saved
+	var curr_lvl_is_completed
 	if FileAccess.file_exists(curr_file_path):
+		if check_level_saved(curr_file_path):
+			curr_lvl_is_saved = true
+		if check_level_validity(curr_file_path):
+			curr_lvl_is_completed = true
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + level_file_name, Main.curr_editor_level_enemy_data, largest_x)
+	if curr_lvl_is_saved:
+		mark_level("saved", "true")
+	if curr_lvl_is_completed:
+		mark_level("completed", "true")
 	Main.curr_editor_level_enemy_data = enemy_data
 	
 	Main.player_input_disabled = false 
@@ -254,13 +280,19 @@ func _on_play_button_pressed():
 
 func _on_save_button_pressed():
 	play_click_sfx()
+	var curr_lvl_is_completed
 	if FileAccess.file_exists(curr_file_path):
+		if check_level_validity(curr_file_path):
+			curr_lvl_is_completed = true
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + level_file_name, Main.curr_editor_level_enemy_data, largest_x)
 	Main.player_input_disabled = false
 	$Panel/LineEdit.release_focus()
 	$Panel/PlayButton.disabled = false
 	mark_level("saved", "true")
+	if curr_lvl_is_completed:
+		mark_level("completed", "true")
+	reload_level_select_screen()
 
 func apply_constraints(pos: Vector2, enemy_type: String):
 	var constraints = Y_CONSTRAINTS.get(enemy_type, {})
@@ -277,7 +309,7 @@ func apply_constraints(pos: Vector2, enemy_type: String):
 	
 func load_enemies(e_data: Dictionary):
 	print(e_data)
-	if Main.CURR_EDITOR_LEVEL:
+	if Main.CURR_EDITOR_LEVEL != "res://Script/Levels/Untitled.gd":
 		var cached_lvl_name = Main.CURR_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION)
 		$Panel/LineEdit.text = cached_lvl_name
 		
@@ -307,6 +339,19 @@ func check_level_validity(file_path: String) -> bool:
 			line = file.get_line()
 			if line.begins_with("var is_completed"):
 				return line == "var is_completed = true"
+		return false	
+	else:
+		print("Error: Could not open file: ", file_path)
+		return false
+
+func check_level_saved(file_path: String) -> bool:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		var line
+		while not file.eof_reached():
+			line = file.get_line()
+			if line.begins_with("var is_saved"):
+				return line == "var is_saved = true"
 		return false	
 	else:
 		print("Error: Could not open file: ", file_path)
@@ -372,8 +417,15 @@ func adjust_largest_x():
 
 func _on_quit_button_pressed():
 	play_click_sfx()
-	Main.in_editor = false
-	get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
+	if not check_level_saved(curr_file_path) and count_enemies() > 0:
+		show_not_saved_warning()
+	else:
+		Main.in_editor = false
+		Main.CURR_EDITOR_LEVEL = ""
+		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+		Main.curr_editor_level_enemy_data = {}
+		# may need to delete untitled
+		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 func close_selector():
 	if level_select_screen.visible:
@@ -381,13 +433,20 @@ func close_selector():
 
 func _on_create_new_button_pressed():
 	play_click_sfx()
-	Main.CURR_EDITOR_LEVEL = ""
-	Main.curr_editor_level_enemy_data = {}
-	get_tree().reload_current_scene()
+	if not check_level_saved(curr_file_path) and count_enemies() > 0:
+		Main.level_switching = true
+		show_not_saved_warning()
+	else:
+		Main.CURR_EDITOR_LEVEL = ""
+		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+		Main.curr_editor_level_enemy_data = {}
+		get_tree().reload_current_scene()
 	# NOT DONE IMPLEMENTING 
 	
 func _on_open_button_pressed():
 	play_click_sfx()
+	if not check_level_saved(curr_file_path) and count_enemies() > 0:
+		Main.level_switching = true
 	level_select_screen.visible = true
 
 func count_enemies():
@@ -406,3 +465,94 @@ func _on_upload_music_file_selected(path):
 
 func play_click_sfx():
 	$"../../ClickSFX".play()
+
+func reload_level_select_screen():
+	if level_select_screen:
+		level_select_screen.queue_free()
+	level_select_screen = LEVEL_SELECT_SCENE.instantiate()
+	level_select_screen.set_visible(false) # Set initial visibility as required
+	level_select_screen.set_z_index(35)
+	add_child(level_select_screen)
+	
+	# Set its position and connect signals again
+	level_select_screen.position = Vector2(-885, 0)
+	level_select_screen.connect("level_selected", Callable(self, "disable_level_select"))
+	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
+	
+
+
+func _on_save_and_exit_button_pressed():
+	
+	if Main.level_switching:
+		if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
+			show_change_name_warning()
+			file_not_saved_popup.position.x = -1000
+		else:
+			_on_save_button_pressed()
+			Main.CURR_EDITOR_LEVEL = ""
+			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+			Main.curr_editor_level_enemy_data = {}
+			Main.level_switching = false
+			paused = false
+			get_tree().reload_current_scene()
+	else: 
+		if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
+			show_change_name_warning()
+			file_not_saved_popup.position.x = -1000
+		else:
+			_on_save_button_pressed()
+			Main.CURR_EDITOR_LEVEL = ""
+			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+			Main.curr_editor_level_enemy_data = {}
+			Main.in_editor = false
+			get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
+
+func _on_back_button_pressed():
+	play_click_sfx()
+	Main.level_switching = false
+	set_process_input(true)
+	paused = false
+	file_not_saved_popup.position.x = -1000
+
+
+func _on_dont_save_button_pressed():
+	play_click_sfx()
+	if Main.level_switching:
+		Main.CURR_EDITOR_LEVEL = ""
+		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+		Main.curr_editor_level_enemy_data = {}
+		Main.level_switching = false
+		paused = false
+		get_tree().reload_current_scene()
+	else: 
+		Main.in_editor = false
+		Main.CURR_EDITOR_LEVEL = ""
+		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+		Main.curr_editor_level_enemy_data = {}
+		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
+	
+
+func show_not_saved_warning():
+	file_not_saved_popup.position.x = camera.position.x - 320
+	paused = true
+	set_process_input(false)
+
+func show_change_name_warning():
+	paused = true
+	file_name_unchanged_popup.position.x = camera.position.x - 320
+
+func signal_test():
+	print("signal received")
+
+func _on_go_back_button_pressed():
+	play_click_sfx()
+	set_process_input(true)
+	file_name_unchanged_popup.position.x = -1800
+
+
+func _on_instructions_button_pressed():
+	instructions_panel.position.x = camera.position.x - 320
+
+
+func _on_instructions_quit_button_pressed():
+	instructions_panel.position.x = -1800

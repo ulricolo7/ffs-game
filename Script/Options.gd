@@ -31,14 +31,13 @@ func _on_auto_replay_check_box_toggled(button_pressed):
 
 
 func _on_full_screen_check_box_toggled(button_pressed):
-	play_click_sfx()
+	play_click_sfx() # this is the problem
 	Main.FULL_SCREEN = button_pressed
 	
 	if button_pressed:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	
 	update_saved_options()
 
 func update_saved_options():
@@ -63,4 +62,5 @@ func delete_file(file_path: String):
 		print("File does not exist")
 
 func play_click_sfx():
+	print("d")
 	$ClickSFX.play()

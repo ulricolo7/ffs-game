@@ -27,7 +27,7 @@ theme_override_constants/h_separation = 0
 [node name="level_button" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 15.0
-offset_right = 582.0
+offset_right = 509.0
 offset_bottom = 124.0
 theme_override_constants/separation = 0
 
@@ -65,17 +65,21 @@ texture_normal = ExtResource("1_ineu7")
 texture_hover = ExtResource("2_vj1h1")
 stretch_mode = 4
 
-[node name="DeleteButton" type="TextureButton" parent="level_button"]
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0.0665588, 124.074, 579.813, 124.102)
+width = 2.0
+
+[node name="DeleteButton" type="TextureButton" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
+offset_left = 505.0
+offset_top = 27.0
+offset_right = 575.0
+offset_bottom = 97.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("3_rxesy")
 stretch_mode = 4
 
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0.0665588, 124.074, 579.813, 124.102)
-width = 2.0
-
-[connection signal="pressed" from="level_button/DeleteButton" to="level_button/DeleteButton" method="_on_pressed"]
+[connection signal="pressed" from="DeleteButton" to="DeleteButton" method="_on_pressed"]

@@ -20,9 +20,9 @@ func _on_main_menu_button_pressed():
 	#get_parent().unload_current_scene()
 
 func _on_editor_button_pressed():
-	play_click_sfx()
 	Main.CURR_EDITOR_LEVEL_COMPLETED = Main.CURR_EDITOR_LEVEL
 	mark_level(Main.CURR_EDITOR_LEVEL_COMPLETED, "completed", "true")
+	mark_level(Main.CURR_EDITOR_LEVEL_COMPLETED, "saved", "true")
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 
 func mark_level(file_path: String, mark: String, truthy: String):
