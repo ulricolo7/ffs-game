@@ -35,7 +35,7 @@ var right_click_pressed
 var file_not_saved_popup
 var file_name_unchanged_popup
 var instructions_panel 
-var paused = false
+
 
 func _ready():
 	play_click_sfx()
@@ -69,6 +69,10 @@ func _process(delta):
 		$Panel/PlayButton.disabled = true
 		$Panel/SaveButton.disabled = true
 	
+	if Main.editor_paused:
+		$Panel/LineEdit.editable = false
+	else:
+		$Panel/LineEdit.editable = true
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -94,7 +98,7 @@ func initialize_level_select_screen():
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 
 func _on_enemy_button_pressed(enemy_type):
-	if paused:
+	if Main.editor_paused:
 		pass
 	else:
 		play_click_sfx()
@@ -448,6 +452,7 @@ func _on_open_button_pressed():
 	if not check_level_saved(curr_file_path) and count_enemies() > 0:
 		Main.level_switching = true
 	level_select_screen.visible = true
+	Main.in_open_file = true
 
 func count_enemies():
 	return enemy_data.size()
@@ -477,23 +482,32 @@ func reload_level_select_screen():
 	# Set its position and connect signals again
 	level_select_screen.position = Vector2(-885, 0)
 	level_select_screen.connect("level_selected", Callable(self, "disable_level_select"))
+	level_select_screen.connect("level_not_saved", Callable(self, "show_not_saved_warning"))
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 	
 
 
 func _on_save_and_exit_button_pressed():
-	
+	play_click_sfx()
 	if Main.level_switching:
-		if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
-			show_change_name_warning()
-			file_not_saved_popup.position.x = -1000
+		if Main.in_open_file:
+			if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
+				show_change_name_warning()
+				file_not_saved_popup.position.x = -1000
+			else:
+				_on_save_button_pressed()
+				Main.level_switching = false
+				Main.editor_paused = false
+				Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
+				Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
+				get_tree().reload_current_scene()
 		else:
 			_on_save_button_pressed()
 			Main.CURR_EDITOR_LEVEL = ""
 			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 			Main.curr_editor_level_enemy_data = {}
 			Main.level_switching = false
-			paused = false
+			Main.paused = false
 			get_tree().reload_current_scene()
 	else: 
 		if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
@@ -511,19 +525,26 @@ func _on_back_button_pressed():
 	play_click_sfx()
 	Main.level_switching = false
 	set_process_input(true)
-	paused = false
+	Main.editor_paused = false
 	file_not_saved_popup.position.x = -1000
 
 
 func _on_dont_save_button_pressed():
 	play_click_sfx()
 	if Main.level_switching:
-		Main.CURR_EDITOR_LEVEL = ""
-		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-		Main.curr_editor_level_enemy_data = {}
-		Main.level_switching = false
-		paused = false
-		get_tree().reload_current_scene()
+		if Main.in_open_file:
+			Main.level_switching = false
+			Main.editor_paused = false
+			Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
+			Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
+			get_tree().reload_current_scene()
+		else:
+			Main.CURR_EDITOR_LEVEL = ""
+			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+			Main.curr_editor_level_enemy_data = {}
+			Main.level_switching = false
+			Main.editor_paused = false
+			get_tree().reload_current_scene()
 	else: 
 		Main.in_editor = false
 		Main.CURR_EDITOR_LEVEL = ""
@@ -533,26 +554,32 @@ func _on_dont_save_button_pressed():
 	
 
 func show_not_saved_warning():
+	print("show panel")
 	file_not_saved_popup.position.x = camera.position.x - 320
-	paused = true
+	Main.editor_paused = true
 	set_process_input(false)
 
 func show_change_name_warning():
-	paused = true
-	file_name_unchanged_popup.position.x = camera.position.x - 320
+	Main.editor_paused = true
+	level_select_screen.find_child("Panel").find_child("open_file_quit").disabled = true
+	file_name_unchanged_popup.position.x = camera.position.x - 220
 
 func signal_test():
 	print("signal received")
 
 func _on_go_back_button_pressed():
 	play_click_sfx()
+	Main.editor_paused = false
 	set_process_input(true)
+	level_select_screen.find_child("Panel").find_child("open_file_quit").disabled = false
 	file_name_unchanged_popup.position.x = -1800
 
-
 func _on_instructions_button_pressed():
+	play_click_sfx()
 	instructions_panel.position.x = camera.position.x - 320
-
+	Main.editor_paused = true
 
 func _on_instructions_quit_button_pressed():
+	play_click_sfx()
 	instructions_panel.position.x = -1800
+	Main.editor_paused = false

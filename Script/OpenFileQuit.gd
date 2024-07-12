@@ -14,4 +14,9 @@ func _process(delta):
 
 
 func _on_pressed():
+	play_click_sfx()
+	Main.level_switching = false
 	emit_signal("close_level_select")
+
+func play_click_sfx():
+	$ClickSFX.play()

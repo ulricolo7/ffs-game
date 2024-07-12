@@ -104,10 +104,10 @@ font_size = 36
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ye3si"]
-font_size = 28
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_midbh"]
-font_size = 17
+font_size = 19
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1f5w"]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
@@ -257,6 +257,7 @@ stretch_mode = 4
 
 [node name="InstructionsButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 232.121
 offset_top = 7.81802
 offset_right = 288.121
@@ -568,10 +569,10 @@ autowrap_mode = 2
 
 [node name="RenameFileWarning" type="Panel" parent="."]
 z_index = 50
-offset_left = -1800.0
-offset_top = 360.0
-offset_right = -1374.0
-offset_bottom = 477.0
+offset_left = -1800.79
+offset_top = 346.507
+offset_right = -1301.79
+offset_bottom = 496.507
 theme_override_styles/panel = SubResource("StyleBoxFlat_l0fkn")
 
 [node name="title" type="Label" parent="RenameFileWarning"]
@@ -588,23 +589,25 @@ label_settings = SubResource("LabelSettings_ye3si")
 texture_filter = 1
 layout_mode = 0
 offset_left = 7.0
-offset_top = 48.0
+offset_top = 55.3416
 offset_right = 380.0
-offset_bottom = 69.0
+offset_bottom = 76.3416
 text = "PLEASE RENAME YOUR FILE BEFORE CONTINUING"
 label_settings = SubResource("LabelSettings_midbh")
 
 [node name="Line2D" type="Line2D" parent="RenameFileWarning"]
-points = PackedVector2Array(-0.163269, 41.2223, 426.142, 41.2536)
+position = Vector2(0, 3.92)
+scale = Vector2(0.98, 0.98)
+points = PackedVector2Array(-0.163269, 41.2223, 508.963, 41.2536)
 width = 2.0
 
 [node name="GoBackButton" type="TextureButton" parent="RenameFileWarning"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 144.278
-offset_top = 73.8217
-offset_right = 280.278
-offset_bottom = 108.822
+offset_left = 171.998
+offset_top = 90.1629
+offset_right = 338.998
+offset_bottom = 132.163
 texture_normal = ExtResource("33_nsue7")
 texture_pressed = ExtResource("34_dvevk")
 texture_hover = ExtResource("35_dr71o")

@@ -109,9 +109,37 @@ func check_level_saved(file_path: String) -> bool:
 func _on_level_button_pressed(file_path: String):
 	#play_click_sfx()
 	if Main.in_editor:
-		if Main.CURR_EDITOR_LEVEL != "res://Script/Levels/Untitled.gd" and not check_level_saved(Main.CURR_EDITOR_LEVEL):
-			print("reached")
-			emit_signal("level_not_saved")
+		if not check_level_saved(Main.CURR_EDITOR_LEVEL) and Main.curr_editor_level_enemy_data.size() > 0:
+			
+			Main.PREP_EDITOR_LEVEL = file_path
+			var file = FileAccess.open(file_path, FileAccess.READ)
+			if file:
+				var enemy_data = {}
+				var largest_x = 0
+				var in_enemy_data = false
+				var regex = RegEx.new()
+				var result
+				regex.compile("(\\d+): {\"position\": Vector2\\(([^,]+), ([^\\)]+)\\), \"type\": \"([^\"]+)\"},")
+			
+				while not file.eof_reached():
+					var line = file.get_line().strip_edges()
+					if line == "var enemy_data = {":
+						in_enemy_data = true
+						continue
+					elif line == "}":
+						in_enemy_data = false
+						continue
+				
+					if in_enemy_data:
+						result = regex.search(line)
+						if result:
+							var idx = result.get_string(1).to_int()
+							var pos_x = result.get_string(2).to_float()
+							var pos_y = result.get_string(3).to_float()
+							var enemy_type = result.get_string(4)
+							enemy_data[idx] = {"position": Vector2(pos_x, pos_y), "type": enemy_type}
+				Main.prep_editor_level_enemy_data = enemy_data
+				emit_signal("level_not_saved")
 		else:
 			Main.CURR_EDITOR_LEVEL = file_path
 			var file = FileAccess.open(file_path, FileAccess.READ)

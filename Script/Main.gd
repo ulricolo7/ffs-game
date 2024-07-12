@@ -18,11 +18,15 @@ var LEVEL_LENGTH
 var LEVEL_SCRIPT
 
 var in_editor = false
+var in_open_file = false
 var level_switching = false
 var CURR_EDITOR_LEVEL
 var CURR_EDITOR_LEVEL_COMPLETED 
+var PREP_EDITOR_LEVEL
+var prep_editor_level_enemy_data
 var player_input_disabled = false 
 var curr_editor_level_enemy_data: Dictionary
+var editor_paused = false
 
 func _ready():
 	MASTER_VOLUME = SAVED_OPTIONS.MASTER_VOLUME
