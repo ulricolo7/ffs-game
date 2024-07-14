@@ -12,7 +12,7 @@ bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5sb8e"]
 line_spacing = 0.0
-font_size = 32
+font_size = 36
 
 [node name="bot_select" type="Control"]
 layout_mode = 3
@@ -33,11 +33,11 @@ script = ExtResource("1_hdl5h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 0
-offset_top = 71.0
+offset_top = 70.0
 offset_right = 580.0
 offset_bottom = 840.0
 theme = SubResource("Theme_fy8xk")
-theme_override_constants/separation = 6
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="Panel"]
 texture_filter = 1
@@ -51,6 +51,7 @@ label_settings = SubResource("LabelSettings_5sb8e")
 vertical_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="Panel"]
+position = Vector2(0, 2)
 points = PackedVector2Array(580.114, 66.8034, -0.863159, 66.8517)
 width = 2.0
 

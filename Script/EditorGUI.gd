@@ -35,9 +35,14 @@ var right_click_pressed
 var file_not_saved_popup
 var file_name_unchanged_popup
 var instructions_panel 
+var level_not_shareable_popup
+var sharing_panel
 
 
 func _ready():
+	Main.editor_paused2 = false
+	Main.player_input_disabled = false
+	Main.in_open_file = false
 	play_click_sfx()
 	#if Main.CURR_EDITOR_LEVEL_COMPLETED:
 	#	mark_level("completed", "true")
@@ -94,6 +99,8 @@ func initialize_scene_references():
 	file_not_saved_popup = get_parent().get_node("../NotSavedWarning")
 	file_name_unchanged_popup = get_parent().get_node("../RenameFileWarning")
 	instructions_panel = get_parent().get_node("../EditorInstructions")
+	level_not_shareable_popup = get_parent().get_node("../InvalidShareLevelW")
+	sharing_panel = get_parent().get_node("../SharingPanel")
 
 func initialize_enemy_buttons():
 	$Panel/GhasterButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("gh"))
@@ -604,6 +611,129 @@ func _on_instructions_quit_button_pressed():
 	instructions_panel.position.x = -1800
 	Main.editor_paused = false
 
+# LEVEL SHARING CODE BELOW
 
 func _on_share_button_pressed():
-	pass # Replace with function body.
+	play_click_sfx()
+	if not check_level_validity(curr_file_path):
+		var popup_content = level_not_shareable_popup.find_child("Content")
+		level_not_shareable_popup.position.x = camera.position.x - 320
+		popup_content.text = "Level \"{0}\" is not completed and cannot be shared!".format([curr_file_path.get_file().get_basename()])
+		Main.player_input_disabled = true
+		Main.editor_paused2 = true
+	else: 
+		Main.player_input_disabled = true
+		Main.editor_paused2 = true
+		sharing_panel.position.x = camera.position.x - 320
+		var serialized_level_data = serialize_level(enemy_data)
+		var encoded_level_data = encode_level_data(serialized_level_data)
+		print(encoded_level_data)
+		sharing_panel.find_child("ExportCode").text = encoded_level_data
+		
+
+func _on_back_button_2_pressed():
+	play_click_sfx()
+	Main.player_input_disabled = false
+	Main.editor_paused2 = false
+	level_not_shareable_popup.position.x = - 3100
+
+func serialize_level(level_data: Dictionary) -> String:
+	var json = JSON.new()
+	return json.stringify(level_data)
+
+const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+func to_base64(data: PackedByteArray) -> String:
+	var output = ""
+	var padding = ""
+	var data_size = data.size()
+	var i = 0
+
+	while i < data_size:
+		var byte1 = data[i]
+		var byte2 = 0
+		var byte3 = 0
+		if i + 1 < data_size:
+			byte2 = data[i + 1]
+		if i + 2 < data_size:
+			byte3 = data[i + 2]
+
+		output += BASE64_ALPHABET[(byte1 >> 2) & 0x3F]
+		output += BASE64_ALPHABET[((byte1 & 0x3) << 4) | ((byte2 >> 4) & 0x0F)]
+		if i + 1 < data_size:
+			output += BASE64_ALPHABET[((byte2 & 0xF) << 2) | ((byte3 >> 6) & 0x03)]
+		else:
+			padding += "="
+		if i + 2 < data_size:
+			output += BASE64_ALPHABET[byte3 & 0x3F]
+		else:
+			padding += "="
+		i += 3
+	return output + padding
+
+func from_base64(data: String) -> PackedByteArray:
+	var output = PackedByteArray()
+	var padding = 0
+	if data.ends_with("=="):
+		padding = 2 
+	elif data.ends_with("="):
+		padding = 1
+	var data_size = data.length() - padding
+	var i = 0
+
+	while i < data_size:
+		var enc1 = BASE64_ALPHABET.find(data[i])
+		var enc2 = BASE64_ALPHABET.find(data[i + 1])
+		var enc3 = 0
+		if i + 2 < data_size:
+			enc3 = BASE64_ALPHABET.find(data[i + 2]) 
+		var enc4 = 0
+		if i + 3 < data_size:
+			enc4 = BASE64_ALPHABET.find(data[i + 3]) 
+
+		var byte1 = (enc1 << 2) | (enc2 >> 4)
+		var byte2 = ((enc2 & 15) << 4) | (enc3 >> 2)
+		var byte3 = ((enc3 & 3) << 6) | enc4
+
+		output.append(byte1)
+		if i + 2 < data_size:
+			output.append(byte2)
+		if i + 3 < data_size:
+			output.append(byte3)
+		i += 4
+	return output
+
+func encode_level_data(data: String) -> String:
+	var bytes = data.to_utf8_buffer()
+	var compressed_bytes = bytes.compress(2)
+	var original_size = str(bytes.size())
+	var encoded_size = to_base64(original_size.to_utf8_buffer())
+	return encoded_size + ":" + to_base64(compressed_bytes)
+
+func decode_level_data(encoded_data: String) -> String:
+	var split_data = encoded_data.split(":")
+	var encoded_size = split_data[0]
+	var encoded_content = split_data[1]
+	
+	var original_size_bytes = from_base64(encoded_size)
+	var original_size = int(original_size_bytes.get_string_from_utf8())
+
+	var compressed_bytes = from_base64(encoded_content)
+	var decompressed_bytes = compressed_bytes.decompress(original_size, 2)
+	return decompressed_bytes.get_string_from_utf8()
+
+func _on_exit_share_button_pressed():
+	play_click_sfx()
+	Main.player_input_disabled = false
+	Main.editor_paused2 = false
+	sharing_panel.position.x = 1700
+
+func _on_copy_code_button_pressed():
+	play_click_sfx()
+	Main.player_input_disabled = true
+	Main.editor_paused2 = true
+	DisplayServer.clipboard_set(sharing_panel.find_child("ExportCode").text)
+	sharing_panel.find_child("CopiedToClipboardNotif").visible = true
+	sharing_panel.find_child("ClipboardNotifTimer").start(2.5)
+
+func _on_clipboard_notif_timer_timeout():
+	sharing_panel.find_child("CopiedToClipboardNotif").visible = false

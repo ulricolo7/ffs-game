@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2ifkaycrbwjj"]
+[gd_scene load_steps=6 format=3 uid="uid://d2ifkaycrbwjj"]
 
-[ext_resource type="Texture2D" uid="uid://cxe7b8mulawh0" path="res://Assets/UI/Forward_Button/forward_arrow.png" id="1_ineu7"]
-[ext_resource type="Texture2D" uid="uid://brviy56g3st5w" path="res://Assets/UI/Forward_Button/forward_arrow_hover2.png" id="2_vj1h1"]
-[ext_resource type="Texture2D" uid="uid://bpwti457hcpon" path="res://Assets/UI/Delete_File_Button/delete_file_button.png" id="3_rxesy"]
+[ext_resource type="Texture2D" uid="uid://dy0iun2juadm2" path="res://Assets/New UI/deletefilebutton1.png" id="3_pc2gi"]
+[ext_resource type="Texture2D" uid="uid://by40gcsd46ih5" path="res://Assets/New UI/deletefilebutton2.png" id="4_8kg6c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_miv35"]
 line_spacing = 2.0
@@ -54,17 +53,6 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_s024y")
 vertical_alignment = 2
 
-[node name="ShareButton" type="TextureButton" parent="level_button"]
-z_index = 1
-texture_filter = 1
-custom_minimum_size = Vector2(70, 56)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("1_ineu7")
-texture_hover = ExtResource("2_vj1h1")
-stretch_mode = 4
-
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0.0665588, 124.074, 579.813, 124.102)
 width = 2.0
@@ -79,7 +67,9 @@ offset_right = 575.0
 offset_bottom = 97.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_rxesy")
+texture_normal = ExtResource("3_pc2gi")
+texture_pressed = ExtResource("4_8kg6c")
+texture_hover = ExtResource("4_8kg6c")
 stretch_mode = 4
 
 [connection signal="pressed" from="DeleteButton" to="DeleteButton" method="_on_pressed"]

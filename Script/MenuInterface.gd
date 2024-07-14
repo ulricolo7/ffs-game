@@ -26,7 +26,7 @@ func _ready():
 	level_select_sim_screen = init_screen(level_select_sim_screen, level_select_sim_scene, false, 10)
 	bot_select_screen = init_screen(bot_select_screen, bot_select_scene, false, 10)
 	
-	level_select_sim_screen.find_child("Panel").connect("switch_screens", Callable(self, "screen_switch"))
+	level_select_sim_screen.connect("switch_screens", Callable(self, "screen_switch"))
 	bot_select_screen.find_child("Panel").connect("switch_screens", Callable(self, "screen_switch"))
 	
 func _on_play_pressed():

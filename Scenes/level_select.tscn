@@ -70,19 +70,20 @@ width = 2.0
 
 [node name="Quit_Button" parent="Panel" instance=ExtResource("2_doah5")]
 layout_mode = 0
-offset_left = 535.973
-offset_top = 19.2649
-offset_right = 567.973
-offset_bottom = 51.2649
+offset_left = 531.0
+offset_top = 13.0
+offset_right = 568.0
+offset_bottom = 50.0
 scale = Vector2(1.1, 1.1)
 
 [node name="open_file_quit" parent="Panel" instance=ExtResource("3_tx4s3")]
 layout_mode = 0
-offset_left = 537.24
-offset_top = 18.9008
-offset_right = 569.24
-offset_bottom = 50.9008
+offset_left = 531.498
+offset_top = 13.3746
+offset_right = 570.498
+offset_bottom = 50.3746
 scale = Vector2(1.1, 1.1)
+stretch_mode = 4
 
 [node name="WarningPanel" type="Panel" parent="."]
 visible = false

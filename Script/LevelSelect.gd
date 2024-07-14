@@ -79,8 +79,8 @@ func _add_level_button(file_path: String):
 	button_instance.find_child("DeleteButton").connect("pressed", Callable(self, "_on_delete_lvl_button_pressed").bind(button_instance, file_path))
 	if lvl_name.begins_with("dev_"):
 		button_instance.find_child("DeleteButton").visible = false
-	if not is_level_completed(file_path):
-		button_instance.find_child("ShareButton").visible = false
+	#if not is_level_completed(file_path):
+	#	button_instance.find_child("ShareButton").visible = false
 	$Panel/ScrollContainer/VBoxContainer.add_child(button_instance)
 	
 

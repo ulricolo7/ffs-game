@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=80 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -46,6 +46,9 @@
 [ext_resource type="Texture2D" uid="uid://cdknvdyws1c6m" path="res://Assets/New UI/filepopups/dontsave1.png" id="41_u3fls"]
 [ext_resource type="Texture2D" uid="uid://bodwwpjiwr2kc" path="res://Assets/New UI/filepopups/dontsave3.png" id="42_g58lm"]
 [ext_resource type="Texture2D" uid="uid://jbiqo4ajepqi" path="res://Assets/New UI/filepopups/dontsave2.png" id="43_cijup"]
+[ext_resource type="Texture2D" uid="uid://c08gxpl8gl3bk" path="res://Assets/New UI/copy_code1.png" id="47_rq20t"]
+[ext_resource type="Texture2D" uid="uid://cyhdbbk3vde5e" path="res://Assets/New UI/copy_code2.png" id="48_52bla"]
+[ext_resource type="Texture2D" uid="uid://cnlvkcv4ag4gi" path="res://Assets/New UI/copy_code3.png" id="48_wqni5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
 size = Vector2(1279.57, 79.8015)
@@ -132,6 +135,30 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_l11av"]
 font_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1lb6"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
+
+[sub_resource type="LabelSettings" id="LabelSettings_53t2s"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_832kq"]
+font_size = 19
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dj711"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ayfx"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_si1u8"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_u3ful"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_kg0lw"]
+font_color = Color(0.494118, 0.494118, 0.494118, 1)
 
 [node name="Editor" type="Node"]
 
@@ -569,10 +596,10 @@ autowrap_mode = 2
 
 [node name="RenameFileWarning" type="Panel" parent="."]
 z_index = 50
-offset_left = -1800.79
-offset_top = 346.507
-offset_right = -1301.79
-offset_bottom = 496.507
+offset_left = -1800.0
+offset_top = 350.0
+offset_right = -1300.0
+offset_bottom = 490.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_l0fkn")
 
 [node name="title" type="Label" parent="RenameFileWarning"]
@@ -598,16 +625,16 @@ label_settings = SubResource("LabelSettings_midbh")
 [node name="Line2D" type="Line2D" parent="RenameFileWarning"]
 position = Vector2(0, 3.92)
 scale = Vector2(0.98, 0.98)
-points = PackedVector2Array(-0.163269, 41.2223, 508.963, 41.2536)
+points = PackedVector2Array(-0.163269, 41.2223, 510.077, 41.2536)
 width = 2.0
 
 [node name="GoBackButton" type="TextureButton" parent="RenameFileWarning"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 171.998
-offset_top = 90.1629
-offset_right = 338.998
-offset_bottom = 132.163
+offset_left = 171.601
+offset_top = 84.607
+offset_right = 338.601
+offset_bottom = 126.607
 texture_normal = ExtResource("33_nsue7")
 texture_pressed = ExtResource("34_dvevk")
 texture_hover = ExtResource("35_dr71o")
@@ -719,10 +746,150 @@ texture_pressed = ExtResource("30_ekael")
 texture_hover = ExtResource("31_42vc7")
 stretch_mode = 4
 
+[node name="InvalidShareLevelW" type="Panel" parent="."]
+z_index = 45
+offset_left = -3100.0
+offset_top = 350.0
+offset_right = -2600.0
+offset_bottom = 490.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_m1lb6")
+
+[node name="Title" type="Label" parent="InvalidShareLevelW"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 442.0
+offset_bottom = 44.0
+text = "LEVEL CANNOT BE SHARED"
+label_settings = SubResource("LabelSettings_53t2s")
+
+[node name="Line2D" type="Line2D" parent="InvalidShareLevelW"]
+points = PackedVector2Array(-0.0117188, 41.5747, 499.982, 41.412)
+width = 2.0
+
+[node name="Content" type="Label" parent="InvalidShareLevelW"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.5227
+offset_top = 47.0
+offset_right = 495.523
+offset_bottom = 85.0
+label_settings = SubResource("LabelSettings_832kq")
+
+[node name="BackButton2" type="TextureButton" parent="InvalidShareLevelW"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 171.6
+offset_top = 84.6
+offset_right = 338.6
+offset_bottom = 126.6
+texture_normal = ExtResource("33_nsue7")
+texture_pressed = ExtResource("34_dvevk")
+texture_hover = ExtResource("35_dr71o")
+stretch_mode = 4
+
+[node name="SharingPanel" type="Panel" parent="."]
+z_index = 45
+offset_left = 1700.0
+offset_top = 340.0
+offset_right = 2241.0
+offset_bottom = 565.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dj711")
+
+[node name="Title" type="Label" parent="SharingPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 12.0217
+offset_top = 8.71335
+offset_right = 467.022
+offset_bottom = 45.7133
+text = "LEVEL SHARING"
+label_settings = SubResource("LabelSettings_4ayfx")
+vertical_alignment = 1
+
+[node name="Export" type="Label" parent="SharingPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 56.0
+offset_right = 104.0
+offset_bottom = 84.0
+text = "EXPORT"
+label_settings = SubResource("LabelSettings_si1u8")
+
+[node name="ExportCode" type="LineEdit" parent="SharingPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 85.0
+offset_right = 498.0
+offset_bottom = 117.0
+editable = false
+
+[node name="Import" type="Label" parent="SharingPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 145.54
+offset_right = 103.0
+offset_bottom = 173.54
+text = "IMPORT"
+label_settings = SubResource("LabelSettings_u3ful")
+
+[node name="ImportCode" type="LineEdit" parent="SharingPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 178.0
+offset_right = 529.0
+offset_bottom = 210.0
+
+[node name="Line2D" type="Line2D" parent="SharingPanel"]
+position = Vector2(0, -3.425)
+points = PackedVector2Array(-0.0155029, 51.4023, 540.98, 51.4101)
+width = 2.0
+
+[node name="ExitShareButton" type="TextureButton" parent="SharingPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 499.36
+offset_top = 8.89777
+offset_right = 531.36
+offset_bottom = 41.8978
+texture_normal = ExtResource("29_3l3at")
+texture_pressed = ExtResource("30_ekael")
+texture_hover = ExtResource("31_42vc7")
+stretch_mode = 4
+
+[node name="CopyCodeButton" type="TextureButton" parent="SharingPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 498.687
+offset_top = 81.5118
+offset_right = 536.687
+offset_bottom = 119.512
+texture_normal = ExtResource("47_rq20t")
+texture_pressed = ExtResource("48_wqni5")
+texture_hover = ExtResource("48_52bla")
+stretch_mode = 4
+
+[node name="CopiedToClipboardNotif" type="Label" parent="SharingPanel"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 17.0
+offset_top = 122.0
+offset_right = 281.0
+offset_bottom = 139.0
+text = "COPIED TO CLIPBOARD"
+label_settings = SubResource("LabelSettings_kg0lw")
+
+[node name="ClipboardNotifTimer" type="Timer" parent="SharingPanel"]
+
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/CreateNewButton" to="Camera2D/GUI" method="_on_create_new_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/OpenButton" to="Camera2D/GUI" method="_on_open_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/ShareButton" to="Camera2D/GUI" method="_on_share_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/InstructionsButton" to="Camera2D/GUI" method="_on_instructions_button_pressed"]
 [connection signal="focus_entered" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_focus_entered"]
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
@@ -736,5 +903,9 @@ stretch_mode = 4
 [connection signal="pressed" from="NotSavedWarning/Panel/DontSaveButton" to="Camera2D/GUI" method="_on_dont_save_button_pressed"]
 [connection signal="pressed" from="RenameFileWarning/GoBackButton" to="Camera2D/GUI" method="_on_go_back_button_pressed"]
 [connection signal="pressed" from="EditorInstructions/InstructionsQuitButton" to="Camera2D/GUI" method="_on_instructions_quit_button_pressed"]
+[connection signal="pressed" from="InvalidShareLevelW/BackButton2" to="Camera2D/GUI" method="_on_back_button_2_pressed"]
+[connection signal="pressed" from="SharingPanel/ExitShareButton" to="Camera2D/GUI" method="_on_exit_share_button_pressed"]
+[connection signal="pressed" from="SharingPanel/CopyCodeButton" to="Camera2D/GUI" method="_on_copy_code_button_pressed"]
+[connection signal="timeout" from="SharingPanel/ClipboardNotifTimer" to="Camera2D/GUI" method="_on_clipboard_notif_timer_timeout"]
 
 [editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]
