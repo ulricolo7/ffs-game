@@ -19,6 +19,7 @@ func _on_pressed():
 	Main.level_switching = false
 	Main.editor_paused = false
 	Main.player_input_disabled = false
+	Main.editor_paused2 = false
 	emit_signal("close_level_select")
 
 func play_click_sfx():

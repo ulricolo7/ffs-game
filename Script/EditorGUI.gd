@@ -63,14 +63,14 @@ func _ready():
 	set_process_input(true)
 
 func _process(delta):
-	if level_file_name and enemy_data.size() > 0 and not Main.editor_paused and not Main.player_input_disabled:
+	if (level_file_name != "Untitled") and enemy_data.size() > 0 and not Main.editor_paused and not Main.editor_paused2:
 		$Panel/PlayButton.disabled = false
 		$Panel/SaveButton.disabled = false
 	else:
 		$Panel/PlayButton.disabled = true
 		$Panel/SaveButton.disabled = true
 	
-	if Main.player_input_disabled or Main.editor_paused:
+	if Main.editor_paused2 or Main.editor_paused:
 		$Panel/LineEdit.editable = false
 		$Panel/CreateNewButton.disabled = true
 		$Panel/OpenButton.disabled = true
@@ -194,6 +194,7 @@ func _input(event):
 		var line_edit_rect = Rect2($Panel/LineEdit.global_position, $Panel/LineEdit.size)
 		if not line_edit_rect.has_point(mouse_pos):
 			$Panel/LineEdit.release_focus()
+			Main.player_input_disabled = false
 	
 	Main.curr_editor_level_enemy_data = enemy_data
 
@@ -267,7 +268,7 @@ func _on_line_edit_text_changed(name_typed):
 			Main.CURR_EDITOR_LEVEL = curr_file_path
 	else:
 		$Panel/WarningLabel.visible = false
-		level_file_name = ""
+		level_file_name = "Untitled"
 
 func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
@@ -461,6 +462,7 @@ func _on_create_new_button_pressed():
 	
 func _on_open_button_pressed():
 	play_click_sfx()
+	Main.editor_paused2 = true
 	Main.player_input_disabled = true
 	if not check_level_saved(curr_file_path) and count_enemies() > 0:
 		Main.level_switching = true
@@ -601,3 +603,7 @@ func _on_instructions_quit_button_pressed():
 	play_click_sfx()
 	instructions_panel.position.x = -1800
 	Main.editor_paused = false
+
+
+func _on_share_button_pressed():
+	pass # Replace with function body.

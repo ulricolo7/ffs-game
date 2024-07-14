@@ -27,6 +27,7 @@ var prep_editor_level_enemy_data
 var player_input_disabled = false 
 var curr_editor_level_enemy_data: Dictionary
 var editor_paused = false
+var editor_paused2 = false
 
 func _ready():
 	MASTER_VOLUME = SAVED_OPTIONS.MASTER_VOLUME
