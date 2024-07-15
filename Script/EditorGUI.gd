@@ -90,6 +90,12 @@ func _process(delta):
 		$Panel/InstructionsButton.disabled = false
 		$Panel/QuitButton.disabled = false
 
+	if sharing_panel.find_child("ImportCode").text.length() == 0:
+		sharing_panel.find_child("ImportButton").disabled = true
+	else:
+		sharing_panel.find_child("ImportButton").disabled = false
+
+
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
 	editor_screen_bounds = get_parent().get_node("../EditorScreen/Boundaries")
@@ -725,7 +731,7 @@ func _on_exit_share_button_pressed():
 	play_click_sfx()
 	Main.player_input_disabled = false
 	Main.editor_paused2 = false
-	sharing_panel.position.x = 1700
+	sharing_panel.position.x = -4000
 
 func _on_copy_code_button_pressed():
 	play_click_sfx()
@@ -733,7 +739,18 @@ func _on_copy_code_button_pressed():
 	Main.editor_paused2 = true
 	DisplayServer.clipboard_set(sharing_panel.find_child("ExportCode").text)
 	sharing_panel.find_child("CopiedToClipboardNotif").visible = true
-	sharing_panel.find_child("ClipboardNotifTimer").start(2.5)
+	sharing_panel.find_child("NotifTimer").start(2.5)
 
-func _on_clipboard_notif_timer_timeout():
-	sharing_panel.find_child("CopiedToClipboardNotif").visible = false
+
+func _on_notif_timer_timeout():
+	if sharing_panel.find_child("CopiedToClipboardNotif").visible:
+		sharing_panel.find_child("CopiedToClipboardNotif").visible = false
+	elif sharing_panel.find_child("LevelImportedNotif").visible:
+		sharing_panel.find_child("LevelImportedNotif").visible = false
+	elif sharing_panel.find_child("InvalidLevelCodeNotif").visible:
+		sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
+
+func _on_import_button_pressed():
+	var import_code = sharing_panel.find_child("ImportCode").text
+	var level_data = decode_level_data(import_code)
+	print(level_data)

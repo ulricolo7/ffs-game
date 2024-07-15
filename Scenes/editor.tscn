@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=86 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -49,6 +49,10 @@
 [ext_resource type="Texture2D" uid="uid://c08gxpl8gl3bk" path="res://Assets/New UI/copy_code1.png" id="47_rq20t"]
 [ext_resource type="Texture2D" uid="uid://cyhdbbk3vde5e" path="res://Assets/New UI/copy_code2.png" id="48_52bla"]
 [ext_resource type="Texture2D" uid="uid://cnlvkcv4ag4gi" path="res://Assets/New UI/copy_code3.png" id="48_wqni5"]
+[ext_resource type="Texture2D" uid="uid://cix02g1m73ca0" path="res://Assets/New UI/filepopups/import1.png" id="50_vrrpu"]
+[ext_resource type="Texture2D" uid="uid://y4rblkeoi5eg" path="res://Assets/New UI/filepopups/import3.png" id="51_ok0sp"]
+[ext_resource type="Texture2D" uid="uid://q7ecd3bkilho" path="res://Assets/New UI/filepopups/import2.png" id="52_rnxq6"]
+[ext_resource type="Texture2D" uid="uid://ctya1wsaxorm7" path="res://Assets/New UI/filepopups/import4.png" id="53_gd0hy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
 size = Vector2(1279.57, 79.8015)
@@ -119,19 +123,19 @@ bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_owast"]
-font_size = 24
+font_size = 26
 
 [sub_resource type="LabelSettings" id="LabelSettings_ir3xd"]
 font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_y8min"]
-font_size = 24
+font_size = 26
 
 [sub_resource type="LabelSettings" id="LabelSettings_4lgf8"]
 font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_djln8"]
-font_size = 24
+font_size = 26
 
 [sub_resource type="LabelSettings" id="LabelSettings_l11av"]
 font_size = 18
@@ -159,6 +163,12 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_kg0lw"]
 font_color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vdvex"]
+font_color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w4edq"]
+font_color = Color(1, 0, 0.0941176, 1)
 
 [node name="Editor" type="Node"]
 
@@ -645,7 +655,7 @@ z_index = 45
 offset_left = -2522.0
 offset_top = 134.0
 offset_right = -1859.0
-offset_bottom = 647.0
+offset_bottom = 673.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1f5w")
 
 [node name="title" type="Label" parent="EditorInstructions"]
@@ -679,7 +689,7 @@ layout_mode = 0
 offset_left = 11.0
 offset_top = 85.0
 offset_right = 658.0
-offset_bottom = 221.0
+offset_bottom = 173.0
 text = "Spawn Enemies: Click the enemy buttons on the panel to add enemies to the level screen. Drag them to your desired positions.
 Delete Enemies: Right-click on enemies to remove them.
 Scroll: Use the scroll button above to navigate through the level and place enemies."
@@ -689,21 +699,21 @@ autowrap_mode = 2
 [node name="TestingAndValidation" type="Label" parent="EditorInstructions"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 9.20122
-offset_top = 189.975
-offset_right = 290.201
-offset_bottom = 217.975
+offset_left = 10.701
+offset_top = 190.069
+offset_right = 313.701
+offset_bottom = 220.069
 text = "TESTING AND VALIDATION:"
 label_settings = SubResource("LabelSettings_y8min")
 
 [node name="TestingAndValidationC" type="Label" parent="EditorInstructions"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 11.4702
-offset_top = 219.072
-offset_right = 659.47
-offset_bottom = 373.072
-text = "Play: Press the play button to test your level.
+offset_left = 12.5945
+offset_top = 217.886
+offset_right = 660.594
+offset_bottom = 393.886
+text = "Play: Press the play button to test your level. Don’t forget to give your level a name before you start testing!
 Validation: You must complete your level to validate it for sharing. Only validated levels appear in the Level Selection page under PLAY or SIMULATE.
 Revalidation: If you make any changes, you must complete the level again for revalidation.
 Save: Remember to save your progress before exiting if you don't have time to attempt your level."
@@ -714,9 +724,9 @@ autowrap_mode = 2
 texture_filter = 1
 layout_mode = 0
 offset_left = 11.2
-offset_top = 389.448
-offset_right = 148.2
-offset_bottom = 409.448
+offset_top = 415.611
+offset_right = 219.2
+offset_bottom = 443.611
 text = "FILE MANAGEMENT:"
 label_settings = SubResource("LabelSettings_djln8")
 
@@ -724,9 +734,9 @@ label_settings = SubResource("LabelSettings_djln8")
 texture_filter = 1
 layout_mode = 0
 offset_left = 10.5381
-offset_top = 419.036
+offset_top = 447.32
 offset_right = 655.538
-offset_bottom = 513.036
+offset_bottom = 541.32
 text = "New File: Creates a new level file.
 Open File: Opens a previously saved level file.
 Share File: Generates a code to share your level with friends. Use the load file section to import levels shared by friends by copying their code.
@@ -791,9 +801,9 @@ stretch_mode = 4
 
 [node name="SharingPanel" type="Panel" parent="."]
 z_index = 45
-offset_left = 1700.0
-offset_top = 340.0
-offset_right = 2241.0
+offset_left = -4000.0
+offset_top = 326.0
+offset_right = -3459.0
 offset_bottom = 565.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_dj711")
 
@@ -840,7 +850,7 @@ label_settings = SubResource("LabelSettings_u3ful")
 layout_mode = 0
 offset_left = 16.0
 offset_top = 178.0
-offset_right = 529.0
+offset_right = 443.0
 offset_bottom = 210.0
 
 [node name="Line2D" type="Line2D" parent="SharingPanel"]
@@ -883,7 +893,42 @@ offset_bottom = 139.0
 text = "COPIED TO CLIPBOARD"
 label_settings = SubResource("LabelSettings_kg0lw")
 
-[node name="ClipboardNotifTimer" type="Timer" parent="SharingPanel"]
+[node name="NotifTimer" type="Timer" parent="SharingPanel"]
+
+[node name="ImportButton" type="TextureButton" parent="SharingPanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 442.509
+offset_top = 178.445
+offset_right = 532.509
+offset_bottom = 208.445
+texture_normal = ExtResource("50_vrrpu")
+texture_pressed = ExtResource("51_ok0sp")
+texture_hover = ExtResource("52_rnxq6")
+texture_disabled = ExtResource("53_gd0hy")
+stretch_mode = 4
+
+[node name="LevelImportedNotif" type="Label" parent="SharingPanel"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 17.6255
+offset_top = 213.749
+offset_right = 154.625
+offset_bottom = 234.749
+text = "LEVEL IMPORTED"
+label_settings = SubResource("LabelSettings_vdvex")
+
+[node name="InvalidLevelCodeNotif" type="Label" parent="SharingPanel"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 18.0
+offset_top = 214.0
+offset_right = 58.0
+offset_bottom = 233.0
+text = "INVALID LEVEL CODE"
+label_settings = SubResource("LabelSettings_w4edq")
 
 [connection signal="pressed" from="Camera2D/GUI/Panel/PlayButton" to="Camera2D/GUI" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/SaveButton" to="Camera2D/GUI" method="_on_save_button_pressed"]
@@ -906,6 +951,7 @@ label_settings = SubResource("LabelSettings_kg0lw")
 [connection signal="pressed" from="InvalidShareLevelW/BackButton2" to="Camera2D/GUI" method="_on_back_button_2_pressed"]
 [connection signal="pressed" from="SharingPanel/ExitShareButton" to="Camera2D/GUI" method="_on_exit_share_button_pressed"]
 [connection signal="pressed" from="SharingPanel/CopyCodeButton" to="Camera2D/GUI" method="_on_copy_code_button_pressed"]
-[connection signal="timeout" from="SharingPanel/ClipboardNotifTimer" to="Camera2D/GUI" method="_on_clipboard_notif_timer_timeout"]
+[connection signal="timeout" from="SharingPanel/NotifTimer" to="Camera2D/GUI" method="_on_notif_timer_timeout"]
+[connection signal="pressed" from="SharingPanel/ImportButton" to="Camera2D/GUI" method="_on_import_button_pressed"]
 
 [editable path="Camera2D/GUI/Panel/CrawlerAirButton/CrawlerAirCont"]
