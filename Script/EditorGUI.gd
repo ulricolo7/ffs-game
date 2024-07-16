@@ -772,6 +772,12 @@ func _on_import_button_pressed():
 			sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
 		sharing_panel.find_child("LevelImportedNotif").visible = true
 		sharing_panel.find_child("NotifTimer").start(2.5)
+		
+		#var json = JSON.parse(level_data)
+		#if json.error != OK:
+		#	print("Error: Could not parse level data.")
+		#	return
+
 	else:
 		if sharing_panel.find_child("LevelImportedNotif").visible:
 			sharing_panel.find_child("LevelImportedNotif").visible = false
@@ -794,7 +800,6 @@ func get_last_updated():
 				var arr = line.split(" = ")
 				if arr.size() == 2:
 					var result = arr[1].strip_edges()
-					#print(strip_quotes(result))
 					return strip_quotes(result)
 		file.close()
 		return "Unknown"
