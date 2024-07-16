@@ -655,7 +655,7 @@ func serialize_level(level_data: Dictionary, level_path: String, last_updated: S
 	var json = JSON.new()
 	level_data["level_path"] = level_path
 	level_data["last_updated"] = last_updated
-	print(json.stringify(level_data))
+	#print(json.stringify(level_data, "\t"))
 	return json.stringify(level_data)
 
 const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -773,11 +773,33 @@ func _on_import_button_pressed():
 		sharing_panel.find_child("LevelImportedNotif").visible = true
 		sharing_panel.find_child("NotifTimer").start(2.5)
 		
-		#var json = JSON.parse(level_data)
-		#if json.error != OK:
-		#	print("Error: Could not parse level data.")
-		#	return
-
+		var imp_level_path = ""
+		var imp_last_updated = ""
+		var imp_enemy_data = {}
+		
+		#var parts = level_data.replace("{", "").replace("}", "").split(",\"")
+		#for part in parts:
+		#	if not part.begins_with("\""):
+		#		part = "\"" + part
+		#	var key_value = part.split(":")
+		#	print(key_value)
+		var regex = RegEx.new()
+		regex.compile("\"([^\"]+)\":({.*?}|\".*?\"|\\d+)")
+		
+		var matches = regex.search_all(level_data)
+		for match in matches:
+			var key = match.get_string(1)
+			var value = match.get_string(2)
+			if key == "level_path":
+				imp_level_path = value
+			if key == "last_updated":
+				imp_last_updated = value
+			else:
+				if value.begins_with("{"):
+					var enemy_parts = value.replace("{\"position\":\"(", "").replace(")\",\"type\":\"", ",").replace("\"}", "").split(",")
+		print(imp_enemy_data)
+		print(imp_level_path)
+		print(imp_last_updated)
 	else:
 		if sharing_panel.find_child("LevelImportedNotif").visible:
 			sharing_panel.find_child("LevelImportedNotif").visible = false

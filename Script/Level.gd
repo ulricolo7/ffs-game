@@ -294,7 +294,7 @@ func read_enemy_data(level_script):
 func extract_line(line):
 	var temp = line.strip_edges()
 	temp = temp.replace(": {\"position\": Vector2(", ", ")
-	temp = temp.replace("), \"type\": ", ", ").replace("{", "").replace("},", "")
+	temp = temp.replace("), \"type\": ", ", ").replace("},", "")
 	temp = temp.replace("\"","")
 	var arr = temp.split(", ")
 	return arr
