@@ -89,7 +89,10 @@ func _get_file_last_modified(file_path):
 	if file:
 		var mod_time = FileAccess.get_modified_time(file_path)
 		file.close()
-		var date = Time.get_datetime_string_from_unix_time(mod_time)
+		
+		# Convert UTC time to Singapore time (UTC+8)
+		var singapore_time = mod_time + 8 * 3600
+		var date = Time.get_datetime_string_from_unix_time(singapore_time)
 		return date
 	return "Unknown"
 
@@ -115,7 +118,7 @@ func _on_level_button_pressed(file_path: String):
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}
-				var largest_x = 0
+				#var largest_x = 0
 				var in_enemy_data = false
 				var regex = RegEx.new()
 				var result
@@ -145,7 +148,7 @@ func _on_level_button_pressed(file_path: String):
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}
-				var largest_x = 0
+				#var largest_x = 0
 				var in_enemy_data = false
 				var regex = RegEx.new()
 				var result

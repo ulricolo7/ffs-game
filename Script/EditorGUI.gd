@@ -31,6 +31,7 @@ var camera
 var idx_counter
 var level_file_name
 var curr_file_path
+var last_updated 
 var right_click_pressed
 var file_not_saved_popup
 var file_name_unchanged_popup
@@ -59,10 +60,13 @@ func _ready():
 		enemy_data = Main.curr_editor_level_enemy_data
 		level_file_name = Main.CURR_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION) + ".gd"
 		curr_file_path = Main.CURR_EDITOR_LEVEL
+		last_updated = get_last_updated()
+		
 	else: 
-		create_file("res://Script/Levels/Untitled.gd", {}, 0)
+		last_updated = get_current_singapore_time()
 		Main.CURR_EDITOR_LEVEL = "res://Script/Levels/Untitled.gd"
 		curr_file_path = Main.CURR_EDITOR_LEVEL
+		create_file(curr_file_path, {}, 0)
 		level_file_name = "Untitled"
 	idx_counter = count_enemies()
 	set_process_input(true)
@@ -128,6 +132,7 @@ func _on_enemy_button_pressed(enemy_type):
 		play_click_sfx()
 		var enemy_scene = ENEMY_SCENES.get(enemy_type)
 		var inst_location = camera.position.x
+		last_updated = get_current_singapore_time()
 		mark_level("completed", "false")
 		mark_level("saved", "false")
 		reload_level_select_screen()
@@ -158,7 +163,7 @@ func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
 		curr_enemy = enemy_instance
 	
 func _input(event):
-	adjust_largest_x()
+	
 	if Input.is_action_pressed("delete_enemy"):
 		right_click_pressed = true
 
@@ -166,6 +171,7 @@ func _input(event):
 		right_click_pressed = false
 		delete_curr_enemy()
 		$Panel.visible = true
+		last_updated = get_current_singapore_time()
 		mark_level("saved", "false")
 		mark_level("completed", "false")
 		reload_level_select_screen()
@@ -180,7 +186,7 @@ func _input(event):
 				new_position = apply_constraints(new_position, enemy_data[idx]["type"])
 				enemy_data[idx]["position"] = new_position
 				curr_enemy.position = new_position
-				adjust_largest_x()
+				last_updated = get_current_singapore_time()
 				mark_level("saved", "false")
 				mark_level("completed", "false")
 				reload_level_select_screen()
@@ -194,11 +200,12 @@ func _input(event):
 		if right_click_pressed:
 			return
 		else:
+			
 			$Panel.visible = false
 			var new_position = curr_enemy.position + event.relative
 			new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
 			curr_enemy.position = new_position
-			adjust_largest_x()
+			last_updated = get_current_singapore_time()
 			mark_level("saved", "false")
 			mark_level("completed", "false")
 	
@@ -208,7 +215,7 @@ func _input(event):
 		if not line_edit_rect.has_point(mouse_pos):
 			$Panel/LineEdit.release_focus()
 			Main.player_input_disabled = false
-	
+	adjust_largest_x() # THIS IS THE PROBLEM
 	Main.curr_editor_level_enemy_data = enemy_data
 
 func delete_curr_enemy():
@@ -233,6 +240,8 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 		delete_file(file_path)
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
+		file.store_line("var level_path = \"{0}\"".format([file_path]))
+		file.store_line("var last_updated = \"{0}\"".format([last_updated]))
 		file.store_line("var is_completed = false") # setup the default false value
 		file.store_line("var is_saved = false")
 		file.store_line("")
@@ -256,7 +265,8 @@ func delete_file(file_path: String):
 	if FileAccess.file_exists(file_path):
 		var err = DirAccess.remove_absolute(file_path)
 		if err == OK:
-			print("File: ", file_path, " deleted successfully")
+			#print("File: ", file_path, " deleted successfully")
+			pass
 		else:
 			print("Error deleting file: ", err)
 	else:
@@ -264,6 +274,7 @@ func delete_file(file_path: String):
 
 func _on_line_edit_text_changed(name_typed):
 	name_typed = name_typed.strip_edges()
+	last_updated = get_current_singapore_time()
 	if name_typed != "":
 		curr_file_path = "res://Script/Levels/" + name_typed + ".gd"
 		if name_typed.begins_with("dev_"):
@@ -320,6 +331,7 @@ func _on_save_button_pressed():
 	$Panel/LineEdit.release_focus()
 	$Panel/PlayButton.disabled = false
 	mark_level("saved", "true")
+	last_updated = get_current_singapore_time()
 	if curr_lvl_is_completed:
 		mark_level("completed", "true")
 	reload_level_select_screen()
@@ -338,7 +350,6 @@ func apply_constraints(pos: Vector2, enemy_type: String):
 	return Vector2(pos.x, pos.y)
 	
 func load_enemies(e_data: Dictionary):
-	print(e_data)
 	if Main.CURR_EDITOR_LEVEL != "res://Script/Levels/Untitled.gd":
 		var cached_lvl_name = Main.CURR_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION)
 		$Panel/LineEdit.text = cached_lvl_name
@@ -442,8 +453,9 @@ func adjust_largest_x():
 	largest_x = 0
 	for idx in enemy_data.keys():
 		var data = enemy_data[idx]
-		if data["position"].x > largest_x:
-			largest_x = data["position"].x
+		if "position" in data:
+			if data["position"].x > largest_x:
+				largest_x = data["position"].x
 
 func _on_quit_button_pressed():
 	play_click_sfx()
@@ -587,7 +599,6 @@ func _on_dont_save_button_pressed():
 	
 
 func show_not_saved_warning():
-	print("show panel")
 	file_not_saved_popup.position.x = camera.position.x - 320
 	Main.editor_paused = true
 	set_process_input(false)
@@ -597,11 +608,7 @@ func show_change_name_warning():
 	level_select_screen.find_child("Panel").find_child("open_file_quit").disabled = true
 	file_name_unchanged_popup.position.x = camera.position.x - 220
 
-func signal_test():
-	print("signal received")
-
 func _on_go_back_button_pressed():
-	print("this")
 	play_click_sfx()
 	set_process_input(true)
 	file_name_unchanged_popup.position.x = -1800
@@ -631,9 +638,10 @@ func _on_share_button_pressed():
 		Main.player_input_disabled = true
 		Main.editor_paused2 = true
 		sharing_panel.position.x = camera.position.x - 320
-		var serialized_level_data = serialize_level(enemy_data)
+		var serialized_level_data = serialize_level(enemy_data, curr_file_path, last_updated)
 		var encoded_level_data = encode_level_data(serialized_level_data)
-		print(encoded_level_data)
+		#print(encoded_level_data)
+		print("reached")
 		sharing_panel.find_child("ExportCode").text = encoded_level_data
 		
 
@@ -643,8 +651,11 @@ func _on_back_button_2_pressed():
 	Main.editor_paused2 = false
 	level_not_shareable_popup.position.x = - 3100
 
-func serialize_level(level_data: Dictionary) -> String:
+func serialize_level(level_data: Dictionary, level_path: String, last_updated: String) -> String:
 	var json = JSON.new()
+	level_data["level_path"] = level_path
+	level_data["last_updated"] = last_updated
+	print(json.stringify(level_data))
 	return json.stringify(level_data)
 
 const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -752,5 +763,82 @@ func _on_notif_timer_timeout():
 
 func _on_import_button_pressed():
 	var import_code = sharing_panel.find_child("ImportCode").text
-	var level_data = decode_level_data(import_code)
-	print(level_data)
+	if is_valid_level_code(import_code):
+		var level_data = decode_level_data(import_code)
+		# Proceed with importing the level
+		print("Level code is valid and imported.")
+		print(level_data)
+		if sharing_panel.find_child("InvalidLevelCodeNotif").visible:
+			sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
+		sharing_panel.find_child("LevelImportedNotif").visible = true
+		sharing_panel.find_child("NotifTimer").start(2.5)
+	else:
+		if sharing_panel.find_child("LevelImportedNotif").visible:
+			sharing_panel.find_child("LevelImportedNotif").visible = false
+		sharing_panel.find_child("InvalidLevelCodeNotif").visible = true
+		sharing_panel.find_child("NotifTimer").start(2.5)
+
+func get_current_singapore_time():
+	var current_time = Time.get_unix_time_from_system()
+	var singapore_time = current_time + 8 * 3600
+	var date = Time.get_datetime_string_from_unix_time(singapore_time)
+	return date
+
+func get_last_updated():
+	var file = FileAccess.open(Main.CURR_EDITOR_LEVEL, FileAccess.READ)
+	if file:
+		var line
+		while not file.eof_reached():
+			line = file.get_line()
+			if line.begins_with("var last_updated"):
+				var arr = line.split(" = ")
+				if arr.size() == 2:
+					var result = arr[1].strip_edges()
+					#print(strip_quotes(result))
+					return strip_quotes(result)
+		file.close()
+		return "Unknown"
+	else:
+		print("Error: Could not open file: ", Main.CURR_EDITOR_LEVEL)
+		return "Unknown"
+
+func strip_quotes(s: String) -> String:
+	if s.begins_with('"') and s.ends_with('"'):
+		return s.substr(1, s.length() - 2)
+	return s
+
+func is_valid_level_code(encoded_data: String) -> bool:
+	if not encoded_data.contains(":"):
+		return false
+	var split_data = encoded_data.split(":")
+	if split_data.size() != 2:
+		return false
+	var encoded_size = split_data[0]
+	var encoded_content = split_data[1]
+
+	# Check if the base64 encoded parts are valid
+	if not is_valid_base64(encoded_size) or not is_valid_base64(encoded_content):
+		return false
+
+	var original_size_bytes = from_base64(encoded_size)
+	if original_size_bytes.size() == 0:
+		return false
+	var original_size = int(original_size_bytes.get_string_from_utf8())
+
+	var compressed_bytes = from_base64(encoded_content)
+	if compressed_bytes.size() == 0:
+		return false
+
+	# Try to decompress to see if it works
+	var decompressed_bytes = compressed_bytes.decompress(original_size, 2)
+	if decompressed_bytes.size() == 0:
+		return false
+
+	return true
+	
+func is_valid_base64(data: String) -> bool:
+	# Check if the string contains only valid base64 characters
+	for char in data:
+		if char != "=" and char not in BASE64_ALPHABET:
+			return false
+	return true
