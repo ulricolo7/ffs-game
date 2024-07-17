@@ -110,8 +110,11 @@ func check_level_saved(file_path: String) -> bool:
 		return false
 
 func _on_level_button_pressed(file_path: String):
-	#play_click_sfx()
-	if Main.in_editor:
+	
+	if Main.level_select_paused:
+		pass
+	elif Main.in_editor:
+		play_click_sfx()
 		if not check_level_saved(Main.CURR_EDITOR_LEVEL) and Main.curr_editor_level_enemy_data.size() > 0:
 			
 			Main.PREP_EDITOR_LEVEL = file_path
@@ -174,6 +177,7 @@ func _on_level_button_pressed(file_path: String):
 				Main.curr_editor_level_enemy_data = enemy_data
 			emit_signal("level_selected")
 	else:
+		play_click_sfx()
 		Main.LEVEL_SCRIPT = file_path
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
 

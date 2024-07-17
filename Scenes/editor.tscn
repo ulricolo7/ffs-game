@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=87 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -78,6 +78,9 @@ font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_5wnxd"]
 font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cr8gm"]
+font_color = Color(0, 1, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmtcs"]
 bg_color = Color(0.803922, 0.803922, 0.803922, 0.478431)
@@ -429,6 +432,7 @@ offset_right = 8.0
 offset_bottom = 61.0
 
 [node name="WarningLabel" type="Label" parent="Camera2D/GUI/Panel"]
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = 14.009
@@ -448,6 +452,7 @@ placeholder_text = "Enter level name"
 max_length = 20
 
 [node name="WarningLabel2" type="Label" parent="Camera2D/GUI/Panel"]
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = 14.0
@@ -483,6 +488,17 @@ position = Vector2i(640, 420)
 size = Vector2i(275, 136)
 ok_button_text = "Open"
 file_mode = 0
+
+[node name="LevelIsCompletedLabel" type="Label" parent="Camera2D/GUI/Panel"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 12.9545
+offset_top = 690.493
+offset_right = 170.955
+offset_bottom = 710.493
+text = "LEVEL IS COMPLETED"
+label_settings = SubResource("LabelSettings_cr8gm")
 
 [node name="Player" parent="Camera2D" instance=ExtResource("23_aqmxl")]
 z_index = 30

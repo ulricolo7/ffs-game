@@ -43,6 +43,7 @@ var sharing_panel
 func _ready():
 	Main.editor_paused2 = false
 	Main.player_input_disabled = false
+	Main.editor_paused = false
 	Main.in_open_file = false
 	play_click_sfx()
 	#if Main.CURR_EDITOR_LEVEL_COMPLETED:
@@ -98,7 +99,11 @@ func _process(delta):
 		sharing_panel.find_child("ImportButton").disabled = true
 	else:
 		sharing_panel.find_child("ImportButton").disabled = false
-
+	
+	if check_level_validity(Main.CURR_EDITOR_LEVEL):
+		$Panel/LevelIsCompletedLabel.visible = true
+	else:
+		$Panel/LevelIsCompletedLabel.visible = false
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -126,7 +131,7 @@ func initialize_level_select_screen():
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 
 func _on_enemy_button_pressed(enemy_type):
-	if Main.editor_paused:
+	if Main.editor_paused or Main.editor_paused2:
 		pass
 	else:
 		play_click_sfx()
@@ -215,7 +220,7 @@ func _input(event):
 		if not line_edit_rect.has_point(mouse_pos):
 			$Panel/LineEdit.release_focus()
 			Main.player_input_disabled = false
-	adjust_largest_x() # THIS IS THE PROBLEM
+	adjust_largest_x() 
 	Main.curr_editor_level_enemy_data = enemy_data
 
 func delete_curr_enemy():
@@ -228,16 +233,14 @@ func delete_curr_enemy():
 			curr_enemy.queue_free()
 			curr_enemy = null
 			adjust_largest_x()
-			mark_level("saved", "false")
-			# change this to mark unsaved and unvalidated
 		else:
 			print("Error: No enemy data found for index ", idx)
 	else:
 		print("Error: No current enemy to delete")
 		
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
-	if FileAccess.file_exists(file_path):
-		delete_file(file_path)
+	#if FileAccess.file_exists(file_path):
+	#	delete_file(file_path) # uncomment this if you suddenly see duplicate file names. just testing
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		file.store_line("var level_path = \"{0}\"".format([file_path]))
@@ -275,6 +278,7 @@ func delete_file(file_path: String):
 func _on_line_edit_text_changed(name_typed):
 	name_typed = name_typed.strip_edges()
 	last_updated = get_current_singapore_time()
+	# CREATE AN INIT FILE PATH BEFORE HAVING LINE EDIT CHANGED. IF IT REVERTS BACK TO THAT NAME IT SHOULD BE FINE
 	if name_typed != "":
 		curr_file_path = "res://Script/Levels/" + name_typed + ".gd"
 		if name_typed.begins_with("dev_"):
@@ -483,8 +487,7 @@ func _on_create_new_button_pressed():
 		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 		Main.curr_editor_level_enemy_data = {}
 		get_tree().reload_current_scene()
-	# NOT DONE IMPLEMENTING 
-	
+
 func _on_open_button_pressed():
 	play_click_sfx()
 	Main.editor_paused2 = true
@@ -519,7 +522,6 @@ func reload_level_select_screen():
 	level_select_screen.set_z_index(35)
 	add_child(level_select_screen)
 	
-	# Set its position and connect signals again
 	level_select_screen.position = Vector2(-885, 0)
 	level_select_screen.connect("level_selected", Callable(self, "disable_level_select"))
 	level_select_screen.connect("level_not_saved", Callable(self, "show_not_saved_warning"))
@@ -534,24 +536,29 @@ func _on_save_and_exit_button_pressed():
 			if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
 				show_change_name_warning()
 				file_not_saved_popup.position.x = -1000
+				Main.level_select_paused = false
 			else:
 				_on_save_button_pressed()
 				Main.level_switching = false
 				Main.editor_paused = false
 				Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
 				Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
+				Main.level_select_paused = false
 				get_tree().reload_current_scene()
 		else:
 			if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
 				show_change_name_warning()
 				file_not_saved_popup.position.x = -1000
+				Main.level_select_paused = false
 			else:
 				_on_save_button_pressed()
 				Main.CURR_EDITOR_LEVEL = ""
 				Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 				Main.curr_editor_level_enemy_data = {}
 				Main.level_switching = false
+				Main.editor_paused2 = false
 				Main.editor_paused = false
+				Main.level_select_paused = false
 				get_tree().reload_current_scene()
 	else: 
 		if Main.CURR_EDITOR_LEVEL == "res://Script/Levels/Untitled.gd":
@@ -567,8 +574,9 @@ func _on_save_and_exit_button_pressed():
 
 func _on_back_button_pressed():
 	play_click_sfx()
-	Main.level_switching = false
+	#Main.level_switching = false
 	Main.editor_paused = false
+	Main.level_select_paused = false
 	set_process_input(true)
 	file_not_saved_popup.position.x = -1000
 
@@ -579,6 +587,7 @@ func _on_dont_save_button_pressed():
 		if Main.in_open_file:
 			Main.level_switching = false
 			Main.editor_paused = false
+			Main.level_select_paused = false
 			Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
 			Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
 			get_tree().reload_current_scene()
@@ -588,10 +597,12 @@ func _on_dont_save_button_pressed():
 			Main.curr_editor_level_enemy_data = {}
 			Main.level_switching = false
 			Main.editor_paused = false
+			Main.level_select_paused = false
 			get_tree().reload_current_scene()
 	else: 
 		Main.in_editor = false
 		Main.editor_paused = false
+		Main.level_select_paused = false
 		Main.CURR_EDITOR_LEVEL = ""
 		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 		Main.curr_editor_level_enemy_data = {}
@@ -601,6 +612,8 @@ func _on_dont_save_button_pressed():
 func show_not_saved_warning():
 	file_not_saved_popup.position.x = camera.position.x - 320
 	Main.editor_paused = true
+	if Main.in_open_file:
+		Main.level_select_paused = true
 	set_process_input(false)
 
 func show_change_name_warning():
@@ -611,6 +624,9 @@ func show_change_name_warning():
 func _on_go_back_button_pressed():
 	play_click_sfx()
 	set_process_input(true)
+	if not Main.in_open_file:
+		Main.editor_paused = false
+		Main.level_select_paused = false
 	file_name_unchanged_popup.position.x = -1800
 	file_not_saved_popup.position.x = camera.position.x - 320
 
@@ -640,7 +656,6 @@ func _on_share_button_pressed():
 		sharing_panel.position.x = camera.position.x - 320
 		var serialized_level_data = serialize_level(enemy_data, curr_file_path, last_updated)
 		var encoded_level_data = encode_level_data(serialized_level_data)
-		#print(encoded_level_data)
 		print("reached")
 		sharing_panel.find_child("ExportCode").text = encoded_level_data
 		
@@ -655,7 +670,6 @@ func serialize_level(level_data: Dictionary, level_path: String, last_updated: S
 	var json = JSON.new()
 	level_data["level_path"] = level_path
 	level_data["last_updated"] = last_updated
-	#print(json.stringify(level_data, "\t"))
 	return json.stringify(level_data)
 
 const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -765,9 +779,7 @@ func _on_import_button_pressed():
 	var import_code = sharing_panel.find_child("ImportCode").text
 	if is_valid_level_code(import_code):
 		var level_data = decode_level_data(import_code)
-		# Proceed with importing the level
-		print("Level code is valid and imported.")
-		print(level_data)
+		
 		if sharing_panel.find_child("InvalidLevelCodeNotif").visible:
 			sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
 		sharing_panel.find_child("LevelImportedNotif").visible = true
@@ -776,13 +788,8 @@ func _on_import_button_pressed():
 		var imp_level_path = ""
 		var imp_last_updated = ""
 		var imp_enemy_data = {}
+		var imp_last_enemy_x = -100
 		
-		#var parts = level_data.replace("{", "").replace("}", "").split(",\"")
-		#for part in parts:
-		#	if not part.begins_with("\""):
-		#		part = "\"" + part
-		#	var key_value = part.split(":")
-		#	print(key_value)
 		var regex = RegEx.new()
 		regex.compile("\"([^\"]+)\":({.*?}|\".*?\"|\\d+)")
 		
@@ -792,14 +799,32 @@ func _on_import_button_pressed():
 			var value = match.get_string(2)
 			if key == "level_path":
 				imp_level_path = value
+				
 			if key == "last_updated":
 				imp_last_updated = value
+				
 			else:
 				if value.begins_with("{"):
 					var enemy_parts = value.replace("{\"position\":\"(", "").replace(")\",\"type\":\"", ",").replace("\"}", "").split(",")
-		print(imp_enemy_data)
+					if enemy_parts.size() == 3:
+						var enemy_key = int(key)
+						var position = Vector2(enemy_parts[0].to_float(), enemy_parts[1].to_float())
+						var enemy_type = enemy_parts[2]
+						imp_enemy_data[enemy_key] = {"position": position, "type": enemy_type}
+		for key in imp_enemy_data.keys():
+			var curr_x = imp_enemy_data[key]["position"].x
+			if curr_x > imp_last_enemy_x:
+				imp_last_enemy_x = curr_x
+		
+		# create a new file
+		var file = FileAccess.open(imp_level_path, FileAccess.WRITE)
+		if FileAccess.file_exists(imp_level_path):
+			pass # CONTINUE HERE
+			
 		print(imp_level_path)
 		print(imp_last_updated)
+		print(imp_last_enemy_x)
+		print(imp_enemy_data)
 	else:
 		if sharing_panel.find_child("LevelImportedNotif").visible:
 			sharing_panel.find_child("LevelImportedNotif").visible = false

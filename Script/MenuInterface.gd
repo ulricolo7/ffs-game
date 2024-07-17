@@ -21,6 +21,7 @@ func init_screen(var_name, scene_name, visibility, z_ind):
 	
 func _ready():
 	print(Main.CURR_EDITOR_LEVEL)
+	Main.level_select_paused = false
 	options_screen = init_screen(options_screen, options_scene, false, 10)
 	level_select_screen = init_screen(level_select_screen, level_select_scene, false, 10)
 	level_select_sim_screen = init_screen(level_select_sim_screen, level_select_sim_scene, false, 10)

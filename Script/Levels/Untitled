@@ -1,8 +1,11 @@
+var level_path = "res://Script/Levels/Untitled"
+var last_updated = "2024-07-17T09:32:29"
 var is_completed = false
 var is_saved = false
 
-var last_enemy_x = 640
+var last_enemy_x = 939
 
 var enemy_data = {
-	0: {"position": Vector2(640, 420), "type": "gh"},
+	0: {"position": Vector2(939, 160), "type": "gh"},
+	1: {"position": Vector2(623, 603), "type": "gh"},
 }

@@ -1,5 +1,5 @@
-var level_path = "res://Script/Levels/test.gd"
-var last_updated = "2024-07-17T09:33:12"
+var level_path = "res://Script/Levels/tes.gd"
+var last_updated = "2024-07-17T09:32:58"
 var is_completed = false
 var is_saved = true
 
