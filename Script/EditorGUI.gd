@@ -29,8 +29,10 @@ var editor_screen_bounds
 var background
 var camera
 var idx_counter
-var level_file_name
+var curr_file_name
+var new_file_name #
 var curr_file_path
+var new_file_path #
 var last_updated 
 var right_click_pressed
 var file_not_saved_popup
@@ -59,8 +61,10 @@ func _ready():
 	if Main.CURR_EDITOR_LEVEL:
 		load_enemies(Main.curr_editor_level_enemy_data)
 		enemy_data = Main.curr_editor_level_enemy_data
-		level_file_name = Main.CURR_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION) + ".gd"
+		curr_file_name = Main.CURR_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION) + ".gd"
 		curr_file_path = Main.CURR_EDITOR_LEVEL
+		new_file_name = curr_file_name
+		new_file_path = curr_file_path
 		last_updated = get_last_updated()
 		
 	else: 
@@ -68,12 +72,14 @@ func _ready():
 		Main.CURR_EDITOR_LEVEL = "res://Script/Levels/Untitled.gd"
 		curr_file_path = Main.CURR_EDITOR_LEVEL
 		create_file(curr_file_path, {}, 0)
-		level_file_name = "Untitled"
+		curr_file_name = "Untitled.gd"
+		new_file_name = curr_file_name
+		new_file_path = curr_file_path
 	idx_counter = count_enemies()
 	set_process_input(true)
 
 func _process(delta):
-	if (level_file_name != "Untitled") and enemy_data.size() > 0 and not Main.editor_paused and not Main.editor_paused2:
+	if (new_file_name != "Untitled.gd" and curr_file_name != "Untitled.gd") and enemy_data.size() > 0 and not Main.editor_paused and not Main.editor_paused2:
 		$Panel/PlayButton.disabled = false
 		$Panel/SaveButton.disabled = false
 	else:
@@ -100,10 +106,11 @@ func _process(delta):
 	else:
 		sharing_panel.find_child("ImportButton").disabled = false
 	
-	if check_level_validity(Main.CURR_EDITOR_LEVEL):
-		$Panel/LevelIsCompletedLabel.visible = true
-	else:
-		$Panel/LevelIsCompletedLabel.visible = false
+	if FileAccess.file_exists(Main.CURR_EDITOR_LEVEL):
+		if check_level_validity(Main.CURR_EDITOR_LEVEL):
+			$Panel/LevelIsCompletedLabel.visible = true
+		else:
+			$Panel/LevelIsCompletedLabel.visible = false
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -241,7 +248,11 @@ func delete_curr_enemy():
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	#if FileAccess.file_exists(file_path):
 	#	delete_file(file_path) # uncomment this if you suddenly see duplicate file names. just testing
+	print(file_path)
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	var err = FileAccess.get_open_error()
+	if err:
+		print(err)
 	if file:
 		file.store_line("var level_path = \"{0}\"".format([file_path]))
 		file.store_line("var last_updated = \"{0}\"".format([last_updated]))
@@ -261,6 +272,7 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 		
 		file.store_line("}")
 		file.close()
+		print("level created: " + file_path)
 	else:
 		print("Error creating file")
 
@@ -280,29 +292,39 @@ func _on_line_edit_text_changed(name_typed):
 	last_updated = get_current_singapore_time()
 	# CREATE AN INIT FILE PATH BEFORE HAVING LINE EDIT CHANGED. IF IT REVERTS BACK TO THAT NAME IT SHOULD BE FINE
 	if name_typed != "":
-		curr_file_path = "res://Script/Levels/" + name_typed + ".gd"
+		new_file_path = "res://Script/Levels/" + name_typed + ".gd"
 		if name_typed.begins_with("dev_"):
 			$Panel/WarningLabel.visible = false
 			$Panel/WarningLabel2.visible = true
 			$Panel/PlayButton.disabled = true
-		elif FileAccess.file_exists(curr_file_path):
+		elif not (new_file_path == curr_file_path) and FileAccess.file_exists(new_file_path):
 			$Panel/WarningLabel.visible = true
 			$Panel/WarningLabel2.visible = false
 			$Panel/PlayButton.disabled = true
 		else:
 			$Panel/WarningLabel.visible = false
 			$Panel/WarningLabel2.visible = false
-			level_file_name = name_typed + ".gd"
-			Main.CURR_EDITOR_LEVEL = curr_file_path
+			new_file_name = name_typed + ".gd"
+			if curr_file_name == "Untitled.gd":
+				curr_file_name = new_file_name
+			Main.CURR_EDITOR_LEVEL = new_file_path
 	else:
 		$Panel/WarningLabel.visible = false
-		level_file_name = "Untitled"
+		new_file_name = "Untitled.gd"
+		new_file_path = "res://Script/Levels/Untitled.gd"
+		Main.CURR_EDITOR_LEVEL = new_file_path
+		# update curr_filepath
+		
 
 func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
 
 func _on_play_button_pressed():
 	play_click_sfx()
+	if new_file_path != curr_file_path:
+		curr_file_path = new_file_path
+	if new_file_name != curr_file_name:
+		curr_file_name = new_file_name
 	var curr_lvl_is_saved
 	var curr_lvl_is_completed
 	if FileAccess.file_exists(curr_file_path):
@@ -311,26 +333,35 @@ func _on_play_button_pressed():
 		if check_level_validity(curr_file_path):
 			curr_lvl_is_completed = true
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
-	create_file("res://Script/Levels/" + level_file_name, Main.curr_editor_level_enemy_data, largest_x)
+	
+	Main.curr_editor_level_enemy_data = enemy_data
+	Main.player_input_disabled = false 
+	Main.BOT_NAME = ""
+	Main.LEVEL_SCRIPT = "res://Script/Levels/" + curr_file_name # check if needed
+	create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
 	if curr_lvl_is_saved:
 		mark_level("saved", "true")
 	if curr_lvl_is_completed:
 		mark_level("completed", "true")
-	Main.curr_editor_level_enemy_data = enemy_data
-	
-	Main.player_input_disabled = false 
-	Main.BOT_NAME = ""
-	Main.LEVEL_SCRIPT = "res://Script/Levels/" + level_file_name # check if needed
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_save_button_pressed():
 	play_click_sfx()
+	#print(new_file_path)
+	#print(curr_file_path)
+	if new_file_path != curr_file_path:
+		curr_file_path = new_file_path
+	#print(new_file_name)
+	#print(curr_file_name)
+	if new_file_name != curr_file_name:
+		curr_file_name = new_file_name
 	var curr_lvl_is_completed
+	#print(curr_file_path)
 	if FileAccess.file_exists(curr_file_path):
 		if check_level_validity(curr_file_path):
 			curr_lvl_is_completed = true
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
-	create_file("res://Script/Levels/" + level_file_name, Main.curr_editor_level_enemy_data, largest_x)
+	create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
 	Main.player_input_disabled = false
 	$Panel/LineEdit.release_focus()
 	$Panel/PlayButton.disabled = false
@@ -471,6 +502,7 @@ func _on_quit_button_pressed():
 		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 		Main.curr_editor_level_enemy_data = {}
 		# may need to delete untitled
+		delete_file("res://Script/Levels/Untitled.gd")
 		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 func close_selector():
@@ -482,6 +514,7 @@ func _on_create_new_button_pressed():
 	if not check_level_saved(curr_file_path) and count_enemies() > 0:
 		Main.level_switching = true
 		show_not_saved_warning()
+		# mark the level as unsaved if its not named the same as the initial name
 	else:
 		Main.CURR_EDITOR_LEVEL = ""
 		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
@@ -527,8 +560,6 @@ func reload_level_select_screen():
 	level_select_screen.connect("level_not_saved", Callable(self, "show_not_saved_warning"))
 	level_select_screen.find_child("Panel").find_child("open_file_quit").connect("close_level_select", Callable(self, "close_selector"))
 	
-
-
 func _on_save_and_exit_button_pressed():
 	play_click_sfx()
 	if Main.level_switching:

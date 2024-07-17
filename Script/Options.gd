@@ -62,5 +62,4 @@ func delete_file(file_path: String):
 		print("File does not exist")
 
 func play_click_sfx():
-	print("d")
 	$ClickSFX.play()

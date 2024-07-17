@@ -114,7 +114,7 @@ func _on_level_button_pressed(file_path: String):
 	if Main.level_select_paused:
 		pass
 	elif Main.in_editor:
-		play_click_sfx()
+		#play_click_sfx()
 		if not check_level_saved(Main.CURR_EDITOR_LEVEL) and Main.curr_editor_level_enemy_data.size() > 0:
 			
 			Main.PREP_EDITOR_LEVEL = file_path
