@@ -79,7 +79,7 @@ func _ready():
 	set_process_input(true)
 
 func _process(delta):
-	if (new_file_name != "Untitled.gd" and curr_file_name != "Untitled.gd") and enemy_data.size() > 0 and not Main.editor_paused and not Main.editor_paused2:
+	if (new_file_name != "Untitled.gd" and curr_file_name != "Untitled.gd") and enemy_data.size() > 0 and not Main.editor_paused and not Main.editor_paused2 and not $Panel/WarningLabel.visible and not $Panel/WarningLabel2.visible:
 		$Panel/PlayButton.disabled = false
 		$Panel/SaveButton.disabled = false
 	else:
@@ -107,10 +107,12 @@ func _process(delta):
 		sharing_panel.find_child("ImportButton").disabled = false
 	
 	if FileAccess.file_exists(Main.CURR_EDITOR_LEVEL):
-		if check_level_validity(Main.CURR_EDITOR_LEVEL):
+		if check_level_validity(Main.CURR_EDITOR_LEVEL) :
 			$Panel/LevelIsCompletedLabel.visible = true
 		else:
 			$Panel/LevelIsCompletedLabel.visible = false
+	elif new_file_name != curr_file_name:
+		$Panel/LevelIsCompletedLabel.visible = false
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -206,7 +208,6 @@ func _input(event):
 				print("Error: No enemy data found for index ", idx)
 			curr_enemy = null
 		else:
-			# Here you might add code to select a new enemy if needed.
 			pass
 	elif curr_enemy and event is InputEventMouseMotion:
 		if right_click_pressed:
@@ -305,8 +306,11 @@ func _on_line_edit_text_changed(name_typed):
 			$Panel/WarningLabel.visible = false
 			$Panel/WarningLabel2.visible = false
 			new_file_name = name_typed + ".gd"
+			print(new_file_name)
+			#print(curr_file_name)
 			if curr_file_name == "Untitled.gd":
 				curr_file_name = new_file_name
+				#print(curr_file_name)
 			Main.CURR_EDITOR_LEVEL = new_file_path
 	else:
 		$Panel/WarningLabel.visible = false
@@ -359,12 +363,13 @@ func _on_save_button_pressed():
 	#print(curr_file_path)
 	if FileAccess.file_exists(curr_file_path):
 		if check_level_validity(curr_file_path):
+			print("level is completed")
 			curr_lvl_is_completed = true
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
 	Main.player_input_disabled = false
 	$Panel/LineEdit.release_focus()
-	$Panel/PlayButton.disabled = false
+	#$Panel/PlayButton.disabled = false
 	mark_level("saved", "true")
 	last_updated = get_current_singapore_time()
 	if curr_lvl_is_completed:

@@ -15,9 +15,12 @@ func _ready():
 	else:
 		$Panel/open_file_quit.visible = false
 	_scan_levels_folder()
-	var make_new_lvl_instance = make_new_lvl_button_scene.instantiate()
-	make_new_lvl_instance.connect("pressed", Callable(self, "open_editor"))
-	$Panel/ScrollContainer/VBoxContainer.add_child(make_new_lvl_instance)
+	if Main.in_editor:
+		pass
+	else:
+		var make_new_lvl_instance = make_new_lvl_button_scene.instantiate()
+		make_new_lvl_instance.connect("pressed", Callable(self, "open_editor"))
+		$Panel/ScrollContainer/VBoxContainer.add_child(make_new_lvl_instance)
 	
 
 func _scan_levels_folder():

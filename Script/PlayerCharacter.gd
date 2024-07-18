@@ -65,7 +65,17 @@ func _process(_delta):
 		position.x = -620
 	elif position.x > 620:
 		position.x = 620
-		#die()
+	
+	if Main.in_editor:
+		if position.y < -284:
+			position.y = -284
+		elif position.y > 280:
+			position.y = 280
+	else:
+		if position.y < -355:
+			position.y = -355
+		elif position.y > 350:
+			position.y = 350
 		
 
 func reset_idle_timer():
