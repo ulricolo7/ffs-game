@@ -249,11 +249,8 @@ func delete_curr_enemy():
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	#if FileAccess.file_exists(file_path):
 	#	delete_file(file_path) # uncomment this if you suddenly see duplicate file names. just testing
-	print(file_path)
+	#print(file_path)
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
-	var err = FileAccess.get_open_error()
-	if err:
-		print(err)
 	if file:
 		file.store_line("var level_path = \"{0}\"".format([file_path]))
 		file.store_line("var last_updated = \"{0}\"".format([last_updated]))
@@ -273,7 +270,7 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 		
 		file.store_line("}")
 		file.close()
-		print("level created: " + file_path)
+		#print("level created: " + file_path)
 	else:
 		print("Error creating file")
 
@@ -692,7 +689,6 @@ func _on_share_button_pressed():
 		sharing_panel.position.x = camera.position.x - 320
 		var serialized_level_data = serialize_level(enemy_data, curr_file_path, last_updated)
 		var encoded_level_data = encode_level_data(serialized_level_data)
-		print("reached")
 		sharing_panel.find_child("ExportCode").text = encoded_level_data
 		
 
@@ -704,9 +700,10 @@ func _on_back_button_2_pressed():
 
 func serialize_level(level_data: Dictionary, level_path: String, last_updated: String) -> String:
 	var json = JSON.new()
-	level_data["level_path"] = level_path
-	level_data["last_updated"] = last_updated
-	return json.stringify(level_data)
+	var level_data_copy = level_data.duplicate()
+	level_data_copy["level_path"] = level_path
+	level_data_copy["last_updated"] = last_updated
+	return json.stringify(level_data_copy)
 
 const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 func to_base64(data: PackedByteArray) -> String:
@@ -821,7 +818,7 @@ func _on_import_button_pressed():
 		sharing_panel.find_child("LevelImportedNotif").visible = true
 		sharing_panel.find_child("NotifTimer").start(2.5)
 		
-		var imp_level_path = ""
+		var imp_level_path 
 		var imp_last_updated = ""
 		var imp_enemy_data = {}
 		var imp_last_enemy_x = -100
@@ -853,14 +850,35 @@ func _on_import_button_pressed():
 				imp_last_enemy_x = curr_x
 		
 		# create a new file
-		var file = FileAccess.open(imp_level_path, FileAccess.WRITE)
-		if FileAccess.file_exists(imp_level_path):
-			pass # CONTINUE HERE
+		var trimmed_file_path_idk_why_we_need_this = imp_level_path.replace("\"", "")
+		var file = FileAccess.open(trimmed_file_path_idk_why_we_need_this, FileAccess.WRITE)
+		
+		if FileAccess.file_exists("res://Script/Levels/b.gd"):
+			print("file alr exists")
+		
+		if file:
+			print("level file created")
+			file.store_line('var level_path = {0}'.format([imp_level_path]))
+			file.store_line('var last_updated = {0}'.format([imp_last_updated]))
+			file.store_line('var is_completed = true')
+			file.store_line('var is_saved = true')
+			file.store_line('var last_enemy_x = {0}'.format([imp_last_enemy_x]))
+			file.store_line('var enemy_data = {')
+			for key in imp_enemy_data.keys():
+				var enemy = imp_enemy_data[key]
+				file.store_line('\t{0}: {"position": Vector2({1}, {2}), "type": "{3}"},'.format([
+					key, enemy["position"].x, enemy["position"].y, enemy["type"]
+				]))
+			file.store_line('}')
+			file.close()
+			reload_level_select_screen()
+		else:
+			print("Error: Could not write to file: ", trimmed_file_path_idk_why_we_need_this)
 			
-		print(imp_level_path)
-		print(imp_last_updated)
-		print(imp_last_enemy_x)
-		print(imp_enemy_data)
+		#print(imp_level_path)
+		#print(imp_last_updated)
+		#print(imp_last_enemy_x)
+		#print(imp_enemy_data)
 	else:
 		if sharing_panel.find_child("LevelImportedNotif").visible:
 			sharing_panel.find_child("LevelImportedNotif").visible = false
