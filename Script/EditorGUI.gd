@@ -38,8 +38,12 @@ var right_click_pressed
 var file_not_saved_popup
 var file_name_unchanged_popup
 var instructions_panel 
-var level_not_shareable_popup
+var overwrite_file_popup
 var sharing_panel
+var imp_level_path 
+var imp_last_updated = ""
+var imp_enemy_data = {}
+var imp_last_enemy_x = -100
 
 
 func _ready():
@@ -113,6 +117,10 @@ func _process(delta):
 			$Panel/LevelIsCompletedLabel.visible = false
 	elif new_file_name != curr_file_name:
 		$Panel/LevelIsCompletedLabel.visible = false
+		
+	if sharing_panel.position.x > 0:
+		Main.player_input_disabled = true
+	
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")
@@ -123,7 +131,7 @@ func initialize_scene_references():
 	file_not_saved_popup = get_parent().get_node("../NotSavedWarning")
 	file_name_unchanged_popup = get_parent().get_node("../RenameFileWarning")
 	instructions_panel = get_parent().get_node("../EditorInstructions")
-	level_not_shareable_popup = get_parent().get_node("../InvalidShareLevelW")
+	overwrite_file_popup = get_parent().get_node("../OverwriteFilePanel")
 	sharing_panel = get_parent().get_node("../SharingPanel")
 
 func initialize_enemy_buttons():
@@ -710,11 +718,12 @@ func _on_instructions_quit_button_pressed():
 func _on_share_button_pressed():
 	play_click_sfx()
 	if not check_level_validity(curr_file_path):
-		var popup_content = level_not_shareable_popup.find_child("Content")
-		level_not_shareable_popup.position.x = camera.position.x - 320
-		popup_content.text = "Level \"{0}\" is not completed and cannot be shared!".format([curr_file_path.get_file().get_basename()])
 		Main.player_input_disabled = true
 		Main.editor_paused2 = true
+		sharing_panel.position.x = camera.position.x - 320
+		sharing_panel.find_child("CopyCodeButton").disabled = true
+		sharing_panel.find_child("ExportCode").text = "Level must be completed to generate a code"
+		sharing_panel.find_child("ExportCode").focus_mode = Control.FOCUS_NONE
 	else: 
 		Main.player_input_disabled = true
 		Main.editor_paused2 = true
@@ -724,11 +733,18 @@ func _on_share_button_pressed():
 		sharing_panel.find_child("ExportCode").text = encoded_level_data
 		
 
-func _on_back_button_2_pressed():
+func _on_yes_button_pressed():
+	play_click_sfx()
+	import_level(imp_level_path, imp_last_updated, imp_last_enemy_x, imp_enemy_data)
+	Main.player_input_disabled = false
+	Main.editor_paused2 = false
+	overwrite_file_popup.position.x = - 3100
+
+func _on_no_button_pressed():
 	play_click_sfx()
 	Main.player_input_disabled = false
 	Main.editor_paused2 = false
-	level_not_shareable_popup.position.x = - 3100
+	overwrite_file_popup.position.x = - 3100
 
 func serialize_level(level_data: Dictionary, level_path: String, last_updated: String) -> String:
 	var json = JSON.new()
@@ -841,19 +857,10 @@ func _on_notif_timer_timeout():
 		sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
 
 func _on_import_button_pressed():
+	play_click_sfx()
 	var import_code = sharing_panel.find_child("ImportCode").text
 	if is_valid_level_code(import_code):
 		var level_data = decode_level_data(import_code)
-		
-		if sharing_panel.find_child("InvalidLevelCodeNotif").visible:
-			sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
-		sharing_panel.find_child("LevelImportedNotif").visible = true
-		sharing_panel.find_child("NotifTimer").start(2.5)
-		
-		var imp_level_path 
-		var imp_last_updated = ""
-		var imp_enemy_data = {}
-		var imp_last_enemy_x = -100
 		
 		var regex = RegEx.new()
 		regex.compile("\"([^\"]+)\":({.*?}|\".*?\"|\\d+)")
@@ -883,39 +890,47 @@ func _on_import_button_pressed():
 		
 		# create a new file
 		var trimmed_file_path_idk_why_we_need_this = imp_level_path.replace("\"", "")
-		var file = FileAccess.open(trimmed_file_path_idk_why_we_need_this, FileAccess.WRITE)
 		
-		if FileAccess.file_exists("res://Script/Levels/b.gd"):
+		if FileAccess.file_exists(trimmed_file_path_idk_why_we_need_this):
 			print("file alr exists")
-		
-		if file:
-			print("level file created")
-			file.store_line('var level_path = {0}'.format([imp_level_path]))
-			file.store_line('var last_updated = {0}'.format([imp_last_updated]))
-			file.store_line('var is_completed = true')
-			file.store_line('var is_saved = true')
-			file.store_line('var last_enemy_x = {0}'.format([imp_last_enemy_x]))
-			file.store_line('var enemy_data = {')
-			for key in imp_enemy_data.keys():
-				var enemy = imp_enemy_data[key]
-				file.store_line('\t{0}: {"position": Vector2({1}, {2}), "type": "{3}"},'.format([
-					key, enemy["position"].x, enemy["position"].y, enemy["type"]
-				]))
-			file.store_line('}')
-			file.close()
-			reload_level_select_screen()
+			var popup_content = overwrite_file_popup.find_child("Content")
+			overwrite_file_popup.position.x = camera.position.x - 320
+			popup_content.text = "A file under the name \"{0}\" already exists in your directory. Overwrite existing file?".format([imp_level_path.get_file().get_basename()])
+			sharing_panel.position.x = -4000
 		else:
-			print("Error: Could not write to file: ", trimmed_file_path_idk_why_we_need_this)
-			
-		#print(imp_level_path)
-		#print(imp_last_updated)
-		#print(imp_last_enemy_x)
-		#print(imp_enemy_data)
+			import_level(imp_level_path, imp_last_updated, imp_last_enemy_x, imp_enemy_data)
+			if sharing_panel.find_child("InvalidLevelCodeNotif").visible:
+				sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
+			sharing_panel.find_child("LevelImportedNotif").visible = true
+			sharing_panel.find_child("NotifTimer").start(2.5)
+		
 	else:
 		if sharing_panel.find_child("LevelImportedNotif").visible:
 			sharing_panel.find_child("LevelImportedNotif").visible = false
 		sharing_panel.find_child("InvalidLevelCodeNotif").visible = true
 		sharing_panel.find_child("NotifTimer").start(2.5)
+
+func import_level(file_path: String, last_updated: String, last_enemy_x: int, enemy_data: Dictionary):
+	var trimmed_file_path = file_path.replace("\"", "")
+	var file = FileAccess.open(trimmed_file_path, FileAccess.WRITE)
+	if file:
+		print("level file created")
+		file.store_line('var level_path = {0}'.format([file_path]))
+		file.store_line('var last_updated = {0}'.format([last_updated]))
+		file.store_line('var is_completed = true')
+		file.store_line('var is_saved = true')
+		file.store_line('var last_enemy_x = {0}'.format([last_enemy_x]))
+		file.store_line('var enemy_data = {')
+		for key in enemy_data.keys():
+			var enemy = enemy_data[key]
+			file.store_line('\t{0}: {"position": Vector2({1}, {2}), "type": "{3}"},'.format([
+				key, enemy["position"].x, enemy["position"].y, enemy["type"]
+			]))
+		file.store_line('}')
+		file.close()
+		reload_level_select_screen()
+	else:
+		print("Error: Could not write to file: ", file_path)
 
 func get_current_singapore_time():
 	var current_time = Time.get_unix_time_from_system()
@@ -980,7 +995,6 @@ func is_valid_base64(data: String) -> bool:
 		if char != "=" and char not in BASE64_ALPHABET:
 			return false
 	return true
-
 
 func _on_upload_music_close_requested():
 	play_click_sfx()

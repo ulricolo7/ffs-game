@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=93 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -46,11 +46,17 @@
 [ext_resource type="Texture2D" uid="uid://cdknvdyws1c6m" path="res://Assets/New UI/filepopups/dontsave1.png" id="41_u3fls"]
 [ext_resource type="Texture2D" uid="uid://bodwwpjiwr2kc" path="res://Assets/New UI/filepopups/dontsave3.png" id="42_g58lm"]
 [ext_resource type="Texture2D" uid="uid://jbiqo4ajepqi" path="res://Assets/New UI/filepopups/dontsave2.png" id="43_cijup"]
+[ext_resource type="Texture2D" uid="uid://lv4jqv4ij5ir" path="res://Assets/New UI/filepopups/fileshare_popupNO1.png" id="47_q2de2"]
 [ext_resource type="Texture2D" uid="uid://c08gxpl8gl3bk" path="res://Assets/New UI/copy_code1.png" id="47_rq20t"]
+[ext_resource type="Texture2D" uid="uid://ddhfckqweeiqk" path="res://Assets/New UI/filepopups/fileshare_popupNO3.png" id="48_13g1k"]
 [ext_resource type="Texture2D" uid="uid://cyhdbbk3vde5e" path="res://Assets/New UI/copy_code2.png" id="48_52bla"]
 [ext_resource type="Texture2D" uid="uid://cnlvkcv4ag4gi" path="res://Assets/New UI/copy_code3.png" id="48_wqni5"]
+[ext_resource type="Texture2D" uid="uid://bq3eh0ngms77t" path="res://Assets/New UI/filepopups/fileshare_popupNO2.png" id="49_hlr62"]
+[ext_resource type="Texture2D" uid="uid://dxosgmlyrdpms" path="res://Assets/New UI/filepopups/fileshare_popupYES1.png" id="50_58y4u"]
 [ext_resource type="Texture2D" uid="uid://cix02g1m73ca0" path="res://Assets/New UI/filepopups/import1.png" id="50_vrrpu"]
+[ext_resource type="Texture2D" uid="uid://we35lf0s2guv" path="res://Assets/New UI/filepopups/fileshare_popupYES3.png" id="51_futqt"]
 [ext_resource type="Texture2D" uid="uid://y4rblkeoi5eg" path="res://Assets/New UI/filepopups/import3.png" id="51_ok0sp"]
+[ext_resource type="Texture2D" uid="uid://do3xaqxkoctfa" path="res://Assets/New UI/filepopups/fileshare_popupYES2.png" id="52_hqd3u"]
 [ext_resource type="Texture2D" uid="uid://q7ecd3bkilho" path="res://Assets/New UI/filepopups/import2.png" id="52_rnxq6"]
 [ext_resource type="Texture2D" uid="uid://ctya1wsaxorm7" path="res://Assets/New UI/filepopups/import4.png" id="53_gd0hy"]
 
@@ -483,7 +489,7 @@ offset_bottom = 562.0
 scale = Vector2(3, 3)
 
 [node name="UploadMusic" type="FileDialog" parent="Camera2D/GUI/Panel"]
-title = "Choose a BGM for your level"
+title = "Open a File"
 position = Vector2i(320, 210)
 size = Vector2i(640, 420)
 unresizable = true
@@ -775,47 +781,60 @@ texture_pressed = ExtResource("30_ekael")
 texture_hover = ExtResource("31_42vc7")
 stretch_mode = 4
 
-[node name="InvalidShareLevelW" type="Panel" parent="."]
-z_index = 45
-offset_left = -3100.0
-offset_top = 350.0
-offset_right = -2600.0
-offset_bottom = 490.0
+[node name="OverwriteFilePanel" type="Panel" parent="."]
+z_index = 46
+offset_left = -3101.0
+offset_top = 335.0
+offset_right = -2601.0
+offset_bottom = 502.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_m1lb6")
 
-[node name="Title" type="Label" parent="InvalidShareLevelW"]
+[node name="Title" type="Label" parent="OverwriteFilePanel"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 10.0
 offset_top = 8.0
 offset_right = 442.0
 offset_bottom = 44.0
-text = "LEVEL CANNOT BE SHARED"
+text = "OVERWRITE FILE?"
 label_settings = SubResource("LabelSettings_53t2s")
 
-[node name="Line2D" type="Line2D" parent="InvalidShareLevelW"]
-points = PackedVector2Array(-0.0117188, 41.5747, 499.982, 41.412)
+[node name="Line2D" type="Line2D" parent="OverwriteFilePanel"]
+points = PackedVector2Array(-0.0117188, 41.5747, 499.992, 41.5625)
 width = 2.0
 
-[node name="Content" type="Label" parent="InvalidShareLevelW"]
+[node name="Content" type="Label" parent="OverwriteFilePanel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 10.5227
-offset_top = 47.0
-offset_right = 495.523
-offset_bottom = 85.0
+offset_left = 11.0
+offset_top = 52.0
+offset_right = 496.0
+offset_bottom = 110.0
 label_settings = SubResource("LabelSettings_832kq")
+autowrap_mode = 2
 
-[node name="BackButton2" type="TextureButton" parent="InvalidShareLevelW"]
+[node name="NoButton" type="TextureButton" parent="OverwriteFilePanel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 171.6
-offset_top = 84.6
-offset_right = 338.6
-offset_bottom = 126.6
-texture_normal = ExtResource("33_nsue7")
-texture_pressed = ExtResource("34_dvevk")
-texture_hover = ExtResource("35_dr71o")
+offset_left = 259.0
+offset_top = 114.0
+offset_right = 382.0
+offset_bottom = 155.0
+texture_normal = ExtResource("47_q2de2")
+texture_pressed = ExtResource("48_13g1k")
+texture_hover = ExtResource("49_hlr62")
+stretch_mode = 4
+
+[node name="YesButton" type="TextureButton" parent="OverwriteFilePanel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 129.206
+offset_top = 113.611
+offset_right = 252.206
+offset_bottom = 154.611
+texture_normal = ExtResource("50_58y4u")
+texture_pressed = ExtResource("51_futqt")
+texture_hover = ExtResource("52_hqd3u")
 stretch_mode = 4
 
 [node name="SharingPanel" type="Panel" parent="."]
@@ -871,6 +890,8 @@ offset_left = 16.0
 offset_top = 178.0
 offset_right = 443.0
 offset_bottom = 210.0
+clear_button_enabled = true
+select_all_on_focus = true
 
 [node name="Line2D" type="Line2D" parent="SharingPanel"]
 position = Vector2(0, -3.425)
@@ -899,6 +920,7 @@ offset_bottom = 119.512
 texture_normal = ExtResource("47_rq20t")
 texture_pressed = ExtResource("48_wqni5")
 texture_hover = ExtResource("48_52bla")
+texture_disabled = ExtResource("48_52bla")
 stretch_mode = 4
 
 [node name="CopiedToClipboardNotif" type="Label" parent="SharingPanel"]
@@ -968,7 +990,9 @@ label_settings = SubResource("LabelSettings_w4edq")
 [connection signal="pressed" from="NotSavedWarning/Panel/DontSaveButton" to="Camera2D/GUI" method="_on_dont_save_button_pressed"]
 [connection signal="pressed" from="RenameFileWarning/GoBackButton" to="Camera2D/GUI" method="_on_go_back_button_pressed"]
 [connection signal="pressed" from="EditorInstructions/InstructionsQuitButton" to="Camera2D/GUI" method="_on_instructions_quit_button_pressed"]
-[connection signal="pressed" from="InvalidShareLevelW/BackButton2" to="Camera2D/GUI" method="_on_back_button_2_pressed"]
+[connection signal="pressed" from="OverwriteFilePanel/NoButton" to="Camera2D/GUI" method="_on_no_button_pressed"]
+[connection signal="pressed" from="OverwriteFilePanel/YesButton" to="Camera2D/GUI" method="_on_yes_button_pressed"]
+[connection signal="focus_entered" from="SharingPanel/ImportCode" to="Camera2D/GUI" method="_on_import_code_focus_entered"]
 [connection signal="pressed" from="SharingPanel/ExitShareButton" to="Camera2D/GUI" method="_on_exit_share_button_pressed"]
 [connection signal="pressed" from="SharingPanel/CopyCodeButton" to="Camera2D/GUI" method="_on_copy_code_button_pressed"]
 [connection signal="timeout" from="SharingPanel/NotifTimer" to="Camera2D/GUI" method="_on_notif_timer_timeout"]

@@ -199,9 +199,11 @@ func open_editor():
 
 
 func _on_delete_pressed():
-	play_click_sfx()
+	if Main.in_editor:
+		pass
+	else:
+		play_click_sfx()
 	if file_to_delete != "":
-		
 		if FileAccess.file_exists(file_to_delete):
 			var err = DirAccess.remove_absolute(file_to_delete)
 			if err == OK:
@@ -214,8 +216,13 @@ func _on_delete_pressed():
 		
 		if Main.CURR_EDITOR_LEVEL == file_to_delete:
 			Main.CURR_EDITOR_LEVEL = ""
+			Main.curr_editor_level_enemy_data = {}
 		if Main.CURR_EDITOR_LEVEL_COMPLETED == file_to_delete:
 			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+			Main.curr_editor_level_enemy_data = {}
+		
+		if Main.in_editor:
+			get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 			
 		#reset the vars on top
 		file_to_delete = ""
