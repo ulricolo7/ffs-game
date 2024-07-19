@@ -474,7 +474,7 @@ texture_pressed = ExtResource("30_ekael")
 texture_hover = ExtResource("31_42vc7")
 stretch_mode = 4
 
-[node name="Upload_Music_Button" parent="Camera2D/GUI/Panel" instance=ExtResource("32_4r7sh")]
+[node name="UploadMusicButton" parent="Camera2D/GUI/Panel" instance=ExtResource("32_4r7sh")]
 layout_mode = 0
 offset_left = 150.0
 offset_top = 538.0
@@ -483,10 +483,13 @@ offset_bottom = 562.0
 scale = Vector2(3, 3)
 
 [node name="UploadMusic" type="FileDialog" parent="Camera2D/GUI/Panel"]
-title = "Open a File"
-position = Vector2i(640, 420)
-size = Vector2i(275, 136)
+title = "Choose a BGM for your level"
+position = Vector2i(320, 210)
+size = Vector2i(640, 420)
+unresizable = true
+always_on_top = true
 ok_button_text = "Open"
+dialog_hide_on_ok = true
 file_mode = 0
 
 [node name="LevelIsCompletedLabel" type="Label" parent="Camera2D/GUI/Panel"]
@@ -956,7 +959,8 @@ label_settings = SubResource("LabelSettings_w4edq")
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/QuitButton" to="Camera2D/GUI" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Camera2D/GUI/Panel/Upload_Music_Button" to="Camera2D/GUI" method="_on_upload_music_button_pressed"]
+[connection signal="pressed" from="Camera2D/GUI/Panel/UploadMusicButton" to="Camera2D/GUI" method="_on_upload_music_button_pressed"]
+[connection signal="close_requested" from="Camera2D/GUI/Panel/UploadMusic" to="Camera2D/GUI" method="_on_upload_music_close_requested"]
 [connection signal="file_selected" from="Camera2D/GUI/Panel/UploadMusic" to="Camera2D/GUI" method="_on_upload_music_file_selected"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
 [connection signal="pressed" from="NotSavedWarning/Panel/SaveAndExitButton" to="Camera2D/GUI" method="_on_save_and_exit_button_pressed"]

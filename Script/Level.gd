@@ -116,6 +116,8 @@ func init_player(bot_name):
 		player_scene = preload("res://Scenes/Player/WEAVER[Medium].tscn")
 	elif bot_name == "res://Scenes/Player/MAIDEN[Easy].tscn":
 		player_scene = preload("res://Scenes/Player/MAIDEN[Easy].tscn")
+	elif bot_name == "res://Scenes/Player/TECHIES[Hard].tscn":
+		player_scene = preload("res://Scenes/Player/TECHIES[Hard].tscn")
 	else:
 		player_scene = preload("res://Scenes/Player/player_character.tscn")
 	

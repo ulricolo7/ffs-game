@@ -538,13 +538,45 @@ func count_enemies():
 func _on_upload_music_button_pressed():
 	play_click_sfx()
 	var dialog = $Panel/UploadMusic
+	dialog.set_current_dir("res://Assets/BGM/")
 	dialog.visible = true
 
 func _on_upload_music_file_selected(path):
 	play_click_sfx()
 	var audio_player = $"../../AudioStreamPlayer"
-	audio_player.stream = path
+	var stream: AudioStream
+	var file_extension = path.get_extension().to_lower()
+
+	if file_extension == "wav":
+		stream = load_wav(path)
+	elif file_extension == "ogg":
+		stream = load_ogg(path)
+	elif file_extension == "mp3":
+		stream = load_mp3(path)
+	else:
+		print("Unsupported audio format: %s" % file_extension)
+		return
+
+	audio_player.stream = stream
 	audio_player.play()
+
+func load_wav(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamWAV.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound
+
+func load_ogg(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamOggVorbis.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound
+
+func load_mp3(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamMP3.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound
 
 func play_click_sfx():
 	$"../../ClickSFX".play()
@@ -948,3 +980,7 @@ func is_valid_base64(data: String) -> bool:
 		if char != "=" and char not in BASE64_ALPHABET:
 			return false
 	return true
+
+
+func _on_upload_music_close_requested():
+	play_click_sfx()

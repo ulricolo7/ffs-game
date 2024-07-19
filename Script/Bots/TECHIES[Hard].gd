@@ -5,7 +5,7 @@ var ACCELERATION = 150 * Main.TEST_SPEED
 var SOFT_ACC = 100 * Main.TEST_SPEED
 var HORI_ACC = 50 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
-const NAME = "WEAVER"
+const NAME = "TECHIES"
 #DO NOT TOUCH ANYTHING
 
 signal player_died
@@ -43,7 +43,7 @@ func _process(_delta):
 	if global_position.x < get_parent().global_position.x && state != "dodging":
 		velocity.x += HORI_ACC
 	elif state == "dodging":
-		velocity.x -= 0
+		velocity.x -= 10
 	else:
 		velocity.x = 0
 		
