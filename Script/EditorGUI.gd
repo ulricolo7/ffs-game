@@ -789,12 +789,18 @@ func _on_yes_button_pressed():
 	Main.player_input_disabled = false
 	Main.editor_paused2 = false
 	overwrite_file_popup.position.x = - 3100
+	sharing_panel.position.x = camera.position.x - 320
+	if sharing_panel.find_child("InvalidLevelCodeNotif").visible:
+		sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
+	sharing_panel.find_child("LevelImportedNotif").visible = true
+	sharing_panel.find_child("NotifTimer").start(2.5)
 
 func _on_no_button_pressed():
 	play_click_sfx()
 	Main.player_input_disabled = false
 	Main.editor_paused2 = false
 	overwrite_file_popup.position.x = - 3100
+	sharing_panel.position.x = camera.position.x - 320
 
 func serialize_level(level_data: Dictionary, level_path: String, last_updated: String) -> String:
 	var json = JSON.new()
