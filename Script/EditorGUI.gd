@@ -45,6 +45,14 @@ var imp_last_updated = ""
 var imp_enemy_data = {}
 var imp_last_enemy_x = -100
 
+var last_enemy_position = {}
+var occupied_positions = []
+const enemy_offset = {
+	"gh": Vector2(10,10), 
+	"ca": Vector2(10,10), 
+	"fl": Vector2(10,10), 
+	"cg": Vector2(10,0)
+}
 
 func _ready():
 	Main.editor_paused2 = false
@@ -161,8 +169,16 @@ func _on_enemy_button_pressed(enemy_type):
 
 		if enemy_scene:
 			var enemy_instance = enemy_scene.instantiate()
-			enemy_instance.position = get_enemy_initial_position(enemy_type, inst_location)
+			var initial_position = get_enemy_initial_position(enemy_type, inst_location)
+			enemy_instance.position = initial_position
 			add_enemy_to_screen(enemy_instance, enemy_type)
+			
+			# keep track of each enemy types' last positions
+			#if enemy_type in last_enemy_position:
+			#	pass
+			#else:
+			#	last_enemy_position[enemy_type] = initial_position
+			occupied_positions.append(initial_position)
 
 func get_enemy_initial_position(enemy_type, inst_location):
 	var y_pos = 420
@@ -170,7 +186,21 @@ func get_enemy_initial_position(enemy_type, inst_location):
 		y_pos = 710
 	elif enemy_type == "ca":
 		y_pos = 150
-	return Vector2(inst_location, y_pos)
+		
+	var base_pos = Vector2(inst_location, y_pos)
+	var offset = enemy_offset.get(enemy_type, Vector2(0,0))
+	
+	
+	#if enemy_type in last_enemy_position:
+	#	base_pos = last_enemy_position[enemy_type]
+	#	var last_pos = last_enemy_position[enemy_type]
+	#	if last_pos == base_pos:
+	#		base_pos += offset
+	#		last_enemy_position[enemy_type] = base_pos
+	while base_pos in occupied_positions:
+		base_pos += offset
+	
+	return base_pos
 
 func add_enemy_to_screen(enemy_instance, enemy_type):
 	editor_screen.add_child(enemy_instance)
@@ -184,6 +214,7 @@ func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
 	
+var original_position = Vector2(-1000, -1000)
 func _input(event):
 	
 	if Input.is_action_pressed("delete_enemy"):
@@ -212,6 +243,7 @@ func _input(event):
 				mark_level("saved", "false")
 				mark_level("completed", "false")
 				reload_level_select_screen()
+				original_position = Vector2(-1000, -1000)
 			else:
 				print("Error: No enemy data found for index ", idx)
 			curr_enemy = null
@@ -223,9 +255,20 @@ func _input(event):
 		else:
 			
 			$Panel.visible = false
+			if original_position.x < 0:
+				original_position = curr_enemy.position
+			else: 
+				pass
+			#print("old position: " + str(original_position))
 			var new_position = curr_enemy.position + event.relative
+			#print("new_position: " + str(new_position))
 			new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
 			curr_enemy.position = new_position
+			
+			if original_position in occupied_positions:
+				occupied_positions.erase(original_position)
+			occupied_positions.append(new_position)
+			
 			last_updated = get_current_singapore_time()
 			mark_level("saved", "false")
 			mark_level("completed", "false")
@@ -244,8 +287,11 @@ func delete_curr_enemy():
 	if curr_enemy:
 		var idx = enemy_indices.get(curr_enemy)
 		if enemy_data.has(idx):
+			var erased_enemy_pos = enemy_data[idx]["position"]
 			editor_screen.remove_child(curr_enemy)
 			enemy_data.erase(idx)
+			if erased_enemy_pos in occupied_positions:
+				occupied_positions.erase(erased_enemy_pos)
 			curr_enemy.queue_free()
 			curr_enemy = null
 			adjust_largest_x()
@@ -398,9 +444,12 @@ func load_enemies(e_data: Dictionary):
 	if Main.CURR_EDITOR_LEVEL != "res://Script/Levels/Untitled.gd":
 		var cached_lvl_name = Main.CURR_EDITOR_LEVEL.trim_prefix(LEVELS_FOLDER).trim_suffix(FILE_EXTENSION)
 		$Panel/LineEdit.text = cached_lvl_name
-		
+	
+	occupied_positions.clear()
+	
 	for idx in e_data.keys():
 		add_enemy_instance(e_data[idx], idx)
+		occupied_positions.append(e_data[idx]["position"])
 
 func add_enemy_instance(data, idx):
 	var enemy_type = data["type"]
@@ -489,6 +538,7 @@ func _on_h_scroll_bar_value_changed(value):
 	camera.position.x = scroll_value + 640
 	editor_screen_bounds.position.x = scroll_value
 	background.position.x = scroll_value * Main.BG_SPEED + 800
+	last_enemy_position = {}
 
 func update_largest_x(x):
 	if x > largest_x:

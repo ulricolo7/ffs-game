@@ -11,29 +11,49 @@ func _ready():
 
 func _scan_bots_folder():
 	var dir = DirAccess.open(bots_folder)
+	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
+		var bot_list = []
+		
 		while file_name != "":
 			if not dir.current_is_dir() and (not file_name.match("player_character.tscn") and file_name.ends_with(".tscn")):
+				
 				var file_path = bots_folder + file_name
-				_add_level_button(file_path)
+				var bot_difficulty = get_bot_difficulty(file_name)
+				bot_list.append({"path": file_path, "difficulty": bot_difficulty})
+				#print(bot_list)
 			file_name = dir.get_next()
 		dir.list_dir_end()
+		
+		bot_list.sort_custom(Callable(self, "compare_bot_difficulty"))
+		
+		for bot in bot_list:
+			_add_bot_button(bot["path"])
 	else:
 		print("Failed to open directory: " + bots_folder)
 
-func _add_level_button(file_path: String):
+func get_bot_difficulty(file_name: String):
+	if "[Easy]" in file_name:
+		return 1
+	elif "[Medium]" in file_name:
+		return 2
+	elif "[Hard]" in file_name:
+		return 3
+	else:
+		return 999 # jic 
+
+func compare_bot_difficulty(a, b):
+	return (a["difficulty"] - b["difficulty"]) < 0
+
+func _add_bot_button(file_path: String):
 	#play_click_sfx()
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("HBoxContainer/VBoxContainer/BotName")
 	#var desc_label = button_instance.get_node("Button/level_button/VBoxContainer/LevelDesc")
 	var last_edited_label = button_instance.get_node("HBoxContainer/VBoxContainer/LastEdited")
-	#print(name_label)
-	#print(last_edited_label)
 	name_label.text = file_path.get_file().get_basename()
-	#print(name_label.text)
-	#desc_label.text = file_path.get_file()
 	last_edited_label.text = "Last edited: " + _get_file_last_modified(file_path)
 	
 	
