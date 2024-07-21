@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwd8hgllqpg1t"]
+[gd_scene load_steps=10 format=3 uid="uid://dwd8hgllqpg1t"]
 
 [ext_resource type="Script" path="res://Script/Bots/TECHIES[Hard].gd" id="1_js4gm"]
 [ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_5ij2c"]
-[ext_resource type="AudioStream" uid="uid://nyy37airbesf" path="res://Assets/SFX/mixkit-arcade-game-explosion-2759.wav" id="19_g073r"]
+[ext_resource type="AudioStream" uid="uid://nyy37airbesf" path="res://Assets/SFX/mixkit-arcade-game-explosion-2759.wav" id="3_mn2qc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4l3j"]
 size = Vector2(341, 216)
@@ -87,6 +87,10 @@ texture_filter = 1
 material = SubResource("CanvasItemMaterial_bk02v")
 scale = Vector2(2.5, 2.49219)
 texture = ExtResource("2_5ij2c")
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mn2qc")
+pitch_scale = 1.2
 
 [connection signal="area_entered" from="SurroundScan" to="." method="_on_surround_scan_area_entered"]
 [connection signal="area_exited" from="SurroundScan" to="." method="_on_surround_scan_area_exited"]

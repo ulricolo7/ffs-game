@@ -105,6 +105,7 @@ func _process(delta):
 		$Panel/ShareButton.disabled = true
 		$Panel/InstructionsButton.disabled = true
 		$Panel/QuitButton.disabled = true
+		$Panel/UploadMusicButton.disabled = true
 	else:
 		$Panel/LineEdit.editable = true
 		$Panel/CreateNewButton.disabled = false
@@ -112,6 +113,7 @@ func _process(delta):
 		$Panel/ShareButton.disabled = false
 		$Panel/InstructionsButton.disabled = false
 		$Panel/QuitButton.disabled = false
+		$Panel/UploadMusicButton.disabled = false
 
 	if sharing_panel.find_child("ImportCode").text.length() == 0:
 		sharing_panel.find_child("ImportButton").disabled = true
@@ -358,17 +360,14 @@ func _on_line_edit_text_changed(name_typed):
 			$Panel/WarningLabel2.visible = false
 			new_file_name = name_typed + ".gd"
 			print(new_file_name)
-			#print(curr_file_name)
 			if curr_file_name == "Untitled.gd":
 				curr_file_name = new_file_name
-				#print(curr_file_name)
 			Main.CURR_EDITOR_LEVEL = new_file_path
 	else:
 		$Panel/WarningLabel.visible = false
 		new_file_name = "Untitled.gd"
 		new_file_path = "res://Script/Levels/Untitled.gd"
 		Main.CURR_EDITOR_LEVEL = new_file_path
-		# update curr_filepath
 		
 
 func _on_line_edit_text_submitted(new_text):
@@ -402,16 +401,11 @@ func _on_play_button_pressed():
 
 func _on_save_button_pressed():
 	play_click_sfx()
-	#print(new_file_path)
-	#print(curr_file_path)
 	if new_file_path != curr_file_path:
 		curr_file_path = new_file_path
-	#print(new_file_name)
-	#print(curr_file_name)
 	if new_file_name != curr_file_name:
 		curr_file_name = new_file_name
 	var curr_lvl_is_completed
-	#print(curr_file_path)
 	if FileAccess.file_exists(curr_file_path):
 		if check_level_validity(curr_file_path):
 			print("level is completed")
@@ -420,7 +414,6 @@ func _on_save_button_pressed():
 	create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
 	Main.player_input_disabled = false
 	$Panel/LineEdit.release_focus()
-	#$Panel/PlayButton.disabled = false
 	mark_level("saved", "true")
 	last_updated = get_current_singapore_time()
 	if curr_lvl_is_completed:
@@ -664,8 +657,11 @@ func _on_save_and_exit_button_pressed():
 				_on_save_button_pressed()
 				Main.level_switching = false
 				Main.editor_paused = false
-				Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
-				Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
+				if Main.CURR_EDITOR_LEVEL == Main.PREP_EDITOR_LEVEL:
+					pass
+				else:
+					Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
+					Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
 				Main.level_select_paused = false
 				get_tree().reload_current_scene()
 		else:
@@ -1054,3 +1050,7 @@ func is_valid_base64(data: String) -> bool:
 
 func _on_upload_music_close_requested():
 	play_click_sfx()
+
+func _on_rename_button_pressed():
+	play_click_sfx()
+	$Panel/LineEdit.release_focus()

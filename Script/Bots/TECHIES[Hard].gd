@@ -95,7 +95,8 @@ func return_to_centre():
 func die():
 	print("Player died")
 	emit_signal("player_died")
-	$DeathSFX.play()
+	#$DeathSFX.play()
+	queue_free()
 	
 func freeze():
 	is_frozen = true

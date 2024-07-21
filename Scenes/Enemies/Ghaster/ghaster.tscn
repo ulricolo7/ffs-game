@@ -19,16 +19,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iucoc"]
-size = Vector2(56.5, 114)
+size = Vector2(62.5724, 156.292)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkjoy"]
-size = Vector2(32, 37)
+size = Vector2(38.6239, 59.2714)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xt47t"]
 size = Vector2(21.0305, 24.024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gf4r"]
-size = Vector2(29, 22.7591)
+size = Vector2(29, 15.5337)
 
 [node name="Ghaster" type="Area2D" groups=["Enemies", "Ghaster"]]
 texture_filter = 1

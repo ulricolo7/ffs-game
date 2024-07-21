@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkp7j3tudueut"]
+[gd_scene load_steps=9 format=3 uid="uid://bkp7j3tudueut"]
 
 [ext_resource type="Script" path="res://Script/BotSelect.gd" id="1_hdl5h"]
 [ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_qfpv1"]
-[ext_resource type="PackedScene" uid="uid://dbie1obdioxtj" path="res://Scenes/back_button.tscn" id="3_ujxk4"]
+[ext_resource type="Texture2D" uid="uid://dggavfjlnheka" path="res://Assets/New UI/botselectbackbutton1.png" id="4_dn3d8"]
 [ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="4_hpf88"]
+[ext_resource type="Texture2D" uid="uid://bu6bmliybt16s" path="res://Assets/New UI/botselectbackbutton2.png" id="5_0t024"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueo80"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
@@ -69,11 +70,15 @@ offset_right = 907.0
 offset_bottom = 46.0
 scale = Vector2(1.1, 1.1)
 
-[node name="Back_Button" parent="." instance=ExtResource("3_ujxk4")]
+[node name="Back_Button" type="TextureButton" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 360.952
-offset_top = 20.0868
-offset_right = 392.952
-offset_bottom = 52.0868
+offset_left = 359.664
+offset_top = 15.7818
+offset_right = 397.664
+offset_bottom = 53.7818
+texture_normal = ExtResource("4_dn3d8")
+texture_pressed = ExtResource("5_0t024")
+stretch_mode = 6
 
 [connection signal="pressed" from="Back_Button" to="Panel" method="_on_back_button_pressed"]

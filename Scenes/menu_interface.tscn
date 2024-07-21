@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=24 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="17_u5x8i"]
 [ext_resource type="Texture2D" uid="uid://bjw2i2nmumdck" path="res://Assets/Background/black_ground.png" id="18_e5eyi"]
 [ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="19_83g2v"]
+[ext_resource type="PackedScene" uid="uid://dtwtunnseofxv" path="res://Scenes/Enemies/Ghaster/ghaster.tscn" id="20_3xffe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neb82"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.972549)
@@ -201,6 +202,25 @@ stream = ExtResource("19_83g2v")
 volume_db = 5.0
 pitch_scale = 0.3
 
+[node name="Ghaster" parent="." instance=ExtResource("20_3xffe")]
+position = Vector2(1000, 500)
+
+[node name="AnimatedSprite" parent="Ghaster" index="0"]
+position = Vector2(9.00546, 12.1839)
+scale = Vector2(5.36284, 5.46649)
+
+[node name="CollisionShape2D" parent="Ghaster" index="1"]
+position = Vector2(14.5209, 18.34)
+
+[node name="CollisionShape2D2" parent="Ghaster" index="2"]
+position = Vector2(65.2202, 26.4418)
+
+[node name="CollisionShape2D3" parent="Ghaster" index="3"]
+position = Vector2(-46.1888, 1.41016)
+
+[node name="CollisionShape2D4" parent="Ghaster" index="4"]
+position = Vector2(-32.3265, 21.7521)
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]
 [connection signal="pressed" from="Editor" to="." method="_on_editor_pressed"]
@@ -208,3 +228,5 @@ pitch_scale = 0.3
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Instructions" to="." method="_on_instructions_pressed"]
 [connection signal="pressed" from="InstructionsPanel/CloseInstructions" to="." method="_on_close_instructions_pressed"]
+
+[editable path="Ghaster"]
