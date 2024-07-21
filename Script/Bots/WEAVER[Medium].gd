@@ -47,7 +47,7 @@ func _process(_delta):
 	else:
 		velocity.x = 0
 		
-	if state == "returning" && (global_position.y <= 560 || global_position.y >= 280):
+	if state == "returning" && (global_position.y <= 560 && global_position.y >= 280):
 		velocity.y = 0
 	
 	if state != "dodging" && (global_position.y < 280):

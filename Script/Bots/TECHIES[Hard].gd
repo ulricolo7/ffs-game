@@ -36,6 +36,7 @@ func _process(_delta):
 	#print(leg_counter, out_scan/2, in_scan)
 	#print(head, leg, back)
 	#print(velcity.x)
+	print(move_dir,soft_dir)
 	if is_frozen:
 		return
 		
@@ -62,7 +63,7 @@ func _process(_delta):
 	else:
 		velocity.x = 0
 		
-	if state == "returning" && (global_position.y <= 520 || global_position.y >= 320):
+	if state == "returning" && (global_position.y <= 780 && global_position.y >= 420):
 		velocity.y = 0
 	
 	if state != "dodging" && (global_position.y < 320):
@@ -83,14 +84,11 @@ func _process(_delta):
 		die()
 
 func return_to_centre():
-	if state == "dodging" || (state == "adjusting" && (global_position.y >= 240 && global_position.y <= 600)) :
-		return
-	
-	if global_position.y >= 580:
+	if global_position.y >= 520:
 		print("returning up")
 		move_dir = "up"
 		soft_dir = "down"
-	elif global_position.y <= 260:
+	elif global_position.y <= 300:
 		print("returning down")
 		move_dir = "down"
 		soft_dir = "up"
@@ -155,6 +153,7 @@ func _on_front_scan_area_exited(area):
 		velocity.y = 0
 		state = "returning"
 		return_to_centre()
+		
 
 
 func _on_back_scan_area_entered(area):
