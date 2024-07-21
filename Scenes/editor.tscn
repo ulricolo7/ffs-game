@@ -55,12 +55,12 @@
 [ext_resource type="Texture2D" uid="uid://cnlvkcv4ag4gi" path="res://Assets/New UI/copy_code3.png" id="48_wqni5"]
 [ext_resource type="Texture2D" uid="uid://bq3eh0ngms77t" path="res://Assets/New UI/filepopups/fileshare_popupNO2.png" id="49_hlr62"]
 [ext_resource type="Texture2D" uid="uid://dxosgmlyrdpms" path="res://Assets/New UI/filepopups/fileshare_popupYES1.png" id="50_58y4u"]
-[ext_resource type="Texture2D" uid="uid://cix02g1m73ca0" path="res://Assets/New UI/filepopups/import1.png" id="50_vrrpu"]
 [ext_resource type="Texture2D" uid="uid://we35lf0s2guv" path="res://Assets/New UI/filepopups/fileshare_popupYES3.png" id="51_futqt"]
-[ext_resource type="Texture2D" uid="uid://y4rblkeoi5eg" path="res://Assets/New UI/filepopups/import3.png" id="51_ok0sp"]
 [ext_resource type="Texture2D" uid="uid://do3xaqxkoctfa" path="res://Assets/New UI/filepopups/fileshare_popupYES2.png" id="52_hqd3u"]
-[ext_resource type="Texture2D" uid="uid://q7ecd3bkilho" path="res://Assets/New UI/filepopups/import2.png" id="52_rnxq6"]
-[ext_resource type="Texture2D" uid="uid://ctya1wsaxorm7" path="res://Assets/New UI/filepopups/import4.png" id="53_gd0hy"]
+[ext_resource type="Texture2D" uid="uid://d062ub7vmxp5o" path="res://Assets/New UI/importbutton1.png" id="58_nrx1n"]
+[ext_resource type="Texture2D" uid="uid://dq50maprpcke0" path="res://Assets/New UI/importbutton3.png" id="59_j5gys"]
+[ext_resource type="Texture2D" uid="uid://ck5mx2khy2h6" path="res://Assets/New UI/importbutton2.png" id="60_24quk"]
+[ext_resource type="Texture2D" uid="uid://u22ikbf71m1n" path="res://Assets/New UI/importbutton4.png" id="61_jvyfk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuaid"]
 size = Vector2(1279.57, 79.8015)
@@ -917,7 +917,7 @@ label_settings = SubResource("LabelSettings_u3ful")
 layout_mode = 0
 offset_left = 16.0
 offset_top = 178.0
-offset_right = 443.0
+offset_right = 498.0
 offset_bottom = 210.0
 clear_button_enabled = true
 select_all_on_focus = true
@@ -968,14 +968,14 @@ label_settings = SubResource("LabelSettings_kg0lw")
 [node name="ImportButton" type="TextureButton" parent="SharingPanel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 442.509
-offset_top = 178.445
-offset_right = 532.509
-offset_bottom = 208.445
-texture_normal = ExtResource("50_vrrpu")
-texture_pressed = ExtResource("51_ok0sp")
-texture_hover = ExtResource("52_rnxq6")
-texture_disabled = ExtResource("53_gd0hy")
+offset_left = 499.817
+offset_top = 174.206
+offset_right = 534.817
+offset_bottom = 209.206
+texture_normal = ExtResource("58_nrx1n")
+texture_pressed = ExtResource("59_j5gys")
+texture_hover = ExtResource("60_24quk")
+texture_disabled = ExtResource("61_jvyfk")
 stretch_mode = 4
 
 [node name="LevelImportedNotif" type="Label" parent="SharingPanel"]

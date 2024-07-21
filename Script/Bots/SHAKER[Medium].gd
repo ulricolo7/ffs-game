@@ -22,6 +22,7 @@ func _ready():
 	clear_counters()
 	find_lowest_counter()
 	state = "chilling"
+	$AnimatedSprite.play("default")
 	
 func _process(delta):
 	
@@ -61,9 +62,9 @@ func _process(delta):
 		die()
 	
 func die():
-	print("Player died")
 	emit_signal("player_died")
-	queue_free()
+	$AnimatedSprite.play("death")
+	$DeathSFX.play()
 	
 func freeze():
 	is_frozen = true

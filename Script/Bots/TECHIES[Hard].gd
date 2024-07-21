@@ -2,9 +2,8 @@ extends CharacterBody2D
 
 const GRAVITY = 0
 var ACCELERATION = 150 * Main.TEST_SPEED
-var SOFT_ACC = 90 * Main.TEST_SPEED
-var HORI_ACC = 25 * Main.TEST_SPEED
-var DODGE_ACC = 50 * Main.TEST_SPEED
+var SOFT_ACC = 100 * Main.TEST_SPEED
+var HORI_ACC = 50 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
 const NAME = "TECHIES"
 #DO NOT TOUCH ANYTHING
@@ -16,26 +15,14 @@ var move_dir
 var soft_dir
 var hori_dir
 var state
-var in_scan = 0
-var head
-var headc = 0
-var leg
-var legc = 0
-var back
-var head_counter = 0
-var leg_counter = 0
-var out_scan = 0
 
 func _ready():
-	head = -MAX_SPEED
-	leg = MAX_SPEED
-	back = -MAX_SPEED
+	#print("Ready!")
+	print(global_position)
 	pass
 	
 func _process(_delta):
-	print(leg_counter, out_scan/2)
-	print(head, leg, back)
-	#print(velcity.x)
+	
 	if is_frozen:
 		return
 		
@@ -54,31 +41,29 @@ func _process(_delta):
 		velocity.y += 0
 		
 	if global_position.x < get_parent().global_position.x && state != "dodging":
-		hori_dir = "forward"
 		velocity.x += HORI_ACC
 	elif state == "dodging":
-		hori_dir = "back"
-		velocity.x -= DODGE_ACC
+		velocity.x -= 10
 	else:
 		velocity.x = 0
 		
-	if state == "returning" && (global_position.y <= 520 || global_position.y >= 320):
+	if state == "returning" && (global_position.y <= 560 || global_position.y >= 280):
 		velocity.y = 0
 	
-	if state != "dodging" && (global_position.y < 320):
+	if state != "dodging" && (global_position.y < 280):
 		soft_dir = "down"
-	elif state != "dodging" && (global_position.y > 520):
+	elif state != "dodging" && (global_position.y > 560):
 		soft_dir = "up"
-	
-	velocity.y = clamp(velocity.y, head, leg)
-	velocity.x = clamp(velocity.x, back, MAX_SPEED)
+		
+	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
+	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
 	if position.x < -800 || position.x > 780:
 		die()
 
 func return_to_centre():
-	if state == "dodging" || (state == "adjusting" && (global_position.y >= 240 && global_position.y <= 600)) :
+	if state == "dodging" || (state == "adjusting" && (global_position.y >= 160 && global_position.y <= 720)) :
 		return
 	
 	if global_position.y >= 580:
@@ -95,7 +80,7 @@ func return_to_centre():
 func die():
 	print("Player died")
 	emit_signal("player_died")
-	queue_free()
+	$DeathSFX.play()
 	
 func freeze():
 	is_frozen = true
@@ -105,99 +90,41 @@ func unfreeze():
 
 
 func _on_far_scan_area_entered(area):
-	if area.is_in_group("Enemies"):
-		head_counter += 1
+	if state == "dodging":
+		return
+		
+	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
+		print("adjusting up")
+		state = "adjusting"
+		move_dir = ""
+		soft_dir = "up"
+	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
+		print("adjusting down")
+		state = "adjusting"
+		move_dir = ""
+		soft_dir = "down"
 
 
-func _on_far_scan_area_exited(area):
-	if area.is_in_group("Enemies"):
-		head_counter -= 1
-
-
-func _on_front_scan_area_entered(area):
-	if area.is_in_group("Enemies") && (area.position.y >= global_position.y || (global_position.y > 600 && leg_counter >= floor(out_scan/2))):
-		in_scan += 1
-		print(in_scan)
+func _on_near_scan_area_entered(area):
+	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
 		print("dodging up")
 		state = "dodging"
-		if velocity.y > 0 && hori_dir == "forward":
-			velocity = Vector2(0, 0)
-		elif velocity.y > 0:
-			velocity.y = 0
-		else:
-			velocity.x = 0
+		velocity.y = 0
 		move_dir = "up"
 		soft_dir = ""
-	elif area.is_in_group("Enemies") && (area.position.y < global_position.y || (global_position.y < 240 && head_counter >= floor(out_scan/2))):
-		in_scan += 1
-		print(in_scan)
+	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
 		print("dodging down")
 		state = "dodging"
-		if velocity.y < 0 && hori_dir == "forward":
-			velocity = Vector2(0, 0)
-		elif velocity.y < 0:
-			velocity.y = 0
-		else:
-			velocity.x = 0
+		velocity.y = 0
 		move_dir = "down"
 		soft_dir = ""
 
 
-func _on_front_scan_area_exited(area):
-	in_scan -= 1
-	print(in_scan)
-	if in_scan == 0:
-		print("exit front")
-		velocity.y = 0
-		state = "returning"
-		return_to_centre()
+func _on_near_scan_area_exited(_area):
+	velocity.y = 0
+	state = "returning"
+	return_to_centre()
 
 
-func _on_back_scan_area_entered(area):
-	if area.is_in_group("Enemies"):
-		back = 0
-
-
-func _on_back_scan_area_exited(area):
-	if area.is_in_group("Enemies"):
-		back = -MAX_SPEED
-
-
-func _on_head_scan_area_entered(area):
-	if area.is_in_group("Enemies") && leg != 0:
-		head = 0
-
-
-func _on_head_scan_area_exited(area):
-	if area.is_in_group("Enemies"):
-		head = -MAX_SPEED
-
-
-func _on_leg_scan_area_entered(area):
-	if area.is_in_group("Enemies") && head != 0:
-		leg = 0
-
-
-func _on_leg_scan_area_exited(area):
-	if area.is_in_group("Enemies"):
-		leg = MAX_SPEED
-
-
-func _on_far_scan_2_area_entered(area):
-	if area.is_in_group("Enemies"):
-		leg_counter += 1
-
-
-func _on_far_scan_2_area_exited(area):
-	if area.is_in_group("Enemies"):
-		leg_counter -= 1
-
-
-func _on_surround_scan_area_entered(area):
-	if area.is_in_group("Enemies"):
-		out_scan += 1
-
-
-func _on_surround_scan_area_exited(area):
-	if area.is_in_group("Enemies"):
-		out_scan -= 1
+func _on_far_scan_area_exited(_area):
+	return_to_centre()

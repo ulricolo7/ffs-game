@@ -13,7 +13,8 @@ var move
 
 func _ready():
 	print(global_position)
-	pass
+	$AnimatedSprite.play("default")
+	
 	
 func _process(delta):
 	
@@ -37,13 +38,28 @@ func _process(delta):
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 	move_and_slide()
 	
-	if position.x < -800 || position.x > 780:
-		die()
+	#if position.x < -800 || position.x > 780:
+	#	die()
+	if position.x < -620:
+		position.x = -620
+	elif position.x > 620:
+		position.x = 620
+	
+	if Main.in_editor:
+		if position.y < -284:
+			position.y = -284
+		elif position.y > 280:
+			position.y = 280
+	else:
+		if position.y < -355:
+			position.y = -355
+		elif position.y > 350:
+			position.y = 350
 	
 func die():
-	print("Player died")
 	emit_signal("player_died")
-	queue_free()
+	$AnimatedSprite.play("death")
+	$DeathSFX.play()
 	
 func freeze():
 	is_frozen = true

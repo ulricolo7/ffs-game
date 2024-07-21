@@ -1,21 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwd8hgllqpg1t"]
+[gd_scene load_steps=8 format=3 uid="uid://dwd8hgllqpg1t"]
 
 [ext_resource type="Script" path="res://Script/Bots/TECHIES[Hard].gd" id="1_js4gm"]
 [ext_resource type="Texture2D" uid="uid://be5r4xrqmflje" path="res://Assets/Characters/Player/playerPIXEL2.png" id="2_5ij2c"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4l3j"]
-size = Vector2(341, 216)
+[ext_resource type="AudioStream" uid="uid://nyy37airbesf" path="res://Assets/SFX/mixkit-arcade-game-explosion-2759.wav" id="19_g073r"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d1k00"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1i3vi"]
-size = Vector2(127, 94)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7624"]
-size = Vector2(33, 94)
+size = Vector2(77.5625, 93)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmtfg"]
-size = Vector2(95, 33.875)
+size = Vector2(101, 41.5)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bk02v"]
 blend_mode = 1
@@ -26,52 +21,39 @@ light_mask = 2
 collision_mask = 2
 script = ExtResource("1_js4gm")
 
-[node name="SurroundScan" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SurroundScan"]
-position = Vector2(193.5, 2)
-shape = SubResource("RectangleShape2D_r4l3j")
-
 [node name="FarScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarScan"]
-position = Vector2(-75, -133)
-polygon = PackedVector2Array(468, -60, 500, 37, 472, 70, 53, 71, 35, 35, 52, -6)
-
-[node name="FarScan2" type="Area2D" parent="."]
-material = SubResource("CanvasItemMaterial_d1k00")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarScan2"]
-position = Vector2(-75, 75)
-polygon = PackedVector2Array(467, -6, 500, 37, 469, 127, 53, 71, 35, 35, 52, -6)
+position = Vector2(-75, -35)
+polygon = PackedVector2Array(469, -132, 500, 37, 457, 190, 53, 71, 35, 35, 52, -6)
 
 [node name="FrontScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontScan"]
-position = Vector2(43.5, -1)
+position = Vector2(47, 0)
 shape = SubResource("RectangleShape2D_1i3vi")
 
 [node name="BackScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BackScan"]
-position = Vector2(-28.5, -1)
-shape = SubResource("RectangleShape2D_p7624")
+position = Vector2(-26, 0)
+shape = SubResource("RectangleShape2D_1i3vi")
 
 [node name="HeadScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadScan"]
-position = Vector2(-3, -40.0625)
+position = Vector2(0.5, -41)
 shape = SubResource("RectangleShape2D_gmtfg")
 
 [node name="LegScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LegScan"]
-position = Vector2(-2.5, 37)
+position = Vector2(2, 40)
 shape = SubResource("RectangleShape2D_gmtfg")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -87,17 +69,11 @@ material = SubResource("CanvasItemMaterial_bk02v")
 scale = Vector2(2.5, 2.49219)
 texture = ExtResource("2_5ij2c")
 
-[connection signal="area_entered" from="SurroundScan" to="." method="_on_surround_scan_area_entered"]
-[connection signal="area_exited" from="SurroundScan" to="." method="_on_surround_scan_area_exited"]
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_g073r")
+pitch_scale = 1.2
+
 [connection signal="area_entered" from="FarScan" to="." method="_on_far_scan_area_entered"]
 [connection signal="area_exited" from="FarScan" to="." method="_on_far_scan_area_exited"]
-[connection signal="area_entered" from="FarScan2" to="." method="_on_far_scan_2_area_entered"]
-[connection signal="area_exited" from="FarScan2" to="." method="_on_far_scan_2_area_exited"]
-[connection signal="area_entered" from="FrontScan" to="." method="_on_front_scan_area_entered"]
-[connection signal="area_exited" from="FrontScan" to="." method="_on_front_scan_area_exited"]
-[connection signal="area_entered" from="BackScan" to="." method="_on_back_scan_area_entered"]
-[connection signal="area_exited" from="BackScan" to="." method="_on_back_scan_area_exited"]
-[connection signal="area_entered" from="HeadScan" to="." method="_on_head_scan_area_entered"]
-[connection signal="area_exited" from="HeadScan" to="." method="_on_head_scan_area_exited"]
-[connection signal="area_entered" from="LegScan" to="." method="_on_leg_scan_area_entered"]
-[connection signal="area_exited" from="LegScan" to="." method="_on_leg_scan_area_exited"]
+[connection signal="area_entered" from="FrontScan" to="." method="_on_near_scan_area_entered"]
+[connection signal="area_exited" from="FrontScan" to="." method="_on_near_scan_area_exited"]
