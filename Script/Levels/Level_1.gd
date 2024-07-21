@@ -1,7 +1,9 @@
+var level_path = "res://Script/Levels/Level_1.gd"
+var last_updated = "2024-07-21T18:37:01"
 var is_completed = true
 var is_saved = true
 
-var last_enemy_x = 9835
+var last_enemy_x = 9457
 
 var enemy_data = {
 	0: {"position": Vector2(900, 329), "type": "gh"},
@@ -59,29 +61,14 @@ var enemy_data = {
 	52: {"position": Vector2(7800, 160), "type": "fl"},
 	53: {"position": Vector2(7800, 460), "type": "fl"},
 	54: {"position": Vector2(8400, 160), "type": "gh"},
-	55: {"position": Vector2(8823, 393), "type": "fl"},
-	56: {"position": Vector2(8920, 317), "type": "fl"},
-	57: {"position": Vector2(9011, 272), "type": "fl"},
-	58: {"position": Vector2(9114, 218), "type": "fl"},
-	59: {"position": Vector2(8832, 665), "type": "fl"},
-	60: {"position": Vector2(8923, 619), "type": "fl"},
-	61: {"position": Vector2(9023, 556), "type": "fl"},
-	62: {"position": Vector2(9114, 506), "type": "fl"},
-	63: {"position": Vector2(9233, 260), "type": "fl"},
-	64: {"position": Vector2(9219, 584), "type": "fl"},
-	65: {"position": Vector2(8535, 160), "type": "gh"},
-	66: {"position": Vector2(9432, 710), "type": "cg"},
-	67: {"position": Vector2(9594, 344), "type": "fl"},
-	68: {"position": Vector2(9597, 636), "type": "fl"},
-	69: {"position": Vector2(9712, 342), "type": "fl"},
-	70: {"position": Vector2(9710, 616), "type": "fl"},
-	71: {"position": Vector2(9835, 350), "type": "fl"},
-	72: {"position": Vector2(9828, 619), "type": "fl"},
-	73: {"position": Vector2(9437, 329), "type": "fl"},
-	74: {"position": Vector2(9444, 636), "type": "fl"},
-	75: {"position": Vector2(9457, 120), "type": "ca"},
-	76: {"position": Vector2(8728, 710), "type": "cg"},
-	77: {"position": Vector2(9124, 710), "type": "cg"},
-	78: {"position": Vector2(8819, 135), "type": "fl"},
+	55: {"position": Vector2(8535, 160), "type": "gh"},
+	56: {"position": Vector2(9432, 710), "type": "cg"},
+	57: {"position": Vector2(9457, 120), "type": "ca"},
+	58: {"position": Vector2(8728, 710), "type": "cg"},
+	59: {"position": Vector2(9124, 710), "type": "cg"},
+	60: {"position": Vector2(8819, 135), "type": "fl"},
+	61: {"position": Vector2(9393, 316), "type": "fl"},
+	62: {"position": Vector2(9189, 556), "type": "fl"},
 }
+
 
