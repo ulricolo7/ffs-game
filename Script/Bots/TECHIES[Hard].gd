@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 const GRAVITY = 0
 var ACCELERATION = 150 * Main.TEST_SPEED
-var SOFT_ACC = 90 * Main.TEST_SPEED
+var SOFT_ACC = 100 * Main.TEST_SPEED
 var HORI_ACC = 25 * Main.TEST_SPEED
-var DODGE_ACC = 50 * Main.TEST_SPEED
+var DODGE_ACC = 45 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
 const NAME = "TECHIES"
 #DO NOT TOUCH ANYTHING
@@ -95,7 +95,7 @@ func return_to_centre():
 func die():
 	print("Player died")
 	emit_signal("player_died")
-	$DeathSFX.play()
+	queue_free()
 	
 func freeze():
 	is_frozen = true
