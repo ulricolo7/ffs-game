@@ -10,13 +10,13 @@ size = Vector2(341, 216)
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d1k00"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1i3vi"]
-size = Vector2(127, 94)
+size = Vector2(136, 95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7624"]
-size = Vector2(33, 94)
+size = Vector2(26, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmtfg"]
-size = Vector2(95, 33.875)
+size = Vector2(77.5, 31.875)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bk02v"]
 blend_mode = 1
@@ -38,41 +38,41 @@ material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarScan"]
 position = Vector2(-75, -133)
-polygon = PackedVector2Array(468, -60, 500, 37, 472, 70, 53, 71, 35, 35, 52, -6)
+polygon = PackedVector2Array(468, -60, 500, 37, 473, 78, 49, 78, 35, 35, 52, -6)
 
 [node name="FarScan2" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarScan2"]
 position = Vector2(-75, 75)
-polygon = PackedVector2Array(467, -6, 500, 37, 469, 127, 53, 71, 35, 35, 52, -6)
+polygon = PackedVector2Array(468, -14, 500, 37, 469, 127, 53, 71, 35, 35, 49, -18)
 
 [node name="FrontScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontScan"]
-position = Vector2(43.5, -1)
+position = Vector2(54, -1.5)
 shape = SubResource("RectangleShape2D_1i3vi")
 
 [node name="BackScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BackScan"]
-position = Vector2(-28.5, -1)
+position = Vector2(-25, 0)
 shape = SubResource("RectangleShape2D_p7624")
 
 [node name="HeadScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadScan"]
-position = Vector2(-3, -40.0625)
+position = Vector2(-11.75, -39.0625)
 shape = SubResource("RectangleShape2D_gmtfg")
 
 [node name="LegScan" type="Area2D" parent="."]
 material = SubResource("CanvasItemMaterial_d1k00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LegScan"]
-position = Vector2(-2.5, 37)
+position = Vector2(-10.5, 35)
 shape = SubResource("RectangleShape2D_gmtfg")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

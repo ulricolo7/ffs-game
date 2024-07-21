@@ -19,16 +19,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iucoc"]
-size = Vector2(62.5724, 156.292)
+size = Vector2(62.5724, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkjoy"]
-size = Vector2(38.6239, 59.2714)
+size = Vector2(32.312, 59.2714)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xt47t"]
-size = Vector2(21.0305, 24.024)
+size = Vector2(24.0305, 21.024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gf4r"]
-size = Vector2(29, 15.5337)
+size = Vector2(26, 15.5337)
 
 [node name="Ghaster" type="Area2D" groups=["Enemies", "Ghaster"]]
 texture_filter = 1
@@ -40,19 +40,19 @@ scale = Vector2(4.8, 4.705)
 sprite_frames = SubResource("SpriteFrames_83wni")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4.75, 0)
+position = Vector2(4.75, 5)
 shape = SubResource("RectangleShape2D_iucoc")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(49, 12.5)
+position = Vector2(52.156, 12.5)
 shape = SubResource("RectangleShape2D_wkjoy")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(-53.4848, -15.988)
+position = Vector2(-54.9848, -10.488)
 shape = SubResource("RectangleShape2D_xt47t")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
-position = Vector2(-38.5, 7.47604)
+position = Vector2(-40, 7.47604)
 shape = SubResource("RectangleShape2D_0gf4r")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

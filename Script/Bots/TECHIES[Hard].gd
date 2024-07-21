@@ -4,7 +4,7 @@ const GRAVITY = 0
 var ACCELERATION = 150 * Main.TEST_SPEED
 var SOFT_ACC = 100 * Main.TEST_SPEED
 var HORI_ACC = 25 * Main.TEST_SPEED
-var DODGE_ACC = 45 * Main.TEST_SPEED
+var DODGE_ACC = 70 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
 const NAME = "TECHIES"
 #DO NOT TOUCH ANYTHING
@@ -33,8 +33,8 @@ func _ready():
 	pass
 	
 func _process(_delta):
-	print(leg_counter, out_scan/2)
-	print(head, leg, back)
+	#print(leg_counter, out_scan/2, in_scan)
+	#print(head, leg, back)
 	#print(velcity.x)
 	if is_frozen:
 		return
@@ -69,6 +69,11 @@ func _process(_delta):
 		soft_dir = "down"
 	elif state != "dodging" && (global_position.y > 520):
 		soft_dir = "up"
+	
+	if global_position.x < get_parent().global_position.x - 640:
+		back = 0
+	else:
+		back = -MAX_SPEED
 	
 	velocity.y = clamp(velocity.y, head, leg)
 	velocity.x = clamp(velocity.x, back, MAX_SPEED)
@@ -116,9 +121,9 @@ func _on_far_scan_area_exited(area):
 
 
 func _on_front_scan_area_entered(area):
+	print(area.position.y, global_position.y)
 	if area.is_in_group("Enemies") && (area.position.y >= global_position.y || (global_position.y > 600 && leg_counter >= floor(out_scan/2))):
 		in_scan += 1
-		print(in_scan)
 		print("dodging up")
 		state = "dodging"
 		if velocity.y > 0 && hori_dir == "forward":
@@ -131,7 +136,6 @@ func _on_front_scan_area_entered(area):
 		soft_dir = ""
 	elif area.is_in_group("Enemies") && (area.position.y < global_position.y || (global_position.y < 240 && head_counter >= floor(out_scan/2))):
 		in_scan += 1
-		print(in_scan)
 		print("dodging down")
 		state = "dodging"
 		if velocity.y < 0 && hori_dir == "forward":
@@ -146,9 +150,8 @@ func _on_front_scan_area_entered(area):
 
 func _on_front_scan_area_exited(area):
 	in_scan -= 1
-	print(in_scan)
 	if in_scan == 0:
-		print("exit front")
+		#print("exit front")
 		velocity.y = 0
 		state = "returning"
 		return_to_centre()
@@ -166,7 +169,7 @@ func _on_back_scan_area_exited(area):
 
 func _on_head_scan_area_entered(area):
 	if area.is_in_group("Enemies") && leg != 0:
-		head = 0
+		head = 50
 
 
 func _on_head_scan_area_exited(area):
@@ -176,7 +179,7 @@ func _on_head_scan_area_exited(area):
 
 func _on_leg_scan_area_entered(area):
 	if area.is_in_group("Enemies") && head != 0:
-		leg = 0
+		leg = -50
 
 
 func _on_leg_scan_area_exited(area):
