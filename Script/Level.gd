@@ -226,10 +226,10 @@ func pause():
 	if Main.no_pause_state == 1:
 		Main.no_pause_state = 0
 		
-		#pause_screen.set_position(Vector2(camera.get_position().x - 640, 
-			#camera.get_position().y - 420))
-		#pause_screen_editor.set_position(Vector2(camera.get_position().x - 640, 
-			#camera.get_position().y - 420))
+		pause_screen.set_position(Vector2(camera.get_position().x - 640, 
+			camera.get_position().y - 420))
+		pause_screen_editor.set_position(Vector2(camera.get_position().x - 640, 
+			camera.get_position().y - 420))
 		if Main.in_editor:
 			pause_screen_editor.set_visible(true)
 		else:

@@ -71,7 +71,7 @@ func _process(_delta):
 	elif state != "dodging" && (global_position.y > 520):
 		soft_dir = "up"
 	
-	if global_position.x < get_parent().global_position.x - 640:
+	if global_position.x < get_parent().global_position.x - 610:
 		back = 0
 	else:
 		back = -MAX_SPEED
@@ -98,7 +98,7 @@ func return_to_centre():
 func die():
 	print("Player died")
 	emit_signal("player_died")
-	#$DeathSFX.play()
+	$DeathSFX.play()
 	queue_free()
 	
 func freeze():

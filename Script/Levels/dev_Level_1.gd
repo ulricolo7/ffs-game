@@ -1,5 +1,5 @@
 var level_path = "res://Script/Levels/Level_1.gd"
-var last_updated = "2024-07-21T18:56:29"
+var last_updated = "2024-07-21T21:27:07"
 var is_completed = true
 var is_saved = true
 
@@ -13,7 +13,7 @@ var enemy_data = {
 	4: {"position": Vector2(3221, 710), "type": "cg"},
 	5: {"position": Vector2(4698, 149), "type": "ca"},
 	6: {"position": Vector2(4462, 387), "type": "fl"},
-	7: {"position": Vector2(5036, 583), "type": "gh"},
+	7: {"position": Vector2(5034, 528), "type": "gh"},
 	8: {"position": Vector2(6044, 599), "type": "gh"},
 	9: {"position": Vector2(6320, 199), "type": "gh"},
 	10: {"position": Vector2(7143, 446), "type": "fl"},
