@@ -19,6 +19,7 @@ var state
 func _ready():
 	#print("Ready!")
 	print(global_position)
+	$AnimatedSprite.play("default")
 	pass
 	
 func _process(_delta):
@@ -67,19 +68,19 @@ func return_to_centre():
 		return
 	
 	if global_position.y >= 580:
-		print("returning up")
+		#print("returning up")
 		move_dir = "up"
 		soft_dir = "down"
 	elif global_position.y <= 260:
-		print("returning down")
+		#print("returning down")
 		move_dir = "down"
 		soft_dir = "up"
 	else:
 		move_dir = ""
 	
 func die():
-	print("Player died")
 	emit_signal("player_died")
+	$AnimatedSprite.play("death")
 	$DeathSFX.play()
 	
 func freeze():
@@ -94,12 +95,12 @@ func _on_far_scan_area_entered(area):
 		return
 		
 	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
-		print("adjusting up")
+		#print("adjusting up")
 		state = "adjusting"
 		move_dir = ""
 		soft_dir = "up"
 	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
-		print("adjusting down")
+		#print("adjusting down")
 		state = "adjusting"
 		move_dir = ""
 		soft_dir = "down"
@@ -107,13 +108,13 @@ func _on_far_scan_area_entered(area):
 
 func _on_near_scan_area_entered(area):
 	if area.is_in_group("Enemies") && area.position.y >= global_position.y:
-		print("dodging up")
+		#print("dodging up")
 		state = "dodging"
 		velocity.y = 0
 		move_dir = "up"
 		soft_dir = ""
 	elif area.is_in_group("Enemies") && area.position.y < global_position.y:
-		print("dodging down")
+		#print("dodging down")
 		state = "dodging"
 		velocity.y = 0
 		move_dir = "down"

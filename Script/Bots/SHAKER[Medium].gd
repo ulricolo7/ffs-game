@@ -18,7 +18,7 @@ var enemies_near = 0
 @onready var counterArray = [0, 0, 0, 0, 0]
 
 func _ready():
-	print(global_position)
+	#print(global_position)
 	clear_counters()
 	find_lowest_counter()
 	state = "chilling"

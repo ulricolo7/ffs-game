@@ -30,13 +30,14 @@ func _ready():
 	head = -MAX_SPEED
 	leg = MAX_SPEED
 	back = -MAX_SPEED
+	$AnimatedSprite.play("default")
 	pass
 	
 func _process(_delta):
 	#print(leg_counter, out_scan/2, in_scan)
 	#print(head, leg, back)
 	#print(velcity.x)
-	print(move_dir,soft_dir)
+	#print(move_dir,soft_dir)
 	if is_frozen:
 		return
 		
@@ -85,21 +86,21 @@ func _process(_delta):
 
 func return_to_centre():
 	if global_position.y >= 520:
-		print("returning up")
+		#print("returning up")
 		move_dir = "up"
 		soft_dir = "down"
 	elif global_position.y <= 300:
-		print("returning down")
+		#print("returning down")
 		move_dir = "down"
 		soft_dir = "up"
 	else:
 		move_dir = ""
 	
 func die():
-	print("Player died")
+	#print("Player died")
 	emit_signal("player_died")
+	$AnimatedSprite.play("death")
 	$DeathSFX.play()
-	queue_free()
 	
 func freeze():
 	is_frozen = true
@@ -119,10 +120,10 @@ func _on_far_scan_area_exited(area):
 
 
 func _on_front_scan_area_entered(area):
-	print(area.position.y, global_position.y)
+	#print(area.position.y, global_position.y)
 	if area.is_in_group("Enemies") && (area.position.y >= global_position.y || (global_position.y > 600 && leg_counter >= floor(out_scan/2))):
 		in_scan += 1
-		print("dodging up")
+		#print("dodging up")
 		state = "dodging"
 		if velocity.y > 0 && hori_dir == "forward":
 			velocity = Vector2(0, 0)
@@ -134,7 +135,7 @@ func _on_front_scan_area_entered(area):
 		soft_dir = ""
 	elif area.is_in_group("Enemies") && (area.position.y < global_position.y || (global_position.y < 240 && head_counter >= floor(out_scan/2))):
 		in_scan += 1
-		print("dodging down")
+		#print("dodging down")
 		state = "dodging"
 		if velocity.y < 0 && hori_dir == "forward":
 			velocity = Vector2(0, 0)
