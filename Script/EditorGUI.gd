@@ -53,6 +53,7 @@ const enemy_offset = {
 	"fl": Vector2(10,10), 
 	"cg": Vector2(10,0)
 }
+var is_renamed = false
 
 func _ready():
 	Main.editor_paused2 = false
@@ -130,6 +131,13 @@ func _process(delta):
 		
 	if sharing_panel.position.x > 0:
 		Main.player_input_disabled = true
+		
+	if check_level_saved(curr_file_path) and curr_file_path != new_file_path:
+		$Panel/RenameButton.visible = true
+		$Panel/LineEdit.size = Vector2(248, 34)
+	else:
+		$Panel/RenameButton.visible = false
+		$Panel/LineEdit.size = Vector2(349, 34)
 	
 
 func initialize_scene_references():
@@ -401,17 +409,25 @@ func _on_play_button_pressed():
 
 func _on_save_button_pressed():
 	play_click_sfx()
-	if new_file_path != curr_file_path:
-		curr_file_path = new_file_path
-	if new_file_name != curr_file_name:
-		curr_file_name = new_file_name
 	var curr_lvl_is_completed
-	if FileAccess.file_exists(curr_file_path):
-		if check_level_validity(curr_file_path):
-			print("level is completed")
-			curr_lvl_is_completed = true
-		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
-	create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
+	
+	if new_file_name != curr_file_name or new_file_path != curr_file_path:
+		if FileAccess.file_exists(curr_file_path):
+			if check_level_validity(curr_file_path):
+				print("level is completed")
+				curr_lvl_is_completed = true
+		curr_file_path = new_file_path
+		curr_file_name = new_file_name
+		create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
+	else:
+		
+		if FileAccess.file_exists(curr_file_path):
+			if check_level_validity(curr_file_path):
+				print("level is completed")
+				curr_lvl_is_completed = true
+			delete_file(curr_file_path)
+		create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
+	
 	Main.player_input_disabled = false
 	$Panel/LineEdit.release_focus()
 	mark_level("saved", "true")
@@ -726,7 +742,6 @@ func _on_dont_save_button_pressed():
 		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 		Main.curr_editor_level_enemy_data = {}
 		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
-	
 
 func show_not_saved_warning():
 	file_not_saved_popup.position.x = camera.position.x - 320
@@ -1054,3 +1069,19 @@ func _on_upload_music_close_requested():
 func _on_rename_button_pressed():
 	play_click_sfx()
 	$Panel/LineEdit.release_focus()
+	is_renamed = true
+	var curr_lvl_is_saved
+	var curr_lvl_is_completed
+	if FileAccess.file_exists(curr_file_path):
+		if check_level_saved(curr_file_path):
+			curr_lvl_is_saved = true
+		if check_level_validity(curr_file_path):
+			curr_lvl_is_completed = true
+		delete_file(curr_file_path)
+	create_file(new_file_path, enemy_data, largest_x)
+	if curr_lvl_is_saved:
+		mark_level("saved", "true")
+	if curr_lvl_is_completed:
+		mark_level("completed", "true")
+	curr_file_path = new_file_path
+	reload_level_select_screen()

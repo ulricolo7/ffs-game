@@ -44,11 +44,11 @@
 [ext_resource type="Texture2D" uid="uid://dhv2dsbrlhb5e" path="res://Assets/New UI/filepopups/savebutton1.png" id="35_lvx6d"]
 [ext_resource type="Texture2D" uid="uid://bhswqymiikf36" path="res://Assets/New UI/upload_music2.png" id="36_ex3nn"]
 [ext_resource type="Texture2D" uid="uid://dnu331qua3lgs" path="res://Assets/New UI/filepopups/savebutton3.png" id="36_nhwyb"]
-[ext_resource type="Texture2D" uid="uid://dlwxmxs72agsu" path="res://Assets/New UI/filepopups/rename1.png" id="37_6a5mp"]
 [ext_resource type="Texture2D" uid="uid://dubc351w4qk6a" path="res://Assets/New UI/filepopups/savebutton2.png" id="37_crmrh"]
-[ext_resource type="Texture2D" uid="uid://dx4jvgwgmdgco" path="res://Assets/New UI/filepopups/rename3.png" id="38_0801h"]
-[ext_resource type="Texture2D" uid="uid://xr1ktl7ydth6" path="res://Assets/New UI/filepopups/rename2.png" id="39_74l0p"]
-[ext_resource type="Texture2D" uid="uid://vy07s5mvajm1" path="res://Assets/New UI/filepopups/rename4.png" id="40_mqnwr"]
+[ext_resource type="Texture2D" uid="uid://c8v0ckhoyvgbu" path="res://Assets/New UI/filepopups/rename_Resized1.png" id="37_xegw6"]
+[ext_resource type="Texture2D" uid="uid://cbiieqnme03r8" path="res://Assets/New UI/filepopups/rename_Resized3.png" id="38_urpyq"]
+[ext_resource type="Texture2D" uid="uid://bpeb3vn252obx" path="res://Assets/New UI/filepopups/rename_Resized2.png" id="39_ocqhg"]
+[ext_resource type="Texture2D" uid="uid://cinnnab3j0q5a" path="res://Assets/New UI/filepopups/rename_Resized4.png" id="40_cnjnf"]
 [ext_resource type="Texture2D" uid="uid://cdknvdyws1c6m" path="res://Assets/New UI/filepopups/dontsave1.png" id="41_u3fls"]
 [ext_resource type="Texture2D" uid="uid://bodwwpjiwr2kc" path="res://Assets/New UI/filepopups/dontsave3.png" id="42_g58lm"]
 [ext_resource type="Texture2D" uid="uid://jbiqo4ajepqi" path="res://Assets/New UI/filepopups/dontsave2.png" id="43_cijup"]
@@ -450,6 +450,7 @@ offset_right = 8.0
 offset_bottom = 61.0
 
 [node name="WarningLabel" type="Label" parent="Camera2D/GUI/Panel"]
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = 14.009
@@ -469,6 +470,7 @@ placeholder_text = "Enter level name"
 max_length = 24
 
 [node name="WarningLabel2" type="Label" parent="Camera2D/GUI/Panel"]
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = 14.0
@@ -558,14 +560,14 @@ label_settings = SubResource("LabelSettings_1nsav")
 [node name="RenameButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 264.0
-offset_top = 700.0
-offset_right = 366.0
-offset_bottom = 734.0
-texture_normal = ExtResource("37_6a5mp")
-texture_pressed = ExtResource("38_0801h")
-texture_hover = ExtResource("39_74l0p")
-texture_disabled = ExtResource("40_mqnwr")
+offset_left = 264.666
+offset_top = 699.669
+offset_right = 363.666
+offset_bottom = 733.669
+texture_normal = ExtResource("37_xegw6")
+texture_pressed = ExtResource("38_urpyq")
+texture_hover = ExtResource("39_ocqhg")
+texture_disabled = ExtResource("40_cnjnf")
 stretch_mode = 4
 
 [node name="Player" parent="Camera2D" instance=ExtResource("23_aqmxl")]
