@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=103 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -159,6 +159,12 @@ font_size = 18
 font_size = 26
 
 [sub_resource type="LabelSettings" id="LabelSettings_l11av"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_at3jy"]
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_uchbk"]
 font_size = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1lb6"]
@@ -538,15 +544,16 @@ offset_bottom = 600.801
 text = "MUSIC:"
 label_settings = SubResource("LabelSettings_pbkcl")
 
-[node name="Music name" type="Label" parent="Camera2D/GUI/Panel"]
+[node name="MusicName" type="Label" parent="Camera2D/GUI/Panel"]
 z_index = 45
 texture_filter = 1
 layout_mode = 0
-offset_left = 84.8794
-offset_top = 606.454
-offset_right = 361.879
-offset_bottom = 649.454
-text = "(music file's name here)"
+offset_left = 85.0
+offset_top = 606.0
+offset_right = 362.0
+offset_bottom = 653.0
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="LevelNameLabel" type="Label" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
@@ -742,7 +749,7 @@ z_index = 45
 offset_left = -2522.0
 offset_top = 134.0
 offset_right = -1859.0
-offset_bottom = 673.0
+offset_bottom = 685.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1f5w")
 
 [node name="title" type="Label" parent="EditorInstructions"]
@@ -760,77 +767,6 @@ position = Vector2(0, 5.2)
 points = PackedVector2Array(0.212402, 41.2297, 373.093, 41.1918, 662.778, 41.1624)
 width = 2.0
 
-[node name="Basics" type="Label" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 11.2
-offset_top = 56.982
-offset_right = 96.2
-offset_bottom = 84.982
-text = "BASICS:"
-label_settings = SubResource("LabelSettings_owast")
-
-[node name="BasicsC" type="Label" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 11.0
-offset_top = 85.0
-offset_right = 658.0
-offset_bottom = 173.0
-text = "Spawn Enemies: Click the enemy buttons on the panel to add enemies to the level screen. Drag them to your desired positions.
-Delete Enemies: Right-click on enemies to remove them.
-Scroll: Use the scroll button above to navigate through the level and place enemies."
-label_settings = SubResource("LabelSettings_ir3xd")
-autowrap_mode = 2
-
-[node name="TestingAndValidation" type="Label" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 10.701
-offset_top = 190.069
-offset_right = 313.701
-offset_bottom = 220.069
-text = "TESTING AND VALIDATION:"
-label_settings = SubResource("LabelSettings_y8min")
-
-[node name="TestingAndValidationC" type="Label" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 12.5945
-offset_top = 217.886
-offset_right = 660.594
-offset_bottom = 393.886
-text = "Play: Press the play button to test your level. Don’t forget to give your level a name before you start testing!
-Validation: You must complete your level to validate it for sharing. Only validated levels appear in the Level Selection page under PLAY or SIMULATE.
-Revalidation: If you make any changes, you must complete the level again for revalidation.
-Save: Remember to save your progress before exiting if you don't have time to attempt your level."
-label_settings = SubResource("LabelSettings_4lgf8")
-autowrap_mode = 2
-
-[node name="FileManagement" type="Label" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 11.2
-offset_top = 415.611
-offset_right = 219.2
-offset_bottom = 443.611
-text = "FILE MANAGEMENT:"
-label_settings = SubResource("LabelSettings_djln8")
-
-[node name="FileManagementC" type="Label" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 10.5381
-offset_top = 447.32
-offset_right = 655.538
-offset_bottom = 541.32
-text = "New File: Creates a new level file.
-Open File: Opens a previously saved level file.
-Share File: Generates a code to share your level with friends. Use the load file section to import levels shared by friends by copying their code.
-"
-label_settings = SubResource("LabelSettings_l11av")
-autowrap_mode = 2
-
 [node name="InstructionsQuitButton" type="TextureButton" parent="EditorInstructions"]
 texture_filter = 1
 layout_mode = 0
@@ -842,6 +778,84 @@ texture_normal = ExtResource("29_3l3at")
 texture_pressed = ExtResource("30_ekael")
 texture_hover = ExtResource("31_42vc7")
 stretch_mode = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorInstructions"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 57.0
+offset_right = 662.0
+offset_bottom = 536.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorInstructions/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Basics" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "BASICS:"
+label_settings = SubResource("LabelSettings_owast")
+
+[node name="BasicsC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Spawn Enemies: Click the enemy buttons on the panel to add enemies to the level screen. Drag them to your desired positions.
+Delete Enemies: Right-click on enemies to remove them.
+Scroll: Use the scroll button above to move through the level and place enemies.
+
+"
+label_settings = SubResource("LabelSettings_ir3xd")
+autowrap_mode = 2
+
+[node name="TestingAndValidation" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "TESTING AND VALIDATION:"
+label_settings = SubResource("LabelSettings_y8min")
+
+[node name="TestingAndValidationC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Play: Hit the play button to test your level. Don’t forget to give your level a name before you start testing!
+Validation: You must beat your own level to validate it for sharing. Only validated levels appear in the Level Selection page under PLAY or SIMULATE.
+Revalidation: If you make any changes, you must complete the level again for revalidation.
+Save: Save your progress before exiting if you don't have time to complete your level.
+Rename: Click the rename button to change the name of your current file. If you save again after editing, it will create a new file with the new name.
+
+"
+label_settings = SubResource("LabelSettings_4lgf8")
+autowrap_mode = 2
+
+[node name="FileManagement" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "FILE MANAGEMENT:"
+label_settings = SubResource("LabelSettings_djln8")
+
+[node name="FileManagementC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "New File: Creates a brand new level file.
+Open File: Opens a previously saved level file.
+Share File: Generates a code to share your level with friends. Use the IMPORT section to import levels shared by friends by copying their code.
+Custom Music Sharing: If you want to share a level with your custom music, make sure the person you are sharing the level with has the same audio file in their Assets/BGM folder.
+
+"
+label_settings = SubResource("LabelSettings_l11av")
+autowrap_mode = 2
+
+[node name="SelectMusic" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "SELECT MUSIC: "
+label_settings = SubResource("LabelSettings_at3jy")
+
+[node name="SelectMusicC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Copy Audio Files: Copy your audio file (.mp3, .wav, or .ogg) into the Spirit Dashing folder res://Assets/BGM.
+Select Music: Click the select music button in the music section to open the res://Assets/BGM folder. Choose the track you want your level to play."
+label_settings = SubResource("LabelSettings_uchbk")
+autowrap_mode = 2
 
 [node name="OverwriteFilePanel" type="Panel" parent="."]
 z_index = 46

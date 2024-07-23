@@ -77,6 +77,7 @@ func _ready():
 	initialize_enemy_buttons()
 	initialize_level_select_screen()
 	
+	
 	if Main.CURR_EDITOR_LEVEL:
 		load_enemies(Main.curr_editor_level_enemy_data)
 		enemy_data = Main.curr_editor_level_enemy_data
@@ -144,6 +145,8 @@ func _process(delta):
 	else:
 		$Panel/RenameButton.visible = false
 		$Panel/LineEdit.size = Vector2(349, 34)
+	
+	$Panel/MusicName.text = level_music_path.trim_prefix("res://Assets/BGM/")
 	
 
 func initialize_scene_references():
