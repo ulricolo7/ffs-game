@@ -311,7 +311,9 @@ func play_click_sfx():
 	$ClickSFX.play()
 
 func load_music():
-	var file_extension = Main.curr_level_bgm.get_extension().to_lower()
+	var file_extension
+	if Main.curr_level_bgm:
+		file_extension = Main.curr_level_bgm.get_extension().to_lower()
 	var stream = $AudioStreamPlayer
 	if file_extension == "wav":
 		stream.stream = load_wav(Main.curr_level_bgm)

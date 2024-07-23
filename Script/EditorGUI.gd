@@ -54,7 +54,7 @@ const enemy_offset = {
 	"cg": Vector2(10,0)
 }
 var is_renamed = false
-var level_music_path = "res://Assets/BGM/Action.mp3" 
+var level_music_path = "res://Assets/BGM/Action.mp3"
 
 func _ready():
 	if Main.curr_level_bgm:
@@ -402,6 +402,7 @@ func _on_play_button_pressed():
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	
 	Main.curr_editor_level_enemy_data = enemy_data
+	Main.curr_level_bgm = level_music_path
 	Main.player_input_disabled = false 
 	Main.BOT_NAME = ""
 	Main.LEVEL_SCRIPT = "res://Script/Levels/" + curr_file_name # check if needed
@@ -620,7 +621,7 @@ func _on_upload_music_file_selected(path):
 	if trimmed_music_file_path != path:
 		#print(path)
 		level_music_path = "{0}".format([path])
-		Main.curr_level_bgm = path
+		#Main.curr_level_bgm = path
 		mark_level("saved", "false")
 
 func play_click_sfx():
