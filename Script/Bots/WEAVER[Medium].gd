@@ -82,6 +82,7 @@ func die():
 	emit_signal("player_died")
 	$AnimatedSprite.play("death")
 	$DeathSFX.play()
+	$Timer.start(0.35)
 	
 func freeze():
 	is_frozen = true
@@ -129,3 +130,6 @@ func _on_near_scan_area_exited(_area):
 
 func _on_far_scan_area_exited(_area):
 	return_to_centre()
+
+func _on_timer_timeout():
+	queue_free()

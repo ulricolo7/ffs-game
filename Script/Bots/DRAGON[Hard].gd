@@ -101,6 +101,7 @@ func die():
 	emit_signal("player_died")
 	$AnimatedSprite.play("death")
 	$DeathSFX.play()
+	$Timer.start(0.35)
 	
 func freeze():
 	is_frozen = true
@@ -205,3 +206,6 @@ func _on_surround_scan_area_entered(area):
 func _on_surround_scan_area_exited(area):
 	if area.is_in_group("Enemies"):
 		out_scan -= 1
+
+func _on_timer_timeout():
+	queue_free()

@@ -138,13 +138,6 @@ material = SubResource("CanvasItemMaterial_d1k00")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NearScan"]
 polygon = PackedVector2Array(18, -50, 48, -37, 122, -27, 141, 0, 122, 26, 48, 36, 17, 47, -4, 42, -24, 37, -40, 0, -26, -41, -7, -48)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-light_mask = 3
-visibility_layer = 3
-position = Vector2(10, 10)
-scale = Vector2(2.14583, 2.0625)
-polygon = PackedVector2Array(-14.9952, -24.5424, -2.87865, -24.5424, 4.57767, -16.3, 5.04369, -9.99695, 3.17961, -7.08785, 4.6602, -2.90909, 10.7185, -4.76837e-07, 12.034, 3.09396, 9.70389, 4.54851, 5.97573, 4.54851, 2.71359, 2.12427, 0.383488, 7.94245, -4.27671, 11.3364, -6.14079, 12.3061, -8.00488, 12.7909, -10.801, 13.7606, -14.0631, 14.7303, -17.3253, 13.7606, -11.733, 5.03336, -16.8593, 3.57881, -19.6554, 0.669721, -20.0389, -1.45455, -16.7767, -0.484849, -11.733, -3.20907, -9.40294, -6.60301, -11.733, -9.99695, -12.1991, -17.7545, -15.9272, -13.3909, -18.2573, -13.3909, -19.6554, -15.8151, -19.6554, -19.6939)
-
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2.5, 2.49219)
@@ -155,5 +148,16 @@ animation = &"death"
 stream = ExtResource("19_va58a")
 pitch_scale = 1.2
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(10, 10)
+scale = Vector2(2.14583, 2.0625)
+polygon = PackedVector2Array(-11.1273, -22.864, -3.55031, -22.756, 3.52227, -16.029, 3.5534, -10.2424, 0.328374, -6.53743, 2.44317, -2.32917, 1.93718, 0.805734, -1.74751, 7.12301, -6.71678, 9.71245, -11.6728, 8.84756, -8.50655, 1.23674, -9.54506, -1.51926, -9.40294, -6.60301, -11.733, -9.99695, -11.369, -18.4753, -11.75, -20.6503)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="NearScan" to="." method="_on_near_scan_area_entered"]
 [connection signal="area_exited" from="NearScan" to="." method="_on_near_scan_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

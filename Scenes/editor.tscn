@@ -515,6 +515,7 @@ always_on_top = true
 ok_button_text = "Open"
 dialog_hide_on_ok = true
 file_mode = 0
+filters = PackedStringArray("*.mp3", "*.wav", "*.ogg")
 
 [node name="LevelIsCompletedLabel" type="Label" parent="Camera2D/GUI/Panel"]
 visible = false

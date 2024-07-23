@@ -47,6 +47,7 @@ var level_script
 
 #functions
 func _ready():
+	print(Main.curr_level_bgm)
 	Main.player_input_disabled = false
 	init_level(Main.LEVEL_SCRIPT)
 	spawn_ground(1200)
@@ -55,7 +56,9 @@ func _ready():
 	spawn_ground(1000)
 	player = init_player(Main.BOT_NAME)
 	#print("Level ready")
+	load_music()
 	start_run()
+	
 	
 
 func _process(delta):
@@ -116,8 +119,8 @@ func init_player(bot_name):
 		player_scene = preload("res://Scenes/Player/WEAVER[Medium].tscn")
 	elif bot_name == "res://Scenes/Player/MAIDEN[Easy].tscn":
 		player_scene = preload("res://Scenes/Player/MAIDEN[Easy].tscn")
-	elif bot_name == "res://Scenes/Player/TECHIES[Hard].tscn":
-		player_scene = preload("res://Scenes/Player/TECHIES[Hard].tscn")
+	elif bot_name == "res://Scenes/Player/DRAGON[Hard].tscn":
+		player_scene = preload("res://Scenes/Player/DRAGON[Hard].tscn")
 	else:
 		player_scene = preload("res://Scenes/Player/player_character.tscn")
 	
@@ -306,3 +309,35 @@ func _on_start_timer_timeout():
 	
 func play_click_sfx():
 	$ClickSFX.play()
+
+func load_music():
+	var file_extension = Main.curr_level_bgm.get_extension().to_lower()
+	var stream = $AudioStreamPlayer
+	if file_extension == "wav":
+		stream.stream = load_wav(Main.curr_level_bgm)
+	elif file_extension == "ogg":
+		stream.stream = load_ogg(Main.curr_level_bgm)
+	elif file_extension == "mp3":
+		stream.stream = load_mp3(Main.curr_level_bgm)
+	else:
+		print("Unsupported audio format: %s" % file_extension)
+		return
+	stream.play()
+
+func load_wav(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamWAV.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound
+
+func load_ogg(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamOggVorbis.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound
+
+func load_mp3(path: String):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var sound = AudioStreamMP3.new()
+	sound.data = file.get_buffer(file.get_length())
+	return sound

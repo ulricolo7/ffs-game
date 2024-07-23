@@ -65,6 +65,7 @@ func die():
 	emit_signal("player_died")
 	$AnimatedSprite.play("death")
 	$DeathSFX.play()
+	$Timer.start(0.35)
 	
 func freeze():
 	is_frozen = true
@@ -167,3 +168,6 @@ func _on_position_5_area_entered(area):
 
 func _on_position_5_area_exited(area):
 	counterArray[4] = adjust_counter(area, counterArray[4], false)
+
+func _on_timer_timeout():
+	queue_free()

@@ -29,6 +29,8 @@ var curr_editor_level_enemy_data: Dictionary
 var editor_paused = false
 var editor_paused2 = false
 var level_select_paused = false
+var curr_level_bgm
+var prep_level_bgm
 
 func _ready():
 	MASTER_VOLUME = SAVED_OPTIONS.MASTER_VOLUME

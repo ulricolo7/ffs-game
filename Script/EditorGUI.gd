@@ -54,8 +54,12 @@ const enemy_offset = {
 	"cg": Vector2(10,0)
 }
 var is_renamed = false
+var level_music_path = "res://Assets/BGM/Action.mp3" 
 
 func _ready():
+	if Main.curr_level_bgm:
+		level_music_path = Main.curr_level_bgm
+		print(level_music_path)
 	Main.editor_paused2 = false
 	Main.player_input_disabled = false
 	Main.editor_paused = false
@@ -320,6 +324,7 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 		file.store_line("var last_updated = \"{0}\"".format([last_updated]))
 		file.store_line("var is_completed = false") # setup the default false value
 		file.store_line("var is_saved = false")
+		file.store_line("var bgm = \"{0}\"".format([level_music_path]))
 		file.store_line("")
 		file.store_line("var last_enemy_x = {0}".format([largest_x]))
 		file.store_line("")
@@ -610,40 +615,13 @@ func _on_upload_music_button_pressed():
 
 func _on_upload_music_file_selected(path):
 	play_click_sfx()
-	var audio_player = $"../../AudioStreamPlayer"
-	var stream: AudioStream
-	var file_extension = path.get_extension().to_lower()
-
-	if file_extension == "wav":
-		stream = load_wav(path)
-	elif file_extension == "ogg":
-		stream = load_ogg(path)
-	elif file_extension == "mp3":
-		stream = load_mp3(path)
-	else:
-		print("Unsupported audio format: %s" % file_extension)
-		return
-
-	audio_player.stream = stream
-	audio_player.play()
-
-func load_wav(path: String):
-	var file = FileAccess.open(path, FileAccess.READ)
-	var sound = AudioStreamWAV.new()
-	sound.data = file.get_buffer(file.get_length())
-	return sound
-
-func load_ogg(path: String):
-	var file = FileAccess.open(path, FileAccess.READ)
-	var sound = AudioStreamOggVorbis.new()
-	sound.data = file.get_buffer(file.get_length())
-	return sound
-
-func load_mp3(path: String):
-	var file = FileAccess.open(path, FileAccess.READ)
-	var sound = AudioStreamMP3.new()
-	sound.data = file.get_buffer(file.get_length())
-	return sound
+	#print("music selected is: " + path)
+	var trimmed_music_file_path = level_music_path.replace("\"", "")
+	if trimmed_music_file_path != path:
+		#print(path)
+		level_music_path = "{0}".format([path])
+		Main.curr_level_bgm = path
+		mark_level("saved", "false")
 
 func play_click_sfx():
 	$"../../ClickSFX".play()
@@ -678,6 +656,7 @@ func _on_save_and_exit_button_pressed():
 				else:
 					Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
 					Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
+					Main.curr_level_bgm = Main.prep_level_bgm
 				Main.level_select_paused = false
 				get_tree().reload_current_scene()
 		else:
@@ -724,10 +703,12 @@ func _on_dont_save_button_pressed():
 			Main.editor_paused = false
 			Main.level_select_paused = false
 			Main.CURR_EDITOR_LEVEL = Main.PREP_EDITOR_LEVEL
+			Main.curr_level_bgm = Main.prep_level_bgm
 			Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
 			get_tree().reload_current_scene()
 		else:
 			Main.CURR_EDITOR_LEVEL = ""
+			Main.curr_level_bgm = ""
 			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 			Main.curr_editor_level_enemy_data = {}
 			Main.level_switching = false
@@ -739,6 +720,7 @@ func _on_dont_save_button_pressed():
 		Main.editor_paused = false
 		Main.level_select_paused = false
 		Main.CURR_EDITOR_LEVEL = ""
+		Main.curr_level_bgm = ""
 		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 		Main.curr_editor_level_enemy_data = {}
 		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")

@@ -124,7 +124,7 @@ func _on_level_button_pressed(file_path: String):
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}
-				#var largest_x = 0
+				var bgm = ""
 				var in_enemy_data = false
 				var regex = RegEx.new()
 				var result
@@ -132,6 +132,10 @@ func _on_level_button_pressed(file_path: String):
 			
 				while not file.eof_reached():
 					var line = file.get_line().strip_edges()
+					if line.begins_with("var bgm = "):
+						Main.prep_level_bgm = line.lstrip("var bgm = ")
+						print(Main.prep_level_bgm)
+					
 					if line == "var enemy_data = {":
 						in_enemy_data = true
 						continue
@@ -154,7 +158,7 @@ func _on_level_button_pressed(file_path: String):
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}
-				#var largest_x = 0
+				var bgm = ""
 				var in_enemy_data = false
 				var regex = RegEx.new()
 				var result
@@ -162,6 +166,10 @@ func _on_level_button_pressed(file_path: String):
 			
 				while not file.eof_reached():
 					var line = file.get_line().strip_edges()
+					if line.begins_with("var bgm = "):
+						Main.curr_level_bgm = line.lstrip("var bgm = ").replace("\"", "")
+						print(Main.curr_level_bgm)
+					
 					if line == "var enemy_data = {":
 						in_enemy_data = true
 						continue
