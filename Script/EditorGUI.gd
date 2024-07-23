@@ -55,6 +55,8 @@ const enemy_offset = {
 }
 var is_renamed = false
 var level_music_path = "res://Assets/BGM/Action.mp3"
+var curr_level_is_saved = false
+var curr_level_is_completed = false
 
 func _ready():
 	if Main.curr_level_bgm:
@@ -174,6 +176,7 @@ func _on_enemy_button_pressed(enemy_type):
 		pass
 	else:
 		play_click_sfx()
+		check_if_saved_completed()
 		var enemy_scene = ENEMY_SCENES.get(enemy_type)
 		var inst_location = camera.position.x
 		last_updated = get_current_singapore_time()
@@ -267,7 +270,7 @@ func _input(event):
 		if right_click_pressed:
 			return
 		else:
-			
+			check_if_saved_completed()
 			$Panel.visible = false
 			if original_position.x < 0:
 				original_position = curr_enemy.position
@@ -298,6 +301,7 @@ func _input(event):
 
 func delete_curr_enemy():
 	play_click_sfx()
+	check_if_saved_completed()
 	if curr_enemy:
 		var idx = enemy_indices.get(curr_enemy)
 		if enemy_data.has(idx):
@@ -392,13 +396,8 @@ func _on_play_button_pressed():
 		curr_file_path = new_file_path
 	if new_file_name != curr_file_name:
 		curr_file_name = new_file_name
-	var curr_lvl_is_saved
-	var curr_lvl_is_completed
 	if FileAccess.file_exists(curr_file_path):
-		if check_level_saved(curr_file_path):
-			curr_lvl_is_saved = true
-		if check_level_validity(curr_file_path):
-			curr_lvl_is_completed = true
+		check_if_saved_completed()
 		delete_file(curr_file_path) # to overwrite if the user saves again after editing further
 	
 	Main.curr_editor_level_enemy_data = enemy_data
@@ -407,9 +406,9 @@ func _on_play_button_pressed():
 	Main.BOT_NAME = ""
 	Main.LEVEL_SCRIPT = "res://Script/Levels/" + curr_file_name # check if needed
 	create_file("res://Script/Levels/" + curr_file_name, Main.curr_editor_level_enemy_data, largest_x)
-	if curr_lvl_is_saved:
+	if curr_level_is_saved:
 		mark_level("saved", "true")
-	if curr_lvl_is_completed:
+	if curr_level_is_completed:
 		mark_level("completed", "true")
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
@@ -617,6 +616,8 @@ func _on_upload_music_button_pressed():
 func _on_upload_music_file_selected(path):
 	play_click_sfx()
 	#print("music selected is: " + path)
+	check_if_saved_completed()
+	
 	var trimmed_music_file_path = level_music_path.replace("\"", "")
 	if trimmed_music_file_path != path:
 		#print(path)
@@ -698,6 +699,13 @@ func _on_back_button_pressed():
 
 func _on_dont_save_button_pressed():
 	play_click_sfx()
+	print("dont save pressed")
+	if curr_level_is_completed:
+		mark_level("completed", "true")
+		print("marked as completed")
+	if curr_level_is_saved:
+		print("marked as saved")
+		mark_level("saved", "true")
 	if Main.level_switching:
 		if Main.in_open_file:
 			Main.level_switching = false
@@ -1053,18 +1061,22 @@ func _on_rename_button_pressed():
 	play_click_sfx()
 	$Panel/LineEdit.release_focus()
 	is_renamed = true
-	var curr_lvl_is_saved
-	var curr_lvl_is_completed
 	if FileAccess.file_exists(curr_file_path):
-		if check_level_saved(curr_file_path):
-			curr_lvl_is_saved = true
-		if check_level_validity(curr_file_path):
-			curr_lvl_is_completed = true
+		check_if_saved_completed()
 		delete_file(curr_file_path)
 	create_file(new_file_path, enemy_data, largest_x)
-	if curr_lvl_is_saved:
-		mark_level("saved", "true")
-	if curr_lvl_is_completed:
-		mark_level("completed", "true")
+	check_if_saved_completed()
 	curr_file_path = new_file_path
 	reload_level_select_screen()
+
+func check_if_saved_completed():
+	if FileAccess.file_exists(curr_file_path):
+		if curr_level_is_saved:
+			pass
+		elif check_level_saved(curr_file_path):
+			curr_level_is_saved = true
+			
+		if curr_level_is_completed:
+			pass
+		elif check_level_validity(curr_file_path):
+			curr_level_is_completed = true
