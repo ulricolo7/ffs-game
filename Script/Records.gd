@@ -3,7 +3,7 @@ extends Control
 var attempts_path = "res://Script/ListOfAttempts.gd"
 @export var attempt_scene = preload("res://Scenes/record_attempt.tscn")
 var offset = 70
-
+var scanned = false
 func _ready():
 	pass
 	
@@ -43,4 +43,6 @@ func play_click_sfx():
 
 
 func _on_visibility_changed():
-	scan_attempts_folder()
+	if not scanned:
+		scan_attempts_folder()
+		scanned = true
