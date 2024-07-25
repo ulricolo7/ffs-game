@@ -247,4 +247,5 @@ func play_click_sfx():
 func _on_cancel_pressed():
 	play_click_sfx()
 	$WarningPanel.visible = false
-	Main.editor_paused = true
+	Main.editor_paused = false
+	Main.player_input_disabled = true

@@ -119,6 +119,7 @@ offset_top = 79.9461
 offset_right = 659.0
 offset_bottom = 128.946
 label_settings = SubResource("LabelSettings_n81kl")
+autowrap_mode = 2
 
 [node name="Delete" type="TextureButton" parent="WarningPanel"]
 texture_filter = 1

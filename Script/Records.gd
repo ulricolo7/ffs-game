@@ -27,7 +27,7 @@ func break_down(line):
 	res = res.replace("\", \"progress\": ", "&&&")
 	res = res.replace(", \"time\": \"", "&&&")
 	res = res.replace("\"},", "").split("&&&")
-	print(res)
+	#print(res)
 	return res
 
 func display_attempt(arr):

@@ -44,6 +44,7 @@ var imp_level_path
 var imp_last_updated = ""
 var imp_enemy_data = {}
 var imp_last_enemy_x = -100
+var imp_lvl_music
 
 var last_enemy_position = {}
 var occupied_positions = []
@@ -146,7 +147,11 @@ func _process(delta):
 		$Panel/RenameButton.visible = false
 		$Panel/LineEdit.size = Vector2(349, 34)
 	
-	$Panel/MusicName.text = level_music_path.trim_prefix("res://Assets/BGM/")
+	if FileAccess.file_exists(level_music_path):
+		
+		$Panel/MusicName.text = level_music_path.trim_prefix("res://Assets/BGM/")
+	else:
+		$Panel/MusicName.text = "(Audio file not found)"
 	
 
 func initialize_scene_references():
@@ -674,6 +679,7 @@ func _on_save_and_exit_button_pressed():
 				Main.CURR_EDITOR_LEVEL = ""
 				Main.CURR_EDITOR_LEVEL_COMPLETED = ""
 				Main.curr_editor_level_enemy_data = {}
+				Main.curr_level_bgm = ""
 				Main.level_switching = false
 				Main.editor_paused2 = false
 				Main.editor_paused = false
@@ -687,6 +693,7 @@ func _on_save_and_exit_button_pressed():
 			_on_save_button_pressed()
 			Main.CURR_EDITOR_LEVEL = ""
 			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+			Main.curr_level_bgm = ""
 			Main.curr_editor_level_enemy_data = {}
 			Main.in_editor = false
 			get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
@@ -791,7 +798,7 @@ func _on_share_button_pressed():
 
 func _on_yes_button_pressed():
 	play_click_sfx()
-	import_level(imp_level_path, imp_last_updated, imp_last_enemy_x, imp_enemy_data)
+	import_level(imp_level_path, imp_last_updated, imp_last_enemy_x, imp_enemy_data, imp_lvl_music)
 	Main.player_input_disabled = false
 	Main.editor_paused2 = false
 	overwrite_file_popup.position.x = - 3100
@@ -925,7 +932,7 @@ func _on_import_button_pressed():
 	var import_code = sharing_panel.find_child("ImportCode").text
 	if is_valid_level_code(import_code):
 		var level_data = decode_level_data(import_code)
-		
+		print(level_data)
 		var regex = RegEx.new()
 		regex.compile("\"([^\"]+)\":({.*?}|\".*?\"|\\d+)")
 		
@@ -938,7 +945,10 @@ func _on_import_button_pressed():
 				
 			if key == "last_updated":
 				imp_last_updated = value
-				
+			
+			if key == "bgm":
+				imp_lvl_music = value
+			
 			else:
 				if value.begins_with("{"):
 					var enemy_parts = value.replace("{\"position\":\"(", "").replace(")\",\"type\":\"", ",").replace("\"}", "").split(",")
@@ -953,16 +963,16 @@ func _on_import_button_pressed():
 				imp_last_enemy_x = curr_x
 		
 		# create a new file
-		var trimmed_file_path_idk_why_we_need_this = imp_level_path.replace("\"", "")
+		var trimmed_file_path = imp_level_path.replace("\"", "")
 		
-		if FileAccess.file_exists(trimmed_file_path_idk_why_we_need_this):
+		if FileAccess.file_exists(trimmed_file_path):
 			print("file alr exists")
 			var popup_content = overwrite_file_popup.find_child("Content")
 			overwrite_file_popup.position.x = camera.position.x - 320
 			popup_content.text = "A file under the name \"{0}\" already exists in your directory. Overwrite existing file?".format([imp_level_path.get_file().get_basename()])
 			sharing_panel.position.x = -4000
 		else:
-			import_level(imp_level_path, imp_last_updated, imp_last_enemy_x, imp_enemy_data)
+			import_level(imp_level_path, imp_last_updated, imp_last_enemy_x, imp_enemy_data, imp_lvl_music)
 			if sharing_panel.find_child("InvalidLevelCodeNotif").visible:
 				sharing_panel.find_child("InvalidLevelCodeNotif").visible = false
 			sharing_panel.find_child("LevelImportedNotif").visible = true
@@ -974,7 +984,7 @@ func _on_import_button_pressed():
 		sharing_panel.find_child("InvalidLevelCodeNotif").visible = true
 		sharing_panel.find_child("NotifTimer").start(2.5)
 
-func import_level(file_path: String, last_updated: String, last_enemy_x: int, enemy_data: Dictionary):
+func import_level(file_path: String, last_updated: String, last_enemy_x: int, enemy_data: Dictionary, level_music: String):
 	var trimmed_file_path = file_path.replace("\"", "")
 	var file = FileAccess.open(trimmed_file_path, FileAccess.WRITE)
 	if file:
@@ -983,6 +993,7 @@ func import_level(file_path: String, last_updated: String, last_enemy_x: int, en
 		file.store_line('var last_updated = {0}'.format([last_updated]))
 		file.store_line('var is_completed = true')
 		file.store_line('var is_saved = true')
+		file.store_line('var bgm = {0}'.format([level_music]))
 		file.store_line('var last_enemy_x = {0}'.format([last_enemy_x]))
 		file.store_line('var enemy_data = {')
 		for key in enemy_data.keys():

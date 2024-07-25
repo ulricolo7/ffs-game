@@ -393,18 +393,30 @@ func load_music():
 
 func load_wav(path: String):
 	var file = FileAccess.open(path, FileAccess.READ)
-	var sound = AudioStreamWAV.new()
-	sound.data = file.get_buffer(file.get_length())
-	return sound
+	if file:
+		var sound = AudioStreamMP3.new()
+		print(file.get_length())
+		sound.data = file.get_buffer(file.get_length())
+		return sound
+	else:
+		pass
 
 func load_ogg(path: String):
 	var file = FileAccess.open(path, FileAccess.READ)
-	var sound = AudioStreamOggVorbis.new()
-	sound.data = file.get_buffer(file.get_length())
-	return sound
+	if file:
+		var sound = AudioStreamMP3.new()
+		print(file.get_length())
+		sound.data = file.get_buffer(file.get_length())
+		return sound
+	else:
+		pass
 
 func load_mp3(path: String):
 	var file = FileAccess.open(path, FileAccess.READ)
-	var sound = AudioStreamMP3.new()
-	sound.data = file.get_buffer(file.get_length())
-	return sound
+	if file:
+		var sound = AudioStreamMP3.new()
+		print(file.get_length())
+		sound.data = file.get_buffer(file.get_length())
+		return sound
+	else:
+		pass
