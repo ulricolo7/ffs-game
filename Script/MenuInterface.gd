@@ -4,15 +4,16 @@ const options_scene = preload("res://Scenes/options.tscn")
 const level_select_scene = preload("res://Scenes/level_select.tscn")
 const level_select_sim_scene = preload("res://Scenes/Simulator/level_select.tscn")
 const bot_select_scene = preload("res://Scenes/Simulator/bot_select.tscn")
+const records_scene = preload("res://Scenes/records.tscn")
 
 var options_screen
 var level_select_screen
 var level_select_sim_screen
 var bot_select_screen
+var records_screen
 
 
 func init_screen(var_name, scene_name, visibility, z_ind):
-
 	var_name = scene_name.instantiate()
 	var_name.set_visible(visibility)
 	var_name.set_z_index(z_ind)
@@ -26,6 +27,7 @@ func _ready():
 	level_select_screen = init_screen(level_select_screen, level_select_scene, false, 10)
 	level_select_sim_screen = init_screen(level_select_sim_screen, level_select_sim_scene, false, 10)
 	bot_select_screen = init_screen(bot_select_screen, bot_select_scene, false, 10)
+	records_screen = init_screen(records_screen, records_scene, false, 10)
 	
 	level_select_sim_screen.connect("switch_screens", Callable(self, "screen_switch"))
 	bot_select_screen.find_child("Panel").connect("switch_screens", Callable(self, "screen_switch"))
@@ -42,6 +44,10 @@ func _on_simulate_pressed():
 func _on_editor_pressed():
 	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
+
+func _on_records_pressed():
+	play_click_sfx()
+	records_screen.visible = true
 
 func _on_options_pressed():
 	play_click_sfx()
@@ -76,3 +82,6 @@ func _on_close_instructions_pressed():
 	
 func play_click_sfx():
 	$ClickSFX.play()
+
+
+

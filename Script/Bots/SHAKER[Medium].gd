@@ -3,7 +3,7 @@ extends CharacterBody2D
 const GRAVITY = 0
 var ACCELERATION = 150 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
-const NAME = "SHAKER"
+const NAME = "SHAKER[Medium]"
 
 signal player_died
 #signal paused

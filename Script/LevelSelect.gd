@@ -201,7 +201,6 @@ func _on_delete_lvl_button_pressed(button_instance, file_path: String):
 	$WarningPanel/Content.text = "Are you sure you want to delete {0}? (this action cannot be undone)".format([file_path.get_file().get_basename()])
 	
 func open_editor():
-	play_click_sfx()
 	Main.in_editor = true
 	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 

@@ -6,7 +6,7 @@ var SOFT_ACC = 100 * Main.TEST_SPEED
 var HORI_ACC = 25 * Main.TEST_SPEED
 var DODGE_ACC = 70 * Main.TEST_SPEED
 var MAX_SPEED = 500 * Main.TEST_SPEED
-const NAME = "TECHIES"
+const NAME = "DRAGON[Hard]"
 #DO NOT TOUCH ANYTHING
 
 signal player_died

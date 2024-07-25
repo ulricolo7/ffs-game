@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://4x3kktdjjn6g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ntevk"]
+line_spacing = 0.0
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_miv35"]
+line_spacing = 2.0
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_cving"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_s024y"]
+line_spacing = 0.0
+
+[node name="Attempt" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 350.0
+offset_right = 350.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerName" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 8.0
+offset_top = 49.0
+offset_right = 428.0
+offset_bottom = 69.0
+text = "PP"
+label_settings = SubResource("LabelSettings_ntevk")
+
+[node name="LevelName" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 428.0
+offset_bottom = 46.0
+text = "LL"
+label_settings = SubResource("LabelSettings_miv35")
+vertical_alignment = 2
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(0, -30)
+points = PackedVector2Array(0.0665588, 124.074, 579.813, 124.102)
+width = 2.0
+
+[node name="Progress" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 415.0
+offset_top = 40.0
+offset_right = 571.0
+offset_bottom = 93.0
+text = "00.0%"
+label_settings = SubResource("LabelSettings_cving")
+
+[node name="AttemptTime" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 8.0
+offset_top = 70.0
+offset_right = 428.0
+offset_bottom = 89.0
+text = "20"
+label_settings = SubResource("LabelSettings_s024y")
+vertical_alignment = 2

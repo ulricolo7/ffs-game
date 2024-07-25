@@ -53,43 +53,51 @@ position = Vector2(-773, 650)
 
 [node name="Play" parent="." instance=ExtResource("4_b8wfp")]
 layout_mode = 0
-offset_left = 490.0
+offset_left = 514.0
 offset_top = 416.0
-offset_right = 634.0
+offset_right = 658.0
 offset_bottom = 452.0
-scale = Vector2(2, 2)
+scale = Vector2(1.7, 1.7)
 
 [node name="Simulate" parent="." instance=ExtResource("5_3mnt4")]
 layout_mode = 0
-offset_left = 490.0
-offset_top = 566.405
-offset_right = 634.0
-offset_bottom = 602.405
-scale = Vector2(2, 2)
+offset_left = 514.0
+offset_top = 546.0
+offset_right = 658.0
+offset_bottom = 582.0
+scale = Vector2(1.7, 1.7)
 
 [node name="Editor" parent="." instance=ExtResource("6_rv6no")]
 layout_mode = 0
-offset_left = 490.0
-offset_top = 491.0
-offset_right = 634.0
-offset_bottom = 527.0
-scale = Vector2(2, 2)
+offset_left = 514.0
+offset_top = 481.0
+offset_right = 658.0
+offset_bottom = 517.0
+scale = Vector2(1.7, 1.7)
 
 [node name="Options" parent="." instance=ExtResource("7_664qd")]
 layout_mode = 0
-offset_left = 490.0
-offset_top = 641.714
-offset_right = 634.0
-offset_bottom = 677.714
-scale = Vector2(2, 2)
+offset_left = 514.0
+offset_top = 676.0
+offset_right = 658.0
+offset_bottom = 712.0
+scale = Vector2(1.7, 1.7)
+
+[node name="Records" parent="." instance=ExtResource("7_664qd")]
+layout_mode = 0
+offset_left = 514.0
+offset_top = 611.0
+offset_right = 658.0
+offset_bottom = 647.0
+scale = Vector2(1.7, 1.7)
 
 [node name="Quit" parent="." instance=ExtResource("8_54qqn")]
 layout_mode = 0
-offset_left = 490.0
-offset_top = 717.177
-offset_right = 634.0
-offset_bottom = 753.177
-scale = Vector2(2, 2)
+offset_left = 514.0
+offset_top = 741.0
+offset_right = 658.0
+offset_bottom = 777.0
+scale = Vector2(1.7, 1.7)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_tf7xs")
@@ -105,7 +113,7 @@ texture = ExtResource("10_2weya")
 position = Vector2(640, 420)
 
 [node name="Player" parent="Centre" instance=ExtResource("3_7dhf0")]
-position = Vector2(-310, 92)
+position = Vector2(-360, 92)
 scale = Vector2(1.8, 1.8)
 
 [node name="Instructions" type="TextureButton" parent="."]
@@ -225,6 +233,7 @@ position = Vector2(-32.3265, 21.7521)
 [connection signal="pressed" from="Simulate" to="." method="_on_simulate_pressed"]
 [connection signal="pressed" from="Editor" to="." method="_on_editor_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Records" to="." method="_on_records_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Instructions" to="." method="_on_instructions_pressed"]
 [connection signal="pressed" from="InstructionsPanel/CloseInstructions" to="." method="_on_close_instructions_pressed"]

@@ -58,8 +58,6 @@ func _ready():
 	#print("Level ready")
 	load_music()
 	start_run()
-	
-	
 
 func _process(delta):
 	if Input.is_action_just_pressed("pause") && start_timer.is_stopped():
@@ -199,15 +197,81 @@ func start_run():
 		pause_screen.set_visible(false)
 	start_timer.start(1)
 
+func end_run():
+	var temp = read_file_to_arr()
+	temp.remove_at(temp.size() - 1)
+	temp.remove_at(temp.size() - 1)
+	write_arr_to_file(temp)
+
+func read_file_to_arr():
+	var file = FileAccess.open("res://Script/ListOfAttempts.gd", FileAccess.READ)
+	var temp = []
+	if file:
+		temp = file.get_as_text().split("\n")
+		file.close()
+		return temp
+	else:
+		print("Failed to open file for reading.")
+
+func write_arr_to_file(arr):
+	var file = FileAccess.open("res://Script/ListOfAttempts.gd", FileAccess.WRITE)
+	var key = -1
+	var player_name = get_player_name()
+	var level_name = get_level_name()
+	var progress = get_progress()
+	var time = get_current_singapore_time()
+	if file:
+		for line in arr:
+			print(line)
+			file.store_string(line + "\n")
+			key += 1
+			
+		var string_to_store = "\t{0}: {\"player\": \"{1}\", \"level\": \"{2}\", \"progress\": {3}, \"time\": \"{4}\"},"
+		file.store_line(string_to_store.format([key, player_name, level_name, progress, time]))
+		file.store_line("}")
+		file.close
+	else:
+		print("Failed to open file for writing.")
+		
+func delete_file(file_path: String): 
+	if FileAccess.file_exists(file_path):
+		var err = DirAccess.remove_absolute(file_path)
+		if err == OK:
+			print("File: ", file_path, " deleted successfully")
+			pass
+		else:
+			print("Error deleting file: ", err)
+	else:
+		print("File does not exist")
+
+func get_player_name():
+	if Main.BOT_NAME == "":
+		return String("Player")
+	else:
+		return String(player.NAME)
+
+func get_level_name():
+	var res = Main.LEVEL_SCRIPT.replace("res://Script/Levels/", "").replace(".gd", "")
+	return res
+
+func get_progress():
+	return float(progress_bar.value)
+
+func get_current_singapore_time():
+	var current_time = Time.get_unix_time_from_system()
+	var singapore_time = current_time + 8 * 3600
+	var date = Time.get_datetime_string_from_unix_time(singapore_time)
+	return date
+
 func win():
 	Main.pause()
 	
 	victory_screen.set_position(Vector2(camera.get_position().x - 640, 
 		camera.get_position().y - 420))
 		
-	#if victory_screen.visible == false:
-	#	print("Win!")
-		
+	if victory_screen.visible == false && not Main.in_editor:
+		end_run()	
+	
 	victory_screen.set_visible(true)
 	player.freeze()
 
@@ -223,7 +287,8 @@ func die():
 	if Main.AUTO_REPLAY == true:
 		death_timer.start(0.9)
 	
-	#print("Game Over")
+	if not Main.in_editor:
+		end_run()
 
 func pause():
 	if Main.no_pause_state == 1:
