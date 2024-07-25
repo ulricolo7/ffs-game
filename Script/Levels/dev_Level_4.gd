@@ -1,7 +1,8 @@
-var level_path = "res://Script/Levels/Level_1.gd"
-var last_updated = "2024-07-21T18:37:01"
+var level_path = "res://Script/Levels/dev_Level_4.gd"
+var last_updated = "2024-07-21T21:27:07"
 var is_completed = true
 var is_saved = true
+var bgm = "res://Assets/BGM/Action.mp3"
 
 var last_enemy_x = 9457
 

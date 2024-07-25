@@ -131,7 +131,7 @@ func init_player(bot_name):
 	pause_screen.connect("resumed", Callable(self, "resume"))
 	pause_screen_editor.connect("resumed", Callable(self, "resume"))
 	
-	print("Player intialized")
+	#print("Player intialized")
 	return player
 
 func spawn_enemies():

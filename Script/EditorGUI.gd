@@ -783,7 +783,8 @@ func _on_share_button_pressed():
 		Main.player_input_disabled = true
 		Main.editor_paused2 = true
 		sharing_panel.position.x = camera.position.x - 320
-		var serialized_level_data = serialize_level(enemy_data, curr_file_path, last_updated)
+		var serialized_level_data = serialize_level(enemy_data, curr_file_path, last_updated, level_music_path)
+		
 		var encoded_level_data = encode_level_data(serialized_level_data)
 		sharing_panel.find_child("ExportCode").text = encoded_level_data
 		
@@ -807,11 +808,13 @@ func _on_no_button_pressed():
 	overwrite_file_popup.position.x = - 3100
 	sharing_panel.position.x = camera.position.x - 320
 
-func serialize_level(level_data: Dictionary, level_path: String, last_updated: String) -> String:
+func serialize_level(level_data: Dictionary, level_path: String, last_updated: String, music_path: String) -> String:
 	var json = JSON.new()
 	var level_data_copy = level_data.duplicate()
 	level_data_copy["level_path"] = level_path
 	level_data_copy["last_updated"] = last_updated
+	level_data_copy["bgm"] = music_path
+	print(level_data_copy)
 	return json.stringify(level_data_copy)
 
 const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"

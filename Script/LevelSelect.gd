@@ -155,6 +155,7 @@ func _on_level_button_pressed(file_path: String):
 				emit_signal("level_not_saved")
 		else:
 			Main.CURR_EDITOR_LEVEL = file_path
+			#Main.curr_level_bgm = 
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}

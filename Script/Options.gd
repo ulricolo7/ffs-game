@@ -55,7 +55,8 @@ func delete_file(file_path: String):
 	if FileAccess.file_exists(file_path):
 		var err = DirAccess.remove_absolute(file_path)
 		if err == OK:
-			print("File: ", file_path, " deleted successfully")
+			#print("File: ", file_path, " deleted successfully")
+			pass
 		else:
 			print("Error deleting file: ", err)
 	else:
