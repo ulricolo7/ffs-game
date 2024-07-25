@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://wp7gf3jn2ixb"]
+[gd_scene load_steps=27 format=3 uid="uid://wp7gf3jn2ixb"]
 
 [ext_resource type="Script" path="res://Script/MenuInterface.gd" id="1_1r1ny"]
 [ext_resource type="PackedScene" uid="uid://dqujjvkyrihhj" path="res://Scenes/background.tscn" id="2_t3did"]
@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dlec8snukxoa6" path="res://Scenes/mainmenu_editor_button.tscn" id="6_rv6no"]
 [ext_resource type="PackedScene" uid="uid://hm1tp122ntgn" path="res://Scenes/mainmenu_options_button.tscn" id="7_664qd"]
 [ext_resource type="PackedScene" uid="uid://b183ehqte8hmw" path="res://Scenes/mainmenu_quit_button.tscn" id="8_54qqn"]
+[ext_resource type="Texture2D" uid="uid://bvnav4gxhxsai" path="res://Assets/New UI/mainmenu_records1.png" id="8_lrc8b"]
+[ext_resource type="Texture2D" uid="uid://dowpxkrxvc2id" path="res://Assets/New UI/mainmenu_records3.png" id="9_lcwsu"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/Mystery.mp3" id="9_tf7xs"]
 [ext_resource type="Texture2D" uid="uid://6r483mgcbdp" path="res://Assets/title2.png" id="10_2weya"]
+[ext_resource type="Texture2D" uid="uid://cp4x5kb6dh8dl" path="res://Assets/New UI/mainmenu_records2.png" id="10_cqiby"]
 [ext_resource type="Texture2D" uid="uid://dtkwocles7v8b" path="res://Assets/New UI/instructions_button_excl1.png" id="12_jatrw"]
 [ext_resource type="Texture2D" uid="uid://dcc5wcavxn1x3" path="res://Assets/New UI/instructions_button_excl3.png" id="13_0wqon"]
 [ext_resource type="Texture2D" uid="uid://cmdfd3550v1q8" path="res://Assets/New UI/instructions_button_excl2.png" id="14_imfg2"]
@@ -90,6 +93,9 @@ offset_top = 611.0
 offset_right = 658.0
 offset_bottom = 647.0
 scale = Vector2(1.7, 1.7)
+texture_normal = ExtResource("8_lrc8b")
+texture_pressed = ExtResource("9_lcwsu")
+texture_hover = ExtResource("10_cqiby")
 
 [node name="Quit" parent="." instance=ExtResource("8_54qqn")]
 layout_mode = 0
