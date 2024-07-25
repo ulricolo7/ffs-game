@@ -9,4 +9,7 @@ var previous_attempts = {
 	7: {"player": "Player", "level": "forricoluv", "progress": 100, "time": "2024-07-25T11:52:09"},
 	8: {"player": "Player", "level": "dev_Level_5", "progress": 8.8, "time": "2024-07-25T11:52:49"},
 	9: {"player": "Player", "level": "forricoluv", "progress": 100, "time": "2024-07-25T11:53:35"},
+	10: {"player": "Player", "level": "dev_Level_5", "progress": 11.9, "time": "2024-07-25T21:01:28"},
+	11: {"player": "Player", "level": "dev_Level_5", "progress": 12, "time": "2024-07-25T21:01:32"},
+	12: {"player": "Player", "level": "forricoluv", "progress": 100, "time": "2024-07-25T21:03:22"},
 }

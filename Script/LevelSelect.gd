@@ -99,6 +99,14 @@ func _get_file_last_modified(file_path):
 		return date
 	return "Unknown"
 
+func _get_level_bgm(file_path):
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		while not file.eof_reached():
+			var line = file.get_line().strip_edges()
+			if line.begins_with("var bgm = "):
+				return line.lstrip("var bgm = ").replace("\"", "")
+
 func check_level_saved(file_path: String) -> bool:
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
@@ -113,7 +121,6 @@ func check_level_saved(file_path: String) -> bool:
 		return false
 
 func _on_level_button_pressed(file_path: String):
-	
 	if Main.level_select_paused:
 		pass
 	elif Main.in_editor:
@@ -124,7 +131,6 @@ func _on_level_button_pressed(file_path: String):
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}
-				var bgm = ""
 				var in_enemy_data = false
 				var regex = RegEx.new()
 				var result
@@ -134,7 +140,7 @@ func _on_level_button_pressed(file_path: String):
 					var line = file.get_line().strip_edges()
 					if line.begins_with("var bgm = "):
 						Main.prep_level_bgm = line.lstrip("var bgm = ")
-						print(Main.prep_level_bgm)
+						#print(Main.prep_level_bgm)
 					
 					if line == "var enemy_data = {":
 						in_enemy_data = true
@@ -155,11 +161,10 @@ func _on_level_button_pressed(file_path: String):
 				emit_signal("level_not_saved")
 		else:
 			Main.CURR_EDITOR_LEVEL = file_path
-			#Main.curr_level_bgm = 
 			var file = FileAccess.open(file_path, FileAccess.READ)
 			if file:
 				var enemy_data = {}
-				var bgm = ""
+				#var bgm = ""
 				var in_enemy_data = false
 				var regex = RegEx.new()
 				var result
@@ -167,10 +172,7 @@ func _on_level_button_pressed(file_path: String):
 			
 				while not file.eof_reached():
 					var line = file.get_line().strip_edges()
-					if line.begins_with("var bgm = "):
-						Main.curr_level_bgm = line.lstrip("var bgm = ").replace("\"", "")
-						print(Main.curr_level_bgm)
-					
+					Main.curr_level_bgm = _get_level_bgm(file_path)
 					if line == "var enemy_data = {":
 						in_enemy_data = true
 						continue
@@ -190,6 +192,7 @@ func _on_level_button_pressed(file_path: String):
 			emit_signal("level_selected")
 	else:
 		play_click_sfx()
+		Main.curr_level_bgm = _get_level_bgm(file_path)
 		Main.LEVEL_SCRIPT = file_path
 		get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
