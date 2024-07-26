@@ -1,5 +1,5 @@
 var level_path = "res://Script/Levels/Level_4.gd"
-var last_updated = "2024-07-26T16:43:44"
+var last_updated = "-"
 var is_completed = true
 var is_saved = true
 var bgm = "res://Assets/BGM/Action.mp3"

@@ -20,6 +20,7 @@ const pause_scene_editor = preload("res://Scenes/pause_editor.tscn")
 
 #variables
 var SCREEN_LAYER = 30
+var SNEAKY_WORD = "GG"
 
 var victory_screen
 var death_screen
@@ -199,7 +200,8 @@ func start_run():
 
 func end_run():
 	var temp = read_file_to_arr()
-	temp.remove_at(temp.size() - 1)
+	#temp.remove_at(temp.size() - 1)
+	temp.insert(1, SNEAKY_WORD)
 	temp.remove_at(temp.size() - 1)
 	write_arr_to_file(temp)
 
@@ -215,20 +217,18 @@ func read_file_to_arr():
 
 func write_arr_to_file(arr):
 	var file = FileAccess.open("res://Script/ListOfAttempts.gd", FileAccess.WRITE)
-	var key = -1
+	var key = arr.size() - 3
 	var player_name = get_player_name()
 	var level_name = get_level_name()
 	var progress = get_progress()
 	var time = get_current_singapore_time()
 	if file:
 		for line in arr:
-			print(line)
-			file.store_string(line + "\n")
-			key += 1
-			
-		var string_to_store = "\t{0}: {\"player\": \"{1}\", \"level\": \"{2}\", \"progress\": {3}, \"time\": \"{4}\"},"
-		file.store_line(string_to_store.format([key, player_name, level_name, progress, time]))
-		file.store_line("}")
+			if line == SNEAKY_WORD:
+				var string_to_store = "\t{0}: {\"player\": \"{1}\", \"level\": \"{2}\", \"progress\": {3}, \"time\": \"{4}\"},"
+				file.store_line(string_to_store.format([key, player_name, level_name, progress, time]))
+			else:	
+				file.store_string(line + "\n")
 		file.close
 	else:
 		print("Failed to open file for writing.")

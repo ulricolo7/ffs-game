@@ -1,10 +1,10 @@
 var level_path = "res://Script/Levels/Level_5.gd"
-var last_updated = "2024-07-26T16:54:43"
+var last_updated = "-"
 var is_completed = true
 var is_saved = true
 var bgm = "res://Assets/BGM/Action.mp3"
 
-var last_enemy_x = 24268.068359375
+var last_enemy_x = 24359.7578125
 
 var enemy_data = {
 	0: {"position": Vector2(791, 229), "type": "gh"},
@@ -132,10 +132,11 @@ var enemy_data = {
 	122: {"position": Vector2(23624.88, 295.4017), "type": "gh"},
 	123: {"position": Vector2(23858.68, 362.3733), "type": "gh"},
 	124: {"position": Vector2(23976, 402.3486), "type": "gh"},
-	125: {"position": Vector2(24216.73, 449.5921), "type": "gh"},
-	126: {"position": Vector2(24191.3, 600.6675), "type": "gh"},
+	125: {"position": Vector2(24359.76, 461.5327), "type": "gh"},
+	126: {"position": Vector2(24284.49, 589.246), "type": "gh"},
 	127: {"position": Vector2(24151.84, 160), "type": "gh"},
 	128: {"position": Vector2(24268.07, 710), "type": "cg"},
 }
+
 
 

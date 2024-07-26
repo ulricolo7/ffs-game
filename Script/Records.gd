@@ -18,8 +18,7 @@ func scan_attempts_folder():
 				var temp = break_down(line)
 				if temp.size() == 5:
 					display_attempt(temp)
-	pass			
-#-----------------------------------------------------------
+	pass
 
 func break_down(line):
 	var res = line.replace("\t", "")
