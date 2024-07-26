@@ -1,3 +1,3 @@
-var MASTER_VOLUME = 0.6
+var MASTER_VOLUME = 1
 var AUTO_REPLAY = true
-var FULL_SCREEN = false
+var FULL_SCREEN = true
