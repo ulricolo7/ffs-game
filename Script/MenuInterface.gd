@@ -31,6 +31,8 @@ func _ready():
 	
 	level_select_sim_screen.connect("switch_screens", Callable(self, "screen_switch"))
 	bot_select_screen.find_child("Panel").connect("switch_screens", Callable(self, "screen_switch"))
+	$AudioStreamPlayer.stream.loop = true
+	
 	
 func _on_play_pressed():
 	play_click_sfx()

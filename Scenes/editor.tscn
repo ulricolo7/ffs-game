@@ -579,7 +579,7 @@ texture_disabled = ExtResource("40_cnjnf")
 stretch_mode = 4
 
 [node name="Player" parent="Camera2D" instance=ExtResource("23_aqmxl")]
-z_index = 30
+z_index = 20
 position = Vector2(-500, 20)
 scale = Vector2(1.5, 1.5)
 

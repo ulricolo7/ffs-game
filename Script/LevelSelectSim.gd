@@ -51,6 +51,14 @@ func _scan_levels_folder():
 	else:
 		print("Failed to open directory: " + levels_folder)
 
+func _get_level_bgm(file_path):
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file:
+		while not file.eof_reached():
+			var line = file.get_line().strip_edges()
+			if line.begins_with("var bgm = "):
+				return line.lstrip("var bgm = ").replace("\"", "")
+
 func is_level_completed(file_path: String) -> bool:
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
@@ -104,6 +112,7 @@ func _get_file_last_modified(file_path):
 
 func _on_level_button_pressed(file_path: String):
 	play_click_sfx()
+	Main.curr_level_bgm = _get_level_bgm(file_path)
 	Main.LEVEL_SCRIPT = file_path
 	emit_signal("switch_screens")
 

@@ -183,6 +183,8 @@ func _on_enemy_button_pressed(enemy_type):
 	if Main.editor_paused or Main.editor_paused2:
 		pass
 	else:
+		curr_level_is_completed = false
+		curr_level_is_saved = false
 		play_click_sfx()
 		check_if_saved_completed()
 		var enemy_scene = ENEMY_SCENES.get(enemy_type)
@@ -261,6 +263,8 @@ func _input(event):
 			var idx = enemy_indices.get(curr_enemy)
 			if enemy_data.has(idx):
 				var new_position = get_global_mouse_position()
+				curr_level_is_completed = false
+				curr_level_is_saved = false
 				new_position = apply_constraints(new_position, enemy_data[idx]["type"])
 				enemy_data[idx]["position"] = new_position
 				curr_enemy.position = new_position
@@ -279,6 +283,8 @@ func _input(event):
 			return
 		else:
 			check_if_saved_completed()
+			curr_level_is_completed = false
+			curr_level_is_saved = false
 			$Panel.visible = false
 			if original_position.x < 0:
 				original_position = curr_enemy.position
@@ -311,6 +317,8 @@ func delete_curr_enemy():
 	play_click_sfx()
 	check_if_saved_completed()
 	if curr_enemy:
+		curr_level_is_completed = false
+		curr_level_is_saved = false
 		var idx = enemy_indices.get(curr_enemy)
 		if enemy_data.has(idx):
 			var erased_enemy_pos = enemy_data[idx]["position"]
@@ -399,6 +407,7 @@ func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
 
 func _on_play_button_pressed():
+	_on_save_button_pressed()
 	play_click_sfx()
 	if new_file_path != curr_file_path:
 		curr_file_path = new_file_path

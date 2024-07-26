@@ -55,6 +55,7 @@ scale = Vector2(4.8025, 4.99444)
 position = Vector2(-773, 650)
 
 [node name="Play" parent="." instance=ExtResource("4_b8wfp")]
+z_index = 1
 layout_mode = 0
 offset_left = 514.0
 offset_top = 416.0
@@ -63,6 +64,7 @@ offset_bottom = 452.0
 scale = Vector2(1.7, 1.7)
 
 [node name="Simulate" parent="." instance=ExtResource("5_3mnt4")]
+z_index = 1
 layout_mode = 0
 offset_left = 514.0
 offset_top = 546.0
@@ -71,6 +73,7 @@ offset_bottom = 582.0
 scale = Vector2(1.7, 1.7)
 
 [node name="Editor" parent="." instance=ExtResource("6_rv6no")]
+z_index = 1
 layout_mode = 0
 offset_left = 514.0
 offset_top = 481.0
@@ -79,6 +82,7 @@ offset_bottom = 517.0
 scale = Vector2(1.7, 1.7)
 
 [node name="Options" parent="." instance=ExtResource("7_664qd")]
+z_index = 1
 layout_mode = 0
 offset_left = 514.0
 offset_top = 676.0
@@ -87,6 +91,7 @@ offset_bottom = 712.0
 scale = Vector2(1.7, 1.7)
 
 [node name="Records" parent="." instance=ExtResource("7_664qd")]
+z_index = 1
 layout_mode = 0
 offset_left = 514.0
 offset_top = 611.0
@@ -98,6 +103,7 @@ texture_pressed = ExtResource("9_lcwsu")
 texture_hover = ExtResource("10_cqiby")
 
 [node name="Quit" parent="." instance=ExtResource("8_54qqn")]
+z_index = 1
 layout_mode = 0
 offset_left = 514.0
 offset_top = 741.0
@@ -124,6 +130,7 @@ position = Vector2(-360, 92)
 scale = Vector2(1.8, 1.8)
 
 [node name="Instructions" type="TextureButton" parent="."]
+z_index = 1
 texture_filter = 1
 layout_mode = 0
 offset_left = 1200.91

@@ -4,9 +4,10 @@ var attempts_path = "res://Script/ListOfAttempts.gd"
 @export var attempt_scene = preload("res://Scenes/record_attempt.tscn")
 var offset = 70
 var scanned = false
+
 func _ready():
 	pass
-	
+
 func scan_attempts_folder():
 	var file = FileAccess.open(attempts_path, FileAccess.READ)
 	if file:
