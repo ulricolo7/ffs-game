@@ -1,6 +1,6 @@
 var level_path = "res://Script/Levels/test.gd"
-var last_updated = "2024-07-26T22:54:19"
-var is_completed = false
+var last_updated = "2024-07-27T00:13:19"
+var is_completed = true
 var is_saved = true
 var bgm = "res://Assets/BGM/Action.mp3"
 
@@ -15,4 +15,5 @@ var enemy_data = {
 	5: {"position": Vector2(1667, 368), "type": "fl"},
 	6: {"position": Vector2(1986, 433), "type": "fl"},
 }
+
 

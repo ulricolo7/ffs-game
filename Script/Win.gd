@@ -4,9 +4,13 @@ func _ready():
 	if Main.in_editor:
 		$MainMenu_Button.visible = false
 		$Editor_Button.visible = true
+		$Replay_Button.visible = false
+		$Editor_Button.position.y = 457.334
 	else:
 		$MainMenu_Button.visible = true
 		$Editor_Button.visible = false
+		$Editor_Button.position.y = 527.334
+		$Replay_Button.visible = true
 
 func _on_replay_button_pressed():
 	play_click_sfx()

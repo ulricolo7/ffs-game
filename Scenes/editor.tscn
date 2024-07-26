@@ -252,8 +252,8 @@ script = ExtResource("4_tg40t")
 z_index = 21
 layout_mode = 1
 anchors_preset = -1
-offset_left = -17.0
-offset_right = 354.0
+offset_left = -16.0
+offset_right = 355.0
 offset_bottom = 840.0
 
 [node name="PlayButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
@@ -336,20 +336,22 @@ stretch_mode = 4
 layout_mode = 0
 offset_left = 30.0
 offset_top = 90.0
-offset_right = 169.0
-offset_bottom = 249.0
+offset_right = 150.0
+offset_bottom = 243.0
 flat = true
 icon_alignment = 1
 text_direction = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/GUI/Panel/GhasterButton"]
 layout_mode = 0
-offset_right = 125.0
-offset_bottom = 162.0
+offset_top = -1.0
+offset_right = 114.0
+offset_bottom = 144.0
 scale = Vector2(1.1, 1.1)
 
 [node name="Label" type="Label" parent="Camera2D/GUI/Panel/GhasterButton/VBoxContainer"]
 texture_filter = 1
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 text = "GHASTER"
 label_settings = SubResource("LabelSettings_t7fty")
@@ -380,6 +382,7 @@ scale = Vector2(1.1, 1.1)
 
 [node name="Label" type="Label" parent="Camera2D/GUI/Panel/FlapperButton/VBoxContainer"]
 texture_filter = 1
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 text = "FLAPPER"
 label_settings = SubResource("LabelSettings_khcv1")
@@ -390,8 +393,8 @@ vertical_alignment = 1
 texture_filter = 1
 layout_mode = 2
 texture = ExtResource("4_nnm15")
-expand_mode = 4
-stretch_mode = 5
+expand_mode = 5
+stretch_mode = 4
 
 [node name="CrawlerGroundButton" type="Button" parent="Camera2D/GUI/Panel"]
 layout_mode = 0

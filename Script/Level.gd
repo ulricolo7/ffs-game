@@ -306,7 +306,6 @@ func pause():
 		
 	# can make the music change to the main menu here?
 		is_paused = true
-		
 		print("Paused")
 
 func resume():
