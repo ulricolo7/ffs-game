@@ -11,7 +11,7 @@ signal level_not_saved
 
 func _ready():
 	if Main.in_editor:
-		$Panel/Quit_Button.visible = false
+		$Close_Button.visible = false
 	else:
 		$Panel/open_file_quit.visible = false
 	_scan_levels_folder()

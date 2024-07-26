@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://byf11tcdw5up2"]
 
 [ext_resource type="Script" path="res://Script/LevelSelectSim.gd" id="1_rdjcn"]
-[ext_resource type="PackedScene" uid="uid://ddefxeug0fug3" path="res://Scenes/quit_button.tscn" id="2_skdvf"]
 [ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="2_y1ik2"]
 [ext_resource type="Texture2D" uid="uid://brivowsc8pe7" path="res://Assets/New UI/filepopups/deleteanyway1.png" id="4_23y5j"]
 [ext_resource type="Texture2D" uid="uid://ckw8yonw2q4k1" path="res://Assets/New UI/filepopups/deleteanyway3.png" id="5_bdsbg"]
 [ext_resource type="Texture2D" uid="uid://uq5ufxweg2rk" path="res://Assets/New UI/filepopups/deleteanyway2.png" id="6_tsnxx"]
 [ext_resource type="Texture2D" uid="uid://c130jcuq35q0i" path="res://Assets/New UI/filepopups/back1.png" id="7_k06ku"]
 [ext_resource type="Texture2D" uid="uid://dj2xym6pch632" path="res://Assets/New UI/filepopups/back3.png" id="8_yscbp"]
+[ext_resource type="PackedScene" uid="uid://b23qbeu8am3dx" path="res://Scenes/close_button.tscn" id="9_flqft"]
 [ext_resource type="Texture2D" uid="uid://cw2ilk162hkmn" path="res://Assets/New UI/filepopups/back2.png" id="9_fxhlc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pequ1"]
@@ -69,14 +69,6 @@ position = Vector2(0, 3)
 points = PackedVector2Array(580.114, 66.8034, -0.863159, 66.8517)
 width = 2.0
 
-[node name="Quit_Button" parent="Panel" instance=ExtResource("2_skdvf")]
-layout_mode = 0
-offset_left = 531.0
-offset_top = 19.0
-offset_right = 564.0
-offset_bottom = 52.0
-scale = Vector2(1.1, 1.1)
-
 [node name="WarningPanel" type="Panel" parent="."]
 visible = false
 layout_mode = 0
@@ -137,6 +129,13 @@ stretch_mode = 4
 stream = ExtResource("2_y1ik2")
 volume_db = 5.0
 pitch_scale = 0.3
+
+[node name="Close_Button" parent="." instance=ExtResource("9_flqft")]
+layout_mode = 0
+offset_left = 882.0
+offset_top = 19.0
+offset_right = 919.0
+offset_bottom = 54.0
 
 [connection signal="pressed" from="WarningPanel/Delete" to="." method="_on_delete_pressed"]
 [connection signal="pressed" from="WarningPanel/Cancel" to="." method="_on_cancel_pressed"]
