@@ -40,7 +40,8 @@ func _scan_levels_folder():
 					normal_files.append(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
-		
+		dev_files.sort()
+		normal_files.sort()
 		var all_files = dev_files + normal_files
 		if Main.in_editor:
 			for file in normal_files:
