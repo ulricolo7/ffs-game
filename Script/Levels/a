@@ -1,8 +1,0 @@
-extends Node
-
-var last_enemy_x = 794
-
-var enemy_data = {
-	0: {"position": Vector2(640, 420), "type": "gh"},
-	1: {"position": Vector2(794, 291), "type": "gh"},
-}
