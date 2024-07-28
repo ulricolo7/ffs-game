@@ -24,6 +24,7 @@ var largest_x = -100
 var enemy_data = {}
 var enemy_indices = {}
 var h_scroll_bar
+var editor_bgm
 var editor_screen
 var editor_screen_bounds
 var background
@@ -77,6 +78,7 @@ func _ready():
 	initialize_scene_references()
 	initialize_enemy_buttons()
 	initialize_level_select_screen()
+	editor_bgm.stream.loop = true
 	
 	
 	if Main.CURR_EDITOR_LEVEL:
@@ -165,6 +167,7 @@ func initialize_scene_references():
 	instructions_panel = get_parent().get_node("../EditorInstructions")
 	overwrite_file_popup = get_parent().get_node("../OverwriteFilePanel")
 	sharing_panel = get_parent().get_node("../SharingPanel")
+	editor_bgm = get_parent().get_node("../AudioStreamPlayer")
 
 func initialize_enemy_buttons():
 	$Panel/GhasterButton.connect("pressed", Callable(self, "_on_enemy_button_pressed").bind("gh"))
@@ -1092,6 +1095,10 @@ func _on_rename_button_pressed():
 		delete_file(curr_file_path)
 	create_file(new_file_path, enemy_data, largest_x)
 	check_if_saved_completed()
+	if curr_level_is_saved:
+		mark_level("saved", "true")
+	if curr_level_is_completed:
+		mark_level("completed", "true")
 	curr_file_path = new_file_path
 	reload_level_select_screen()
 
