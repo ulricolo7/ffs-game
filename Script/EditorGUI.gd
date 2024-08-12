@@ -63,14 +63,11 @@ var curr_level_is_completed = false
 func _ready():
 	if Main.curr_level_bgm:
 		level_music_path = Main.curr_level_bgm
-		print(level_music_path)
 	Main.editor_paused2 = false
 	Main.player_input_disabled = false
 	Main.editor_paused = false
 	Main.in_open_file = false
 	play_click_sfx()
-	#if Main.CURR_EDITOR_LEVEL_COMPLETED:
-	#	mark_level("completed", "true")
 	$Panel/PlayButton.disabled = true
 	$Panel/SaveButton.disabled = true
 	$Panel/WarningLabel.visible = false
@@ -150,7 +147,6 @@ func _process(delta):
 		$Panel/LineEdit.size = Vector2(349, 34)
 	
 	if FileAccess.file_exists(level_music_path):
-		
 		$Panel/MusicName.text = level_music_path.trim_prefix("res://Assets/BGM/")
 	else:
 		$Panel/MusicName.text = "(Audio file not found)"
@@ -202,12 +198,6 @@ func _on_enemy_button_pressed(enemy_type):
 			var initial_position = get_enemy_initial_position(enemy_type, inst_location)
 			enemy_instance.position = initial_position
 			add_enemy_to_screen(enemy_instance, enemy_type)
-			
-			# keep track of each enemy types' last positions
-			#if enemy_type in last_enemy_position:
-			#	pass
-			#else:
-			#	last_enemy_position[enemy_type] = initial_position
 			occupied_positions.append(initial_position)
 
 func get_enemy_initial_position(enemy_type, inst_location):
@@ -220,13 +210,6 @@ func get_enemy_initial_position(enemy_type, inst_location):
 	var base_pos = Vector2(inst_location, y_pos)
 	var offset = enemy_offset.get(enemy_type, Vector2(0,0))
 	
-	
-	#if enemy_type in last_enemy_position:
-	#	base_pos = last_enemy_position[enemy_type]
-	#	var last_pos = last_enemy_position[enemy_type]
-	#	if last_pos == base_pos:
-	#		base_pos += offset
-	#		last_enemy_position[enemy_type] = base_pos
 	while base_pos in occupied_positions:
 		base_pos += offset
 	
@@ -240,7 +223,6 @@ func add_enemy_to_screen(enemy_instance, enemy_type):
 	idx_counter += 1
 
 func _on_enemy_selected(viewport, event, shape_idx, enemy_instance):
-	#play_click_sfx()
 	if event is InputEventMouseButton and event.pressed:
 		curr_enemy = enemy_instance
 	
@@ -293,9 +275,7 @@ func _input(event):
 				original_position = curr_enemy.position
 			else: 
 				pass
-			#print("old position: " + str(original_position))
 			var new_position = curr_enemy.position + event.relative
-			#print("new_position: " + str(new_position))
 			new_position = apply_constraints(new_position, enemy_data[enemy_indices[curr_enemy]]["type"])
 			curr_enemy.position = new_position
 			
@@ -338,9 +318,6 @@ func delete_curr_enemy():
 		print("Error: No current enemy to delete")
 		
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
-	#if FileAccess.file_exists(file_path):
-	#	delete_file(file_path) # uncomment this if you suddenly see duplicate file names. just testing
-	#print(file_path)
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		file.store_line("var level_path = \"{0}\"".format([file_path]))
@@ -362,7 +339,6 @@ func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 		
 		file.store_line("}")
 		file.close()
-		#print("level created: " + file_path)
 	else:
 		print("Error creating file")
 
@@ -370,7 +346,6 @@ func delete_file(file_path: String):
 	if FileAccess.file_exists(file_path):
 		var err = DirAccess.remove_absolute(file_path)
 		if err == OK:
-			#print("File: ", file_path, " deleted successfully")
 			pass
 		else:
 			print("Error deleting file: ", err)
@@ -386,16 +361,13 @@ func _on_line_edit_text_changed(name_typed):
 		if name_typed.begins_with("dev_"):
 			$Panel/WarningLabel.visible = false
 			$Panel/WarningLabel2.visible = true
-			$Panel/PlayButton.disabled = true
 		elif not (new_file_path == curr_file_path) and FileAccess.file_exists(new_file_path):
 			$Panel/WarningLabel.visible = true
 			$Panel/WarningLabel2.visible = false
-			$Panel/PlayButton.disabled = true
 		else:
 			$Panel/WarningLabel.visible = false
 			$Panel/WarningLabel2.visible = false
 			new_file_name = name_typed + ".gd"
-			print(new_file_name)
 			if curr_file_name == "Untitled.gd":
 				curr_file_name = new_file_name
 			Main.CURR_EDITOR_LEVEL = new_file_path
@@ -404,7 +376,6 @@ func _on_line_edit_text_changed(name_typed):
 		new_file_name = "Untitled.gd"
 		new_file_path = "res://Script/Levels/Untitled.gd"
 		Main.CURR_EDITOR_LEVEL = new_file_path
-		
 
 func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
@@ -508,7 +479,7 @@ func check_level_validity(file_path: String) -> bool:
 			line = file.get_line()
 			if line.begins_with("var is_completed"):
 				return line == "var is_completed = true"
-		return false	
+		return false
 	else:
 		print("Error: Could not open file: ", file_path)
 		return false
@@ -592,10 +563,7 @@ func _on_quit_button_pressed():
 		show_not_saved_warning()
 	else:
 		Main.in_editor = false
-		Main.CURR_EDITOR_LEVEL = ""
-		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-		Main.curr_editor_level_enemy_data = {}
-		# may need to delete untitled
+		clear_level_and_bgm()
 		delete_file("res://Script/Levels/Untitled.gd")
 		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
@@ -608,11 +576,8 @@ func _on_create_new_button_pressed():
 	if not check_level_saved(curr_file_path) and count_enemies() > 0:
 		Main.level_switching = true
 		show_not_saved_warning()
-		# mark the level as unsaved if its not named the same as the initial name
 	else:
-		Main.CURR_EDITOR_LEVEL = ""
-		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-		Main.curr_editor_level_enemy_data = {}
+		clear_level_and_bgm()
 		get_tree().reload_current_scene()
 
 func _on_open_button_pressed():
@@ -635,14 +600,11 @@ func _on_upload_music_button_pressed():
 
 func _on_upload_music_file_selected(path):
 	play_click_sfx()
-	#print("music selected is: " + path)
 	check_if_saved_completed()
 	
 	var trimmed_music_file_path = level_music_path.replace("\"", "")
 	if trimmed_music_file_path != path:
-		#print(path)
 		level_music_path = "{0}".format([path])
-		#Main.curr_level_bgm = path
 		mark_level("saved", "false")
 
 func play_click_sfx():
@@ -688,10 +650,7 @@ func _on_save_and_exit_button_pressed():
 				Main.level_select_paused = false
 			else:
 				_on_save_button_pressed()
-				Main.CURR_EDITOR_LEVEL = ""
-				Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-				Main.curr_editor_level_enemy_data = {}
-				Main.curr_level_bgm = ""
+				clear_level_and_bgm()
 				Main.level_switching = false
 				Main.editor_paused2 = false
 				Main.editor_paused = false
@@ -703,16 +662,12 @@ func _on_save_and_exit_button_pressed():
 			file_not_saved_popup.position.x = -1000
 		else:
 			_on_save_button_pressed()
-			Main.CURR_EDITOR_LEVEL = ""
-			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-			Main.curr_level_bgm = ""
-			Main.curr_editor_level_enemy_data = {}
+			clear_level_and_bgm()
 			Main.in_editor = false
 			get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 func _on_back_button_pressed():
 	play_click_sfx()
-	#Main.level_switching = false
 	Main.editor_paused = false
 	Main.level_select_paused = false
 	set_process_input(true)
@@ -738,10 +693,7 @@ func _on_dont_save_button_pressed():
 			Main.curr_editor_level_enemy_data = Main.prep_editor_level_enemy_data
 			get_tree().reload_current_scene()
 		else:
-			Main.CURR_EDITOR_LEVEL = ""
-			Main.curr_level_bgm = ""
-			Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-			Main.curr_editor_level_enemy_data = {}
+			clear_level_and_bgm()
 			Main.level_switching = false
 			Main.editor_paused = false
 			Main.level_select_paused = false
@@ -750,10 +702,7 @@ func _on_dont_save_button_pressed():
 		Main.in_editor = false
 		Main.editor_paused = false
 		Main.level_select_paused = false
-		Main.CURR_EDITOR_LEVEL = ""
-		Main.curr_level_bgm = ""
-		Main.CURR_EDITOR_LEVEL_COMPLETED = ""
-		Main.curr_editor_level_enemy_data = {}
+		clear_level_and_bgm()
 		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 func show_not_saved_warning():
@@ -1113,3 +1062,9 @@ func check_if_saved_completed():
 			pass
 		elif check_level_validity(curr_file_path):
 			curr_level_is_completed = true
+			
+func clear_level_and_bgm():
+	Main.CURR_EDITOR_LEVEL = ""
+	Main.curr_level_bgm = ""
+	Main.CURR_EDITOR_LEVEL_COMPLETED = ""
+	Main.curr_editor_level_enemy_data = {}

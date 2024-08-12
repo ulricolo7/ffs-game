@@ -1,16 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://n0ww81dt5p46"]
+[gd_scene load_steps=11 format=3 uid="uid://n0ww81dt5p46"]
 
 [ext_resource type="Script" path="res://Script/Options.gd" id="1_3a2tm"]
-[ext_resource type="PackedScene" uid="uid://b23qbeu8am3dx" path="res://Scenes/close_button.tscn" id="2_1fisg"]
+[ext_resource type="Texture2D" uid="uid://bpdt4ksn2kgm6" path="res://Assets/New UI/quitbutton_outlined2.png" id="2_3fc18"]
+[ext_resource type="Texture2D" uid="uid://ckf8108x2rj2u" path="res://Assets/New UI/checkbox_unchecked1.png" id="3_111d0"]
+[ext_resource type="Texture2D" uid="uid://bewlm8h7h0bca" path="res://Assets/New UI/quitbutton_outlined4.png" id="3_jsdje"]
 [ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="3_t2ns5"]
+[ext_resource type="Texture2D" uid="uid://b0lu4br373btt" path="res://Assets/New UI/checkbox_checked2.png" id="4_bpwy5"]
+[ext_resource type="Texture2D" uid="uid://cpownda5b7jln" path="res://Assets/New UI/quitbutton_outlined3.png" id="4_m8bpe"]
+[ext_resource type="Script" path="res://Scenes/Close_Button.gd" id="5_7v46a"]
+[ext_resource type="Texture2D" uid="uid://bhyye7581arqs" path="res://Assets/New UI/checkbox_unchecked2.png" id="5_cqsc5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8coo"]
 bg_color = Color(0, 0.0588235, 0.0509804, 0.898039)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxwbq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvfr5"]
-bg_color = Color(0.854902, 0.705882, 1, 1)
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -29,6 +30,7 @@ offset_bottom = 640.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_o8coo")
 
 [node name="OptionsLabel" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 408.0
 offset_top = 200.0
@@ -42,6 +44,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VolumeLabel" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 430.0
 offset_top = 312.0
@@ -55,6 +58,7 @@ vertical_alignment = 1
 
 [node name="VolumeSlider" type="HSlider" parent="."]
 z_index = 2
+texture_filter = 1
 layout_mode = 0
 offset_left = 433.0
 offset_top = 356.0
@@ -63,15 +67,23 @@ offset_bottom = 392.0
 max_value = 1.0
 step = 0.1
 value = 0.5
+metadata/_edit_use_anchors_ = true
 
-[node name="Close_Button" parent="." instance=ExtResource("2_1fisg")]
+[node name="Close_Button" type="TextureButton" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 894.0
-offset_top = 187.0
-offset_right = 934.0
-offset_bottom = 227.0
+offset_left = 889.54
+offset_top = 184.555
+offset_right = 929.54
+offset_bottom = 224.555
+texture_normal = ExtResource("2_3fc18")
+texture_pressed = ExtResource("3_jsdje")
+texture_hover = ExtResource("4_m8bpe")
+stretch_mode = 4
+script = ExtResource("5_7v46a")
 
 [node name="AutoReplayLabel" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 430.0
 offset_top = 404.0
@@ -83,19 +95,20 @@ text = "Auto-Replay
 "
 vertical_alignment = 1
 
-[node name="AutoReplayCheckBox" type="CheckBox" parent="AutoReplayLabel"]
+[node name="AutoReplayCheckBox" type="TextureButton" parent="AutoReplayLabel"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 511.25
-offset_top = 22.5
-offset_right = 527.25
-offset_bottom = 38.5
-theme_override_styles/normal = SubResource("StyleBoxFlat_nxwbq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hvfr5")
-button_pressed = true
-alignment = 1
-icon_alignment = 1
+offset_left = 510.314
+offset_top = 9.38983
+offset_right = 542.314
+offset_bottom = 41.3898
+toggle_mode = true
+texture_normal = ExtResource("3_111d0")
+texture_pressed = ExtResource("4_bpwy5")
+texture_hover = ExtResource("5_cqsc5")
 
 [node name="FullScreenLabel" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 430.0
 offset_top = 465.0
@@ -107,17 +120,17 @@ text = "Full Screen
 "
 vertical_alignment = 1
 
-[node name="FullScreenCheckBox" type="CheckBox" parent="FullScreenLabel"]
+[node name="FullScreenCheckBox" type="TextureButton" parent="FullScreenLabel"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 511.25
-offset_top = 22.5
-offset_right = 527.25
-offset_bottom = 38.5
-theme_override_styles/normal = SubResource("StyleBoxFlat_nxwbq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hvfr5")
-button_pressed = true
-alignment = 1
-icon_alignment = 1
+offset_left = 511.8
+offset_top = 6.58051
+offset_right = 543.8
+offset_bottom = 38.5805
+toggle_mode = true
+texture_normal = ExtResource("3_111d0")
+texture_pressed = ExtResource("4_bpwy5")
+texture_hover = ExtResource("5_cqsc5")
 
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_t2ns5")
@@ -125,5 +138,6 @@ volume_db = 5.0
 pitch_scale = 0.3
 
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="Close_Button" to="Close_Button" method="_on_pressed"]
 [connection signal="toggled" from="AutoReplayLabel/AutoReplayCheckBox" to="." method="_on_auto_replay_check_box_toggled"]
 [connection signal="toggled" from="FullScreenLabel/FullScreenCheckBox" to="." method="_on_full_screen_check_box_toggled"]
