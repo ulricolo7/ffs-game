@@ -64,9 +64,9 @@ func _ready():
 	print(Main.CURR_EDITOR_LEVEL)
 	if Main.curr_level_bgm:
 		level_music_path = Main.curr_level_bgm
-	Main.editor_paused2 = false
-	Main.player_input_disabled = false
-	Main.editor_paused = false
+	Main.editor_paused2 = true
+	Main.player_input_disabled = true
+	Main.editor_paused = true
 	Main.in_open_file = false
 	play_click_sfx()
 	$Panel/PlayButton.disabled = true
@@ -113,8 +113,7 @@ func _process(delta):
 		$Panel/OpenButton.disabled = true
 		$Panel/ShareButton.disabled = true
 		$Panel/InstructionsButton.disabled = true
-		$Panel/QuitButton.disabled = true
-		$Panel/UploadMusicButton.disabled = true
+		$Panel/QuitButton.disabled = false
 	else:
 		$Panel/LineEdit.editable = true
 		$Panel/CreateNewButton.disabled = false

@@ -138,7 +138,7 @@ bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.878431)
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_owast"]
-font_size = 26
+font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_ir3xd"]
 font_size = 18
@@ -697,10 +697,10 @@ stretch_mode = 4
 
 [node name="EditorInstructions" type="Panel" parent="."]
 z_index = 45
-offset_left = -2522.0
-offset_top = 134.0
-offset_right = -1859.0
-offset_bottom = 685.0
+offset_left = 307.0
+offset_top = 308.0
+offset_right = 970.0
+offset_bottom = 500.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1f5w")
 
 [node name="title" type="Label" parent="EditorInstructions"]
@@ -710,25 +710,13 @@ offset_left = 10.0
 offset_top = 11.0
 offset_right = 357.0
 offset_bottom = 47.0
-text = "EDITOR INSTRUCTIONS"
+text = "FULL VERSION IN DESCRIPTION!"
 label_settings = SubResource("LabelSettings_ij6r6")
 
 [node name="Line2D" type="Line2D" parent="EditorInstructions"]
 position = Vector2(0, 5.2)
 points = PackedVector2Array(0.212402, 41.2297, 373.093, 41.1918, 662.778, 41.1624)
 width = 2.0
-
-[node name="InstructionsQuitButton" type="TextureButton" parent="EditorInstructions"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 621.0
-offset_top = 6.33408
-offset_right = 654.0
-offset_bottom = 39.3341
-texture_normal = ExtResource("29_3l3at")
-texture_pressed = ExtResource("30_ekael")
-texture_hover = ExtResource("31_42vc7")
-stretch_mode = 4
 
 [node name="ScrollContainer" type="ScrollContainer" parent="EditorInstructions"]
 layout_mode = 0
@@ -745,10 +733,72 @@ size_flags_vertical = 3
 [node name="Basics" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-text = "BASICS:"
+text = "EDITOR FUNCTION IS DISABLED DUE TO SKILL ISSUE BY DEVS"
 label_settings = SubResource("LabelSettings_owast")
 
 [node name="BasicsC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Do take a look in the description to download and setup the FULL VERSION of the game to your own computer!
+
+Thank you and we hope you enjoy Spirit Dashing!"
+label_settings = SubResource("LabelSettings_ir3xd")
+autowrap_mode = 2
+
+[node name="EditorInstructions" type="Panel" parent="EditorInstructions"]
+z_index = 45
+offset_left = -2522.0
+offset_top = 134.0
+offset_right = -1859.0
+offset_bottom = 685.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g1f5w")
+
+[node name="title" type="Label" parent="EditorInstructions/EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 357.0
+offset_bottom = 47.0
+text = "EDITOR INSTRUCTIONS"
+label_settings = SubResource("LabelSettings_ij6r6")
+
+[node name="Line2D" type="Line2D" parent="EditorInstructions/EditorInstructions"]
+position = Vector2(0, 5.2)
+points = PackedVector2Array(0.212402, 41.2297, 373.093, 41.1918, 662.778, 41.1624)
+width = 2.0
+
+[node name="InstructionsQuitButton" type="TextureButton" parent="EditorInstructions/EditorInstructions"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 621.0
+offset_top = 6.33408
+offset_right = 654.0
+offset_bottom = 39.3341
+texture_normal = ExtResource("29_3l3at")
+texture_pressed = ExtResource("30_ekael")
+texture_hover = ExtResource("31_42vc7")
+stretch_mode = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorInstructions/EditorInstructions"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 57.0
+offset_right = 662.0
+offset_bottom = 536.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorInstructions/EditorInstructions/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Basics" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "BASICS:"
+label_settings = SubResource("LabelSettings_owast")
+
+[node name="BasicsC" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "Spawn Enemies: Click the enemy buttons on the panel to add enemies to the level screen. Drag them to your desired positions.
@@ -759,13 +809,13 @@ Scroll: Use the scroll button above to move through the level and place enemies.
 label_settings = SubResource("LabelSettings_ir3xd")
 autowrap_mode = 2
 
-[node name="TestingAndValidation" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+[node name="TestingAndValidation" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "TESTING AND VALIDATION:"
 label_settings = SubResource("LabelSettings_y8min")
 
-[node name="TestingAndValidationC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+[node name="TestingAndValidationC" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "Play: Hit the play button to test your level. Don’t forget to give your level a name before you start testing!
@@ -778,13 +828,13 @@ Rename: Click the rename button to change the name of your current file. If you 
 label_settings = SubResource("LabelSettings_4lgf8")
 autowrap_mode = 2
 
-[node name="FileManagement" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+[node name="FileManagement" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "FILE MANAGEMENT:"
 label_settings = SubResource("LabelSettings_djln8")
 
-[node name="FileManagementC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+[node name="FileManagementC" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "New File: Creates a brand new level file.
@@ -796,12 +846,12 @@ Custom Music Sharing: If you want to share a level with your custom music, make 
 label_settings = SubResource("LabelSettings_l11av")
 autowrap_mode = 2
 
-[node name="SelectMusic" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+[node name="SelectMusic" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "SELECT MUSIC: "
 label_settings = SubResource("LabelSettings_at3jy")
 
-[node name="SelectMusicC" type="Label" parent="EditorInstructions/ScrollContainer/VBoxContainer"]
+[node name="SelectMusicC" type="Label" parent="EditorInstructions/EditorInstructions/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Copy Audio Files: Copy your audio file (.mp3, .wav, or .ogg) into the Spirit Dashing folder res://Assets/BGM.
 Select Music: Click the select music button in the music section to open the res://Assets/BGM folder. Choose the track you want your level to play."
@@ -1014,7 +1064,7 @@ label_settings = SubResource("LabelSettings_w4edq")
 [connection signal="pressed" from="NotSavedWarning/Panel/BackButton" to="Camera2D/GUI" method="_on_back_button_pressed"]
 [connection signal="pressed" from="NotSavedWarning/Panel/DontSaveButton" to="Camera2D/GUI" method="_on_dont_save_button_pressed"]
 [connection signal="pressed" from="RenameFileWarning/GoBackButton" to="Camera2D/GUI" method="_on_go_back_button_pressed"]
-[connection signal="pressed" from="EditorInstructions/InstructionsQuitButton" to="Camera2D/GUI" method="_on_instructions_quit_button_pressed"]
+[connection signal="pressed" from="EditorInstructions/EditorInstructions/InstructionsQuitButton" to="Camera2D/GUI" method="_on_instructions_quit_button_pressed"]
 [connection signal="pressed" from="OverwriteFilePanel/NoButton" to="Camera2D/GUI" method="_on_no_button_pressed"]
 [connection signal="pressed" from="OverwriteFilePanel/YesButton" to="Camera2D/GUI" method="_on_yes_button_pressed"]
 [connection signal="focus_entered" from="SharingPanel/ImportCode" to="Camera2D/GUI" method="_on_import_code_focus_entered"]
