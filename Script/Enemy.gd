@@ -1,6 +1,5 @@
 extends Area2D
 
-class_name Enemy
 
 var start_pos : Vector2
 var target_pos : Vector2

@@ -122,7 +122,7 @@ func _process(delta):
 		$Panel/ShareButton.disabled = false
 		$Panel/InstructionsButton.disabled = false
 		$Panel/QuitButton.disabled = false
-		$Panel/UploadMusicButton.disabled = false
+		
 
 	if sharing_panel.find_child("ImportCode").text.length() == 0:
 		sharing_panel.find_child("ImportButton").disabled = true
@@ -146,12 +146,6 @@ func _process(delta):
 	else:
 		$Panel/RenameButton.visible = false
 		$Panel/LineEdit.size = Vector2(349, 34)
-	
-	if FileAccess.file_exists(level_music_path):
-		$Panel/MusicName.text = level_music_path.trim_prefix("res://Assets/BGM/")
-	else:
-		$Panel/MusicName.text = "(Audio file not found)"
-	
 
 func initialize_scene_references():
 	editor_screen = get_parent().get_node("../EditorScreen")

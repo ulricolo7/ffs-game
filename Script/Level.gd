@@ -57,7 +57,6 @@ func _ready():
 	spawn_ground(1000)
 	player = init_player(Main.BOT_NAME)
 	#print("Level ready")
-	load_music()
 	start_run()
 
 func _process(delta):

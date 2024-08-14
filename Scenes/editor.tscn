@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://ds26vp38i31gt"]
+[gd_scene load_steps=99 format=3 uid="uid://ds26vp38i31gt"]
 
 [ext_resource type="FontFile" uid="uid://cojhuxa1di8wk" path="res://Assets/UI/FONT/CharlesWright-Bold.otf" id="1_3ejjl"]
 [ext_resource type="Texture2D" uid="uid://ctx4462e0vlm3" path="res://Assets/Characters/Enemies/Ghaster/ghaster.png" id="2_ojstu"]
@@ -37,12 +37,9 @@
 [ext_resource type="AudioStream" uid="uid://ceigg31x4rauo" path="res://Assets/SFX/mixkit-game-ball-tap-2073.wav" id="32_dyf4s"]
 [ext_resource type="Texture2D" uid="uid://c130jcuq35q0i" path="res://Assets/New UI/filepopups/back1.png" id="33_nsue7"]
 [ext_resource type="AudioStream" uid="uid://bmqn5mn4rg3ys" path="res://Assets/BGM/Mystery.mp3" id="34_5xkv1"]
-[ext_resource type="Texture2D" uid="uid://bs2s0j8lvriyg" path="res://Assets/New UI/upload_music1.png" id="34_6etne"]
 [ext_resource type="Texture2D" uid="uid://dj2xym6pch632" path="res://Assets/New UI/filepopups/back3.png" id="34_dvevk"]
-[ext_resource type="Texture2D" uid="uid://bohm47k8vxhnh" path="res://Assets/New UI/upload_music3.png" id="35_64x6i"]
 [ext_resource type="Texture2D" uid="uid://cw2ilk162hkmn" path="res://Assets/New UI/filepopups/back2.png" id="35_dr71o"]
 [ext_resource type="Texture2D" uid="uid://dhv2dsbrlhb5e" path="res://Assets/New UI/filepopups/savebutton1.png" id="35_lvx6d"]
-[ext_resource type="Texture2D" uid="uid://bhswqymiikf36" path="res://Assets/New UI/upload_music2.png" id="36_ex3nn"]
 [ext_resource type="Texture2D" uid="uid://dnu331qua3lgs" path="res://Assets/New UI/filepopups/savebutton3.png" id="36_nhwyb"]
 [ext_resource type="Texture2D" uid="uid://dubc351w4qk6a" path="res://Assets/New UI/filepopups/savebutton2.png" id="37_crmrh"]
 [ext_resource type="Texture2D" uid="uid://c8v0ckhoyvgbu" path="res://Assets/New UI/filepopups/rename_Resized1.png" id="37_xegw6"]
@@ -93,9 +90,6 @@ font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cr8gm"]
 font_color = Color(0, 1, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_pbkcl"]
-font_size = 26
 
 [sub_resource type="LabelSettings" id="LabelSettings_1nsav"]
 font_size = 24
@@ -501,31 +495,6 @@ texture_pressed = ExtResource("30_ekael")
 texture_hover = ExtResource("31_42vc7")
 stretch_mode = 4
 
-[node name="UploadMusicButton" type="TextureButton" parent="Camera2D/GUI/Panel"]
-texture_filter = 1
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 0
-offset_left = 14.0
-offset_top = 604.0
-offset_right = 46.0
-offset_bottom = 636.0
-scale = Vector2(1.8, 1.8)
-texture_normal = ExtResource("34_6etne")
-texture_pressed = ExtResource("35_64x6i")
-texture_hover = ExtResource("36_ex3nn")
-stretch_mode = 4
-
-[node name="UploadMusic" type="FileDialog" parent="Camera2D/GUI/Panel"]
-title = "Open a File"
-position = Vector2i(320, 210)
-size = Vector2i(640, 420)
-unresizable = true
-always_on_top = true
-ok_button_text = "Open"
-dialog_hide_on_ok = true
-file_mode = 0
-filters = PackedStringArray("*.mp3", "*.wav", "*.ogg")
-
 [node name="LevelIsCompletedLabel" type="Label" parent="Camera2D/GUI/Panel"]
 visible = false
 texture_filter = 1
@@ -536,27 +505,6 @@ offset_right = 172.001
 offset_bottom = 763.0
 text = "LEVEL IS COMPLETED"
 label_settings = SubResource("LabelSettings_cr8gm")
-
-[node name="MusicSectionLabel" type="Label" parent="Camera2D/GUI/Panel"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 14.0
-offset_top = 572.801
-offset_right = 289.0
-offset_bottom = 600.801
-text = "MUSIC:"
-label_settings = SubResource("LabelSettings_pbkcl")
-
-[node name="MusicName" type="Label" parent="Camera2D/GUI/Panel"]
-z_index = 45
-texture_filter = 1
-layout_mode = 0
-offset_left = 85.0
-offset_top = 606.0
-offset_right = 362.0
-offset_bottom = 653.0
-vertical_alignment = 1
-autowrap_mode = 2
 
 [node name="LevelNameLabel" type="Label" parent="Camera2D/GUI/Panel"]
 texture_filter = 1
@@ -1060,9 +1008,6 @@ label_settings = SubResource("LabelSettings_w4edq")
 [connection signal="text_changed" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="Camera2D/GUI/Panel/LineEdit" to="Camera2D/GUI" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/QuitButton" to="Camera2D/GUI" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Camera2D/GUI/Panel/UploadMusicButton" to="Camera2D/GUI" method="_on_upload_music_button_pressed"]
-[connection signal="close_requested" from="Camera2D/GUI/Panel/UploadMusic" to="Camera2D/GUI" method="_on_upload_music_close_requested"]
-[connection signal="file_selected" from="Camera2D/GUI/Panel/UploadMusic" to="Camera2D/GUI" method="_on_upload_music_file_selected"]
 [connection signal="pressed" from="Camera2D/GUI/Panel/RenameButton" to="Camera2D/GUI" method="_on_rename_button_pressed"]
 [connection signal="value_changed" from="Camera2D/HScrollBar" to="Camera2D/GUI" method="_on_h_scroll_bar_value_changed"]
 [connection signal="pressed" from="NotSavedWarning/Panel/SaveAndExitButton" to="Camera2D/GUI" method="_on_save_and_exit_button_pressed"]
