@@ -56,11 +56,12 @@ const enemy_offset = {
 	"cg": Vector2(10,0)
 }
 var is_renamed = false
-var level_music_path = "res://Assets/BGM/Action.mp3"
+var level_music_path = "res://Assets/BGM/Action.mp3.import"
 var curr_level_is_saved = false
 var curr_level_is_completed = false
 
 func _ready():
+	print(Main.CURR_EDITOR_LEVEL)
 	if Main.curr_level_bgm:
 		level_music_path = Main.curr_level_bgm
 	Main.editor_paused2 = false
@@ -381,6 +382,7 @@ func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
 
 func _on_play_button_pressed():
+	print(Main.CURR_EDITOR_LEVEL)
 	_on_save_button_pressed()
 	play_click_sfx()
 	if new_file_path != curr_file_path:
@@ -481,7 +483,7 @@ func check_level_validity(file_path: String) -> bool:
 				return line == "var is_completed = true"
 		return false
 	else:
-		print("Error: Could not open file: ", file_path)
+		#print("Error: Could not open file: ", file_path)
 		return false
 
 func check_level_saved(file_path: String) -> bool:
@@ -494,13 +496,13 @@ func check_level_saved(file_path: String) -> bool:
 				return line == "var is_saved = true"
 		return false	
 	else:
-		print("Error: Could not open file: ", file_path)
+		#print("Error: Could not open file: ", file_path)
 		return false
 
 func mark_level(mark: String, truthy: String):
 	var file = FileAccess.open(Main.CURR_EDITOR_LEVEL, FileAccess.READ_WRITE)
 	if not file:
-		print("Error: Could not open file")
+		print("Error: Could not open file: ")
 		return
 	
 	var lines = []

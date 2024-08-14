@@ -48,7 +48,6 @@ var level_script
 
 #functions
 func _ready():
-	print(Main.curr_level_bgm)
 	Main.player_input_disabled = false
 	print(Main.LEVEL_SCRIPT)
 	init_level(Main.LEVEL_SCRIPT)
@@ -113,13 +112,13 @@ func init_screen(var_name, scene_name, visibility, z_ind):
 	return var_name
 
 func init_player(bot_name):
-	if bot_name == "res://Scenes/Player/SHAKER[Medium].tscn":
+	if bot_name == "res://Scenes/Player/SHAKER[Medium].tscn.remap":
 		player_scene = preload("res://Scenes/Player/SHAKER[Medium].tscn")
-	elif bot_name == "res://Scenes/Player/WEAVER[Medium].tscn":
+	elif bot_name == "res://Scenes/Player/WEAVER[Medium].tscn.remap":
 		player_scene = preload("res://Scenes/Player/WEAVER[Medium].tscn")
-	elif bot_name == "res://Scenes/Player/MAIDEN[Easy].tscn":
+	elif bot_name == "res://Scenes/Player/MAIDEN[Easy].tscn.remap":
 		player_scene = preload("res://Scenes/Player/MAIDEN[Easy].tscn")
-	elif bot_name == "res://Scenes/Player/DRAGON[Hard].tscn":
+	elif bot_name == "res://Scenes/Player/DRAGON[Hard].tscn.remap":
 		player_scene = preload("res://Scenes/Player/DRAGON[Hard].tscn")
 	else:
 		player_scene = preload("res://Scenes/Player/player_character.tscn")
@@ -412,11 +411,12 @@ func load_ogg(path: String):
 		pass
 
 func load_mp3(path: String):
+	var path_import = path + ".import"
 	var file = FileAccess.open(path, FileAccess.READ)
+	var file_import = FileAccess.open(path_import, FileAccess.READ)
 	if file:
 		var sound = AudioStreamMP3.new()
-		print(file.get_length())
 		sound.data = file.get_buffer(file.get_length())
 		return sound
-	else:
+	else: 
 		pass

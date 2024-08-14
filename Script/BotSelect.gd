@@ -18,12 +18,11 @@ func _scan_bots_folder():
 		var bot_list = []
 		
 		while file_name != "":
-			if not dir.current_is_dir() and (not file_name.match("player_character.tscn") and file_name.ends_with(".tscn")):
+			if not dir.current_is_dir() and (not file_name.match("player_character.tscn.remap")):
 				
 				var file_path = bots_folder + file_name
 				var bot_difficulty = get_bot_difficulty(file_name)
 				bot_list.append({"path": file_path, "difficulty": bot_difficulty})
-				#print(bot_list)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 		
@@ -48,6 +47,7 @@ func compare_bot_difficulty(a, b):
 	return (a["difficulty"] - b["difficulty"]) < 0
 
 func _add_bot_button(file_path: String):
+	print("bot button added")
 	#play_click_sfx()
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("HBoxContainer/VBoxContainer/BotName")
