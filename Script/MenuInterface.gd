@@ -5,6 +5,7 @@ const level_select_scene = preload("res://Scenes/level_select.tscn")
 const level_select_sim_scene = preload("res://Scenes/Simulator/level_select.tscn")
 const bot_select_scene = preload("res://Scenes/Simulator/bot_select.tscn")
 const records_scene = preload("res://Scenes/records.tscn")
+const level_scene = preload("res://Scenes/level.tscn")
 
 var options_screen
 var level_select_screen

@@ -50,6 +50,7 @@ var level_script
 func _ready():
 	print(Main.curr_level_bgm)
 	Main.player_input_disabled = false
+	print(Main.LEVEL_SCRIPT)
 	init_level(Main.LEVEL_SCRIPT)
 	spawn_ground(1200)
 	spawn_trees()

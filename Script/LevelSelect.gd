@@ -195,7 +195,7 @@ func _on_level_button_pressed(file_path: String):
 		play_click_sfx()
 		Main.curr_level_bgm = _get_level_bgm(file_path)
 		Main.LEVEL_SCRIPT = file_path
-		get_tree().change_scene_to_file("res://Scenes/level.tscn")
+		get_parent().get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_delete_lvl_button_pressed(button_instance, file_path: String):
 	play_click_sfx()
