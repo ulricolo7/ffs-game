@@ -558,8 +558,9 @@ func _on_quit_button_pressed():
 		show_not_saved_warning()
 	else:
 		Main.in_editor = false
-		clear_level_and_bgm()
-		delete_file("res://Script/Levels/Untitled.gd")
+		Main.player_input_disabled = false
+		Main.editor_paused = false
+		Main.editor_paused2 = false
 		get_tree().change_scene_to_file("res://Scenes/menu_interface.tscn")
 
 func close_selector():
