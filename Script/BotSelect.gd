@@ -11,14 +11,15 @@ func _ready():
 
 func _scan_bots_folder():
 	var dir = DirAccess.open(bots_folder)
-	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		var bot_list = []
 		
 		while file_name != "":
-			if not dir.current_is_dir() and (not file_name.match("player_character.tscn.remap")):
+			if ".tscn.remap" in file_name:
+				file_name.trim_suffix(".remap")
+			if not dir.current_is_dir() and (not file_name.match("player_character.tscn")):
 				
 				var file_path = bots_folder + file_name
 				var bot_difficulty = get_bot_difficulty(file_name)
@@ -47,11 +48,8 @@ func compare_bot_difficulty(a, b):
 	return (a["difficulty"] - b["difficulty"]) < 0
 
 func _add_bot_button(file_path: String):
-	print("bot button added")
-	#play_click_sfx()
 	var button_instance = button_scene.instantiate()
 	var name_label = button_instance.get_node("HBoxContainer/VBoxContainer/BotName")
-	#var desc_label = button_instance.get_node("Button/level_button/VBoxContainer/LevelDesc")
 	var last_edited_label = button_instance.get_node("HBoxContainer/VBoxContainer/LastEdited")
 	name_label.text = file_path.get_file().get_basename()
 	last_edited_label.text = "Last edited: " + _get_file_last_modified(file_path)
@@ -72,7 +70,6 @@ func _get_file_last_modified(file_path):
 
 func _on_bot_button_pressed(file_path: String):
 	play_click_sfx()
-	print("bot selected")
 	Main.BOT_NAME = file_path
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 

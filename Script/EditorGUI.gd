@@ -56,12 +56,11 @@ const enemy_offset = {
 	"cg": Vector2(10,0)
 }
 var is_renamed = false
-var level_music_path = "res://Assets/BGM/Action.mp3.import"
+var level_music_path = "res://Assets/BGM/Action.mp3"
 var curr_level_is_saved = false
 var curr_level_is_completed = false
 
 func _ready():
-	print(Main.CURR_EDITOR_LEVEL)
 	if Main.curr_level_bgm:
 		level_music_path = Main.curr_level_bgm
 	Main.editor_paused2 = false
@@ -320,6 +319,9 @@ func delete_curr_enemy():
 		
 func create_file(file_path: String, enemy_data: Dictionary, largest_x):
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	print(file_path)
+	print(enemy_data)
+	print(largest_x)
 	if file:
 		file.store_line("var level_path = \"{0}\"".format([file_path]))
 		file.store_line("var last_updated = \"{0}\"".format([last_updated]))
@@ -382,7 +384,6 @@ func _on_line_edit_text_submitted(new_text):
 	$Panel/LineEdit.release_focus()
 
 func _on_play_button_pressed():
-	print(Main.CURR_EDITOR_LEVEL)
 	_on_save_button_pressed()
 	play_click_sfx()
 	if new_file_path != curr_file_path:
@@ -678,12 +679,9 @@ func _on_back_button_pressed():
 
 func _on_dont_save_button_pressed():
 	play_click_sfx()
-	print("dont save pressed")
 	if curr_level_is_completed:
 		mark_level("completed", "true")
-		print("marked as completed")
 	if curr_level_is_saved:
-		print("marked as saved")
 		mark_level("saved", "true")
 	if Main.level_switching:
 		if Main.in_open_file:
